@@ -1,21 +1,31 @@
-import { CheckCircle, Calendar, Users, CreditCard } from 'lucide-react';
+import { CheckCircle, Calendar, Users, CreditCard, Gift } from 'lucide-react';
 import type { PropertyBookingData } from './PropertyBookingScreen';
+import type { Screen } from '../App';
 
 interface PropertyConfirmationScreenProps {
   bookingData: PropertyBookingData;
   onTrackOrder: () => void;
   onHome: () => void;
+  pointsRedeemed?: number;
+  navigate?: (screen: Screen) => void;
 }
 
 export function PropertyConfirmationScreen({
   bookingData,
   onTrackOrder,
-  onHome
+  onHome,
+  pointsRedeemed = 0,
+  navigate
 }: PropertyConfirmationScreenProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   };
+
+  const actualPointsRedeemed = pointsRedeemed || bookingData.pointsRedeemed || 0;
+  const discountAmount = actualPointsRedeemed / 100;
+  const finalPrice = bookingData.finalPrice || (bookingData.totalPrice - discountAmount);
+  const pointsToEarn = Math.floor(finalPrice);
 
   return (
     <div className="h-full bg-white flex flex-col">
@@ -37,6 +47,27 @@ export function PropertyConfirmationScreen({
           <p className="text-gray-600 mb-1">Order Number</p>
           <p className="text-gray-900">{bookingData.referenceNumber}</p>
         </div>
+
+        {/* Points Earned - Only for Powered by DoHuub properties */}
+        {bookingData.property.isPoweredByDoHuub && (
+          <div className="mb-6 p-6 bg-gradient-to-r from-amber-400 to-orange-400 rounded-xl text-center">
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <Gift className="w-8 h-8 text-black" />
+              <span className="text-2xl font-bold text-black">
+                +{pointsToEarn} Points!
+              </span>
+            </div>
+            <p className="text-black/70">Added to your rewards wallet after stay completion</p>
+            {navigate && (
+              <button
+                onClick={() => navigate('rewardsWallet')}
+                className="mt-4 w-full py-2 bg-white/20 rounded-lg text-black font-medium hover:bg-white/30 transition-colors"
+              >
+                View My Rewards
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Booking Details */}
         <div className="mb-6">
@@ -99,10 +130,20 @@ export function PropertyConfirmationScreen({
           </div>
 
           {/* Price */}
-          <div className="pt-4 border-t-2 border-gray-200">
+          <div className="pt-4 border-t-2 border-gray-200 space-y-2">
             <div className="flex items-center justify-between">
-              <p className="text-gray-900">Total Amount</p>
-              <p className="text-gray-900 text-xl">${bookingData.totalPrice}</p>
+              <p className="text-gray-900">Subtotal</p>
+              <p className="text-gray-900">${bookingData.totalPrice}</p>
+            </div>
+            {actualPointsRedeemed > 0 && (
+              <div className="flex items-center justify-between text-green-600">
+                <p>Points Redeemed ({actualPointsRedeemed.toLocaleString()} pts)</p>
+                <p>-${discountAmount.toFixed(2)}</p>
+              </div>
+            )}
+            <div className="flex items-center justify-between pt-2 border-t border-gray-200">
+              <p className="text-gray-900 font-semibold">Total Amount</p>
+              <p className="text-gray-900 text-xl">${finalPrice.toFixed(2)}</p>
             </div>
           </div>
         </div>

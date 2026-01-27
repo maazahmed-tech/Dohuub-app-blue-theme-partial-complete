@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, SlidersHorizontal, Car, X } from 'lucide-react';
+import { ArrowLeft, Star, SlidersHorizontal, Car, X, Gift } from 'lucide-react';
 import { useState } from 'react';
 
 export interface RideProvider {
@@ -142,8 +142,14 @@ export function RideProvidersListScreen({
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <h3 className="text-gray-900">{provider.name}</h3>
                     {provider.isPoweredByDoHuub && (
-                      <div className="bg-gray-900 text-white px-2 py-1 rounded-full text-xs whitespace-nowrap">
-                        Powered by DoHuub
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <div className="bg-gray-900 text-white px-2 py-1 rounded-full text-xs whitespace-nowrap">
+                          Powered by DoHuub
+                        </div>
+                        <span className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                          <Gift className="w-3 h-3 mr-1" />
+                          {provider.hourlyRate}+
+                        </span>
                       </div>
                     )}
                   </div>

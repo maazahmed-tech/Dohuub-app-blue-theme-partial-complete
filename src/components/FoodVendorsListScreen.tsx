@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Clock, BadgeCheck, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Star, Clock, BadgeCheck, Image as ImageIcon, Gift } from 'lucide-react';
 
 export interface FoodVendor {
   id: number;
@@ -11,6 +11,7 @@ export interface FoodVendor {
   cuisineTypes?: string[];
   deliveryFee?: number;
   address?: string;
+  minOrderAmount?: number;
 }
 
 interface FoodVendorsListScreenProps {
@@ -31,42 +32,48 @@ export function FoodVendorsListScreen({
       cuisine: 'Multi-Cuisine',
       rating: 4.9,
       deliveryTime: '20-30 min',
-      isPoweredByDoHuub: true
+      isPoweredByDoHuub: true,
+      minOrderAmount: 25
     },
     {
       id: 2,
       name: 'The Italian Corner',
       cuisine: 'Italian, Pizza',
       rating: 4.7,
-      deliveryTime: '25-35 min'
+      deliveryTime: '25-35 min',
+      minOrderAmount: 20
     },
     {
       id: 3,
       name: 'Sushi Masters',
       cuisine: 'Japanese, Sushi',
       rating: 4.8,
-      deliveryTime: '30-40 min'
+      deliveryTime: '30-40 min',
+      minOrderAmount: 30
     },
     {
       id: 4,
       name: 'Biryani House',
       cuisine: 'Indian, Biryani',
       rating: 4.6,
-      deliveryTime: '35-45 min'
+      deliveryTime: '35-45 min',
+      minOrderAmount: 15
     },
     {
       id: 5,
       name: 'Burger Paradise',
       cuisine: 'American, Burgers',
       rating: 4.5,
-      deliveryTime: '20-30 min'
+      deliveryTime: '20-30 min',
+      minOrderAmount: 12
     },
     {
       id: 6,
       name: 'Thai Delight',
       cuisine: 'Thai, Asian',
       rating: 4.7,
-      deliveryTime: '30-40 min'
+      deliveryTime: '30-40 min',
+      minOrderAmount: 18
     }
   ];
 
@@ -104,9 +111,15 @@ export function FoodVendorsListScreen({
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <h3 className="text-gray-900 truncate">{vendor.name}</h3>
                     {vendor.isPoweredByDoHuub && (
-                      <div className="flex items-center gap-1 bg-gray-900 text-white px-2 py-1 rounded-full flex-shrink-0">
-                        <BadgeCheck className="w-3 h-3" />
-                        <span className="text-xs">DoHuub</span>
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <div className="flex items-center gap-1 bg-gray-900 text-white px-2 py-1 rounded-full">
+                          <BadgeCheck className="w-3 h-3" />
+                          <span className="text-xs">DoHuub</span>
+                        </div>
+                        <span className="inline-flex items-center justify-center h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                          <Gift className="w-3 h-3 mr-1" />
+                          pts
+                        </span>
                       </div>
                     )}
                   </div>

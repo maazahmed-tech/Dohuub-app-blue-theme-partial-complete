@@ -1,4 +1,4 @@
-import { ArrowLeft, Star } from 'lucide-react';
+import { ArrowLeft, Star, Gift } from 'lucide-react';
 import type { Vendor } from './VendorsListScreen';
 
 interface Service {
@@ -92,9 +92,15 @@ export function VendorDetailScreen({ vendor, onBack, onServiceSelect, onViewProf
             <div className="flex items-center gap-2 mb-1">
               <h2 className="text-gray-900">{vendor.name}</h2>
               {vendor.isPoweredByDoHuub && (
-                <span className="px-2 py-1 bg-gray-900 text-white text-xs rounded">
-                  Powered by DoHuub
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-1 bg-gray-900 text-white text-xs rounded">
+                    Powered by DoHuub
+                  </span>
+                  <span className="inline-flex items-center justify-center h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                    <Gift className="w-3 h-3 mr-1" />
+                    1pt/$1
+                  </span>
+                </div>
               )}
             </div>
             <div className="flex items-center gap-2">

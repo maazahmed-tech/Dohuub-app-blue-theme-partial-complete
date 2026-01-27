@@ -105,7 +105,7 @@ export function OrderTrackingScreen({
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="text-gray-900 mb-1">
-                {(bookingData as any).type === 'rental' 
+                {(bookingData as any).type === 'rental'
                   ? (bookingData as any).property?.name || bookingData.service.name
                   : bookingData.service.name
                 }
@@ -116,6 +116,20 @@ export function OrderTrackingScreen({
                   : (bookingData as any).vendor?.name || (bookingData as any).providerName
                 }
               </p>
+              {((bookingData as any).isPoweredByDoHuub && (bookingData as any).pointsEarned) || (bookingData as any).pointsRedeemed ? (
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {(bookingData as any).isPoweredByDoHuub && (bookingData as any).pointsEarned && (
+                    <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                      +{(bookingData as any).pointsEarned} pts earned
+                    </span>
+                  )}
+                  {(bookingData as any).pointsRedeemed && (
+                    <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                      -{(bookingData as any).pointsRedeemed} pts redeemed
+                    </span>
+                  )}
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

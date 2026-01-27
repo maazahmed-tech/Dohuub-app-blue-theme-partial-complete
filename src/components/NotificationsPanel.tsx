@@ -1,12 +1,13 @@
-import { X, Bell, Package, CheckCircle, Info, Clock } from 'lucide-react';
+import { X, Bell, Package, CheckCircle, Info, Clock, Gift } from 'lucide-react';
 
 export interface Notification {
   id: string;
-  type: 'order' | 'promo' | 'update' | 'reminder';
+  type: 'order' | 'promo' | 'update' | 'reminder' | 'points_earned';
   title: string;
   message: string;
   timestamp: string;
   isRead: boolean;
+  pointsAmount?: number;
 }
 
 interface NotificationsPanelProps {
@@ -38,6 +39,8 @@ export function NotificationsPanel({
         return <CheckCircle className="w-5 h-5 text-gray-700" />;
       case 'reminder':
         return <Clock className="w-5 h-5 text-gray-700" />;
+      case 'points_earned':
+        return <Gift className="w-5 h-5 text-amber-500" />;
       default:
         return <Info className="w-5 h-5 text-gray-700" />;
     }
@@ -97,9 +100,16 @@ export function NotificationsPanel({
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2 mb-1">
-                        <p className={`${!notification.isRead ? 'text-gray-800' : 'text-gray-700'}`}>
-                          {notification.title}
-                        </p>
+                        <div className="flex items-center gap-2">
+                          <p className={`${!notification.isRead ? 'text-gray-800' : 'text-gray-700'}`}>
+                            {notification.title}
+                          </p>
+                          {notification.type === 'points_earned' && notification.pointsAmount && (
+                            <span className="inline-flex items-center justify-center h-5 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                              +{notification.pointsAmount}
+                            </span>
+                          )}
+                        </div>
                         {!notification.isRead && (
                           <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-2"></span>
                         )}

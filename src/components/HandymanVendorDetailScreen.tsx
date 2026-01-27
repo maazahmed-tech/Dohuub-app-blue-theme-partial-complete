@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, MapPin, Clock, CheckCircle, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Star, MapPin, Clock, CheckCircle, ChevronRight, Gift } from 'lucide-react';
 import type { HandymanVendor } from './HandymanVendorsListScreen';
 
 export interface HandymanService {
@@ -91,9 +91,15 @@ export function HandymanVendorDetailScreen({ vendor, onBack, onServiceSelect, on
               <div className="flex items-center gap-2 mb-1 flex-wrap">
                 <h2 className="text-gray-900">{vendor.name}</h2>
                 {vendor.isPoweredByDoHuub && (
-                  <span className="px-2 py-1 bg-gray-900 text-white text-xs rounded">
-                    Powered by DoHuub
-                  </span>
+                  <>
+                    <span className="px-2 py-1 bg-gray-900 text-white text-xs rounded">
+                      Powered by DoHuub
+                    </span>
+                    <span className="inline-flex items-center justify-center h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                      <Gift className="w-3 h-3 mr-1" />
+                      1pt/$1
+                    </span>
+                  </>
                 )}
               </div>
               <div className="flex items-center gap-1">

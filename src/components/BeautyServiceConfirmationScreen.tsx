@@ -1,16 +1,23 @@
-import { CheckCircle, Calendar, Clock, MapPin, CreditCard } from 'lucide-react';
+import { CheckCircle, Calendar, Clock, MapPin, CreditCard, Gift } from 'lucide-react';
 import type { BeautyBookingData } from './BeautyServiceBookingScreen';
+import type { Screen } from '../App';
 
 interface BeautyServiceConfirmationScreenProps {
   bookingData: BeautyBookingData;
+  isPoweredByDoHuub?: boolean;
+  pointsRedeemed?: number;
   onTrackOrder: () => void;
   onHome: () => void;
+  navigate?: (screen: Screen) => void;
 }
 
 export function BeautyServiceConfirmationScreen({
   bookingData,
+  isPoweredByDoHuub,
+  pointsRedeemed = 0,
   onTrackOrder,
-  onHome
+  onHome,
+  navigate
 }: BeautyServiceConfirmationScreenProps) {
   // Helper function to get card type from card number
   const getCardType = (number: string) => {
@@ -20,6 +27,12 @@ export function BeautyServiceConfirmationScreen({
     if (cleanNumber.startsWith('3')) return 'Amex';
     return 'Card';
   };
+
+  const actualPointsRedeemed = pointsRedeemed || bookingData.pointsRedeemed || 0;
+  const discountAmount = actualPointsRedeemed / 100;
+  const originalPrice = parseFloat(bookingData.estimatedPrice.replace('$', '').replace(',', ''));
+  const finalPrice = originalPrice - discountAmount;
+  const pointsToEarn = Math.floor(finalPrice);
 
   return (
     <div className="h-full bg-white flex flex-col">
@@ -41,6 +54,27 @@ export function BeautyServiceConfirmationScreen({
           <p className="text-gray-600 mb-1">Order Number</p>
           <p className="text-gray-900">{bookingData.referenceNumber}</p>
         </div>
+
+        {/* Points Earned - Only for Powered by DoHuub providers */}
+        {isPoweredByDoHuub && (
+          <div className="mb-6 p-6 bg-gradient-to-r from-amber-400 to-orange-400 rounded-xl text-center">
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <Gift className="w-8 h-8 text-black" />
+              <span className="text-2xl font-bold text-black">
+                +{pointsToEarn} Points!
+              </span>
+            </div>
+            <p className="text-black/70">Added to your rewards wallet after service completion</p>
+            {navigate && (
+              <button
+                onClick={() => navigate('rewardsWallet')}
+                className="mt-4 w-full py-2 bg-white/20 rounded-lg text-black font-medium hover:bg-white/30 transition-colors"
+              >
+                View My Rewards
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Booking Details */}
         <div className="mb-6">
@@ -103,11 +137,23 @@ export function BeautyServiceConfirmationScreen({
           </div>
 
           {/* Price */}
-          <div className="pt-4 border-t-2 border-gray-200">
+          <div className="pt-4 border-t-2 border-gray-200 space-y-2">
             <div className="flex items-center justify-between">
               <p className="text-gray-900">Price</p>
               <p className="text-gray-900">{bookingData.estimatedPrice}</p>
             </div>
+            {actualPointsRedeemed > 0 && (
+              <div className="flex items-center justify-between text-green-600">
+                <p>Points Redeemed ({actualPointsRedeemed.toLocaleString()} pts)</p>
+                <p>-${discountAmount.toFixed(2)}</p>
+              </div>
+            )}
+            {actualPointsRedeemed > 0 && (
+              <div className="flex items-center justify-between pt-2 border-t border-gray-200">
+                <p className="text-gray-900 font-semibold">Total</p>
+                <p className="text-gray-900 font-semibold">${finalPrice.toFixed(2)}</p>
+              </div>
+            )}
           </div>
         </div>
 

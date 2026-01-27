@@ -1,11 +1,13 @@
-import { ArrowLeft, MapPin, Check } from 'lucide-react';
+import { ArrowLeft, MapPin, Check, Gift } from 'lucide-react';
 import { useState } from 'react';
 import type { Companion } from './CompanionsListScreen';
+import PointsRedemptionCard from './PointsRedemptionCard';
 
 interface CompanionshipBookingFormScreenProps {
   companion: Companion;
   savedAddresses: Array<{ id: string; label: string; address: string }>;
   paymentMethods: Array<{ id: string; type: string; last4: string }>;
+  availablePoints: number;
   onBack: () => void;
   onConfirmBooking: (bookingData: any) => void;
 }
@@ -14,6 +16,7 @@ export function CompanionshipBookingFormScreen({
   companion,
   savedAddresses,
   paymentMethods,
+  availablePoints,
   onBack,
   onConfirmBooking
 }: CompanionshipBookingFormScreenProps) {
@@ -24,6 +27,10 @@ export function CompanionshipBookingFormScreen({
   const [supportTypes, setSupportTypes] = useState<string[]>([]);
   const [specialRequests, setSpecialRequests] = useState('');
   const [selectedPayment, setSelectedPayment] = useState(paymentMethods[0]?.id || '');
+
+  // Points redemption state
+  const [pointsRedemptionEnabled, setPointsRedemptionEnabled] = useState(false);
+  const [pointsToRedeem, setPointsToRedeem] = useState(0);
 
   const durations = [
     { value: '1', label: '1 hour' },
@@ -56,10 +63,16 @@ export function CompanionshipBookingFormScreen({
     return companion.hourlyRate * parseInt(duration);
   };
 
+  // Calculate max redeemable points and final price
+  const totalBeforeDiscount = calculateTotal();
+  const maxRedeemablePoints = Math.floor(totalBeforeDiscount * 100);
+  const discountAmount = pointsToRedeem / 100;
+  const finalPrice = totalBeforeDiscount - discountAmount;
+
   const handleConfirm = () => {
     const selectedAddress = savedAddresses.find(addr => addr.id === serviceLocation);
     const selectedPaymentMethod = paymentMethods.find(pm => pm.id === selectedPayment);
-    
+
     onConfirmBooking({
       companion,
       serviceLocation: selectedAddress,
@@ -69,7 +82,9 @@ export function CompanionshipBookingFormScreen({
       supportTypes,
       specialRequests,
       paymentMethod: selectedPaymentMethod,
-      total: calculateTotal()
+      total: finalPrice,
+      totalBeforeDiscount,
+      pointsRedeemed: pointsRedemptionEnabled ? pointsToRedeem : 0
     });
   };
 
@@ -226,6 +241,18 @@ export function CompanionshipBookingFormScreen({
             </div>
           </div>
 
+          {/* Points Redemption - Only for Powered by DoHuub companions */}
+          {companion.isPoweredByDoHuub && availablePoints > 0 && (
+            <PointsRedemptionCard
+              availablePoints={availablePoints}
+              selectedPoints={pointsToRedeem}
+              onPointsChange={setPointsToRedeem}
+              enabled={pointsRedemptionEnabled}
+              onToggle={setPointsRedemptionEnabled}
+              maxRedeemablePoints={maxRedeemablePoints}
+            />
+          )}
+
           {/* Price Summary */}
           <div className="p-4 bg-gray-50 rounded-xl space-y-2">
             <div className="flex justify-between">
@@ -236,12 +263,34 @@ export function CompanionshipBookingFormScreen({
               <span className="text-gray-600">Duration</span>
               <span className="text-gray-900">{duration} hours</span>
             </div>
+            {pointsRedemptionEnabled && pointsToRedeem > 0 && (
+              <div className="flex justify-between text-green-600">
+                <span>Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
+                <span>-${discountAmount.toFixed(2)}</span>
+              </div>
+            )}
             <div className="h-px bg-gray-200 my-2" />
             <div className="flex justify-between">
               <span className="text-gray-900">Total</span>
-              <span className="text-gray-900 text-xl">${calculateTotal()}</span>
+              <span className="text-gray-900 text-xl">${finalPrice.toFixed(2)}</span>
             </div>
           </div>
+
+          {/* Points Preview - Only for Powered by DoHuub companions */}
+          {companion.isPoweredByDoHuub && (
+            <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Gift className="w-5 h-5 text-amber-600" />
+                  <span className="font-medium text-amber-800">Points you'll earn</span>
+                </div>
+                <span className="text-lg font-bold text-amber-600">
+                  +{Math.floor(finalPrice)} pts
+                </span>
+              </div>
+              <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after service completion</p>
+            </div>
+          )}
 
           {/* Bottom Spacing */}
           <div className="h-20" />
@@ -259,7 +308,7 @@ export function CompanionshipBookingFormScreen({
               : 'bg-gray-300 text-gray-500'
           }`}
         >
-          Confirm & Pay ${calculateTotal()}
+          Confirm & Pay ${finalPrice.toFixed(2)}
         </button>
       </div>
     </div>

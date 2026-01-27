@@ -1,8 +1,9 @@
-import { ArrowLeft, Calendar, Users, CreditCard, ChevronDown, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Calendar, Users, CreditCard, ChevronDown, ChevronRight, Gift } from 'lucide-react';
 import { useState } from 'react';
 import type { Property } from './RentalPropertiesListScreen';
 import type { Address } from './AddAddressScreen';
 import type { CardData } from './AddPaymentCardScreen';
+import PointsRedemptionCard from './PointsRedemptionCard';
 
 export interface PropertyBookingData {
   type: 'rental';
@@ -22,6 +23,8 @@ export interface PropertyBookingData {
   hasReview?: boolean;
   status?: string;
   id?: number;
+  pointsRedeemed?: number;
+  finalPrice?: number;
 }
 
 interface PropertyBookingScreenProps {
@@ -34,6 +37,7 @@ interface PropertyBookingScreenProps {
   totalPrice: number;
   addresses: Address[];
   paymentCards: CardData[];
+  availablePoints: number;
   onBack: () => void;
   onConfirm: (bookingData: PropertyBookingData) => void;
   onAddAddress: () => void;
@@ -50,6 +54,7 @@ export function PropertyBookingScreen({
   totalPrice,
   addresses,
   paymentCards,
+  availablePoints,
   onBack,
   onConfirm,
   onAddAddress,
@@ -64,6 +69,15 @@ export function PropertyBookingScreen({
   const [showCardSheet, setShowCardSheet] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
+  // Points redemption state
+  const [pointsRedemptionEnabled, setPointsRedemptionEnabled] = useState(false);
+  const [pointsToRedeem, setPointsToRedeem] = useState(0);
+
+  // Calculate max redeemable points and final price
+  const maxRedeemablePoints = Math.floor(totalPrice * 100);
+  const discountAmount = pointsToRedeem / 100;
+  const finalPrice = totalPrice - discountAmount;
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -73,7 +87,7 @@ export function PropertyBookingScreen({
     if (!selectedAddress || !selectedCard || !acceptedTerms) return;
 
     const referenceNumber = `RP${Date.now().toString().slice(-8)}`;
-    
+
     const bookingData: PropertyBookingData = {
       type: 'rental',
       property,
@@ -88,7 +102,9 @@ export function PropertyBookingScreen({
       address: selectedAddress,
       paymentCard: selectedCard,
       totalPrice,
-      referenceNumber
+      referenceNumber,
+      pointsRedeemed: pointsRedemptionEnabled ? pointsToRedeem : 0,
+      finalPrice
     };
 
     onConfirm(bookingData);
@@ -184,14 +200,54 @@ export function PropertyBookingScreen({
             )}
           </div>
 
+          {/* Points Redemption - Only for Powered by DoHuub properties */}
+          {property.isPoweredByDoHuub && availablePoints > 0 && (
+            <PointsRedemptionCard
+              availablePoints={availablePoints}
+              selectedPoints={pointsToRedeem}
+              onPointsChange={setPointsToRedeem}
+              enabled={pointsRedemptionEnabled}
+              onToggle={setPointsRedemptionEnabled}
+              maxRedeemablePoints={maxRedeemablePoints}
+            />
+          )}
+
           {/* Price Summary */}
           <div className="p-4 bg-gray-50 border-2 border-gray-200 rounded-xl">
             <h3 className="text-gray-900 mb-4">Total Amount</h3>
-            <div className="flex items-baseline justify-between">
-              <span className="text-gray-600">Total</span>
-              <span className="text-gray-900 text-2xl">${totalPrice}</span>
+            <div className="space-y-2">
+              <div className="flex items-baseline justify-between">
+                <span className="text-gray-600">Subtotal</span>
+                <span className="text-gray-900">${totalPrice}</span>
+              </div>
+              {pointsRedemptionEnabled && pointsToRedeem > 0 && (
+                <div className="flex items-baseline justify-between text-green-600">
+                  <span>Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
+                  <span>-${discountAmount.toFixed(2)}</span>
+                </div>
+              )}
+              <div className="flex items-baseline justify-between pt-2 border-t border-gray-200">
+                <span className="text-gray-900 font-semibold">Total</span>
+                <span className="text-gray-900 text-2xl">${finalPrice.toFixed(2)}</span>
+              </div>
             </div>
           </div>
+
+          {/* Points Preview - Only for Powered by DoHuub properties */}
+          {property.isPoweredByDoHuub && (
+            <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Gift className="w-5 h-5 text-amber-600" />
+                  <span className="font-medium text-amber-800">Points you'll earn</span>
+                </div>
+                <span className="text-lg font-bold text-amber-600">
+                  +{Math.floor(finalPrice)} pts
+                </span>
+              </div>
+              <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after stay</p>
+            </div>
+          )}
 
           {/* Terms & Conditions */}
           <div className="flex items-start gap-3">
@@ -216,7 +272,7 @@ export function PropertyBookingScreen({
           disabled={!selectedAddress || !selectedCard || !acceptedTerms}
           className="w-full py-3 bg-gray-900 text-white rounded-xl disabled:bg-gray-300 disabled:text-gray-500"
         >
-          Confirm & Pay ${totalPrice}
+          Confirm & Pay ${finalPrice.toFixed(2)}
         </button>
       </div>
 

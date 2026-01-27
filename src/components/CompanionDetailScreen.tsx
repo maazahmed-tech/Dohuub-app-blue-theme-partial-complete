@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Award, Globe, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Star, Award, Globe, ChevronRight, Gift } from 'lucide-react';
 import type { Companion } from './CompanionsListScreen';
 
 interface CompanionDetailScreenProps {
@@ -57,6 +57,25 @@ export function CompanionDetailScreen({
               <span className="text-gray-900 text-2xl">${companion.hourlyRate}/hour</span>
             </div>
           </div>
+
+          {/* Points Earning Banner */}
+          {companion.isPoweredByDoHuub && (
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                  <Gift className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-amber-800">
+                    Earn {companion.hourlyRate} points per hour booked
+                  </p>
+                  <p className="text-sm text-amber-600">
+                    1 point per $1 spent • Points added after service completion
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Bio */}
           <div>

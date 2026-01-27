@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Clock, BadgeCheck, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Star, Clock, BadgeCheck, Image as ImageIcon, Gift } from 'lucide-react';
 
 export interface GroceryVendor {
   id: number;
@@ -104,9 +104,15 @@ export function GroceryVendorsListScreen({
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <h3 className="text-gray-900 truncate">{vendor.name}</h3>
                     {vendor.isPoweredByDoHuub && (
-                      <div className="flex items-center gap-1 bg-gray-900 text-white px-2 py-1 rounded-full flex-shrink-0">
-                        <BadgeCheck className="w-3 h-3" />
-                        <span className="text-xs">DoHuub</span>
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <div className="flex items-center gap-1 bg-gray-900 text-white px-2 py-1 rounded-full">
+                          <BadgeCheck className="w-3 h-3" />
+                          <span className="text-xs">DoHuub</span>
+                        </div>
+                        <span className="inline-flex items-center justify-center h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                          <Gift className="w-3 h-3 mr-1" />
+                          pts
+                        </span>
                       </div>
                     )}
                   </div>

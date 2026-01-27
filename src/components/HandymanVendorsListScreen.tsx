@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, MapPin, Search } from 'lucide-react';
+import { ArrowLeft, Star, MapPin, Search, Gift } from 'lucide-react';
 
 export interface HandymanVendor {
   id: string;
@@ -7,6 +7,7 @@ export interface HandymanVendor {
   reviewCount: number;
   isPoweredByDoHuub?: boolean;
   bio: string;
+  startingPrice?: number;
 }
 
 interface HandymanVendorsListScreenProps {
@@ -23,6 +24,7 @@ const handymanVendors: HandymanVendor[] = [
     reviewCount: 1247,
     isPoweredByDoHuub: true,
     bio: 'Trusted, verified handyman services across all categories.',
+    startingPrice: 65,
   },
   {
     id: '2',
@@ -31,6 +33,7 @@ const handymanVendors: HandymanVendor[] = [
     reviewCount: 401,
     isPoweredByDoHuub: false,
     bio: 'One-stop solution for all home repair needs with 15+ years experience.',
+    startingPrice: 70,
   },
   {
     id: '3',
@@ -39,6 +42,7 @@ const handymanVendors: HandymanVendor[] = [
     reviewCount: 256,
     isPoweredByDoHuub: false,
     bio: 'Specializes in general repairs, painting, and furniture assembly.',
+    startingPrice: 55,
   },
   {
     id: '4',
@@ -47,6 +51,7 @@ const handymanVendors: HandymanVendor[] = [
     reviewCount: 189,
     isPoweredByDoHuub: false,
     bio: 'Fast and efficient solutions for appliance repairs and installations.',
+    startingPrice: 60,
   }
 ];
 
@@ -77,12 +82,18 @@ export function HandymanVendorsListScreen({ category, onBack, onVendorSelect }: 
                   <span className="text-gray-400 text-xl">👤</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
                     <h3 className="text-gray-900">{vendor.name}</h3>
                     {vendor.isPoweredByDoHuub && (
-                      <span className="px-2 py-1 bg-gray-900 text-white text-xs rounded">
-                        Powered by DoHuub
-                      </span>
+                      <>
+                        <span className="px-2 py-1 bg-gray-900 text-white text-xs rounded">
+                          Powered by DoHuub
+                        </span>
+                        <span className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                          <Gift className="w-3 h-3 mr-1" />
+                          {vendor.startingPrice || 50}+
+                        </span>
+                      </>
                     )}
                   </div>
                   <p className="text-gray-600 text-sm mb-2">{vendor.bio}</p>

@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, DollarSign, Clock, ChevronRight, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Star, DollarSign, Clock, ChevronRight, Image as ImageIcon, Gift } from 'lucide-react';
 import type { HandymanService } from './HandymanVendorDetailScreen';
 import type { HandymanVendor } from './HandymanVendorsListScreen';
 
@@ -106,6 +106,25 @@ export function HandymanServiceDetailScreen({
               </div>
             </div>
           </div>
+
+          {/* Points Earning Banner */}
+          {vendor.isPoweredByDoHuub && (
+            <div className="mb-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                  <Gift className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-amber-800">
+                    Earn points on this service
+                  </p>
+                  <p className="text-sm text-amber-600">
+                    1 point per $1 spent • Points added after service completion
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Price and Duration Info */}
           <div className="mb-4 space-y-3">

@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Award, ShoppingCart } from 'lucide-react';
+import { ArrowLeft, Star, Award, ShoppingCart, Gift } from 'lucide-react';
 
 interface BeautyProductVendor {
   id: number;
@@ -129,9 +129,15 @@ export function BeautyProductsVendorsList({
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <h3 className="text-gray-900">{vendor.name}</h3>
                     {vendor.isPoweredByDoHuub && (
-                      <div className="bg-gray-900 text-white px-2 py-1 rounded text-xs whitespace-nowrap flex items-center gap-1">
-                        <Award className="w-3 h-3" />
-                        Powered by DoHuub
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <div className="bg-gray-900 text-white px-2 py-1 rounded text-xs whitespace-nowrap flex items-center gap-1">
+                          <Award className="w-3 h-3" />
+                          Powered by DoHuub
+                        </div>
+                        <span className="inline-flex items-center justify-center h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                          <Gift className="w-3 h-3 mr-1" />
+                          pts
+                        </span>
                       </div>
                     )}
                   </div>

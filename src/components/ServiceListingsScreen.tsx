@@ -1,4 +1,4 @@
-import { ArrowLeft, SlidersHorizontal, Star, MapPin, ChevronRight } from 'lucide-react';
+import { ArrowLeft, SlidersHorizontal, Star, MapPin, ChevronRight, Gift } from 'lucide-react';
 
 interface ServiceListingsScreenProps {
   category: string;
@@ -83,8 +83,14 @@ export function ServiceListingsScreen({ category, location, onBack, onServiceSel
               className="w-full p-4 rounded-lg border-2 border-gray-200 hover:border-gray-800 text-left"
             >
               {service.isPowered && (
-                <div className="mb-2 inline-block px-3 py-1 bg-gray-800 text-white rounded-full">
-                  Powered by DoHuub
+                <div className="mb-2 flex items-center gap-2">
+                  <div className="inline-block px-3 py-1 bg-gray-800 text-white rounded-full text-sm">
+                    Powered by DoHuub
+                  </div>
+                  <span className="inline-flex items-center justify-center h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                    <Gift className="w-3 h-3 mr-1" />
+                    pts
+                  </span>
                 </div>
               )}
               <div className="flex gap-4">

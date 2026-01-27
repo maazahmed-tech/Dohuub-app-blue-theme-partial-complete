@@ -1,7 +1,8 @@
-import { ArrowLeft, Calendar, Clock, MapPin, CreditCard, ChevronDown } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, MapPin, CreditCard, ChevronDown, Gift } from 'lucide-react';
 import { useState } from 'react';
 import type { Address } from './AddAddressScreen';
 import type { CardData } from './AddPaymentCardScreen';
+import PointsRedemptionCard from './PointsRedemptionCard';
 
 interface BeautyService {
   id: number;
@@ -25,11 +26,15 @@ export interface BeautyBookingData {
   hasReview?: boolean;
   status?: string;
   id?: number;
+  pointsRedeemed?: number;
+  finalPrice?: string;
 }
 
 interface BeautyServiceBookingScreenProps {
   service: BeautyService;
   providerName: string;
+  isPoweredByDoHuub?: boolean;
+  availablePoints: number;
   onBack: () => void;
   onConfirmBooking: (bookingData: BeautyBookingData) => void;
   addresses: Address[];
@@ -40,6 +45,8 @@ interface BeautyServiceBookingScreenProps {
 export function BeautyServiceBookingScreen({
   service,
   providerName,
+  isPoweredByDoHuub,
+  availablePoints,
   onBack,
   onConfirmBooking,
   addresses,
@@ -56,6 +63,10 @@ export function BeautyServiceBookingScreen({
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showPaymentPicker, setShowPaymentPicker] = useState(false);
+
+  // Points redemption state
+  const [pointsRedemptionEnabled, setPointsRedemptionEnabled] = useState(false);
+  const [pointsToRedeem, setPointsToRedeem] = useState(0);
 
   // Helper function to get card type from card number
   const getCardType = (number: string) => {
@@ -112,7 +123,9 @@ export function BeautyServiceBookingScreen({
         address: defaultAddress,
         paymentCard: selectedCard,
         estimatedPrice: service.price,
-        referenceNumber: `BS${Date.now().toString().slice(-8)}`
+        referenceNumber: `BS${Date.now().toString().slice(-8)}`,
+        pointsRedeemed: pointsRedemptionEnabled ? pointsToRedeem : 0,
+        finalPrice: `$${finalPrice.toFixed(2)}`
       });
     }
   };
@@ -121,6 +134,11 @@ export function BeautyServiceBookingScreen({
 
   // Extract numeric price from string like "$80.00"
   const priceValue = parseFloat(service.price.replace('$', ''));
+
+  // Calculate max redeemable points and final price
+  const maxRedeemablePoints = Math.floor(priceValue * 100);
+  const discountAmount = pointsToRedeem / 100;
+  const finalPrice = priceValue - discountAmount;
 
   return (
     <div className="h-full bg-white flex flex-col">
@@ -315,14 +333,56 @@ export function BeautyServiceBookingScreen({
             </div>
           </div>
 
+          {/* Points Redemption - Only for Powered by DoHuub providers */}
+          {isPoweredByDoHuub && availablePoints > 0 && (
+            <div className="mt-6">
+              <PointsRedemptionCard
+                availablePoints={availablePoints}
+                selectedPoints={pointsToRedeem}
+                onPointsChange={setPointsToRedeem}
+                enabled={pointsRedemptionEnabled}
+                onToggle={setPointsRedemptionEnabled}
+                maxRedeemablePoints={maxRedeemablePoints}
+              />
+            </div>
+          )}
+
           {/* Service Price */}
           <div className="bg-gray-50 rounded-xl p-4 mt-6">
             <div className="flex items-center justify-between">
               <span className="text-gray-900">Service Price</span>
               <span className="text-gray-900">{service.price}</span>
             </div>
+            {pointsRedemptionEnabled && pointsToRedeem > 0 && (
+              <>
+                <div className="flex items-center justify-between mt-2">
+                  <span className="text-green-600">Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
+                  <span className="text-green-600">-${discountAmount.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-200">
+                  <span className="text-gray-900 font-semibold">Total</span>
+                  <span className="text-gray-900 font-semibold">${finalPrice.toFixed(2)}</span>
+                </div>
+              </>
+            )}
             <p className="text-sm text-gray-500 mt-2">Final price will be confirmed by the service provider</p>
           </div>
+
+          {/* Points Preview - Only for Powered by DoHuub providers */}
+          {isPoweredByDoHuub && (
+            <div className="mt-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Gift className="w-5 h-5 text-amber-600" />
+                  <span className="font-medium text-amber-800">Points you'll earn</span>
+                </div>
+                <span className="text-lg font-bold text-amber-600">
+                  +{Math.floor(finalPrice)} pts
+                </span>
+              </div>
+              <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after service completion</p>
+            </div>
+          )}
         </div>
       </div>
 

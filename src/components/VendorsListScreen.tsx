@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Badge } from 'lucide-react';
+import { ArrowLeft, Star, Badge, Gift } from 'lucide-react';
 
 interface Vendor {
   id: string;
@@ -8,6 +8,7 @@ interface Vendor {
   tagline: string;
   imageUrl: string;
   isPoweredByDoHuub: boolean;
+  startingPrice?: number;
 }
 
 interface VendorsListScreenProps {
@@ -24,7 +25,8 @@ const vendors: Vendor[] = [
     reviewCount: 342,
     tagline: "Professional cleaning services for homes and offices",
     imageUrl: "",
-    isPoweredByDoHuub: true
+    isPoweredByDoHuub: true,
+    startingPrice: 75
   },
   {
     id: '2',
@@ -33,7 +35,8 @@ const vendors: Vendor[] = [
     reviewCount: 256,
     tagline: "Eco-friendly cleaning solutions",
     imageUrl: "",
-    isPoweredByDoHuub: false
+    isPoweredByDoHuub: false,
+    startingPrice: 85
   },
   {
     id: '3',
@@ -42,7 +45,8 @@ const vendors: Vendor[] = [
     reviewCount: 189,
     tagline: "Residential and commercial cleaning experts",
     imageUrl: "",
-    isPoweredByDoHuub: false
+    isPoweredByDoHuub: false,
+    startingPrice: 70
   },
   {
     id: '4',
@@ -51,7 +55,8 @@ const vendors: Vendor[] = [
     reviewCount: 145,
     tagline: "Deep cleaning specialists",
     imageUrl: "",
-    isPoweredByDoHuub: false
+    isPoweredByDoHuub: false,
+    startingPrice: 90
   },
   {
     id: '5',
@@ -60,7 +65,8 @@ const vendors: Vendor[] = [
     reviewCount: 98,
     tagline: "Premium cleaning services",
     imageUrl: "",
-    isPoweredByDoHuub: false
+    isPoweredByDoHuub: false,
+    startingPrice: 100
   }
 ];
 
@@ -95,9 +101,15 @@ export function VendorsListScreen({ category, onBack, onVendorSelect }: VendorsL
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <h3 className="text-gray-900">{vendor.name}</h3>
                     {vendor.isPoweredByDoHuub && (
-                      <span className="flex-shrink-0 px-2 py-1 bg-gray-900 text-white text-xs rounded">
-                        Powered by DoHuub
-                      </span>
+                      <div className="flex items-center gap-2 flex-shrink-0">
+                        <span className="px-2 py-1 bg-gray-900 text-white text-xs rounded">
+                          Powered by DoHuub
+                        </span>
+                        <span className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                          <Gift className="w-3 h-3 mr-1" />
+                          {vendor.startingPrice || 50}+
+                        </span>
+                      </div>
                     )}
                   </div>
 

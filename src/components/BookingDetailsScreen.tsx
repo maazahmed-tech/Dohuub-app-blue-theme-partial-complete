@@ -1,4 +1,4 @@
-import { ArrowLeft, MapPin, FileText, Phone } from 'lucide-react';
+import { ArrowLeft, MapPin, FileText, Phone, Gift } from 'lucide-react';
 
 interface BookingDetailsScreenProps {
   booking: any;
@@ -124,6 +124,15 @@ export function BookingDetailsScreen({ booking, onBack, onRate }: BookingDetails
                 <span>Total Paid</span>
                 <span>{booking?.total}</span>
               </div>
+              {booking?.isPoweredByDoHuub && booking?.pointsEarned && (
+                <div className="flex justify-between text-amber-600 pt-2 border-t border-gray-200 mt-2">
+                  <span className="flex items-center gap-1">
+                    <Gift className="w-4 h-4" />
+                    Points Earned
+                  </span>
+                  <span className="font-semibold">+{booking?.pointsEarned} pts</span>
+                </div>
+              )}
             </div>
           </button>
         </div>

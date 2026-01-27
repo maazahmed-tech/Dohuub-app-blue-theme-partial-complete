@@ -1,4 +1,4 @@
-import { ArrowLeft, Plus, Minus, Star, Clock, ShoppingCart, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Plus, Minus, Star, Clock, ShoppingCart, Image as ImageIcon, Gift } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import type { GroceryVendor } from './GroceryVendorsListScreen';
 
@@ -309,14 +309,25 @@ export function GroceryVendorDetailScreen({
               </div>
             </div>
           </div>
-          <button 
-            onClick={onViewReviews} 
+          <button
+            onClick={onViewReviews}
             className="px-4 py-2 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200"
           >
             View Reviews
           </button>
         </div>
       </div>
+
+      {/* Points Earning Banner */}
+      {vendor.isPoweredByDoHuub && (
+        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200 px-6 py-3">
+          <div className="flex items-center gap-2">
+            <Gift className="w-5 h-5 text-amber-600" />
+            <span className="text-amber-800 font-medium">Earn 1 point per $1 spent</span>
+            <span className="text-amber-600 text-sm">• Points added after delivery</span>
+          </div>
+        </div>
+      )}
 
       {/* Categories */}
       <div className="bg-white border-b-2 border-gray-200 px-6 py-4 overflow-x-auto">

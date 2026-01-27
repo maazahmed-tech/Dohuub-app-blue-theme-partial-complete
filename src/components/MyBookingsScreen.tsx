@@ -1,4 +1,4 @@
-import { Calendar, Sparkles, ChevronRight, Home, User, MessageCircle } from 'lucide-react';
+import { Calendar, Sparkles, ChevronRight, Home, User, MessageCircle, Gift, Award } from 'lucide-react';
 import type { Screen } from '../App';
 import { useState } from 'react';
 
@@ -73,15 +73,34 @@ export function MyBookingsScreen({ bookings, navigate, onBookingSelect }: MyBook
                     <Sparkles className="w-8 h-8 text-gray-600" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-gray-900 mb-1">
-                      {typeof booking.service === 'string' ? booking.service : booking.service?.name || 'Service'}
-                    </h4>
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h4 className="text-gray-900">
+                        {typeof booking.service === 'string' ? booking.service : booking.service?.name || 'Service'}
+                      </h4>
+                      {booking.isPoweredByDoHuub && (
+                        <span className="inline-block px-2 py-0.5 bg-gray-900 text-white text-xs rounded whitespace-nowrap">
+                          Powered by DoHuub
+                        </span>
+                      )}
+                    </div>
                     <p className="text-gray-600 mb-2">{booking.date} at {booking.time}</p>
                     <p className="text-gray-600 truncate">
                       {typeof booking.address === 'string' ? booking.address : booking.address?.street || 'Address'}
                     </p>
-                    <div className="mt-2 inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full">
-                      {booking.status || 'Pending'}
+                    <div className="flex items-center gap-2 mt-2 flex-wrap">
+                      <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                        {booking.status || 'Pending'}
+                      </span>
+                      {booking.isPoweredByDoHuub && booking.pointsEarned && (
+                        <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                          +{booking.pointsEarned} pts
+                        </span>
+                      )}
+                      {booking.pointsRedeemed && (
+                        <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                          -{booking.pointsRedeemed} pts
+                        </span>
+                      )}
                     </div>
                   </div>
                   <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0" />

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronRight, MapPin, CreditCard, Bell, HelpCircle, FileText, Shield, Info, LogOut, Trash2, Home, Calendar, MessageCircle, User } from 'lucide-react';
+import { ChevronRight, MapPin, CreditCard, Bell, HelpCircle, FileText, Shield, Info, LogOut, Trash2, Home, Calendar, MessageCircle, User, Gift, Users } from 'lucide-react';
 import type { Screen } from '../App';
 import { LogOutModal } from './LogOutModal';
 import { DeleteAccountModal } from './DeleteAccountModal';
@@ -8,12 +8,34 @@ interface ProfileScreenProps {
   userName: string;
   userEmail: string;
   navigate: (screen: Screen, data?: any) => void;
+  rewardsWallet?: {
+    totalPoints: number;
+    pendingPoints: number;
+    expiringPoints: number;
+    expiringDate: string | null;
+  };
 }
 
-export function ProfileScreen({ userName, userEmail, navigate }: ProfileScreenProps) {
+export function ProfileScreen({ userName, userEmail, navigate, rewardsWallet }: ProfileScreenProps) {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [showLogOutModal, setShowLogOutModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+
+  const rewardsMenuItems = [
+    {
+      label: 'Rewards Wallet',
+      icon: Gift,
+      screen: 'rewardsWallet' as Screen,
+      isToggle: false,
+      badge: rewardsWallet && rewardsWallet.totalPoints > 0 ? `${rewardsWallet.totalPoints.toLocaleString()} pts` : undefined
+    },
+    {
+      label: 'Refer a Friend',
+      icon: Users,
+      screen: 'referralScreen' as Screen,
+      isToggle: false
+    },
+  ];
 
   const menuItems = [
     { label: 'Saved Addresses', icon: MapPin, screen: 'savedAddresses' as Screen, isToggle: false },
@@ -63,8 +85,35 @@ export function ProfileScreen({ userName, userEmail, navigate }: ProfileScreenPr
           </div>
         </div>
 
+        {/* Rewards Section */}
+        <div>
+          <div className="space-y-0">
+            {rewardsMenuItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.label}
+                  onClick={() => item.screen && navigate(item.screen)}
+                  className="w-full p-3 flex items-center gap-3 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-5 h-5 text-gray-600" />
+                  </div>
+                  <span className="flex-1 text-left text-gray-900 font-medium">{item.label}</span>
+                  {item.badge && (
+                    <span className="px-2 py-1 bg-gray-900 text-white text-xs rounded-full font-medium">
+                      {item.badge}
+                    </span>
+                  )}
+                  <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Menu Items */}
-        <div className="space-y-1">
+        <div className="space-y-0">
           {menuItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -82,17 +131,19 @@ export function ProfileScreen({ userName, userEmail, navigate }: ProfileScreenPr
                     }
                   }
                 }}
-                className="w-full p-4 flex items-center gap-4 hover:bg-gray-50 rounded-lg"
+                className="w-full p-3 flex items-center gap-3 hover:bg-gray-100 rounded-lg transition-colors"
               >
-                <Icon className="w-6 h-6 text-gray-600 flex-shrink-0" />
-                <span className="flex-1 text-left text-gray-900">{item.label}</span>
+                <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-5 h-5 text-gray-600" />
+                </div>
+                <span className="flex-1 text-left text-gray-900 font-medium">{item.label}</span>
                 {item.isToggle && item.label === 'Notifications' ? (
-                  <div 
+                  <div
                     className={`w-12 h-6 rounded-full relative flex-shrink-0 transition-colors ${
                       notificationsEnabled ? 'bg-gray-800' : 'bg-gray-300'
                     }`}
                   >
-                    <div 
+                    <div
                       className={`absolute top-0.5 w-5 h-5 bg-white rounded-full transition-all ${
                         notificationsEnabled ? 'right-0.5' : 'left-0.5'
                       }`}
@@ -105,20 +156,24 @@ export function ProfileScreen({ userName, userEmail, navigate }: ProfileScreenPr
             );
           })}
 
-          <button 
+          <button
             onClick={() => setShowLogOutModal(true)}
-            className="w-full p-4 flex items-center gap-4 hover:bg-gray-50 rounded-lg text-gray-600"
+            className="w-full p-3 flex items-center gap-3 hover:bg-gray-100 rounded-lg transition-colors"
           >
-            <LogOut className="w-6 h-6 flex-shrink-0" />
-            <span className="flex-1 text-left">Log Out</span>
+            <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <LogOut className="w-5 h-5 text-gray-600" />
+            </div>
+            <span className="flex-1 text-left text-gray-900 font-medium">Log Out</span>
           </button>
 
-          <button 
+          <button
             onClick={() => setShowDeleteAccountModal(true)}
-            className="w-full p-4 flex items-center gap-4 hover:bg-gray-50 rounded-lg text-gray-600"
+            className="w-full p-3 flex items-center gap-3 hover:bg-gray-100 rounded-lg transition-colors"
           >
-            <Trash2 className="w-6 h-6 flex-shrink-0" />
-            <span className="flex-1 text-left">Delete Account</span>
+            <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <Trash2 className="w-5 h-5 text-red-600" />
+            </div>
+            <span className="flex-1 text-left text-red-600 font-medium">Delete Account</span>
           </button>
         </div>
       </div>

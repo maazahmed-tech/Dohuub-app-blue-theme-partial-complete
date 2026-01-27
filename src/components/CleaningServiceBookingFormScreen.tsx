@@ -1,15 +1,17 @@
-import { ArrowLeft, Calendar, Clock, MapPin, CreditCard, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, MapPin, CreditCard, ChevronRight, Gift } from 'lucide-react';
 import { useState } from 'react';
 import type { Service } from './VendorDetailScreen';
 import type { Vendor } from './VendorsListScreen';
 import type { Address } from './AddAddressScreen';
 import type { CardData } from './AddPaymentCardScreen';
+import PointsRedemptionCard from './PointsRedemptionCard';
 
 interface CleaningServiceBookingFormScreenProps {
   service: Service;
   vendor: Vendor;
   addresses: Address[];
   paymentCards: CardData[];
+  availablePoints: number;
   onBack: () => void;
   onConfirm: (bookingData: BookingData) => void;
   onAddAddress: () => void;
@@ -27,6 +29,8 @@ export interface BookingData {
   referenceNumber: string;
   hasReview?: boolean;
   status?: string;
+  pointsRedeemed?: number;
+  finalPrice?: string;
 }
 
 export function CleaningServiceBookingFormScreen({
@@ -34,6 +38,7 @@ export function CleaningServiceBookingFormScreen({
   vendor,
   addresses,
   paymentCards,
+  availablePoints,
   onBack,
   onConfirm,
   onAddAddress,
@@ -42,7 +47,7 @@ export function CleaningServiceBookingFormScreen({
   // Pre-select default address (find the one with isDefault: true, or first one)
   const defaultAddress = addresses.find(a => a.isDefault) || addresses[0];
   const defaultCard = paymentCards.find(c => c.isDefault) || paymentCards[0];
-  
+
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [selectedAddressId, setSelectedAddressId] = useState<string>(defaultAddress?.id.toString() || '');
@@ -51,6 +56,16 @@ export function CleaningServiceBookingFormScreen({
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showAddressPicker, setShowAddressPicker] = useState(false);
   const [showPaymentPicker, setShowPaymentPicker] = useState(false);
+
+  // Points redemption state
+  const [pointsRedemptionEnabled, setPointsRedemptionEnabled] = useState(false);
+  const [pointsToRedeem, setPointsToRedeem] = useState(0);
+
+  // Calculate price values
+  const servicePrice = parseFloat(service.price.replace('$', '').replace(',', ''));
+  const maxRedeemablePoints = Math.floor(servicePrice * 100); // Can't redeem more than the service costs
+  const discountAmount = pointsToRedeem / 100;
+  const finalPrice = servicePrice - discountAmount;
 
   const dates = [
     'Mon, Dec 2',
@@ -91,7 +106,9 @@ export function CleaningServiceBookingFormScreen({
       address: selectedAddress,
       paymentCard: selectedCard,
       estimatedPrice: service.price,
-      referenceNumber: `CS${Date.now().toString().slice(-8)}`
+      referenceNumber: `CS${Date.now().toString().slice(-8)}`,
+      pointsRedeemed: pointsRedemptionEnabled ? pointsToRedeem : 0,
+      finalPrice: `$${finalPrice.toFixed(2)}`
     };
 
     onConfirm(bookingData);
@@ -270,12 +287,54 @@ export function CleaningServiceBookingFormScreen({
           )}
         </div>
 
+        {/* Points Redemption - Only for Powered by DoHuub vendors */}
+        {vendor.isPoweredByDoHuub && availablePoints > 0 && (
+          <div className="mb-4">
+            <PointsRedemptionCard
+              availablePoints={availablePoints}
+              selectedPoints={pointsToRedeem}
+              onPointsChange={setPointsToRedeem}
+              enabled={pointsRedemptionEnabled}
+              onToggle={setPointsRedemptionEnabled}
+              maxRedeemablePoints={maxRedeemablePoints}
+            />
+          </div>
+        )}
+
+        {/* Points Preview - Only for Powered by DoHuub vendors */}
+        {vendor.isPoweredByDoHuub && (
+          <div className="mb-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Gift className="w-5 h-5 text-amber-600" />
+                <span className="font-medium text-amber-800">Points you'll earn</span>
+              </div>
+              <span className="text-lg font-bold text-amber-600">
+                +{Math.floor(finalPrice)} pts
+              </span>
+            </div>
+            <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after service completion</p>
+          </div>
+        )}
+
         {/* Price Summary */}
         <div className="mb-4 p-4 bg-gray-50 rounded-xl">
           <div className="flex items-center justify-between mb-2">
             <span className="text-gray-700">Service Price</span>
             <span className="text-gray-900">{service.price}</span>
           </div>
+          {pointsRedemptionEnabled && pointsToRedeem > 0 && (
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-green-600">Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
+              <span className="text-green-600">-${discountAmount.toFixed(2)}</span>
+            </div>
+          )}
+          {pointsRedemptionEnabled && pointsToRedeem > 0 && (
+            <div className="flex items-center justify-between mb-2 pt-2 border-t border-gray-200">
+              <span className="text-gray-900 font-semibold">Total</span>
+              <span className="text-gray-900 font-semibold">${finalPrice.toFixed(2)}</span>
+            </div>
+          )}
           <p className="text-gray-600 text-sm">Final price will be confirmed by the service provider</p>
         </div>
       </div>

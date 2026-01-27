@@ -1,32 +1,42 @@
-import { ArrowLeft, MapPin, CreditCard, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, MapPin, CreditCard, CheckCircle2, Gift } from 'lucide-react';
 import { useState } from 'react';
 import type { Address } from './AddAddressScreen';
 import type { CardData } from './AddPaymentCardScreen';
+import type { Screen } from '../App';
 
 interface FoodGroceryConfirmationScreenProps {
   orderData: any;
   addresses: Address[];
   paymentCards: CardData[];
+  isPoweredByDoHuub?: boolean;
   onBack: () => void;
   onChangeAddress: () => void;
   onChangePayment: () => void;
   onOrderPlaced: (orderData: any) => void;
+  navigate?: (screen: Screen) => void;
 }
 
 export function FoodGroceryConfirmationScreen({
   orderData,
   addresses,
   paymentCards,
+  isPoweredByDoHuub,
   onBack,
   onChangeAddress,
   onChangePayment,
-  onOrderPlaced
+  onOrderPlaced,
+  navigate
 }: FoodGroceryConfirmationScreenProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
   const selectedAddress = orderData.address;
   const selectedCard = orderData.paymentCard;
+
+  // Points redemption calculation
+  const pointsRedeemed = orderData.pointsRedeemed || 0;
+  const discountAmount = pointsRedeemed / 100;
+  const pointsToEarn = Math.floor(orderData.total);
 
   const handlePlaceOrder = () => {
     setIsProcessing(true);
@@ -171,6 +181,12 @@ export function FoodGroceryConfirmationScreen({
               <span>Tax</span>
               <span>${orderData.tax.toFixed(2)}</span>
             </div>
+            {pointsRedeemed > 0 && (
+              <div className="flex justify-between text-green-600">
+                <span>Points Discount ({pointsRedeemed.toLocaleString()} pts)</span>
+                <span>-${discountAmount.toFixed(2)}</span>
+              </div>
+            )}
             <div className="border-t-2 border-gray-200 pt-2 mt-2">
               <div className="flex justify-between text-gray-900">
                 <span>Total</span>
@@ -179,6 +195,30 @@ export function FoodGroceryConfirmationScreen({
             </div>
           </div>
         </div>
+
+        {/* Points Preview - Only for Powered by DoHuub vendors */}
+        {isPoweredByDoHuub && (
+          <div className="mb-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Gift className="w-5 h-5 text-amber-600" />
+                <span className="font-medium text-amber-800">Points you'll earn</span>
+              </div>
+              <span className="text-lg font-bold text-amber-600">
+                +{pointsToEarn} pts
+              </span>
+            </div>
+            <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after delivery</p>
+            {navigate && (
+              <button
+                onClick={() => navigate('rewardsWallet')}
+                className="mt-3 w-full py-2 bg-amber-100 rounded-lg text-amber-800 font-medium hover:bg-amber-200 transition-colors"
+              >
+                View My Rewards
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Place Order Button */}

@@ -1,19 +1,29 @@
-import { Check, Phone } from 'lucide-react';
+import { Check, Phone, Gift } from 'lucide-react';
+import type { Screen } from '../App';
 
 interface CaregivingConfirmationScreenProps {
   serviceType: 'ride' | 'companionship';
   bookingData: any;
   onViewTracking: () => void;
   onBackToHome: () => void;
+  navigate?: (screen: Screen) => void;
 }
 
 export function CaregivingConfirmationScreen({
   serviceType,
   bookingData,
   onViewTracking,
-  onBackToHome
+  onBackToHome,
+  navigate
 }: CaregivingConfirmationScreenProps) {
   const referenceNumber = `CG${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
+
+  // Points redemption calculation
+  const pointsRedeemed = bookingData.pointsRedeemed || 0;
+  const discountAmount = pointsRedeemed / 100;
+  const totalBeforeDiscount = bookingData.totalBeforeDiscount || bookingData.total;
+  const finalPrice = bookingData.total;
+  const pointsToEarn = Math.floor(finalPrice);
   
   return (
     <div className="h-full bg-white flex flex-col">
@@ -39,6 +49,28 @@ export function CaregivingConfirmationScreen({
             <p className="text-gray-600 text-sm mb-1">Reference Number</p>
             <p className="text-gray-900 text-2xl tracking-wide">{referenceNumber}</p>
           </div>
+
+          {/* Points Earned - Only for Powered by DoHuub providers/companions */}
+          {((serviceType === 'ride' && bookingData.provider?.isPoweredByDoHuub) ||
+            (serviceType === 'companionship' && bookingData.companion?.isPoweredByDoHuub)) && (
+            <div className="p-6 bg-gradient-to-r from-amber-400 to-orange-400 rounded-xl text-center">
+              <div className="flex items-center justify-center gap-3 mb-2">
+                <Gift className="w-8 h-8 text-black" />
+                <span className="text-2xl font-bold text-black">
+                  +{pointsToEarn} Points!
+                </span>
+              </div>
+              <p className="text-black/70">Added to your rewards wallet after service completion</p>
+              {navigate && (
+                <button
+                  onClick={() => navigate('rewardsWallet')}
+                  className="mt-4 w-full py-2 bg-white/20 rounded-lg text-black font-medium hover:bg-white/30 transition-colors"
+                >
+                  View My Rewards
+                </button>
+              )}
+            </div>
+          )}
 
           {/* Provider/Companion Info */}
           {serviceType === 'ride' ? (
@@ -145,10 +177,22 @@ export function CaregivingConfirmationScreen({
                 <span className="text-gray-600">Payment Method</span>
                 <span className="text-gray-900">{bookingData.paymentMethod?.type} •••• {bookingData.paymentMethod?.last4}</span>
               </div>
+              {pointsRedeemed > 0 && (
+                <>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Subtotal</span>
+                    <span className="text-gray-900">${totalBeforeDiscount.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between text-green-600">
+                    <span>Points Redeemed ({pointsRedeemed.toLocaleString()} pts)</span>
+                    <span>-${discountAmount.toFixed(2)}</span>
+                  </div>
+                </>
+              )}
               <div className="h-px bg-gray-200 my-2" />
               <div className="flex justify-between">
                 <span className="text-gray-900">Total Paid</span>
-                <span className="text-gray-900 text-xl">${bookingData.total}</span>
+                <span className="text-gray-900 text-xl">${typeof finalPrice === 'number' ? finalPrice.toFixed(2) : finalPrice}</span>
               </div>
             </div>
           </div>

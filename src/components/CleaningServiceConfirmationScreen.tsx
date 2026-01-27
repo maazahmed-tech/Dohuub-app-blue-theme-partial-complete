@@ -1,17 +1,27 @@
-import { CheckCircle, Calendar, Clock, MapPin, CreditCard, User } from 'lucide-react';
+import { CheckCircle, Calendar, Clock, MapPin, CreditCard, User, Gift } from 'lucide-react';
 import type { BookingData } from './CleaningServiceBookingFormScreen';
+import type { Screen } from '../App';
 
 interface CleaningServiceConfirmationScreenProps {
   bookingData: BookingData;
   onTrackOrder: () => void;
   onHome: () => void;
+  pointsEarned?: number;
+  pointsRedeemed?: number;
+  navigate?: (screen: Screen) => void;
 }
 
 export function CleaningServiceConfirmationScreen({
   bookingData,
   onTrackOrder,
-  onHome
+  onHome,
+  pointsEarned = 0,
+  pointsRedeemed = 0,
+  navigate
 }: CleaningServiceConfirmationScreenProps) {
+  const isPoweredByDoHuub = bookingData.vendor?.isPoweredByDoHuub || false;
+  const estimatedPoints = pointsEarned > 0 ? pointsEarned : (isPoweredByDoHuub ? Math.floor(parseFloat(bookingData.estimatedPrice?.replace('$', '') || '0')) : 0);
+
   return (
     <div className="h-full bg-white flex flex-col">
       {/* Success Header */}
@@ -24,6 +34,27 @@ export function CleaningServiceConfirmationScreen({
         <h1 className="text-gray-900 mb-2">Order Confirmed</h1>
         <p className="text-gray-600">Your cleaning service has been successfully booked</p>
       </div>
+
+      {/* Points Earned Celebration - Only for Powered by DoHuub */}
+      {isPoweredByDoHuub && estimatedPoints > 0 && (
+        <div className="mx-6 mb-6 bg-gradient-to-r from-amber-400 to-orange-400 rounded-xl p-6">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <Gift className="w-8 h-8 text-black" />
+            <span className="text-2xl font-bold text-black">+{estimatedPoints} Points!</span>
+          </div>
+          <p className="text-center text-black">
+            Added to your rewards wallet after service completion
+          </p>
+          {navigate && (
+            <button
+              onClick={() => navigate('rewardsWallet')}
+              className="mt-4 w-full py-2 bg-white/20 rounded-lg text-white font-medium hover:bg-white/30 transition-colors"
+            >
+              View My Rewards
+            </button>
+          )}
+        </div>
+      )}
 
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto px-6 pb-6">
@@ -99,11 +130,17 @@ export function CleaningServiceConfirmationScreen({
           </div>
 
           {/* Price */}
-          <div className="pt-4 border-t-2 border-gray-200">
+          <div className="pt-4 border-t-2 border-gray-200 space-y-2">
             <div className="flex items-center justify-between">
               <p className="text-gray-900">Price</p>
               <p className="text-gray-900">{bookingData.estimatedPrice}</p>
             </div>
+            {pointsRedeemed > 0 && (
+              <div className="flex items-center justify-between text-green-600">
+                <p>Points Redeemed ({pointsRedeemed} pts)</p>
+                <p>-${(pointsRedeemed * 0.01).toFixed(2)}</p>
+              </div>
+            )}
           </div>
         </div>
 

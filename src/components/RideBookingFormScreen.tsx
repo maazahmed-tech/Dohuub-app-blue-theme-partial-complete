@@ -1,4 +1,4 @@
-import { ArrowLeft, Plus, X, GripVertical, MapPin } from 'lucide-react';
+import { ArrowLeft, Plus, X, GripVertical, MapPin, Gift } from 'lucide-react';
 import { useState } from 'react';
 import type { RideProvider } from './RideProvidersListScreen';
 
@@ -364,6 +364,22 @@ export function RideBookingFormScreen({
               <span className="text-gray-900 text-xl">${calculateTotal()}</span>
             </div>
           </div>
+
+          {/* Points Preview - Only for Powered by DoHuub providers */}
+          {provider.isPoweredByDoHuub && (
+            <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Gift className="w-5 h-5 text-amber-600" />
+                  <span className="font-medium text-amber-800">Points you'll earn</span>
+                </div>
+                <span className="text-lg font-bold text-amber-600">
+                  +{calculateTotal()} pts
+                </span>
+              </div>
+              <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after service completion</p>
+            </div>
+          )}
 
           {/* Bottom Spacing */}
           <div className="h-20" />

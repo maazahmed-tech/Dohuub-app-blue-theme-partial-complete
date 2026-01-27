@@ -40,6 +40,9 @@ import { GroceryVendorProfileScreen } from './components/GroceryVendorProfileScr
 import { BeautyProviderProfileScreen } from './components/BeautyProviderProfileScreen';
 import { BeautyProductsVendorProfileScreen } from './components/BeautyProductsVendorProfileScreen';
 import { HostProfileScreen } from './components/HostProfileScreen';
+import { RewardsWalletScreen } from './components/RewardsWalletScreen';
+import { ReferralScreen } from './components/ReferralScreen';
+import { PointsHistoryScreen } from './components/PointsHistoryScreen';
 
 import { useState } from 'react';
 import { SplashScreen } from './components/SplashScreen';
@@ -208,7 +211,10 @@ export type Screen =
   | 'groceryVendorProfile'
   | 'beautyProviderProfile'
   | 'beautyProductsVendorProfile'
-  | 'hostProfile';
+  | 'hostProfile'
+  | 'rewardsWallet'
+  | 'referralScreen'
+  | 'pointsHistory';
 
 export interface AppState {
   userEmail: string;
@@ -255,6 +261,60 @@ export interface AppState {
   selectedCompanion?: Companion;
   caregivingServiceType?: 'ride' | 'companionship';
   caregivingBookingData?: any;
+  // Rewards System
+  rewardsWallet: {
+    totalPoints: number;
+    pendingPoints: number;
+    expiringPoints: number;
+    expiringDate: string | null;
+  };
+  pointsTransactions: Array<{
+    id: string;
+    type: 'earned' | 'redeemed' | 'expired' | 'referral_bonus' | 'signup_bonus' | 'streak_bonus' | 'milestone_bonus';
+    amount: number;
+    description: string;
+    date: string;
+    orderId?: string;
+    vendorName?: string;
+  }>;
+  referralInfo: {
+    referralCode: string;
+    referralLink: string;
+    totalReferrals: number;
+    pendingReferrals: number;
+    totalPointsFromReferrals: number;
+    referrals: Array<{
+      id: string;
+      name: string;
+      status: 'pending' | 'completed';
+      pointsEarned: number;
+      date: string;
+    }>;
+  };
+  // Streak tracking
+  streakData: {
+    currentStreak: number;
+    longestStreak: number;
+    lastActiveWeek: string; // ISO week format e.g. "2024-W48"
+    streakMilestones: Array<{
+      weeks: number;
+      points: number;
+      achieved: boolean;
+    }>;
+  };
+  // Category milestones (all categories have same structure)
+  categoryMilestones: {
+    [category: string]: {
+      orderCount: number;
+      milestones: Array<{
+        target: number;
+        points: number;
+        achieved: boolean;
+      }>;
+    };
+  };
+  // Track if signup bonus has been awarded
+  signupBonusAwarded: boolean;
 }
 
 export default function App() {
@@ -282,7 +342,9 @@ export default function App() {
         address: '123 Main St, New York, NY 10001',
         status: 'accepted',
         price: '$150',
-        category: 'Cleaning Services'
+        category: 'Cleaning Services',
+        isPoweredByDoHuub: true,
+        pointsEarned: 150
       },
       {
         id: 1002,
@@ -294,7 +356,9 @@ export default function App() {
         address: '456 Park Ave, New York, NY 10022',
         status: 'in-progress',
         price: '$200',
-        category: 'Cleaning Services'
+        category: 'Cleaning Services',
+        isPoweredByDoHuub: true,
+        pointsRedeemed: 500
       },
       {
         id: 1003,
@@ -306,7 +370,9 @@ export default function App() {
         address: '225 Sumach Street, Apt 2505, Toronto',
         status: 'accepted',
         price: '$85',
-        category: 'Handyman Services'
+        category: 'Handyman Services',
+        isPoweredByDoHuub: true,
+        pointsEarned: 85
       },
       {
         id: 1004,
@@ -318,7 +384,9 @@ export default function App() {
         address: '890 Queen St, Toronto, ON M5H 2N2',
         status: 'in-progress',
         price: '$120',
-        category: 'Handyman Services'
+        category: 'Handyman Services',
+        isPoweredByDoHuub: true,
+        pointsRedeemed: 200
       },
       {
         id: 1005,
@@ -996,7 +1064,244 @@ export default function App() {
         isPoweredByDoHuub: false,
         photos: ['1', '2', '3', '4', '5']
       }
-    ]
+    ],
+    // Rewards System Initial State
+    rewardsWallet: {
+      totalPoints: 2450,
+      pendingPoints: 125,
+      expiringPoints: 150,
+      expiringDate: '2025-02-15'
+    },
+    pointsTransactions: [
+      {
+        id: 'pt-001',
+        type: 'earned',
+        amount: 125,
+        description: 'Deep House Cleaning',
+        date: '2024-12-05',
+        orderId: '1001',
+        vendorName: 'Sparkle Clean Co.'
+      },
+      {
+        id: 'pt-002',
+        type: 'redeemed',
+        amount: -500,
+        description: 'Discount on Food Order',
+        date: '2024-12-01',
+        orderId: '2001',
+        vendorName: 'The Golden Spoon'
+      },
+      {
+        id: 'pt-003',
+        type: 'referral_bonus',
+        amount: 60,
+        description: 'Referral bonus - John D. completed first order',
+        date: '2024-11-28'
+      },
+      {
+        id: 'pt-004',
+        type: 'earned',
+        amount: 89,
+        description: 'Food Order',
+        date: '2024-11-25',
+        orderId: '2003',
+        vendorName: 'Sushi Paradise'
+      },
+      {
+        id: 'pt-005',
+        type: 'earned',
+        amount: 156,
+        description: 'Grocery Order',
+        date: '2024-11-22',
+        orderId: '3003',
+        vendorName: 'Organic Market'
+      },
+      {
+        id: 'pt-006',
+        type: 'signup_bonus',
+        amount: 35,
+        description: 'Welcome bonus for joining DoHuub',
+        date: '2024-11-01'
+      },
+      {
+        id: 'pt-007',
+        type: 'expired',
+        amount: -75,
+        description: 'Points expired (12-month limit)',
+        date: '2024-10-31'
+      },
+      {
+        id: 'pt-008',
+        type: 'earned',
+        amount: 750,
+        description: 'Property Rental - Luxury Downtown Apartment',
+        date: '2024-10-15',
+        orderId: '4001',
+        vendorName: 'DoHuub Properties'
+      },
+      {
+        id: 'pt-009',
+        type: 'referral_bonus',
+        amount: 60,
+        description: 'Referral bonus - Sarah M. completed first order',
+        date: '2024-10-10'
+      },
+      {
+        id: 'pt-010',
+        type: 'earned',
+        amount: 200,
+        description: 'Office Cleaning',
+        date: '2024-10-05',
+        orderId: '1002',
+        vendorName: 'Fresh Start Cleaning'
+      }
+    ],
+    referralInfo: {
+      referralCode: 'DOHUUB-JD2024',
+      referralLink: 'https://dohuub.com/refer/DOHUUB-JD2024',
+      totalReferrals: 8,
+      pendingReferrals: 2,
+      totalPointsFromReferrals: 420,
+      referrals: [
+        {
+          id: 'ref-001',
+          name: 'John D.',
+          status: 'completed',
+          pointsEarned: 60,
+          date: '2024-11-28'
+        },
+        {
+          id: 'ref-002',
+          name: 'Sarah M.',
+          status: 'pending',
+          pointsEarned: 0,
+          date: '2024-12-01'
+        },
+        {
+          id: 'ref-003',
+          name: 'Mike T.',
+          status: 'completed',
+          pointsEarned: 60,
+          date: '2024-10-10'
+        },
+        {
+          id: 'ref-004',
+          name: 'Emily R.',
+          status: 'completed',
+          pointsEarned: 60,
+          date: '2024-09-15'
+        },
+        {
+          id: 'ref-005',
+          name: 'David L.',
+          status: 'completed',
+          pointsEarned: 60,
+          date: '2024-08-20'
+        },
+        {
+          id: 'ref-006',
+          name: 'Anna K.',
+          status: 'pending',
+          pointsEarned: 0,
+          date: '2024-12-03'
+        },
+        {
+          id: 'ref-007',
+          name: 'Chris B.',
+          status: 'completed',
+          pointsEarned: 60,
+          date: '2024-07-10'
+        },
+        {
+          id: 'ref-008',
+          name: 'Lisa W.',
+          status: 'completed',
+          pointsEarned: 60,
+          date: '2024-06-05'
+        }
+      ]
+    },
+    // Streak tracking - Demo data showing 6 week streak
+    streakData: {
+      currentStreak: 6,
+      longestStreak: 8,
+      lastActiveWeek: '2024-W49', // Current week
+      streakMilestones: [
+        { weeks: 4, points: 25, achieved: true },
+        { weeks: 8, points: 50, achieved: false },
+        { weeks: 12, points: 75, achieved: false },
+        { weeks: 16, points: 100, achieved: false }
+      ]
+    },
+    // Category milestones - Demo data with different progress
+    categoryMilestones: {
+      cleaning: {
+        orderCount: 12,
+        milestones: [
+          { target: 5, points: 25, achieved: true },
+          { target: 10, points: 50, achieved: true },
+          { target: 25, points: 75, achieved: false },
+          { target: 50, points: 100, achieved: false }
+        ]
+      },
+      handyman: {
+        orderCount: 3,
+        milestones: [
+          { target: 5, points: 25, achieved: false },
+          { target: 10, points: 50, achieved: false },
+          { target: 25, points: 75, achieved: false },
+          { target: 50, points: 100, achieved: false }
+        ]
+      },
+      food: {
+        orderCount: 8,
+        milestones: [
+          { target: 5, points: 25, achieved: true },
+          { target: 10, points: 50, achieved: false },
+          { target: 25, points: 75, achieved: false },
+          { target: 50, points: 100, achieved: false }
+        ]
+      },
+      grocery: {
+        orderCount: 15,
+        milestones: [
+          { target: 5, points: 25, achieved: true },
+          { target: 10, points: 50, achieved: true },
+          { target: 25, points: 75, achieved: false },
+          { target: 50, points: 100, achieved: false }
+        ]
+      },
+      beauty: {
+        orderCount: 2,
+        milestones: [
+          { target: 5, points: 25, achieved: false },
+          { target: 10, points: 50, achieved: false },
+          { target: 25, points: 75, achieved: false },
+          { target: 50, points: 100, achieved: false }
+        ]
+      },
+      rental: {
+        orderCount: 4,
+        milestones: [
+          { target: 5, points: 25, achieved: false },
+          { target: 10, points: 50, achieved: false },
+          { target: 25, points: 75, achieved: false },
+          { target: 50, points: 100, achieved: false }
+        ]
+      },
+      caregiving: {
+        orderCount: 1,
+        milestones: [
+          { target: 5, points: 25, achieved: false },
+          { target: 10, points: 50, achieved: false },
+          { target: 25, points: 75, achieved: false },
+          { target: 50, points: 100, achieved: false }
+        ]
+      }
+    },
+    // For demo purposes, set to true since we have existing transactions
+    // In real app, this would be false for new users
+    signupBonusAwarded: true
   });
 
   const navigate = (screen: Screen, data?: any) => {
@@ -1024,6 +1329,51 @@ export default function App() {
       ...prev,
       notifications: []
     }));
+  };
+
+  // Award signup bonus for new users (35 points)
+  const awardSignupBonus = () => {
+    setAppState(prev => {
+      if (prev.signupBonusAwarded) {
+        return prev;
+      }
+
+      const bonusTransaction = {
+        id: `pt-signup-${Date.now()}`,
+        type: 'signup_bonus' as const,
+        amount: 35,
+        description: 'Welcome bonus for joining DoHuub',
+        date: new Date().toISOString().split('T')[0]
+      };
+
+      return {
+        ...prev,
+        signupBonusAwarded: true,
+        rewardsWallet: {
+          ...prev.rewardsWallet,
+          totalPoints: prev.rewardsWallet.totalPoints + 35,
+          pendingPoints: prev.rewardsWallet.pendingPoints
+        },
+        pointsTransactions: [bonusTransaction, ...prev.pointsTransactions],
+        notifications: [
+          {
+            id: `notif-signup-${Date.now()}`,
+            type: 'points_earned' as any,
+            title: 'Welcome Bonus!',
+            message: 'You earned 35 points for joining DoHuub! Start ordering from Powered by DoHuub services to earn more rewards.',
+            timestamp: 'Just now',
+            isRead: false
+          },
+          ...prev.notifications
+        ]
+      };
+    });
+  };
+
+  // Handle completing profile setup and navigating to home
+  const handleProfileSetupComplete = () => {
+    awardSignupBonus();
+    navigate('home');
   };
 
   const renderScreen = () => {
@@ -1065,9 +1415,9 @@ export default function App() {
           onContinue={(name) => navigate('savedAddressesSetup', { userName: name })}
         />;
       case 'savedAddressesSetup':
-        return <SavedAddressesSetupScreen 
-          onDone={() => navigate('home')}
-          onSkip={() => navigate('home')}
+        return <SavedAddressesSetupScreen
+          onDone={handleProfileSetupComplete}
+          onSkip={handleProfileSetupComplete}
           onAddAddress={(type) => navigate('addAddress', { addressType: type, previousScreen: 'savedAddressesSetup' })}
         />;
       case 'addAddress':
@@ -1146,6 +1496,8 @@ export default function App() {
           notifications={appState.notifications}
           onMarkNotificationAsRead={handleMarkNotificationAsRead}
           onClearAllNotifications={handleClearAllNotifications}
+          rewardsWallet={appState.rewardsWallet}
+          streakData={appState.streakData}
         />;
       case 'locationChange':
         return <LocationChangeScreen 
@@ -1239,7 +1591,10 @@ export default function App() {
                 referenceNumber: `CL${booking.id}`,
                 hasReview: booking.hasReview,
                 status: booking.status,
-                id: booking.id
+                id: booking.id,
+                isPoweredByDoHuub: booking.isPoweredByDoHuub,
+                pointsEarned: booking.pointsEarned,
+                pointsRedeemed: booking.pointsRedeemed
               };
               updateAppState({ cleaningBookingData: bookingData, currentBookingType: 'cleaning' });
               navigate('orderTracking');
@@ -1274,7 +1629,10 @@ export default function App() {
                 referenceNumber: `HM${booking.id}`,
                 hasReview: booking.hasReview,
                 status: booking.status,
-                id: booking.id
+                id: booking.id,
+                isPoweredByDoHuub: booking.isPoweredByDoHuub,
+                pointsEarned: booking.pointsEarned,
+                pointsRedeemed: booking.pointsRedeemed
               };
               updateAppState({ handymanBookingData: bookingData, currentBookingType: 'handyman' });
               navigate('orderTracking');
@@ -1435,10 +1793,11 @@ export default function App() {
           onServiceSelect={(service) => navigate('serviceDetails', { selectedService: service })}
         />;
       case 'profile':
-        return <ProfileScreen 
+        return <ProfileScreen
           userName={appState.userName}
           userEmail={appState.userEmail}
           navigate={navigate}
+          rewardsWallet={appState.rewardsWallet}
         />;
       case 'editProfile':
         return <EditProfileScreen 
@@ -1549,11 +1908,12 @@ export default function App() {
           onViewAllReviews={() => navigate('cleaningServiceReviews')}
         />;
       case 'cleaningServiceBooking':
-        return <CleaningServiceBookingFormScreen 
+        return <CleaningServiceBookingFormScreen
           service={appState.selectedCleaningService!}
           vendor={appState.selectedVendor!}
           addresses={appState.addresses}
           paymentCards={appState.paymentCards}
+          availablePoints={appState.rewardsWallet.totalPoints}
           onBack={() => navigate('cleaningServiceDetail')}
           onConfirm={(bookingData) => {
             updateAppState({ cleaningBookingData: bookingData, currentBookingType: 'cleaning' });
@@ -1623,10 +1983,12 @@ export default function App() {
           }}
         />;
       case 'cleaningServiceConfirmation':
-        return <CleaningServiceConfirmationScreen 
+        return <CleaningServiceConfirmationScreen
           bookingData={appState.cleaningBookingData!}
           onTrackOrder={() => navigate('orderTracking')}
           onHome={() => navigate('home')}
+          pointsRedeemed={appState.cleaningBookingData?.pointsRedeemed || 0}
+          navigate={navigate}
         />;
       case 'orderTracking':
         return <OrderTrackingScreen 
@@ -1794,11 +2156,12 @@ export default function App() {
           onViewAllReviews={() => navigate('handymanServiceReviews')}
         />;
       case 'handymanServiceBooking':
-        return <HandymanServiceBookingFormScreen 
+        return <HandymanServiceBookingFormScreen
           service={appState.selectedHandymanService!}
           vendor={appState.selectedHandymanVendor!}
           addresses={appState.addresses}
           paymentCards={appState.paymentCards}
+          availablePoints={appState.rewardsWallet.totalPoints}
           onBack={() => navigate('handymanServiceDetail')}
           onConfirm={(bookingData) => {
             updateAppState({ handymanBookingData: bookingData, currentBookingType: 'handyman' });
@@ -1808,10 +2171,12 @@ export default function App() {
           onAddPaymentCard={() => navigate('addPaymentCard')}
         />;
       case 'handymanServiceConfirmation':
-        return <HandymanServiceConfirmationScreen 
+        return <HandymanServiceConfirmationScreen
           bookingData={appState.handymanBookingData!}
           onTrackOrder={() => navigate('orderTracking')}
           onHome={() => navigate('home')}
+          pointsRedeemed={appState.handymanBookingData?.pointsRedeemed || 0}
+          navigate={navigate}
         />;
       case 'handymanServiceReviews':
         return <CleaningServiceReviewsScreen 
@@ -1955,12 +2320,13 @@ export default function App() {
           }}
         />;
       case 'foodGroceryCheckout':
-        return <FoodGroceryCheckoutScreen 
+        return <FoodGroceryCheckoutScreen
           cart={appState.foodGroceryOrderType === 'food' ? appState.cart : appState.groceryCart}
           vendor={appState.foodGroceryOrderType === 'food' ? appState.selectedFoodVendor! : appState.selectedGroceryVendor!}
           orderType={appState.foodGroceryOrderType!}
           addresses={appState.addresses}
           paymentCards={appState.paymentCards}
+          availablePoints={appState.rewardsWallet.totalPoints}
           onBack={() => {
             if (appState.foodGroceryOrderType === 'food') {
               navigate('foodVendorDetail');
@@ -1980,13 +2346,15 @@ export default function App() {
           }}
         />;
       case 'foodGroceryConfirmation':
-        return <FoodGroceryConfirmationScreen 
+        return <FoodGroceryConfirmationScreen
           orderData={appState.pendingFoodGroceryOrder!}
           addresses={appState.addresses}
           paymentCards={appState.paymentCards}
+          isPoweredByDoHuub={appState.foodGroceryOrderType === 'food' ? appState.selectedFoodVendor?.isPoweredByDoHuub : appState.selectedGroceryVendor?.isPoweredByDoHuub}
           onBack={() => navigate('foodGroceryCheckout')}
           onChangeAddress={() => navigate('savedAddresses')}
           onChangePayment={() => navigate('paymentMethods')}
+          navigate={navigate}
           onOrderPlaced={(orderData) => {
             // Create a new order and add to bookings
             const isBeautyProducts = appState.selectedBeautyProductVendor !== undefined;
@@ -2172,12 +2540,14 @@ export default function App() {
           }}
         />;
       case 'beautyServicesBooking':
-        return <BeautyServiceBookingScreen 
+        return <BeautyServiceBookingScreen
           service={appState.selectedBeautyService}
           providerName={appState.selectedBeautyServiceProvider?.name || 'Beauty Provider'}
+          isPoweredByDoHuub={appState.selectedBeautyServiceProvider?.isPoweredByDoHuub}
+          availablePoints={appState.rewardsWallet.totalPoints}
           onBack={() => navigate('beautyServiceDetail')}
           onConfirmBooking={(bookingData) => {
-            updateAppState({ 
+            updateAppState({
               beautyBookingData: bookingData,
               currentBookingType: 'beauty'
             });
@@ -2188,8 +2558,10 @@ export default function App() {
           onAddPaymentCard={() => navigate('addPaymentCard', { previousScreen: 'beautyServicesBooking' })}
         />;
       case 'beautyServicesConfirmation':
-        return <BeautyServiceConfirmationScreen 
+        return <BeautyServiceConfirmationScreen
           bookingData={appState.beautyBookingData!}
+          isPoweredByDoHuub={appState.selectedBeautyServiceProvider?.isPoweredByDoHuub}
+          pointsRedeemed={appState.beautyBookingData?.pointsRedeemed || 0}
           onTrackOrder={() => {
             // Navigate to bookings tab and show tracking
             navigate('myBookings');
@@ -2199,6 +2571,7 @@ export default function App() {
             }, 100);
           }}
           onHome={() => navigate('home')}
+          navigate={navigate}
         />;
       case 'beautyProductsVendorsList':
         return <BeautyProductsVendorsList 
@@ -2343,7 +2716,7 @@ export default function App() {
           }}
         />;
       case 'propertyBooking':
-        return <PropertyBookingScreen 
+        return <PropertyBookingScreen
           property={appState.selectedProperty!}
           checkInDate={appState.propertyCheckInDate!}
           checkOutDate={appState.propertyCheckOutDate!}
@@ -2353,11 +2726,12 @@ export default function App() {
           totalPrice={appState.propertyTotalPrice!}
           addresses={appState.addresses}
           paymentCards={appState.paymentCards}
+          availablePoints={appState.rewardsWallet.totalPoints}
           onBack={() => navigate('propertyStayDetails')}
           onAddAddress={() => navigate('addAddress', { previousScreen: 'propertyBooking' })}
           onAddPaymentCard={() => navigate('addPaymentCard', { previousScreen: 'propertyBooking' })}
           onConfirm={(bookingData) => {
-            updateAppState({ 
+            updateAppState({
               propertyBookingData: bookingData,
               currentBookingType: 'rental'
             });
@@ -2399,12 +2773,14 @@ export default function App() {
           }}
         />;
       case 'propertyConfirmation':
-        return <PropertyConfirmationScreen 
+        return <PropertyConfirmationScreen
           bookingData={appState.propertyBookingData!}
           onTrackOrder={() => {
             navigate('orderTracking');
           }}
           onHome={() => navigate('home')}
+          pointsRedeemed={appState.propertyBookingData?.pointsRedeemed || 0}
+          navigate={navigate}
         />;
       case 'caregivingChoice':
         return <CaregivingChoiceScreen 
@@ -2491,10 +2867,11 @@ export default function App() {
           onViewAllReviews={() => navigate('companionReviews')}
         />;
       case 'companionshipBookingForm':
-        return <CompanionshipBookingFormScreen 
+        return <CompanionshipBookingFormScreen
           companion={appState.selectedCompanion!}
           savedAddresses={appState.addresses}
           paymentMethods={appState.paymentCards}
+          availablePoints={appState.rewardsWallet.totalPoints}
           onBack={() => navigate('companionDetail')}
           onConfirmBooking={(bookingData) => {
             updateAppState({ caregivingBookingData: bookingData });
@@ -2530,11 +2907,12 @@ export default function App() {
           }}
         />;
       case 'caregivingConfirmation':
-        return <CaregivingConfirmationScreen 
+        return <CaregivingConfirmationScreen
           serviceType={appState.caregivingServiceType!}
           bookingData={appState.caregivingBookingData!}
           onViewTracking={() => navigate('caregivingOrderTracking')}
           onBackToHome={() => navigate('home')}
+          navigate={navigate}
         />;
       case 'caregivingOrderTracking':
         return <CaregivingOrderTrackingScreen 
@@ -2665,11 +3043,30 @@ export default function App() {
           onBack={() => navigate('companionDetail')}
         />;
       case 'rideProviderReviews':
-        return <VendorReviewsScreen 
+        return <VendorReviewsScreen
           vendorName={appState.selectedRideProvider?.name || 'Ride Provider'}
           overallRating={appState.selectedRideProvider?.rating || 4.8}
           totalReviews={234}
           onBack={() => navigate('rideProviderDetail')}
+        />;
+      case 'rewardsWallet':
+        return <RewardsWalletScreen
+          navigate={navigate}
+          rewardsWallet={appState.rewardsWallet}
+          pointsTransactions={appState.pointsTransactions}
+          streakData={appState.streakData}
+          categoryMilestones={appState.categoryMilestones}
+        />;
+      case 'referralScreen':
+        return <ReferralScreen
+          navigate={navigate}
+          referralInfo={appState.referralInfo}
+        />;
+      case 'pointsHistory':
+        return <PointsHistoryScreen
+          navigate={navigate}
+          pointsTransactions={appState.pointsTransactions}
+          totalPoints={appState.rewardsWallet.totalPoints}
         />;
       default:
         return <SplashScreen onComplete={() => navigate('locationPermission')} />;

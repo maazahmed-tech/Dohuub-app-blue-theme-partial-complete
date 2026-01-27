@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Bed, Bath, Users, Maximize, MapPin, Wifi, Car, Tv, Wind, Waves, UtensilsCrossed, Shirt, ChevronRight, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, Star, Bed, Bath, Users, Maximize, MapPin, Wifi, Car, Tv, Wind, Waves, UtensilsCrossed, Shirt, ChevronRight, Image as ImageIcon, Gift } from 'lucide-react';
 import { useState } from 'react';
 import type { Property } from './RentalPropertiesListScreen';
 
@@ -45,8 +45,14 @@ export function PropertyDetailScreen({
           <div className="w-full h-64 bg-gray-300 flex items-center justify-center relative">
             <span className="text-gray-500 text-6xl">🏠</span>
             {property.isPoweredByDoHuub && (
-              <div className="absolute top-4 right-4 bg-gray-900 text-white px-3 py-1.5 rounded-full text-sm">
-                Powered by DoHuub
+              <div className="absolute top-4 right-4 flex items-center gap-2">
+                <div className="bg-gray-900 text-white px-3 py-1.5 rounded-full text-sm">
+                  Powered by DoHuub
+                </div>
+                <span className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                  <Gift className="w-3 h-3 mr-1" />
+                  {property.pricePerNight}+
+                </span>
               </div>
             )}
           </div>

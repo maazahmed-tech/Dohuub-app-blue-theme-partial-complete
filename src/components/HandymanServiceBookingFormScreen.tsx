@@ -1,15 +1,17 @@
-import { ArrowLeft, Calendar, Clock, MapPin, CreditCard, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, MapPin, CreditCard, ChevronRight, Gift } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import type { HandymanService } from './HandymanVendorDetailScreen';
 import type { HandymanVendor } from './HandymanVendorsListScreen';
 import type { Address } from './AddAddressScreen';
 import type { CardData } from './AddPaymentCardScreen';
+import PointsRedemptionCard from './PointsRedemptionCard';
 
 interface HandymanServiceBookingFormScreenProps {
   service: HandymanService;
   vendor: HandymanVendor;
   addresses: Address[];
   paymentCards: CardData[];
+  availablePoints: number;
   onBack: () => void;
   onConfirm: (bookingData: HandymanBookingData) => void;
   onAddAddress: () => void;
@@ -28,6 +30,8 @@ export interface HandymanBookingData {
   referenceNumber: string;
   hasReview?: boolean;
   status?: string;
+  pointsRedeemed?: number;
+  finalPrice?: string;
 }
 
 export function HandymanServiceBookingFormScreen({
@@ -35,6 +39,7 @@ export function HandymanServiceBookingFormScreen({
   vendor,
   addresses,
   paymentCards,
+  availablePoints,
   onBack,
   onConfirm,
   onAddAddress,
@@ -43,7 +48,7 @@ export function HandymanServiceBookingFormScreen({
   // Pre-select default address and card
   const defaultAddress = addresses.find(a => a.isDefault) || addresses[0];
   const defaultCard = paymentCards.find(c => c.isDefault) || paymentCards[0];
-  
+
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [selectedDuration, setSelectedDuration] = useState<number>(1);
@@ -55,6 +60,10 @@ export function HandymanServiceBookingFormScreen({
   const [showAddressPicker, setShowAddressPicker] = useState(false);
   const [showPaymentPicker, setShowPaymentPicker] = useState(false);
   const [notes, setNotes] = useState('');
+
+  // Points redemption state
+  const [pointsRedemptionEnabled, setPointsRedemptionEnabled] = useState(false);
+  const [pointsToRedeem, setPointsToRedeem] = useState(0);
 
   const dates = [
     'Mon, Dec 2',
@@ -93,6 +102,11 @@ export function HandymanServiceBookingFormScreen({
     return hourlyRate * selectedDuration;
   }, [hourlyRate, selectedDuration]);
 
+  // Calculate max redeemable points and final price
+  const maxRedeemablePoints = Math.floor(totalPrice * 100);
+  const discountAmount = pointsToRedeem / 100;
+  const finalPrice = totalPrice - discountAmount;
+
   const isFormValid = selectedDate && selectedTime && selectedAddressId && selectedCardId;
 
   const handleConfirm = () => {
@@ -107,7 +121,9 @@ export function HandymanServiceBookingFormScreen({
       address: selectedAddress,
       paymentCard: selectedCard,
       estimatedPrice: `$${totalPrice}`,
-      referenceNumber: `HM${Date.now().toString().slice(-8)}`
+      referenceNumber: `HM${Date.now().toString().slice(-8)}`,
+      pointsRedeemed: pointsRedemptionEnabled ? pointsToRedeem : 0,
+      finalPrice: `$${finalPrice.toFixed(2)}`
     };
 
     onConfirm(bookingData);
@@ -387,6 +403,54 @@ export function HandymanServiceBookingFormScreen({
             </>
           )}
         </div>
+
+        {/* Points Redemption - Only for Powered by DoHuub vendors */}
+        {vendor.isPoweredByDoHuub && availablePoints > 0 && (
+          <div className="mb-6">
+            <PointsRedemptionCard
+              availablePoints={availablePoints}
+              selectedPoints={pointsToRedeem}
+              onPointsChange={setPointsToRedeem}
+              enabled={pointsRedemptionEnabled}
+              onToggle={setPointsRedemptionEnabled}
+              maxRedeemablePoints={maxRedeemablePoints}
+            />
+          </div>
+        )}
+
+        {/* Points Preview - Only for Powered by DoHuub vendors */}
+        {vendor.isPoweredByDoHuub && (
+          <div className="mb-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Gift className="w-5 h-5 text-amber-600" />
+                <span className="font-medium text-amber-800">Points you'll earn</span>
+              </div>
+              <span className="text-lg font-bold text-amber-600">
+                +{Math.floor(finalPrice)} pts
+              </span>
+            </div>
+            <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after service completion</p>
+          </div>
+        )}
+
+        {/* Price Summary */}
+        {pointsRedemptionEnabled && pointsToRedeem > 0 && (
+          <div className="mb-6 p-4 bg-gray-50 rounded-xl">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-gray-700">Service Price</span>
+              <span className="text-gray-900">${totalPrice}</span>
+            </div>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-green-600">Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
+              <span className="text-green-600">-${discountAmount.toFixed(2)}</span>
+            </div>
+            <div className="flex items-center justify-between pt-2 border-t border-gray-200">
+              <span className="text-gray-900 font-semibold">Total</span>
+              <span className="text-gray-900 font-semibold">${finalPrice.toFixed(2)}</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Bottom CTA */}

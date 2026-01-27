@@ -1,8 +1,14 @@
-import { MapPin, Search, Home, Calendar, MessageCircle, User, Sparkles, Wrench, ShoppingBag, Scissors, Building2, Heart, Bell } from 'lucide-react';
+import { MapPin, Search, Home, Calendar, MessageCircle, User, Sparkles, Wrench, ShoppingBag, Scissors, Building2, Heart, Bell, Gift, Flame } from 'lucide-react';
 import { useState } from 'react';
 import type { Screen } from '../App';
 import { LocationSelectorModal, Address } from './LocationSelectorModal';
 import { NotificationsPanel, Notification } from './NotificationsPanel';
+
+interface StreakMilestone {
+  weeks: number;
+  points: number;
+  achieved: boolean;
+}
 
 interface HomeDashboardProps {
   addresses: Address[];
@@ -16,6 +22,18 @@ interface HomeDashboardProps {
   notifications: Notification[];
   onMarkNotificationAsRead: (id: string) => void;
   onClearAllNotifications: () => void;
+  rewardsWallet?: {
+    totalPoints: number;
+    pendingPoints: number;
+    expiringPoints: number;
+    expiringDate: string | null;
+  };
+  streakData?: {
+    currentStreak: number;
+    longestStreak: number;
+    lastActiveWeek: string;
+    streakMilestones: StreakMilestone[];
+  };
 }
 
 const categories = [
@@ -27,7 +45,7 @@ const categories = [
   { id: 'caregiving', name: 'Caregiving Services', icon: Heart, available: true, restrictedForWork: true },
 ];
 
-export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, location, navigate, onCategorySelect, onLocationChange, onAddAddress, notifications, onMarkNotificationAsRead, onClearAllNotifications }: HomeDashboardProps) {
+export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, location, navigate, onCategorySelect, onLocationChange, onAddAddress, notifications, onMarkNotificationAsRead, onClearAllNotifications, rewardsWallet, streakData }: HomeDashboardProps) {
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [isNotificationsPanelOpen, setIsNotificationsPanelOpen] = useState(false);
 
@@ -68,6 +86,26 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
             <span className="text-gray-500">▼</span>
           </button>
           <div className="flex items-center gap-3">
+            {/* Streak Badge */}
+            {streakData && streakData.currentStreak > 0 && (
+              <button
+                onClick={() => navigate('rewardsWallet')}
+                className="flex items-center gap-1 px-2.5 py-1.5 bg-gradient-to-r from-orange-500 to-red-500 rounded-full text-white shadow-sm hover:shadow-md transition-shadow"
+              >
+                <Flame className="w-4 h-4" />
+                <span className="font-semibold text-sm">{streakData.currentStreak}</span>
+              </button>
+            )}
+            {/* Points Badge */}
+            {rewardsWallet && rewardsWallet.totalPoints > 0 && (
+              <button
+                onClick={() => navigate('rewardsWallet')}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full text-white shadow-sm hover:shadow-md transition-shadow"
+              >
+                <Gift className="w-4 h-4" />
+                <span className="font-semibold text-sm">{rewardsWallet.totalPoints.toLocaleString()}</span>
+              </button>
+            )}
             <button className="relative p-2" onClick={handleNotificationsPanelToggle}>
               <Bell className="w-6 h-6 text-gray-700" strokeWidth={2} />
               {unreadCount > 0 && <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>}
@@ -115,6 +153,29 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
           <span className="text-gray-400">What service do you need?</span>
         </button>
       </div>
+
+      {/* Combined Rewards Banner */}
+      {(rewardsWallet?.totalPoints > 0 || (streakData && streakData.currentStreak > 0)) && (
+        <div className="px-6 pb-4">
+          <button
+            onClick={() => navigate('rewardsWallet')}
+            className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl hover:from-amber-100 hover:to-orange-100 transition-colors"
+          >
+            {rewardsWallet?.totalPoints > 0 && (
+              <div className="flex items-center gap-2">
+                <Gift className="w-5 h-5 text-amber-600" />
+                <span className="font-semibold text-gray-900">{rewardsWallet.totalPoints.toLocaleString()} pts</span>
+              </div>
+            )}
+            {streakData && streakData.currentStreak > 0 && (
+              <div className="flex items-center gap-2">
+                <Flame className="w-5 h-5 text-orange-500" />
+                <span className="font-semibold text-gray-900">{streakData.currentStreak} week streak</span>
+              </div>
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Categories Grid */}
       <div className="flex-1 overflow-y-auto px-6 pb-24">

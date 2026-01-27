@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Car, MapPin, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Star, Car, MapPin, ChevronRight, Gift } from 'lucide-react';
 import type { RideProvider } from './RideProvidersListScreen';
 
 interface RideProviderDetailScreenProps {
@@ -48,6 +48,25 @@ export function RideProviderDetailScreen({
               </div>
             </div>
           </div>
+
+          {/* Points Earning Banner */}
+          {provider.isPoweredByDoHuub && (
+            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                  <Gift className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-amber-800">
+                    Earn ~{provider.hourlyRate}+ points per ride
+                  </p>
+                  <p className="text-sm text-amber-600">
+                    1 point per $1 spent • Points added after ride completion
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Pricing */}
           <div className="p-4 bg-gray-50 rounded-xl">

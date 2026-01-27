@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Bed, Bath, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowLeft, Star, Bed, Bath, SlidersHorizontal, X, Gift } from 'lucide-react';
 import { useState } from 'react';
 
 export interface Property {
@@ -247,8 +247,14 @@ export function RentalPropertiesListScreen({
               <div className="w-full h-48 bg-gray-300 flex items-center justify-center relative">
                 <span className="text-gray-500 text-4xl">🏠</span>
                 {property.isPoweredByDoHuub && (
-                  <div className="absolute top-3 right-3 bg-gray-900 text-white px-3 py-1 rounded-full text-xs">
-                    Powered by DoHuub
+                  <div className="absolute top-3 right-3 flex items-center gap-2">
+                    <div className="bg-gray-900 text-white px-3 py-1 rounded-full text-xs">
+                      Powered by DoHuub
+                    </div>
+                    <span className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                      <Gift className="w-3 h-3 mr-1" />
+                      {property.pricePerNight}+
+                    </span>
                   </div>
                 )}
               </div>
