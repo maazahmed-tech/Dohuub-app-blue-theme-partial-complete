@@ -3000,20 +3000,6 @@ export default function App() {
             navigate('hostReviews');
           }}
         />;
-      case 'foodVendorReviews':
-        return <VendorReviewsScreen 
-          vendorName={appState.selectedFoodVendor?.name || 'Food Vendor'}
-          overallRating={appState.selectedFoodVendor?.rating || 4.8}
-          totalReviews={234}
-          onBack={() => navigate('foodVendorProfile')}
-        />;
-      case 'groceryVendorReviews':
-        return <VendorReviewsScreen 
-          vendorName={appState.selectedGroceryVendor?.name || 'Grocery Vendor'}
-          overallRating={appState.selectedGroceryVendor?.rating || 4.8}
-          totalReviews={234}
-          onBack={() => navigate('groceryVendorProfile')}
-        />;
       case 'beautyProviderReviews':
         return <VendorReviewsScreen 
           vendorName={appState.selectedBeautyServiceProvider?.name || 'Beauty Provider'}
