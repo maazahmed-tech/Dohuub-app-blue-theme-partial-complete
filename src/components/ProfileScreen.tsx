@@ -64,21 +64,27 @@ export function ProfileScreen({ userName, userEmail, navigate, rewardsWallet }: 
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
-        <h3 className="text-gray-900">Profile</h3>
+    <div className="h-full flex flex-col" style={{ backgroundColor: 'var(--background)' }}>
+      <div className="px-6 py-4 border-b glass" style={{ borderColor: 'rgba(46, 122, 217, 0.1)' }}>
+        <h3 style={{ color: 'var(--foreground)' }}>Profile</h3>
       </div>
 
       <div className="flex-1 overflow-y-auto px-6 py-6 pb-24">
         {/* Profile Section */}
-        <div className="flex items-center gap-4 mb-8">
-          <div className="w-20 h-20 rounded-full bg-gray-300 flex-shrink-0"></div>
+        <div className="flex items-center gap-4 mb-8 animate-fade-in">
+          <div className="w-20 h-20 rounded-full flex-shrink-0 shadow-premium-md relative" style={{ backgroundColor: 'var(--secondary)' }}>
+            {/* Gradient ring */}
+            <div className="absolute inset-0 rounded-full" style={{ background: 'var(--primary-gradient)', padding: '3px' }}>
+              <div className="w-full h-full rounded-full" style={{ backgroundColor: 'var(--secondary)' }}></div>
+            </div>
+          </div>
           <div className="flex-1">
-            <p className="text-gray-900 mb-1">{userName || 'Guest User'}</p>
-            <p className="text-gray-600 mb-2">{userEmail || 'user@example.com'}</p>
+            <p className="mb-1" style={{ color: 'var(--foreground)' }}>{userName || 'Guest User'}</p>
+            <p className="mb-2" style={{ color: 'var(--muted-foreground)' }}>{userEmail || 'user@example.com'}</p>
             <button
               onClick={() => navigate('editProfile')}
-              className="text-gray-700 underline"
+              className="underline transition-all duration-200 hover:opacity-80"
+              style={{ color: 'var(--primary)' }}
             >
               Edit Profile
             </button>
@@ -87,25 +93,28 @@ export function ProfileScreen({ userName, userEmail, navigate, rewardsWallet }: 
 
         {/* Rewards Section */}
         <div>
-          <div className="space-y-0">
-            {rewardsMenuItems.map((item) => {
+          <div className="space-y-1">
+            {rewardsMenuItems.map((item, index) => {
               const Icon = item.icon;
               return (
                 <button
                   key={item.label}
                   onClick={() => item.screen && navigate(item.screen)}
-                  className="w-full p-3 flex items-center gap-3 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="w-full p-3 flex items-center gap-3 rounded-xl transition-all duration-300 hover:translate-x-1 hover:shadow-premium-sm animate-fade-in-up group"
+                  style={{ backgroundColor: 'transparent', animationDelay: `${index * 0.05}s`, animationFillMode: 'backwards' }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
-                  <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-5 h-5 text-gray-600" />
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm transition-all duration-300 group-hover:shadow-premium-md" style={{ backgroundColor: 'var(--secondary)' }}>
+                    <Icon className="w-5 h-5" style={{ color: 'var(--primary)' }} />
                   </div>
-                  <span className="flex-1 text-left text-gray-900 font-medium">{item.label}</span>
+                  <span className="flex-1 text-left font-medium" style={{ color: 'var(--foreground)' }}>{item.label}</span>
                   {item.badge && (
-                    <span className="px-2 py-1 bg-gray-900 text-white text-xs rounded-full font-medium">
+                    <span className="px-2 py-1 text-white text-xs rounded-full font-medium shadow-premium-sm" style={{ background: 'var(--primary-gradient)' }}>
                       {item.badge}
                     </span>
                   )}
-                  <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                  <ChevronRight className="w-5 h-5 flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1" style={{ color: 'var(--muted-foreground)' }} />
                 </button>
               );
             })}
@@ -113,8 +122,8 @@ export function ProfileScreen({ userName, userEmail, navigate, rewardsWallet }: 
         </div>
 
         {/* Menu Items */}
-        <div className="space-y-0">
-          {menuItems.map((item) => {
+        <div className="space-y-1">
+          {menuItems.map((item, index) => {
             const Icon = item.icon;
             return (
               <button
@@ -131,26 +140,28 @@ export function ProfileScreen({ userName, userEmail, navigate, rewardsWallet }: 
                     }
                   }
                 }}
-                className="w-full p-3 flex items-center gap-3 hover:bg-gray-100 rounded-lg transition-colors"
+                className="w-full p-3 flex items-center gap-3 rounded-xl transition-all duration-300 hover:translate-x-1 hover:shadow-premium-sm animate-fade-in-up group"
+                style={{ backgroundColor: 'transparent', animationDelay: `${(index + 2) * 0.05}s`, animationFillMode: 'backwards' }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
               >
-                <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Icon className="w-5 h-5 text-gray-600" />
+                <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm transition-all duration-300 group-hover:shadow-premium-md" style={{ backgroundColor: 'var(--secondary)' }}>
+                  <Icon className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
                 </div>
-                <span className="flex-1 text-left text-gray-900 font-medium">{item.label}</span>
+                <span className="flex-1 text-left font-medium" style={{ color: 'var(--foreground)' }}>{item.label}</span>
                 {item.isToggle && item.label === 'Notifications' ? (
                   <div
-                    className={`w-12 h-6 rounded-full relative flex-shrink-0 transition-colors ${
-                      notificationsEnabled ? 'bg-gray-800' : 'bg-gray-300'
-                    }`}
+                    className="w-12 h-6 rounded-full relative flex-shrink-0 transition-all duration-300 shadow-premium-sm"
+                    style={{ background: notificationsEnabled ? 'var(--primary-gradient)' : 'var(--muted)' }}
                   >
                     <div
-                      className={`absolute top-0.5 w-5 h-5 bg-white rounded-full transition-all ${
+                      className={`absolute top-0.5 w-5 h-5 bg-white rounded-full transition-all duration-300 shadow-premium-sm ${
                         notificationsEnabled ? 'right-0.5' : 'left-0.5'
                       }`}
                     ></div>
                   </div>
                 ) : (
-                  <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                  <ChevronRight className="w-5 h-5 flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1" style={{ color: 'var(--muted-foreground)' }} />
                 )}
               </button>
             );
@@ -158,44 +169,51 @@ export function ProfileScreen({ userName, userEmail, navigate, rewardsWallet }: 
 
           <button
             onClick={() => setShowLogOutModal(true)}
-            className="w-full p-3 flex items-center gap-3 hover:bg-gray-100 rounded-lg transition-colors"
+            className="w-full p-3 flex items-center gap-3 rounded-xl transition-all duration-300 hover:translate-x-1 hover:shadow-premium-sm group"
+            style={{ backgroundColor: 'transparent' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
           >
-            <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <LogOut className="w-5 h-5 text-gray-600" />
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm transition-all duration-300 group-hover:shadow-premium-md" style={{ backgroundColor: 'var(--secondary)' }}>
+              <LogOut className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
             </div>
-            <span className="flex-1 text-left text-gray-900 font-medium">Log Out</span>
+            <span className="flex-1 text-left font-medium" style={{ color: 'var(--foreground)' }}>Log Out</span>
           </button>
 
           <button
             onClick={() => setShowDeleteAccountModal(true)}
-            className="w-full p-3 flex items-center gap-3 hover:bg-gray-100 rounded-lg transition-colors"
+            className="w-full p-3 flex items-center gap-3 rounded-xl transition-all duration-300 hover:translate-x-1 hover:shadow-premium-sm group"
+            style={{ backgroundColor: 'transparent' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#FEE2E2'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
           >
-            <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <Trash2 className="w-5 h-5 text-red-600" />
+            <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm transition-all duration-300 group-hover:shadow-premium-md" style={{ backgroundColor: '#FEE2E2' }}>
+              <Trash2 className="w-5 h-5" style={{ color: 'var(--destructive)' }} />
             </div>
-            <span className="flex-1 text-left text-red-600 font-medium">Delete Account</span>
+            <span className="flex-1 text-left font-medium" style={{ color: 'var(--destructive)' }}>Delete Account</span>
           </button>
         </div>
       </div>
 
       {/* Bottom Navigation */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 px-6 py-4">
+      <div className="absolute bottom-0 left-0 right-0 px-6 py-4 glass shadow-premium-lg" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex justify-around">
-          <button onClick={() => navigate('home')} className="flex flex-col items-center gap-1">
-            <Home className="w-6 h-6 text-gray-400" strokeWidth={2} />
-            <span className="text-gray-400">Home</span>
+          <button onClick={() => navigate('home')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
+            <Home className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
+            <span style={{ color: 'var(--muted-foreground)' }}>Home</span>
           </button>
-          <button onClick={() => navigate('myBookings')} className="flex flex-col items-center gap-1">
-            <Calendar className="w-6 h-6 text-gray-400" strokeWidth={2} />
-            <span className="text-gray-400">Bookings</span>
+          <button onClick={() => navigate('myBookings')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
+            <Calendar className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
+            <span style={{ color: 'var(--muted-foreground)' }}>Bookings</span>
           </button>
-          <button onClick={() => navigate('aiChat')} className="flex flex-col items-center gap-1">
-            <MessageCircle className="w-6 h-6 text-gray-400" strokeWidth={2} />
-            <span className="text-gray-400">AI Assistant</span>
+          <button onClick={() => navigate('aiChat')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
+            <MessageCircle className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
+            <span style={{ color: 'var(--muted-foreground)' }}>AI Assistant</span>
           </button>
-          <button className="flex flex-col items-center gap-1">
-            <User className="w-6 h-6 text-gray-800" strokeWidth={2} />
-            <span className="text-gray-800">Profile</span>
+          <button className="flex flex-col items-center gap-1 nav-item-active relative">
+            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-8 h-1 rounded-full" style={{ background: 'var(--primary-gradient)' }} />
+            <User className="w-6 h-6" style={{ color: 'var(--primary)' }} strokeWidth={2} />
+            <span style={{ color: 'var(--primary)' }}>Profile</span>
           </button>
         </div>
       </div>

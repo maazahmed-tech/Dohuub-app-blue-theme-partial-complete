@@ -24,6 +24,7 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
   const [cvv, setCvv] = useState('');
   const [isDefault, setIsDefault] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const formatCardNumber = (value: string) => {
     const numbers = value.replace(/\D/g, '');
@@ -129,37 +130,51 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
     return 'Card';
   };
 
+  const inputClass = (field: string, hasError: boolean) => `w-full p-4 rounded-xl outline-none transition-all duration-300 ${
+    hasError ? 'border-2' : 'border'
+  } ${focusedField === field ? 'shadow-glow' : 'shadow-card'}`;
+
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack}>
-            <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h3 className="text-gray-900">Add Payment Card</h3>
+          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Add Payment Card</h3>
         </div>
       </div>
 
       {/* Form */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Card Preview */}
-        <div className="mb-6 p-6 bg-gradient-to-br from-gray-800 to-gray-600 rounded-2xl text-white">
+        <div
+          className="mb-6 p-6 rounded-2xl text-white shadow-premium-lg animate-fade-in-up"
+          style={{ background: 'var(--primary-gradient)' }}
+        >
           <div className="flex justify-between items-start mb-12">
             <CreditCard className="w-10 h-10" />
             <span className="text-white opacity-80">{getCardType(cardNumber)}</span>
           </div>
-          <p className="text-white mb-6 tracking-wider">
+          <p className="text-white mb-6 tracking-wider text-lg font-mono">
             {cardNumber || '•••• •••• •••• ••••'}
           </p>
           <div className="flex justify-between items-end">
             <div>
-              <p className="text-white opacity-60 mb-1">Cardholder Name</p>
-              <p className="text-white">{cardholderName || 'FULL NAME'}</p>
+              <p className="text-white opacity-60 mb-1 text-sm">Cardholder Name</p>
+              <p className="text-white font-medium">{cardholderName || 'FULL NAME'}</p>
             </div>
             <div>
-              <p className="text-white opacity-60 mb-1">Expires</p>
-              <p className="text-white">
+              <p className="text-white opacity-60 mb-1 text-sm">Expires</p>
+              <p className="text-white font-medium">
                 {expiryMonth && expiryYear ? `${expiryMonth}/${expiryYear}` : 'MM/YY'}
               </p>
             </div>
@@ -167,28 +182,33 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
         </div>
 
         {/* Card Number */}
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2">Card Number *</label>
+        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Card Number *</label>
           <input
             type="text"
             value={cardNumber}
             onChange={(e) => handleCardNumberChange(e.target.value)}
+            onFocus={() => setFocusedField('cardNumber')}
+            onBlur={() => setFocusedField(null)}
             placeholder="1234 5678 9012 3456"
-            className={`w-full p-4 border-2 rounded-lg ${
-              errors.cardNumber ? 'border-red-500' : 'border-gray-300'
-            } focus:outline-none focus:border-gray-800`}
+            className={inputClass('cardNumber', !!errors.cardNumber)}
+            style={{
+              backgroundColor: 'var(--input-background)',
+              color: 'var(--foreground)',
+              borderColor: errors.cardNumber ? 'var(--destructive)' : 'var(--border)'
+            }}
           />
           {errors.cardNumber && (
-            <div className="flex items-center gap-2 mt-2 text-red-500">
+            <div className="flex items-center gap-2 mt-2" style={{ color: 'var(--destructive)' }}>
               <AlertCircle className="w-4 h-4" />
-              <span className="text-red-500">{errors.cardNumber}</span>
+              <span className="text-sm">{errors.cardNumber}</span>
             </div>
           )}
         </div>
 
         {/* Cardholder Name */}
-        <div className="mb-4">
-          <label className="block text-gray-700 mb-2">Cardholder Name *</label>
+        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Cardholder Name *</label>
           <input
             type="text"
             value={cardholderName}
@@ -198,96 +218,135 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
                 setErrors({ ...errors, cardholderName: '' });
               }
             }}
+            onFocus={() => setFocusedField('cardholderName')}
+            onBlur={() => setFocusedField(null)}
             placeholder="JOHN DOE"
-            className={`w-full p-4 border-2 rounded-lg ${
-              errors.cardholderName ? 'border-red-500' : 'border-gray-300'
-            } focus:outline-none focus:border-gray-800`}
+            className={inputClass('cardholderName', !!errors.cardholderName)}
+            style={{
+              backgroundColor: 'var(--input-background)',
+              color: 'var(--foreground)',
+              borderColor: errors.cardholderName ? 'var(--destructive)' : 'var(--border)'
+            }}
           />
           {errors.cardholderName && (
-            <div className="flex items-center gap-2 mt-2 text-red-500">
+            <div className="flex items-center gap-2 mt-2" style={{ color: 'var(--destructive)' }}>
               <AlertCircle className="w-4 h-4" />
-              <span className="text-red-500">{errors.cardholderName}</span>
+              <span className="text-sm">{errors.cardholderName}</span>
             </div>
           )}
         </div>
 
         {/* Expiry Date and CVV */}
         <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>
-            <label className="block text-gray-700 mb-2">Expiry Date *</label>
-            <div className="flex gap-2">
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Expiry Date *</label>
+            <div className="flex gap-2 items-center">
               <input
                 type="text"
                 value={expiryMonth}
                 onChange={(e) => handleExpiryMonthChange(e.target.value)}
+                onFocus={() => setFocusedField('expiryMonth')}
+                onBlur={() => setFocusedField(null)}
                 placeholder="MM"
-                className={`w-full p-4 border-2 rounded-lg ${
-                  errors.expiry ? 'border-red-500' : 'border-gray-300'
-                } focus:outline-none focus:border-gray-800`}
+                className={`w-full p-4 rounded-xl outline-none transition-all duration-300 ${focusedField === 'expiryMonth' ? 'shadow-glow' : 'shadow-card'}`}
+                style={{
+                  backgroundColor: 'var(--input-background)',
+                  color: 'var(--foreground)',
+                  borderWidth: errors.expiry ? '2px' : '1px',
+                  borderStyle: 'solid',
+                  borderColor: errors.expiry ? 'var(--destructive)' : 'var(--border)'
+                }}
                 maxLength={2}
               />
-              <span className="flex items-center text-gray-500">/</span>
+              <span style={{ color: 'var(--muted-foreground)' }}>/</span>
               <input
                 type="text"
                 value={expiryYear}
                 onChange={(e) => handleExpiryYearChange(e.target.value)}
+                onFocus={() => setFocusedField('expiryYear')}
+                onBlur={() => setFocusedField(null)}
                 placeholder="YY"
-                className={`w-full p-4 border-2 rounded-lg ${
-                  errors.expiry ? 'border-red-500' : 'border-gray-300'
-                } focus:outline-none focus:border-gray-800`}
+                className={`w-full p-4 rounded-xl outline-none transition-all duration-300 ${focusedField === 'expiryYear' ? 'shadow-glow' : 'shadow-card'}`}
+                style={{
+                  backgroundColor: 'var(--input-background)',
+                  color: 'var(--foreground)',
+                  borderWidth: errors.expiry ? '2px' : '1px',
+                  borderStyle: 'solid',
+                  borderColor: errors.expiry ? 'var(--destructive)' : 'var(--border)'
+                }}
                 maxLength={2}
               />
             </div>
             {errors.expiry && (
-              <div className="flex items-center gap-2 mt-2 text-red-500">
+              <div className="flex items-center gap-2 mt-2" style={{ color: 'var(--destructive)' }}>
                 <AlertCircle className="w-4 h-4" />
-                <span className="text-red-500">{errors.expiry}</span>
+                <span className="text-sm">{errors.expiry}</span>
               </div>
             )}
           </div>
-          <div>
-            <label className="block text-gray-700 mb-2">CVV *</label>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+            <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>CVV *</label>
             <input
               type="text"
               value={cvv}
               onChange={(e) => handleCvvChange(e.target.value)}
+              onFocus={() => setFocusedField('cvv')}
+              onBlur={() => setFocusedField(null)}
               placeholder="123"
-              className={`w-full p-4 border-2 rounded-lg ${
-                errors.cvv ? 'border-red-500' : 'border-gray-300'
-              } focus:outline-none focus:border-gray-800`}
+              className={inputClass('cvv', !!errors.cvv)}
+              style={{
+                backgroundColor: 'var(--input-background)',
+                color: 'var(--foreground)',
+                borderColor: errors.cvv ? 'var(--destructive)' : 'var(--border)'
+              }}
             />
             {errors.cvv && (
-              <div className="flex items-center gap-2 mt-2 text-red-500">
+              <div className="flex items-center gap-2 mt-2" style={{ color: 'var(--destructive)' }}>
                 <AlertCircle className="w-4 h-4" />
-                <span className="text-red-500">{errors.cvv}</span>
+                <span className="text-sm">{errors.cvv}</span>
               </div>
             )}
           </div>
         </div>
 
         {/* Set as Default */}
-        <div className="mb-6">
+        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
           <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={isDefault}
-              onChange={(e) => setIsDefault(e.target.checked)}
-              className="w-5 h-5 rounded border-2 border-gray-300 text-gray-800 focus:ring-0 focus:ring-offset-0"
-            />
-            <span className="text-gray-700">Set as default payment method</span>
+            <div
+              onClick={() => setIsDefault(!isDefault)}
+              className={`w-6 h-6 rounded-md flex items-center justify-center transition-all duration-300 ${isDefault ? '' : 'shadow-card'}`}
+              style={{
+                background: isDefault ? 'var(--primary-gradient)' : 'var(--card)',
+                border: isDefault ? 'none' : '1px solid var(--border)'
+              }}
+            >
+              {isDefault && (
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </div>
+            <span style={{ color: 'var(--foreground)' }}>Set as default payment method</span>
           </label>
         </div>
 
         {/* Security Notice */}
-        <div className="flex items-center justify-center gap-2 p-4 bg-gray-100 rounded-lg mb-6">
-          <Lock className="w-5 h-5 text-gray-600" />
-          <span className="text-gray-700">Secured by Stripe</span>
+        <div
+          className="flex items-center justify-center gap-2 p-4 rounded-xl mb-6 animate-fade-in-up"
+          style={{
+            background: 'var(--primary-gradient)',
+            animationDelay: '0.35s'
+          }}
+        >
+          <Lock className="w-5 h-5 text-white" />
+          <span className="text-white font-medium">Secured by Stripe</span>
         </div>
 
         {/* Save Button */}
         <button
           onClick={handleSave}
-          className="w-full py-4 bg-gray-800 text-white rounded-lg hover:bg-gray-900"
+          className="w-full py-4 rounded-xl text-white font-semibold shadow-premium-md transition-all duration-300 hover:shadow-premium-lg hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
+          style={{ background: 'var(--primary-gradient)', animationDelay: '0.4s' }}
         >
           Add Card
         </button>

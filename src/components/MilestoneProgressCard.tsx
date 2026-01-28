@@ -59,42 +59,49 @@ export function MilestoneProgressCard({
     return (
       <button
         onClick={onViewDetails}
-        className="w-full flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+        className="w-full flex items-center justify-between p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
+        style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
       >
         <div className="flex items-center gap-3">
           <span className="text-xl">{displayIcon}</span>
           <div className="text-left">
-            <p className="font-medium text-gray-900">{displayLabel}</p>
-            <p className="text-sm text-gray-600">{orderCount} orders • {achievedCount}/4 milestones</p>
+            <p className="font-medium" style={{ color: 'var(--foreground)' }}>{displayLabel}</p>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{orderCount} orders • {achievedCount}/4 milestones</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
           {nextMilestone && (
-            <span className="text-sm text-amber-600 font-medium">
+            <span className="text-sm font-medium" style={{ color: 'rgb(245, 158, 11)' }}>
               {nextMilestone.target - orderCount} to next
             </span>
           )}
-          <ChevronRight className="w-5 h-5 text-gray-400" />
+          <ChevronRight className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
         </div>
       </button>
     );
   }
 
   return (
-    <div className="bg-white border-2 border-gray-200 rounded-xl p-4">
+    <div
+      className="rounded-xl p-4 shadow-card"
+      style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
           <span className="text-2xl">{displayIcon}</span>
           <div>
-            <h4 className="font-semibold text-gray-900">{displayLabel}</h4>
-            <p className="text-sm text-gray-600">{orderCount} orders completed</p>
+            <h4 className="font-semibold" style={{ color: 'var(--foreground)' }}>{displayLabel}</h4>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{orderCount} orders completed</p>
           </div>
         </div>
         {achievedCount > 0 && (
-          <div className="flex items-center gap-1 px-2 py-1 bg-green-100 rounded-full">
-            <CheckCircle2 className="w-4 h-4 text-green-600" />
-            <span className="text-xs font-medium text-green-700">{achievedCount}/4</span>
+          <div
+            className="flex items-center gap-1 px-2 py-1 rounded-full"
+            style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)' }}
+          >
+            <CheckCircle2 className="w-4 h-4" style={{ color: 'rgb(34, 197, 94)' }} />
+            <span className="text-xs font-medium" style={{ color: 'rgb(22, 163, 74)' }}>{achievedCount}/4</span>
           </div>
         )}
       </div>
@@ -103,15 +110,21 @@ export function MilestoneProgressCard({
       {nextMilestone && (
         <div className="mb-4">
           <div className="flex justify-between text-sm mb-1">
-            <span className="text-gray-600">
+            <span style={{ color: 'var(--muted-foreground)' }}>
               {orderCount}/{nextMilestone.target} orders
             </span>
-            <span className="font-medium text-amber-600">+{nextMilestone.points} pts</span>
+            <span className="font-medium" style={{ color: 'rgb(245, 158, 11)' }}>+{nextMilestone.points} pts</span>
           </div>
-          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div
+            className="h-2 rounded-full overflow-hidden"
+            style={{ backgroundColor: 'var(--muted)' }}
+          >
             <div
-              className="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all duration-500"
-              style={{ width: `${progressToNext}%` }}
+              className="h-full rounded-full transition-all duration-500"
+              style={{
+                width: `${progressToNext}%`,
+                background: 'linear-gradient(90deg, rgb(245, 158, 11), rgb(249, 115, 22))'
+              }}
             />
           </div>
         </div>
@@ -119,24 +132,37 @@ export function MilestoneProgressCard({
 
       {/* Milestone Badges */}
       <div className="flex items-center justify-between">
-        {milestones.map((milestone, index) => (
+        {milestones.map((milestone) => (
           <div key={milestone.target} className="flex flex-col items-center">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold border-2 ${
-              milestone.achieved
-                ? 'bg-gradient-to-br from-amber-400 to-orange-500 border-amber-500 text-white'
-                : orderCount >= milestone.target
-                  ? 'bg-amber-100 border-amber-300 text-amber-700'
-                  : 'bg-gray-50 border-gray-200 text-gray-400'
-            }`}>
+            <div
+              className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold shadow-card"
+              style={{
+                background: milestone.achieved
+                  ? 'linear-gradient(135deg, rgb(245, 158, 11), rgb(249, 115, 22))'
+                  : orderCount >= milestone.target
+                    ? 'rgba(245, 158, 11, 0.2)'
+                    : 'var(--muted)',
+                color: milestone.achieved
+                  ? 'white'
+                  : orderCount >= milestone.target
+                    ? 'rgb(180, 83, 9)'
+                    : 'var(--muted-foreground)',
+                border: milestone.achieved ? 'none' : '2px solid var(--border)'
+              }}
+            >
               {milestone.achieved ? (
                 <CheckCircle2 className="w-5 h-5" />
               ) : (
                 milestone.target
               )}
             </div>
-            <span className={`text-xs mt-1 ${
-              milestone.achieved ? 'text-amber-600 font-medium' : 'text-gray-400'
-            }`}>
+            <span
+              className="text-xs mt-1"
+              style={{
+                color: milestone.achieved ? 'rgb(245, 158, 11)' : 'var(--muted-foreground)',
+                fontWeight: milestone.achieved ? 500 : 400
+              }}
+            >
               {milestone.achieved ? `+${milestone.points}` : `${milestone.points} pts`}
             </span>
           </div>
@@ -173,33 +199,45 @@ export function MilestoneSummaryCard({
   };
 
   return (
-    <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4">
+    <div
+      className="rounded-xl p-4 shadow-premium-sm"
+      style={{
+        background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
+        border: '1px solid rgba(245, 158, 11, 0.3)'
+      }}
+    >
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center">
+        <div
+          className="w-10 h-10 rounded-full flex items-center justify-center shadow-premium-sm"
+          style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(249, 115, 22))' }}
+        >
           <Target className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h3 className="font-semibold text-gray-900">Category Milestones</h3>
-          <p className="text-sm text-gray-600">Complete orders to earn bonus points</p>
+          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Category Milestones</h3>
+          <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Complete orders to earn bonus points</p>
         </div>
       </div>
 
       {/* Stats */}
-      <div className="flex items-center justify-around mb-4 p-3 bg-white/50 rounded-lg">
+      <div
+        className="flex items-center justify-around mb-4 p-3 rounded-lg"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}
+      >
         <div className="text-center">
-          <p className="text-2xl font-bold text-amber-600">{totalAchieved}</p>
-          <p className="text-xs text-gray-600">Achieved</p>
+          <p className="text-2xl font-bold" style={{ color: 'rgb(245, 158, 11)' }}>{totalAchieved}</p>
+          <p className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Achieved</p>
         </div>
-        <div className="h-8 w-px bg-amber-200" />
+        <div className="h-8 w-px" style={{ backgroundColor: 'rgba(245, 158, 11, 0.3)' }} />
         <div className="text-center">
-          <p className="text-2xl font-bold text-gray-700">{totalMilestones - totalAchieved}</p>
-          <p className="text-xs text-gray-600">Remaining</p>
+          <p className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{totalMilestones - totalAchieved}</p>
+          <p className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Remaining</p>
         </div>
-        <div className="h-8 w-px bg-amber-200" />
+        <div className="h-8 w-px" style={{ backgroundColor: 'rgba(245, 158, 11, 0.3)' }} />
         <div className="text-center">
-          <p className="text-2xl font-bold text-green-600">+{totalPointsEarned}</p>
-          <p className="text-xs text-gray-600">Pts Earned</p>
+          <p className="text-2xl font-bold" style={{ color: 'rgb(34, 197, 94)' }}>+{totalPointsEarned}</p>
+          <p className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Pts Earned</p>
         </div>
       </div>
 
@@ -219,40 +257,49 @@ export function MilestoneSummaryCard({
               {/* Category Header Row */}
               <button
                 onClick={() => toggleCategory(key)}
-                className={`w-full flex items-center justify-between p-3 rounded-lg transition-colors ${
-                  isExpanded
-                    ? 'bg-white border border-amber-300'
-                    : 'hover:bg-white/50'
-                }`}
+                className="w-full flex items-center justify-between p-3 rounded-lg transition-all duration-300"
+                style={{
+                  backgroundColor: isExpanded ? 'var(--card)' : 'transparent',
+                  border: isExpanded ? '1px solid rgba(245, 158, 11, 0.3)' : '1px solid transparent'
+                }}
               >
                 <div className="flex items-center gap-2">
                   <span className="text-lg">{config?.icon}</span>
-                  <span className="text-sm font-medium text-gray-900">{config?.label}</span>
+                  <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>{config?.label}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-0.5">
                     {[0, 1, 2, 3].map(i => (
                       <div
                         key={i}
-                        className={`w-2 h-2 rounded-full ${
-                          i < achieved ? 'bg-amber-500' : 'bg-gray-300'
-                        }`}
+                        className="w-2 h-2 rounded-full"
+                        style={{
+                          backgroundColor: i < achieved ? 'rgb(245, 158, 11)' : 'var(--muted)'
+                        }}
                       />
                     ))}
                   </div>
                   {isExpanded ? (
-                    <ChevronDown className="w-4 h-4 text-amber-600" />
+                    <ChevronDown className="w-4 h-4" style={{ color: 'rgb(245, 158, 11)' }} />
                   ) : (
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                    <ChevronRight className="w-4 h-4" style={{ color: 'var(--muted-foreground)' }} />
                   )}
                 </div>
               </button>
 
               {/* Expanded Details */}
               {isExpanded && (
-                <div className="bg-white border border-t-0 border-amber-300 rounded-b-lg p-4 -mt-1">
+                <div
+                  className="p-4 -mt-1 rounded-b-lg"
+                  style={{
+                    backgroundColor: 'var(--card)',
+                    borderLeft: '1px solid rgba(245, 158, 11, 0.3)',
+                    borderRight: '1px solid rgba(245, 158, 11, 0.3)',
+                    borderBottom: '1px solid rgba(245, 158, 11, 0.3)'
+                  }}
+                >
                   {/* Order Count */}
-                  <p className="text-sm text-gray-600 mb-3">
+                  <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>
                     {data.orderCount} order{data.orderCount !== 1 ? 's' : ''} completed
                   </p>
 
@@ -260,18 +307,24 @@ export function MilestoneSummaryCard({
                   {nextMilestone && (
                     <div className="mb-4">
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="text-gray-600">
+                        <span style={{ color: 'var(--muted-foreground)' }}>
                           {data.orderCount}/{nextMilestone.target} orders
                         </span>
-                        <span className="font-medium text-amber-600">+{nextMilestone.points} pts</span>
+                        <span className="font-medium" style={{ color: 'rgb(245, 158, 11)' }}>+{nextMilestone.points} pts</span>
                       </div>
-                      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div
+                        className="h-2 rounded-full overflow-hidden"
+                        style={{ backgroundColor: 'var(--muted)' }}
+                      >
                         <div
-                          className="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all duration-500"
-                          style={{ width: `${progressToNext}%` }}
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${progressToNext}%`,
+                            background: 'linear-gradient(90deg, rgb(245, 158, 11), rgb(249, 115, 22))'
+                          }}
                         />
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-xs mt-1" style={{ color: 'var(--muted-foreground)' }}>
                         {nextMilestone.target - data.orderCount} more order{nextMilestone.target - data.orderCount !== 1 ? 's' : ''} to unlock
                       </p>
                     </div>
@@ -279,10 +332,16 @@ export function MilestoneSummaryCard({
 
                   {/* All milestones completed */}
                   {!nextMilestone && (
-                    <div className="mb-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                    <div
+                      className="mb-4 p-3 rounded-lg"
+                      style={{
+                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                        border: '1px solid rgba(34, 197, 94, 0.3)'
+                      }}
+                    >
                       <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-5 h-5 text-green-600" />
-                        <span className="text-sm font-medium text-green-700">All milestones completed!</span>
+                        <CheckCircle2 className="w-5 h-5" style={{ color: 'rgb(34, 197, 94)' }} />
+                        <span className="text-sm font-medium" style={{ color: 'rgb(22, 163, 74)' }}>All milestones completed!</span>
                       </div>
                     </div>
                   )}
@@ -291,22 +350,35 @@ export function MilestoneSummaryCard({
                   <div className="flex items-center justify-between">
                     {data.milestones.map((milestone) => (
                       <div key={milestone.target} className="flex flex-col items-center">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold border-2 ${
-                          milestone.achieved
-                            ? 'bg-gradient-to-br from-amber-400 to-orange-500 border-amber-500 text-white'
-                            : data.orderCount >= milestone.target
-                              ? 'bg-amber-100 border-amber-300 text-amber-700'
-                              : 'bg-gray-50 border-gray-200 text-gray-400'
-                        }`}>
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold shadow-card"
+                          style={{
+                            background: milestone.achieved
+                              ? 'linear-gradient(135deg, rgb(245, 158, 11), rgb(249, 115, 22))'
+                              : data.orderCount >= milestone.target
+                                ? 'rgba(245, 158, 11, 0.2)'
+                                : 'var(--muted)',
+                            color: milestone.achieved
+                              ? 'white'
+                              : data.orderCount >= milestone.target
+                                ? 'rgb(180, 83, 9)'
+                                : 'var(--muted-foreground)',
+                            border: milestone.achieved ? 'none' : '2px solid var(--border)'
+                          }}
+                        >
                           {milestone.achieved ? (
                             <CheckCircle2 className="w-5 h-5" />
                           ) : (
                             milestone.target
                           )}
                         </div>
-                        <span className={`text-xs mt-1 ${
-                          milestone.achieved ? 'text-amber-600 font-medium' : 'text-gray-400'
-                        }`}>
+                        <span
+                          className="text-xs mt-1"
+                          style={{
+                            color: milestone.achieved ? 'rgb(245, 158, 11)' : 'var(--muted-foreground)',
+                            fontWeight: milestone.achieved ? 500 : 400
+                          }}
+                        >
                           {milestone.achieved ? `+${milestone.points}` : `${milestone.points} pts`}
                         </span>
                       </div>

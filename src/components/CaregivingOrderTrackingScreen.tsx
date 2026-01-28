@@ -31,22 +31,40 @@ export function CaregivingOrderTrackingScreen({
     }
   };
 
+  const gradientColor = serviceType === 'ride'
+    ? 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))'
+    : 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))';
+
+  const primaryColor = serviceType === 'ride' ? 'rgb(168, 85, 247)' : 'rgb(236, 72, 153)';
+
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4 bg-white sticky top-0 z-10">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900">Booking Status</h1>
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Booking Status</h1>
+        </div>
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto relative z-10">
         <div className="px-6 py-6 space-y-6">
           {/* Status Timeline */}
-          <div className="p-6 bg-gray-50 rounded-xl">
-            <h3 className="text-gray-900 mb-6">Status</h3>
+          <div
+            className="p-6 rounded-xl shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <h3 className="font-semibold mb-6" style={{ color: 'var(--foreground)' }}>Status</h3>
             <div className="space-y-4">
               {statuses.map((status, index) => {
                 const isCompleted = index < currentStatusIndex;
@@ -57,41 +75,41 @@ export function CaregivingOrderTrackingScreen({
                   <div key={status} className="flex items-start gap-4">
                     <div className="flex flex-col items-center">
                       <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                          isCompleted || isCurrent
-                            ? 'bg-gray-900'
-                            : 'bg-gray-200'
-                        }`}
+                        className="w-10 h-10 rounded-full flex items-center justify-center shadow-premium-sm transition-all duration-300"
+                        style={{
+                          background: isCompleted || isCurrent ? gradientColor : 'var(--muted)'
+                        }}
                       >
                         {isCompleted ? (
                           <Check className="w-6 h-6 text-white" strokeWidth={3} />
                         ) : (
                           <div
-                            className={`w-3 h-3 rounded-full ${
-                              isCurrent ? 'bg-white' : 'bg-gray-400'
-                            }`}
+                            className="w-3 h-3 rounded-full"
+                            style={{
+                              backgroundColor: isCurrent ? 'white' : 'var(--muted-foreground)'
+                            }}
                           />
                         )}
                       </div>
                       {index < statuses.length - 1 && (
                         <div
-                          className={`w-0.5 h-12 ${
-                            isCompleted ? 'bg-gray-900' : 'bg-gray-200'
-                          }`}
+                          className="w-0.5 h-12 transition-all duration-300"
+                          style={{
+                            backgroundColor: isCompleted ? primaryColor : 'var(--border)'
+                          }}
                         />
                       )}
                     </div>
                     <div className="flex-1 pt-1">
                       <p
-                        className={`mb-1 ${
-                          isCompleted || isCurrent
-                            ? 'text-gray-900'
-                            : 'text-gray-500'
-                        }`}
+                        className="font-medium mb-1"
+                        style={{
+                          color: isCompleted || isCurrent ? 'var(--foreground)' : 'var(--muted-foreground)'
+                        }}
                       >
                         {status}
                       </p>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
                         {statusDescriptions[serviceType][status]}
                       </p>
                     </div>
@@ -103,35 +121,53 @@ export function CaregivingOrderTrackingScreen({
 
           {/* Provider/Companion Info */}
           {serviceType === 'ride' ? (
-            <div className="p-4 border-2 border-gray-200 rounded-xl">
-              <h3 className="text-gray-900 mb-3">Ride Provider</h3>
+            <div
+              className="p-4 rounded-xl shadow-card animate-fade-in-up"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+            >
+              <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Ride Provider</h3>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-gray-200 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <span className="text-gray-600 text-xl">🚗</span>
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                  style={{ background: gradientColor }}
+                >
+                  <span className="text-white text-xl">🚗</span>
                 </div>
                 <div className="flex-1">
-                  <p className="text-gray-900">{bookingData.provider.name}</p>
-                  <p className="text-gray-600 text-sm">Transportation Service</p>
+                  <p className="font-medium" style={{ color: 'var(--foreground)' }}>{bookingData.provider.name}</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Transportation Service</p>
                 </div>
               </div>
-              <button className="w-full py-3 bg-gray-900 text-white rounded-xl flex items-center justify-center gap-2">
+              <button
+                className="w-full py-3 rounded-xl text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+                style={{ background: gradientColor }}
+              >
                 <Phone className="w-5 h-5" />
                 Contact Provider
               </button>
             </div>
           ) : (
-            <div className="p-4 border-2 border-gray-200 rounded-xl">
-              <h3 className="text-gray-900 mb-3">Your Companion</h3>
+            <div
+              className="p-4 rounded-xl shadow-card animate-fade-in-up"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+            >
+              <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Your Companion</h3>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-                  <span className="text-gray-600 text-xl">👤</span>
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                  style={{ background: gradientColor }}
+                >
+                  <span className="text-white text-xl">👤</span>
                 </div>
                 <div className="flex-1">
-                  <p className="text-gray-900">{bookingData.companion.name}</p>
-                  <p className="text-gray-600 text-sm">{bookingData.companion.yearsExperience} years experience</p>
+                  <p className="font-medium" style={{ color: 'var(--foreground)' }}>{bookingData.companion.name}</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{bookingData.companion.yearsExperience} years experience</p>
                 </div>
               </div>
-              <button className="w-full py-3 bg-gray-900 text-white rounded-xl flex items-center justify-center gap-2">
+              <button
+                className="w-full py-3 rounded-xl text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+                style={{ background: gradientColor }}
+              >
                 <Phone className="w-5 h-5" />
                 Contact Companion
               </button>
@@ -139,32 +175,35 @@ export function CaregivingOrderTrackingScreen({
           )}
 
           {/* Service Details */}
-          <div className="p-4 border-2 border-gray-200 rounded-xl">
-            <h3 className="text-gray-900 mb-3">Service Details</h3>
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+          >
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Service Details</h3>
             <div className="space-y-2">
               <div className="flex justify-between">
-                <span className="text-gray-600">Date</span>
-                <span className="text-gray-900">{bookingData.date}</span>
+                <span style={{ color: 'var(--muted-foreground)' }}>Date</span>
+                <span style={{ color: 'var(--foreground)' }}>{bookingData.date}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Time</span>
-                <span className="text-gray-900">{bookingData.time}</span>
+                <span style={{ color: 'var(--muted-foreground)' }}>Time</span>
+                <span style={{ color: 'var(--foreground)' }}>{bookingData.time}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Duration</span>
-                <span className="text-gray-900">{bookingData.duration} hours</span>
+                <span style={{ color: 'var(--muted-foreground)' }}>Duration</span>
+                <span style={{ color: 'var(--foreground)' }}>{bookingData.duration} hours</span>
               </div>
               {serviceType === 'ride' && (
                 <>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Pickup</span>
-                    <span className="text-gray-900 text-right">{bookingData.pickupAddress?.label}</span>
+                    <span style={{ color: 'var(--muted-foreground)' }}>Pickup</span>
+                    <span className="text-right" style={{ color: 'var(--foreground)' }}>{bookingData.pickupAddress?.label}</span>
                   </div>
                   {bookingData.stops && bookingData.stops.length > 0 && (
                     <div className="pt-2">
-                      <p className="text-gray-600 mb-2">Stops</p>
+                      <p className="mb-2" style={{ color: 'var(--muted-foreground)' }}>Stops</p>
                       {bookingData.stops.map((stop: any, index: number) => (
-                        <div key={stop.id} className="text-gray-900 text-sm ml-4 mb-1">
+                        <div key={stop.id} className="text-sm ml-4 mb-1" style={{ color: 'var(--foreground)' }}>
                           {index + 1}. {stop.purpose}
                         </div>
                       ))}
@@ -172,8 +211,8 @@ export function CaregivingOrderTrackingScreen({
                   )}
                   {bookingData.isRoundTrip && (
                     <div className="flex justify-between pt-2">
-                      <span className="text-gray-600">Round Trip</span>
-                      <span className="text-gray-900">Yes</span>
+                      <span style={{ color: 'var(--muted-foreground)' }}>Round Trip</span>
+                      <span style={{ color: 'var(--foreground)' }}>Yes</span>
                     </div>
                   )}
                 </>
@@ -181,8 +220,8 @@ export function CaregivingOrderTrackingScreen({
               {serviceType === 'companionship' && (
                 <>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Location</span>
-                    <span className="text-gray-900 text-right">{bookingData.serviceLocation?.label}</span>
+                    <span style={{ color: 'var(--muted-foreground)' }}>Location</span>
+                    <span className="text-right" style={{ color: 'var(--foreground)' }}>{bookingData.serviceLocation?.label}</span>
                   </div>
                 </>
               )}
@@ -191,25 +230,34 @@ export function CaregivingOrderTrackingScreen({
 
           {/* Updates / Check-in Notes (for Companionship) */}
           {serviceType === 'companionship' && currentStatusIndex >= 1 && (
-            <div className="p-4 border-2 border-gray-200 rounded-xl">
-              <h3 className="text-gray-900 mb-3">Check-in Notes</h3>
+            <div
+              className="p-4 rounded-xl shadow-card animate-fade-in-up"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+            >
+              <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Check-in Notes</h3>
               <div className="space-y-3">
-                <div className="p-3 bg-gray-50 rounded-xl">
+                <div
+                  className="p-3 rounded-xl"
+                  style={{ backgroundColor: 'rgba(236, 72, 153, 0.05)', border: '1px solid rgba(236, 72, 153, 0.2)' }}
+                >
                   <div className="flex justify-between mb-2">
-                    <span className="text-gray-900 text-sm">10:30 AM</span>
-                    <span className="text-gray-600 text-sm">Session started</span>
+                    <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>10:30 AM</span>
+                    <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Session started</span>
                   </div>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
                     Arrived on time. Beginning activities as planned.
                   </p>
                 </div>
                 {currentStatusIndex >= 2 && (
-                  <div className="p-3 bg-gray-50 rounded-xl">
+                  <div
+                    className="p-3 rounded-xl"
+                    style={{ backgroundColor: 'rgba(236, 72, 153, 0.05)', border: '1px solid rgba(236, 72, 153, 0.2)' }}
+                  >
                     <div className="flex justify-between mb-2">
-                      <span className="text-gray-900 text-sm">12:15 PM</span>
-                      <span className="text-gray-600 text-sm">Session completed</span>
+                      <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>12:15 PM</span>
+                      <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Session completed</span>
                     </div>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
                       Session went well. Patient enjoyed activities and conversation.
                     </p>
                   </div>
@@ -220,14 +268,20 @@ export function CaregivingOrderTrackingScreen({
 
           {/* Updates (for Ride) */}
           {serviceType === 'ride' && currentStatusIndex >= 1 && (
-            <div className="p-4 border-2 border-gray-200 rounded-xl">
-              <h3 className="text-gray-900 mb-3">Updates</h3>
+            <div
+              className="p-4 rounded-xl shadow-card animate-fade-in-up"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+            >
+              <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Updates</h3>
               <div className="space-y-3">
-                <div className="p-3 bg-gray-50 rounded-xl">
+                <div
+                  className="p-3 rounded-xl"
+                  style={{ backgroundColor: 'rgba(168, 85, 247, 0.05)', border: '1px solid rgba(168, 85, 247, 0.2)' }}
+                >
                   <div className="flex justify-between mb-2">
-                    <span className="text-gray-900 text-sm">9:00 AM</span>
+                    <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>9:00 AM</span>
                   </div>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
                     Service in progress. Currently en route to first stop.
                   </p>
                 </div>
@@ -236,10 +290,19 @@ export function CaregivingOrderTrackingScreen({
           )}
 
           {/* Total Amount */}
-          <div className="p-4 bg-gray-50 rounded-xl">
-            <div className="flex justify-between">
-              <span className="text-gray-900">Total Amount</span>
-              <span className="text-gray-900 text-xl">${bookingData.total}</span>
+          <div
+            className="p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+            style={{
+              background: serviceType === 'ride'
+                ? 'linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.1))'
+                : 'linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(219, 39, 119, 0.1))',
+              border: `1px solid ${serviceType === 'ride' ? 'rgba(168, 85, 247, 0.3)' : 'rgba(236, 72, 153, 0.3)'}`,
+              animationDelay: '0.2s'
+            }}
+          >
+            <div className="flex justify-between items-center">
+              <span className="font-medium" style={{ color: 'var(--foreground)' }}>Total Amount</span>
+              <span className="text-xl font-bold" style={{ color: primaryColor }}>${bookingData.total}</span>
             </div>
           </div>
 

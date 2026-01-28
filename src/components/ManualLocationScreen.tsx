@@ -1,4 +1,4 @@
-import { ArrowLeft, Search, MapPin } from 'lucide-react';
+import { ArrowLeft, Search, MapPin, Check } from 'lucide-react';
 import { useState } from 'react';
 
 interface ManualLocationScreenProps {
@@ -20,57 +20,91 @@ export function ManualLocationScreen({ onConfirm }: ManualLocationScreenProps) {
   const [selected, setSelected] = useState('');
 
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      {/* Header */}
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4 mb-4">
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-          <h3 className="text-gray-900">Select Location</h3>
+          <div
+            className="p-2 rounded-xl"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </div>
+          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Select Location</h3>
         </div>
-        
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-          <input 
+
+        {/* Search Input */}
+        <div className="relative animate-fade-in-up">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
+          <input
             type="text"
             placeholder="Search city or region"
-            className="w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-lg"
+            className="w-full pl-12 pr-4 py-3 rounded-xl outline-none transition-all duration-300 shadow-card focus:shadow-premium-sm"
+            style={{
+              backgroundColor: 'var(--card)',
+              border: '2px solid var(--border)',
+              color: 'var(--foreground)'
+            }}
+            onFocus={(e) => e.target.style.borderColor = 'var(--primary)'}
+            onBlur={(e) => e.target.style.borderColor = 'var(--border)'}
           />
         </div>
       </div>
-      
-      <div className="flex-1 overflow-y-auto px-6 py-4">
+
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto px-6 py-4 relative z-10">
         <div className="mb-4">
-          <p className="text-gray-500 mb-3">Popular Cities</p>
-          <div className="space-y-2">
-            {locations.map((loc) => (
-              <button
-                key={`${loc.city}-${loc.country}`}
-                onClick={() => setSelected(`${loc.city}, ${loc.country}`)}
-                className={`w-full p-4 rounded-lg border-2 text-left flex items-center gap-3 ${
-                  selected === `${loc.city}, ${loc.country}` 
-                    ? 'border-gray-800 bg-gray-100' 
-                    : 'border-gray-200'
-                }`}
-              >
-                <MapPin className="w-5 h-5 text-gray-600" />
-                <div>
-                  <p className="text-gray-900">{loc.city}</p>
-                  <p className="text-gray-500">{loc.country}</p>
-                </div>
-              </button>
-            ))}
+          <p className="mb-3 animate-fade-in-up" style={{ color: 'var(--muted-foreground)' }}>Popular Cities</p>
+          <div className="space-y-3">
+            {locations.map((loc, index) => {
+              const isSelected = selected === `${loc.city}, ${loc.country}`;
+              return (
+                <button
+                  key={`${loc.city}-${loc.country}`}
+                  onClick={() => setSelected(`${loc.city}, ${loc.country}`)}
+                  className="w-full p-4 rounded-xl text-left flex items-center gap-3 shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+                  style={{
+                    backgroundColor: isSelected ? 'rgba(46, 122, 217, 0.1)' : 'var(--card)',
+                    border: isSelected ? '2px solid var(--primary)' : '1px solid var(--border)',
+                    animationDelay: `${0.05 + index * 0.05}s`
+                  }}
+                >
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                    style={{
+                      backgroundColor: isSelected ? 'var(--primary)' : 'rgba(46, 122, 217, 0.1)'
+                    }}
+                  >
+                    {isSelected ? (
+                      <Check className="w-5 h-5 text-white" />
+                    ) : (
+                      <MapPin className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-medium" style={{ color: 'var(--foreground)' }}>{loc.city}</p>
+                    <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{loc.country}</p>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
-      
-      <div className="p-6 border-t-2 border-gray-200">
-        <button 
+
+      {/* Bottom Action */}
+      <div className="p-6 glass relative z-10" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <button
           onClick={() => selected && onConfirm(selected)}
           disabled={!selected}
-          className={`w-full py-4 rounded-lg border-2 ${
-            selected 
-              ? 'bg-gray-800 text-white border-gray-800' 
-              : 'bg-gray-200 text-gray-400 border-gray-200'
-          }`}
+          className="w-full py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100"
+          style={{
+            background: selected ? 'var(--primary-gradient)' : 'var(--muted)',
+            color: selected ? 'white' : 'var(--muted-foreground)'
+          }}
         >
           Confirm Location
         </button>

@@ -88,7 +88,7 @@ export function BeautyServiceBookingScreen({
     const today = new Date();
     const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    
+
     for (let i = 0; i < 7; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
@@ -141,54 +141,72 @@ export function BeautyServiceBookingScreen({
   const finalPrice = priceValue - discountAmount;
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack} className="text-gray-900">
-            <ArrowLeft className="w-6 h-6" />
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
           <div className="flex-1">
-            <h1 className="text-gray-900">Book Service</h1>
-            <p className="text-sm text-gray-600">{providerName}</p>
+            <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Book Service</h1>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{providerName}</p>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Service Details Section */}
-        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-6">
-          <h3 className="text-gray-900 mb-2">{service.name}</h3>
+        <div
+          className="p-4 rounded-xl shadow-card mb-6 animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+        >
+          <h3 className="font-medium mb-2" style={{ color: 'var(--foreground)' }}>{service.name}</h3>
           <div className="flex items-center gap-4 text-sm">
-            <span className="text-gray-600">{service.duration}</span>
-            <span className="text-gray-900">{service.price}</span>
+            <span style={{ color: 'var(--muted-foreground)' }}>{service.duration}</span>
+            <span className="font-semibold" style={{ color: 'var(--primary)' }}>{service.price}</span>
           </div>
         </div>
 
         {/* Booking Options */}
         <div className="space-y-4">
           {/* Select Date */}
-          <div>
-            <label className="block text-gray-900 mb-2">Select Date</label>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+            <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Select Date</label>
             <div className="relative">
               <button
                 onClick={() => {
                   setShowDatePicker(!showDatePicker);
                   setShowTimePicker(false);
+                  setShowPaymentPicker(false);
                 }}
-                className="w-full flex items-center gap-3 px-4 py-4 bg-white border border-gray-200 rounded-xl hover:border-gray-900 transition-colors"
+                className="w-full flex items-center gap-3 px-4 py-4 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{
+                  backgroundColor: 'var(--card)',
+                  border: '1px solid var(--border)'
+                }}
               >
-                <Calendar className="w-5 h-5 text-gray-600" />
-                <span className={`flex-1 text-left ${selectedDate ? 'text-gray-900' : 'text-gray-400'}`}>
+                <Calendar className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+                <span className="flex-1 text-left" style={{ color: selectedDate ? 'var(--foreground)' : 'var(--muted-foreground)' }}>
                   {selectedDate ? availableDates.find(d => d.value === selectedDate)?.display : 'Choose a date'}
                 </span>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
+                <ChevronDown className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
               </button>
-              
+
               {/* Date Dropdown */}
               {showDatePicker && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg z-10 max-h-64 overflow-y-auto">
+                <div
+                  className="absolute top-full left-0 right-0 mt-2 rounded-xl shadow-premium-md z-20 max-h-64 overflow-y-auto animate-fade-in"
+                  style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+                >
                   {availableDates.map((date) => (
                     <button
                       key={date.value}
@@ -196,9 +214,11 @@ export function BeautyServiceBookingScreen({
                         setSelectedDate(date.value);
                         setShowDatePicker(false);
                       }}
-                      className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors ${
-                        selectedDate === date.value ? 'bg-gray-100' : ''
-                      }`}
+                      className="w-full text-left px-4 py-3 transition-all duration-200"
+                      style={{
+                        backgroundColor: selectedDate === date.value ? 'var(--muted)' : 'transparent',
+                        color: 'var(--foreground)'
+                      }}
                     >
                       {date.display}
                     </button>
@@ -209,26 +229,34 @@ export function BeautyServiceBookingScreen({
           </div>
 
           {/* Select Time */}
-          <div>
-            <label className="block text-gray-900 mb-2">Select Time</label>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Select Time</label>
             <div className="relative">
               <button
                 onClick={() => {
                   setShowTimePicker(!showTimePicker);
                   setShowDatePicker(false);
+                  setShowPaymentPicker(false);
                 }}
-                className="w-full flex items-center gap-3 px-4 py-4 bg-white border border-gray-200 rounded-xl hover:border-gray-900 transition-colors"
+                className="w-full flex items-center gap-3 px-4 py-4 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{
+                  backgroundColor: 'var(--card)',
+                  border: '1px solid var(--border)'
+                }}
               >
-                <Clock className="w-5 h-5 text-gray-600" />
-                <span className={`flex-1 text-left ${selectedTime ? 'text-gray-900' : 'text-gray-400'}`}>
+                <Clock className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+                <span className="flex-1 text-left" style={{ color: selectedTime ? 'var(--foreground)' : 'var(--muted-foreground)' }}>
                   {selectedTime || 'Choose a time'}
                 </span>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
+                <ChevronDown className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
               </button>
-              
+
               {/* Time Dropdown */}
               {showTimePicker && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg z-10 p-4">
+                <div
+                  className="absolute top-full left-0 right-0 mt-2 p-4 rounded-xl shadow-premium-md z-20 animate-fade-in"
+                  style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+                >
                   <div className="grid grid-cols-2 gap-3">
                     {timeSlots.map((time) => (
                       <button
@@ -237,11 +265,12 @@ export function BeautyServiceBookingScreen({
                           setSelectedTime(time);
                           setShowTimePicker(false);
                         }}
-                        className={`py-3 text-center rounded-lg border transition-colors ${
-                          selectedTime === time
-                            ? 'bg-gray-900 text-white border-gray-900'
-                            : 'bg-white text-gray-700 border-gray-200 hover:border-gray-900'
-                        }`}
+                        className="py-3 text-center rounded-lg transition-all duration-300"
+                        style={{
+                          background: selectedTime === time ? 'var(--primary-gradient)' : 'transparent',
+                          color: selectedTime === time ? 'white' : 'var(--foreground)',
+                          border: selectedTime === time ? 'none' : '1px solid var(--border)'
+                        }}
                       >
                         {time}
                       </button>
@@ -253,21 +282,24 @@ export function BeautyServiceBookingScreen({
           </div>
 
           {/* Service Address - Not editable */}
-          <div>
-            <label className="block text-gray-900 mb-2">Service Address</label>
-            <div className="w-full p-4 border-2 border-gray-300 rounded-xl bg-gray-50">
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+            <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Service Address</label>
+            <div
+              className="w-full p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
               <div className="flex items-center gap-3 flex-1 min-w-0">
-                <MapPin className="w-5 h-5 text-gray-700 flex-shrink-0" />
+                <MapPin className="w-5 h-5 flex-shrink-0" style={{ color: 'var(--primary)' }} />
                 <div className="text-left flex-1 min-w-0">
                   {defaultAddress ? (
                     <>
-                      <p className="text-gray-900">{defaultAddress.label}</p>
-                      <p className="text-gray-600 text-sm truncate">
+                      <p style={{ color: 'var(--foreground)' }}>{defaultAddress.label}</p>
+                      <p className="text-sm truncate" style={{ color: 'var(--muted-foreground)' }}>
                         {defaultAddress.street}, {defaultAddress.city}
                       </p>
                     </>
                   ) : (
-                    <span className="text-gray-500">No address available</span>
+                    <span style={{ color: 'var(--muted-foreground)' }}>No address available</span>
                   )}
                 </div>
               </div>
@@ -275,8 +307,8 @@ export function BeautyServiceBookingScreen({
           </div>
 
           {/* Payment Method - Editable with dropdown */}
-          <div>
-            <label className="block text-gray-900 mb-2">Payment Method</label>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Payment Method</label>
             <div className="relative">
               <button
                 onClick={() => {
@@ -284,18 +316,26 @@ export function BeautyServiceBookingScreen({
                   setShowDatePicker(false);
                   setShowTimePicker(false);
                 }}
-                className="w-full flex items-center gap-3 px-4 py-4 bg-white border border-gray-200 rounded-xl hover:border-gray-900 transition-colors"
+                className="w-full flex items-center gap-3 px-4 py-4 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{
+                  backgroundColor: 'var(--card)',
+                  border: '1px solid var(--border)'
+                }}
               >
-                <CreditCard className="w-5 h-5 text-gray-600" />
-                <span className={`flex-1 text-left ${selectedCard ? 'text-gray-900' : 'text-gray-400'}`}>
+                <CreditCard className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+                <span className="flex-1 text-left" style={{ color: selectedCard ? 'var(--foreground)' : 'var(--muted-foreground)' }}>
                   {selectedCard ? `${getCardType(selectedCard.cardNumber)} •••• ${selectedCard.cardNumber.replace(/\s/g, '').slice(-4)}` : 'Choose payment method'}
                 </span>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
+                <ChevronDown className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
               </button>
-              
+
               {/* Payment Dropdown */}
               {showPaymentPicker && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg z-10 overflow-hidden">{paymentCards.length > 0 && (
+                <div
+                  className="absolute top-full left-0 right-0 mt-2 rounded-xl shadow-premium-md z-20 overflow-hidden animate-fade-in"
+                  style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+                >
+                  {paymentCards.length > 0 && (
                     <div className="max-h-64 overflow-y-auto">
                       {paymentCards.map((card) => (
                         <button
@@ -304,15 +344,17 @@ export function BeautyServiceBookingScreen({
                             setSelectedCardId(card.id.toString());
                             setShowPaymentPicker(false);
                           }}
-                          className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 ${
-                            selectedCardId === card.id.toString() ? 'bg-gray-100' : ''
-                          }`}
+                          className="w-full text-left px-4 py-3 transition-all duration-200"
+                          style={{
+                            backgroundColor: selectedCardId === card.id.toString() ? 'var(--muted)' : 'transparent',
+                            borderBottom: '1px solid var(--border)'
+                          }}
                         >
                           <div className="flex items-center gap-3">
-                            <CreditCard className="w-5 h-5 text-gray-600" />
+                            <CreditCard className="w-5 h-5" style={{ color: 'var(--primary)' }} />
                             <div>
-                              <p className="text-gray-900">{getCardType(card.cardNumber)} •••• {card.cardNumber.replace(/\s/g, '').slice(-4)}</p>
-                              <p className="text-sm text-gray-500">Expires {formatExpiry(card.expiryMonth, card.expiryYear)}</p>
+                              <p style={{ color: 'var(--foreground)' }}>{getCardType(card.cardNumber)} •••• {card.cardNumber.replace(/\s/g, '').slice(-4)}</p>
+                              <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Expires {formatExpiry(card.expiryMonth, card.expiryYear)}</p>
                             </div>
                           </div>
                         </button>
@@ -324,7 +366,11 @@ export function BeautyServiceBookingScreen({
                       setShowPaymentPicker(false);
                       onAddPaymentCard();
                     }}
-                    className="w-full px-4 py-3 bg-gray-50 text-gray-900 hover:bg-gray-100 transition-colors"
+                    className="w-full px-4 py-3 transition-all duration-300"
+                    style={{
+                      backgroundColor: 'var(--muted)',
+                      color: 'var(--primary)'
+                    }}
                   >
                     + Add New Card
                   </button>
@@ -335,7 +381,7 @@ export function BeautyServiceBookingScreen({
 
           {/* Points Redemption - Only for Powered by DoHuub providers */}
           {isPoweredByDoHuub && availablePoints > 0 && (
-            <div className="mt-6">
+            <div className="mt-6 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
               <PointsRedemptionCard
                 availablePoints={availablePoints}
                 selectedPoints={pointsToRedeem}
@@ -348,54 +394,66 @@ export function BeautyServiceBookingScreen({
           )}
 
           {/* Service Price */}
-          <div className="bg-gray-50 rounded-xl p-4 mt-6">
+          <div
+            className="rounded-xl p-4 mt-6 shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', animationDelay: '0.3s' }}
+          >
             <div className="flex items-center justify-between">
-              <span className="text-gray-900">Service Price</span>
-              <span className="text-gray-900">{service.price}</span>
+              <span style={{ color: 'var(--foreground)' }}>Service Price</span>
+              <span style={{ color: 'var(--foreground)' }}>{service.price}</span>
             </div>
             {pointsRedemptionEnabled && pointsToRedeem > 0 && (
               <>
-                <div className="flex items-center justify-between mt-2">
-                  <span className="text-green-600">Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
-                  <span className="text-green-600">-${discountAmount.toFixed(2)}</span>
+                <div className="flex items-center justify-between mt-2" style={{ color: 'rgb(34, 197, 94)' }}>
+                  <span>Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
+                  <span>-${discountAmount.toFixed(2)}</span>
                 </div>
-                <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-200">
-                  <span className="text-gray-900 font-semibold">Total</span>
-                  <span className="text-gray-900 font-semibold">${finalPrice.toFixed(2)}</span>
+                <div className="flex items-center justify-between mt-2 pt-2" style={{ borderTop: '1px solid var(--border)' }}>
+                  <span className="font-semibold" style={{ color: 'var(--foreground)' }}>Total</span>
+                  <span className="font-semibold" style={{ color: 'var(--primary)' }}>${finalPrice.toFixed(2)}</span>
                 </div>
               </>
             )}
-            <p className="text-sm text-gray-500 mt-2">Final price will be confirmed by the service provider</p>
+            <p className="text-sm mt-2" style={{ color: 'var(--muted-foreground)' }}>Final price will be confirmed by the service provider</p>
           </div>
 
           {/* Points Preview - Only for Powered by DoHuub providers */}
           {isPoweredByDoHuub && (
-            <div className="mt-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+            <div
+              className="mt-4 p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+              style={{
+                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
+                border: '1px solid rgba(245, 158, 11, 0.3)',
+                animationDelay: '0.35s'
+              }}
+            >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Gift className="w-5 h-5 text-amber-600" />
-                  <span className="font-medium text-amber-800">Points you'll earn</span>
+                  <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />
+                  <span className="font-medium" style={{ color: 'rgb(180, 83, 9)' }}>Points you'll earn</span>
                 </div>
-                <span className="text-lg font-bold text-amber-600">
+                <span className="text-lg font-bold" style={{ color: 'rgb(217, 119, 6)' }}>
                   +{Math.floor(finalPrice)} pts
                 </span>
               </div>
-              <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after service completion</p>
+              <p className="text-sm mt-1" style={{ color: 'rgb(217, 119, 6)' }}>1 point per $1 spent • Added after service completion</p>
             </div>
           )}
         </div>
       </div>
 
       {/* Bottom CTA */}
-      <div className="border-t border-gray-200 p-6">
+      <div className="p-6 glass relative z-10" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={handleConfirm}
           disabled={!isFormValid}
-          className={`w-full py-4 rounded-xl transition-colors ${
-            isFormValid
-              ? 'bg-gray-900 text-white hover:bg-gray-800'
-              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-          }`}
+          className="w-full py-4 rounded-xl font-medium transition-all duration-300"
+          style={{
+            background: isFormValid ? 'var(--primary-gradient)' : 'var(--muted)',
+            color: isFormValid ? 'white' : 'var(--muted-foreground)',
+            cursor: isFormValid ? 'pointer' : 'not-allowed',
+            boxShadow: isFormValid ? '0 4px 12px rgba(46, 122, 217, 0.3)' : 'none'
+          }}
         >
           Confirm Booking
         </button>

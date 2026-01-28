@@ -22,24 +22,37 @@ export function PaymentProcessingScreen({ onComplete }: PaymentProcessingScreenP
   }, [onComplete]);
 
   return (
-    <div className="h-full bg-white flex flex-col items-center justify-center px-6">
-      <div className="text-center">
+    <div className="h-full flex flex-col items-center justify-center px-6 relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      <div className="text-center relative z-10">
         {status === 'processing' ? (
-          <>
-            <div className="mb-6 flex justify-center">
-              <Loader className="w-20 h-20 text-gray-900 animate-spin" strokeWidth={2} />
+          <div className="animate-fade-in-up">
+            <div className="mb-8 flex justify-center">
+              <div
+                className="w-24 h-24 rounded-full flex items-center justify-center shadow-premium-md"
+                style={{ background: 'var(--primary-gradient)' }}
+              >
+                <Loader className="w-12 h-12 text-white animate-spin" strokeWidth={2} />
+              </div>
             </div>
-            <h2 className="text-gray-900 mb-2">Processing Payment</h2>
-            <p className="text-gray-600">Please wait while we process your payment...</p>
-          </>
+            <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>Processing Payment</h2>
+            <p style={{ color: 'var(--muted-foreground)' }}>Please wait while we process your payment...</p>
+          </div>
         ) : (
-          <>
-            <div className="mb-6 flex justify-center">
-              <CheckCircle className="w-20 h-20 text-gray-900" strokeWidth={2} />
+          <div className="animate-scale-in">
+            <div className="mb-8 flex justify-center">
+              <div
+                className="w-24 h-24 rounded-full flex items-center justify-center shadow-premium-md animate-bounce"
+                style={{ background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))' }}
+              >
+                <CheckCircle className="w-12 h-12 text-white" strokeWidth={2} />
+              </div>
             </div>
-            <h2 className="text-gray-900 mb-2">Payment Successful</h2>
-            <p className="text-gray-600">Your booking has been confirmed</p>
-          </>
+            <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>Payment Successful</h2>
+            <p style={{ color: 'var(--muted-foreground)' }}>Your booking has been confirmed</p>
+          </div>
         )}
       </div>
     </div>

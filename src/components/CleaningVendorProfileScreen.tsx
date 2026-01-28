@@ -42,71 +42,103 @@ export function CleaningVendorProfileScreen({
   ];
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4 bg-white sticky top-0 z-10">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+      <div className="px-6 py-4 glass relative z-10 flex items-center gap-4 sticky top-0" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <button
+          onClick={onBack}
+          className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+          style={{ backgroundColor: 'var(--card)' }}
+        >
+          <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
         </button>
-        <h1 className="text-gray-900">Vendor Profile</h1>
+        <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Vendor Profile</h1>
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto relative z-10">
         <div className="px-6 py-6 space-y-6">
           {/* Vendor Header */}
-          <div className="text-center">
-            <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span className="text-gray-600 text-4xl">🏢</span>
+          <div className="text-center animate-fade-in-up">
+            <div
+              className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-premium-lg"
+              style={{ background: 'var(--primary-gradient)' }}
+            >
+              <span className="text-4xl">🏢</span>
             </div>
-            <h2 className="text-gray-900 mb-2">{vendor.name}</h2>
+            <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>{vendor.name}</h2>
             {vendor.isPoweredByDoHuub && (
-              <div className="inline-block bg-gray-900 text-white px-3 py-1 rounded-full text-sm mb-3">
+              <div
+                className="inline-block px-4 py-1 rounded-full text-sm mb-3 shadow-premium-sm"
+                style={{ background: 'var(--primary-gradient)', color: 'white' }}
+              >
                 Powered by DoHuub
               </div>
             )}
             <div className="flex items-center justify-center gap-2">
-              <Star className="w-5 h-5 text-gray-900 fill-gray-900" />
-              <span className="text-gray-900">{vendor.rating}</span>
+              <Star className="w-5 h-5" style={{ color: 'rgb(250, 204, 21)', fill: 'rgb(250, 204, 21)' }} />
+              <span className="font-semibold" style={{ color: 'var(--foreground)' }}>{vendor.rating}</span>
             </div>
           </div>
 
           {/* About */}
-          <div className="p-4 bg-gray-50 rounded-xl">
-            <h3 className="text-gray-900 mb-3">About</h3>
-            <p className="text-gray-600">
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', animationDelay: '0.05s' }}
+          >
+            <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>About</h3>
+            <p style={{ color: 'var(--muted-foreground)' }}>
               Professional cleaning services with over 5 years of experience. We pride ourselves on attention to detail and customer satisfaction. Our trained staff uses eco-friendly products and follows strict quality standards.
             </p>
           </div>
 
           {/* Service Information */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Service Information</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Service Information</h3>
             <div className="space-y-3">
-              <div className="flex items-start gap-3 p-3 border-2 border-gray-200 rounded-xl">
-                <MapPin className="w-5 h-5 text-gray-700 mt-0.5" />
+              <div
+                className="flex items-start gap-3 p-4 rounded-xl shadow-card"
+                style={{ backgroundColor: 'var(--card)' }}
+              >
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: 'var(--muted)' }}
+                >
+                  <MapPin className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+                </div>
                 <div>
-                  <p className="text-gray-900">Service Area</p>
-                  <p className="text-gray-600 text-sm">Miami-Dade County & Surrounding Areas</p>
+                  <p className="font-medium" style={{ color: 'var(--foreground)' }}>Service Area</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Miami-Dade County & Surrounding Areas</p>
                 </div>
               </div>
-              <div className="p-3 border-2 border-gray-200 rounded-xl">
-                <div className="flex items-center gap-3 mb-2">
-                  <Clock className="w-5 h-5 text-gray-700" />
-                  <p className="text-gray-900">Operating Hours</p>
+              <div
+                className="p-4 rounded-xl shadow-card"
+                style={{ backgroundColor: 'var(--card)' }}
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: 'var(--muted)' }}
+                  >
+                    <Clock className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+                  </div>
+                  <p className="font-medium" style={{ color: 'var(--foreground)' }}>Operating Hours</p>
                 </div>
-                <div className="space-y-1 text-sm">
+                <div className="space-y-2 text-sm pl-13">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Monday - Friday</span>
-                    <span className="text-gray-900">8:00 AM - 6:00 PM</span>
+                    <span style={{ color: 'var(--muted-foreground)' }}>Monday - Friday</span>
+                    <span className="font-medium" style={{ color: 'var(--foreground)' }}>8:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Saturday</span>
-                    <span className="text-gray-900">9:00 AM - 5:00 PM</span>
+                    <span style={{ color: 'var(--muted-foreground)' }}>Saturday</span>
+                    <span className="font-medium" style={{ color: 'var(--foreground)' }}>9:00 AM - 5:00 PM</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Sunday</span>
-                    <span className="text-gray-900">10:00 AM - 4:00 PM</span>
+                    <span style={{ color: 'var(--muted-foreground)' }}>Sunday</span>
+                    <span className="font-medium" style={{ color: 'var(--foreground)' }}>10:00 AM - 4:00 PM</span>
                   </div>
                 </div>
               </div>
@@ -114,32 +146,33 @@ export function CleaningVendorProfileScreen({
           </div>
 
           {/* Services Offered */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Services Offered</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+            <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Services Offered</h3>
             <div className="space-y-3">
-              {services.map(service => (
+              {services.map((service, index) => (
                 <button
                   key={service.id}
                   onClick={() => onSelectService(service)}
-                  className="w-full p-4 border-2 border-gray-200 rounded-xl text-left hover:border-gray-900 transition-colors"
+                  className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01]"
+                  style={{ backgroundColor: 'var(--card)' }}
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
-                      <h4 className="text-gray-900 mb-1">{service.name}</h4>
-                      <p className="text-gray-600 text-sm mb-2">{service.description}</p>
+                      <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{service.name}</h4>
+                      <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>{service.description}</p>
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
-                          <Star className="w-4 h-4 text-gray-900 fill-gray-900" />
-                          <span className="text-gray-900 text-sm">{service.rating}</span>
+                          <Star className="w-4 h-4" style={{ color: 'rgb(250, 204, 21)', fill: 'rgb(250, 204, 21)' }} />
+                          <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>{service.rating}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <Clock className="w-4 h-4 text-gray-700" />
-                          <span className="text-gray-600 text-sm">{service.duration}</span>
+                          <Clock className="w-4 h-4" style={{ color: 'var(--muted-foreground)' }} />
+                          <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{service.duration}</span>
                         </div>
                       </div>
                     </div>
                     <div className="text-right ml-4">
-                      <p className="text-gray-900">${service.price}</p>
+                      <p className="font-semibold" style={{ color: 'var(--primary)' }}>${service.price}</p>
                     </div>
                   </div>
                 </button>
@@ -148,12 +181,13 @@ export function CleaningVendorProfileScreen({
           </div>
 
           {/* Reviews & Ratings */}
-          <div>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-gray-900">Reviews & Ratings</h3>
-              <button 
+              <h3 className="font-medium" style={{ color: 'var(--foreground)' }}>Reviews & Ratings</h3>
+              <button
                 onClick={onViewAllReviews}
-                className="flex items-center gap-1 text-gray-900 text-sm"
+                className="flex items-center gap-1 text-sm transition-all duration-300 hover:gap-2"
+                style={{ color: 'var(--primary)' }}
               >
                 View All
                 <ChevronRight className="w-4 h-4" />
@@ -161,25 +195,34 @@ export function CleaningVendorProfileScreen({
             </div>
 
             {/* Rating Summary */}
-            <div className="p-4 bg-gray-50 rounded-xl mb-4">
+            <div
+              className="p-4 rounded-xl shadow-card mb-4"
+              style={{ backgroundColor: 'var(--card)' }}
+            >
               <div className="flex items-center gap-6 mb-4">
                 <div className="text-center">
-                  <p className="text-gray-900 text-4xl mb-1">{vendor.rating}</p>
+                  <p className="text-4xl font-bold mb-1" style={{ color: 'var(--foreground)' }}>{vendor.rating}</p>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="w-4 h-4 text-gray-900 fill-gray-900" />
+                      <Star key={star} className="w-4 h-4" style={{ color: 'rgb(250, 204, 21)', fill: 'rgb(250, 204, 21)' }} />
                     ))}
                   </div>
-                  <p className="text-gray-600 text-sm">{vendor.completedJobs} reviews</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{vendor.completedJobs} reviews</p>
                 </div>
                 <div className="flex-1 space-y-1">
                   {[5, 4, 3, 2, 1].map(rating => (
                     <div key={rating} className="flex items-center gap-2">
-                      <span className="text-gray-600 text-sm w-3">{rating}</span>
-                      <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gray-900 rounded-full"
-                          style={{ width: `${rating === 5 ? 75 : rating === 4 ? 20 : 5}%` }}
+                      <span className="text-sm w-3" style={{ color: 'var(--muted-foreground)' }}>{rating}</span>
+                      <div
+                        className="flex-1 h-2 rounded-full overflow-hidden"
+                        style={{ backgroundColor: 'var(--muted)' }}
+                      >
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            background: 'var(--primary-gradient)',
+                            width: `${rating === 5 ? 75 : rating === 4 ? 20 : 5}%`
+                          }}
                         />
                       </div>
                     </div>
@@ -190,87 +233,60 @@ export function CleaningVendorProfileScreen({
 
             {/* Recent Reviews */}
             <div className="space-y-3">
-              <div className="p-4 border-2 border-gray-200 rounded-xl">
-                <div className="flex items-start gap-3 mb-2">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="w-5 h-5 text-gray-600" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-gray-900">Sarah M.</span>
-                      <span className="text-gray-600 text-sm">3 days ago</span>
+              {[
+                { name: 'Sarah M.', date: '3 days ago', rating: 5, comment: 'Excellent service! The team was professional, thorough, and my home has never looked better. Highly recommend!', hasPhotos: true },
+                { name: 'Michael R.', date: '1 week ago', rating: 5, comment: 'Very reliable and detail-oriented. They cleaned areas I didn\'t even think about. Great value for money.', hasPhotos: false },
+                { name: 'Jennifer K.', date: '2 weeks ago', rating: 4, comment: 'Good service overall. A bit pricey but the quality is there. Would use again.', hasPhotos: true }
+              ].map((review, index) => (
+                <div
+                  key={index}
+                  className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm"
+                  style={{ backgroundColor: 'var(--card)' }}
+                >
+                  <div className="flex items-start gap-3 mb-2">
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                      style={{ background: 'var(--primary-gradient)' }}
+                    >
+                      <span className="text-white font-semibold">{review.name.charAt(0)}</span>
                     </div>
-                    <div className="flex items-center gap-1 mb-2">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className="w-4 h-4 text-gray-900 fill-gray-900" />
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-medium" style={{ color: 'var(--foreground)' }}>{review.name}</span>
+                        <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{review.date}</span>
+                      </div>
+                      <div className="flex items-center gap-1 mb-2">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star
+                            key={star}
+                            className="w-4 h-4"
+                            style={{
+                              color: star <= review.rating ? 'rgb(250, 204, 21)' : 'var(--muted)',
+                              fill: star <= review.rating ? 'rgb(250, 204, 21)' : 'transparent'
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>
+                    {review.comment}
+                  </p>
+                  {review.hasPhotos && (
+                    <div className="flex gap-2">
+                      {[1, 2].map((photo) => (
+                        <div
+                          key={photo}
+                          className="w-20 h-20 rounded-lg flex items-center justify-center"
+                          style={{ backgroundColor: 'var(--muted)' }}
+                        >
+                          <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Photo</span>
+                        </div>
                       ))}
                     </div>
-                  </div>
+                  )}
                 </div>
-                <p className="text-gray-600 text-sm mb-3">
-                  Excellent service! The team was professional, thorough, and my home has never looked better. Highly recommend!
-                </p>
-                {/* Review Images */}
-                <div className="flex gap-2">
-                  <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <span className="text-gray-500 text-xs">Photo</span>
-                  </div>
-                  <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <span className="text-gray-500 text-xs">Photo</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 border-2 border-gray-200 rounded-xl">
-                <div className="flex items-start gap-3 mb-2">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="w-5 h-5 text-gray-600" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-gray-900">Michael R.</span>
-                      <span className="text-gray-600 text-sm">1 week ago</span>
-                    </div>
-                    <div className="flex items-center gap-1 mb-2">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className="w-4 h-4 text-gray-900 fill-gray-900" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-600 text-sm">
-                  Very reliable and detail-oriented. They cleaned areas I didn't even think about. Great value for money.
-                </p>
-              </div>
-
-              <div className="p-4 border-2 border-gray-200 rounded-xl">
-                <div className="flex items-start gap-3 mb-2">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="w-5 h-5 text-gray-600" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-gray-900">Jennifer K.</span>
-                      <span className="text-gray-600 text-sm">2 weeks ago</span>
-                    </div>
-                    <div className="flex items-center gap-1 mb-2">
-                      {[1, 2, 3, 4].map((star) => (
-                        <Star key={star} className="w-4 h-4 text-gray-900 fill-gray-900" />
-                      ))}
-                      <Star className="w-4 h-4 text-gray-400" />
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-600 text-sm mb-3">
-                  Good service overall. A bit pricey but the quality is there. Would use again.
-                </p>
-                {/* Review Images */}
-                <div className="flex gap-2">
-                  <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <span className="text-gray-500 text-xs">Photo</span>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 

@@ -18,7 +18,7 @@ interface GroceryVendorReviewsScreenProps {
 // Function to generate reviews based on vendor
 const getVendorReviews = (vendorId: number): Review[] => {
   const baseId = vendorId * 100;
-  
+
   switch (vendorId) {
     case 1: // FreshMart
       return [
@@ -28,7 +28,7 @@ const getVendorReviews = (vendorId: number): Review[] => {
         { id: baseId + 4, userName: 'Mark T.', rating: 4, date: 'Nov 20, 2025', comment: 'Good variety of products. Would like to see more organic options.' },
         { id: baseId + 5, userName: 'Susan R.', rating: 5, date: 'Nov 18, 2025', comment: 'Best grocery delivery service! Items are always well-packed.', images: ['img1'] }
       ];
-      
+
     case 2: // QuickShop Express
       return [
         { id: baseId + 1, userName: 'Jason P.', rating: 5, date: 'Nov 29, 2025', comment: 'Super fast delivery! Perfect for last-minute needs.', images: ['img1', 'img2', 'img3'] },
@@ -37,7 +37,7 @@ const getVendorReviews = (vendorId: number): Review[] => {
         { id: baseId + 4, userName: 'Diana H.', rating: 4, date: 'Nov 21, 2025', comment: 'Quick and easy. Wish they had more fresh produce options.' },
         { id: baseId + 5, userName: 'Paul M.', rating: 5, date: 'Nov 19, 2025', comment: 'Perfect for busy days! Always delivers quickly.', images: ['img1', 'img2'] }
       ];
-      
+
     case 3: // Healthy Harvest
       return [
         { id: baseId + 1, userName: 'Jennifer C.', rating: 5, date: 'Nov 30, 2025', comment: 'Amazing organic selection! Everything is fresh and high quality.', images: ['img1', 'img2', 'img3', 'img4'] },
@@ -46,7 +46,7 @@ const getVendorReviews = (vendorId: number): Review[] => {
         { id: baseId + 4, userName: 'Thomas J.', rating: 5, date: 'Nov 20, 2025', comment: 'Premium quality organic products. Worth every penny!', images: ['img1', 'img2'] },
         { id: baseId + 5, userName: 'Rachel D.', rating: 5, date: 'Nov 17, 2025', comment: 'Love shopping here! Fresh organic produce always.', images: ['img1', 'img2', 'img3', 'img4', 'img5'] }
       ];
-      
+
     case 4: // Organic Valley
       return [
         { id: baseId + 1, userName: 'Elizabeth G.', rating: 5, date: 'Nov 29, 2025', comment: 'Excellent organic and health foods! The almond milk is fantastic.', images: ['img1', 'img2'] },
@@ -55,7 +55,7 @@ const getVendorReviews = (vendorId: number): Review[] => {
         { id: baseId + 4, userName: 'Steven K.', rating: 5, date: 'Nov 21, 2025', comment: 'Best organic butter and eggs! Quality is unmatched.', images: ['img1'] },
         { id: baseId + 5, userName: 'Nicole F.', rating: 5, date: 'Nov 18, 2025', comment: 'Love the chia seeds and hemp hearts! Great prices too.', images: ['img1', 'img2', 'img3'] }
       ];
-      
+
     case 5: // City Supermart
       return [
         { id: baseId + 1, userName: 'William H.', rating: 4, date: 'Nov 30, 2025', comment: 'Great one-stop shop! Good selection of household items and groceries.', images: ['img1', 'img2', 'img3'] },
@@ -64,7 +64,7 @@ const getVendorReviews = (vendorId: number): Review[] => {
         { id: baseId + 4, userName: 'Barbara L.', rating: 5, date: 'Nov 22, 2025', comment: 'Everything I need in one place! Great household section.', images: ['img1', 'img2'] },
         { id: baseId + 5, userName: 'Joseph M.', rating: 4, date: 'Nov 19, 2025', comment: 'Solid supermarket. Good for weekly grocery shopping.' }
       ];
-      
+
     case 6: // Green Grocers
       return [
         { id: baseId + 1, userName: 'Karen W.', rating: 5, date: 'Nov 29, 2025', comment: 'Best fresh produce! The organic blueberries are amazing.', images: ['img1', 'img2', 'img3', 'img4', 'img5'] },
@@ -73,7 +73,7 @@ const getVendorReviews = (vendorId: number): Review[] => {
         { id: baseId + 4, userName: 'George K.', rating: 4, date: 'Nov 21, 2025', comment: 'Great produce quality. Wish they had more variety in other categories.' },
         { id: baseId + 5, userName: 'Laura M.', rating: 5, date: 'Nov 18, 2025', comment: 'The asparagus and mixed greens are always perfect!', images: ['img1', 'img2', 'img3', 'img4'] }
       ];
-      
+
     default:
       return [];
   }
@@ -81,10 +81,10 @@ const getVendorReviews = (vendorId: number): Review[] => {
 
 export function GroceryVendorReviewsScreen({ vendor, onBack }: GroceryVendorReviewsScreenProps) {
   const reviews = getVendorReviews(vendor.id);
-  
+
   const averageRating = vendor.rating;
   const totalReviews = reviews.length;
-  
+
   // Calculate rating distribution
   const ratingCounts = [0, 0, 0, 0, 0];
   reviews.forEach(review => {
@@ -92,39 +92,52 @@ export function GroceryVendorReviewsScreen({ vendor, onBack }: GroceryVendorRevi
   });
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="bg-white border-b-2 border-gray-200 px-6 py-4">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack} className="text-gray-900">
-            <ArrowLeft className="w-6 h-6" strokeWidth={2} />
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
           <div>
-            <h1 className="text-gray-900">Reviews</h1>
-            <p className="text-gray-600">{vendor.name}</p>
+            <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Reviews</h1>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{vendor.name}</p>
           </div>
         </div>
       </div>
 
       {/* Rating Summary */}
-      <div className="bg-gray-50 border-b-2 border-gray-200 px-6 py-6">
+      <div
+        className="px-6 py-6 glass relative z-10 animate-fade-in-up"
+        style={{
+          background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.05), rgba(22, 163, 74, 0.1))',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.1)'
+        }}
+      >
         <div className="flex items-start gap-6">
           {/* Average Rating */}
           <div className="text-center">
-            <div className="text-gray-900 mb-1" style={{ fontSize: '48px', lineHeight: '1' }}>{averageRating}</div>
+            <div className="text-5xl font-bold mb-1" style={{ color: 'var(--foreground)' }}>{averageRating}</div>
             <div className="flex items-center justify-center gap-1 mb-1">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}
-                  className={`w-4 h-4 ${
-                    star <= Math.floor(averageRating)
-                      ? 'text-gray-700 fill-gray-700'
-                      : 'text-gray-300 fill-gray-300'
-                  }`}
+                  className="w-4 h-4"
+                  style={{
+                    color: star <= Math.floor(averageRating) ? 'rgb(250, 204, 21)' : 'var(--muted)',
+                    fill: star <= Math.floor(averageRating) ? 'rgb(250, 204, 21)' : 'transparent'
+                  }}
                 />
               ))}
             </div>
-            <p className="text-gray-600 text-sm">{totalReviews} reviews</p>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{totalReviews} reviews</p>
           </div>
 
           {/* Rating Distribution */}
@@ -132,18 +145,21 @@ export function GroceryVendorReviewsScreen({ vendor, onBack }: GroceryVendorRevi
             {[5, 4, 3, 2, 1].map((rating) => {
               const count = ratingCounts[rating - 1];
               const percentage = totalReviews > 0 ? (count / totalReviews) * 100 : 0;
-              
+
               return (
                 <div key={rating} className="flex items-center gap-2 mb-2">
-                  <span className="text-gray-700 text-sm w-8">{rating}</span>
-                  <Star className="w-4 h-4 text-gray-400 fill-gray-400" />
-                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <span className="text-sm w-8" style={{ color: 'var(--muted-foreground)' }}>{rating}</span>
+                  <Star className="w-4 h-4" style={{ color: 'rgb(250, 204, 21)', fill: 'rgb(250, 204, 21)' }} />
+                  <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--muted)' }}>
                     <div
-                      className="h-full bg-gray-700"
-                      style={{ width: `${percentage}%` }}
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{
+                        background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))',
+                        width: `${percentage}%`
+                      }}
                     />
                   </div>
-                  <span className="text-gray-600 text-sm w-8">{count}</span>
+                  <span className="text-sm w-8" style={{ color: 'var(--muted-foreground)' }}>{count}</span>
                 </div>
               );
             })}
@@ -152,20 +168,31 @@ export function GroceryVendorReviewsScreen({ vendor, onBack }: GroceryVendorRevi
       </div>
 
       {/* Reviews List */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
-        <div className="space-y-6">
-          {reviews.map((review) => (
-            <div key={review.id} className="border-b-2 border-gray-100 pb-6 last:border-b-0">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
+        <div className="space-y-4">
+          {reviews.map((review, index) => (
+            <div
+              key={review.id}
+              className="p-4 rounded-xl shadow-card animate-fade-in-up"
+              style={{
+                backgroundColor: 'var(--card)',
+                border: '1px solid var(--border)',
+                animationDelay: `${index * 0.05}s`
+              }}
+            >
               {/* Review Header */}
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-700">{review.userName.charAt(0)}</span>
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center shadow-card"
+                      style={{ background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))' }}
+                    >
+                      <span className="text-white font-medium">{review.userName.charAt(0)}</span>
                     </div>
                     <div>
-                      <p className="text-gray-900">{review.userName}</p>
-                      <p className="text-gray-500 text-sm">{review.date}</p>
+                      <p className="font-medium" style={{ color: 'var(--foreground)' }}>{review.userName}</p>
+                      <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{review.date}</p>
                     </div>
                   </div>
                 </div>
@@ -173,25 +200,29 @@ export function GroceryVendorReviewsScreen({ vendor, onBack }: GroceryVendorRevi
                   {[1, 2, 3, 4, 5].map((star) => (
                     <Star
                       key={star}
-                      className={`w-4 h-4 ${
-                        star <= review.rating
-                          ? 'text-gray-700 fill-gray-700'
-                          : 'text-gray-300 fill-gray-300'
-                      }`}
+                      className="w-4 h-4"
+                      style={{
+                        color: star <= review.rating ? 'rgb(250, 204, 21)' : 'var(--muted)',
+                        fill: star <= review.rating ? 'rgb(250, 204, 21)' : 'transparent'
+                      }}
                     />
                   ))}
                 </div>
               </div>
 
               {/* Review Comment */}
-              <p className="text-gray-700 mb-3">{review.comment}</p>
+              <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>{review.comment}</p>
 
               {/* Review Images */}
               {review.images && review.images.length > 0 && (
-                <div className="flex gap-2">
-                  {review.images.map((image, index) => (
-                    <div key={index} className="w-16 h-16 rounded-lg bg-gray-200 flex items-center justify-center">
-                      <ImageIcon className="w-8 h-8 text-gray-500" />
+                <div className="flex gap-2 flex-wrap">
+                  {review.images.map((image, imgIndex) => (
+                    <div
+                      key={imgIndex}
+                      className="w-16 h-16 rounded-lg flex items-center justify-center"
+                      style={{ backgroundColor: 'var(--muted)' }}
+                    >
+                      <ImageIcon className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} />
                     </div>
                   ))}
                 </div>

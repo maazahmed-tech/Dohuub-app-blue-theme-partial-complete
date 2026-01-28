@@ -192,11 +192,15 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+    <div className="h-full flex flex-col" style={{ backgroundColor: 'var(--background)' }}>
+      <div className="px-6 py-4 border-b glass" style={{ borderColor: 'rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center justify-between">
-          <h3 className="text-gray-900">AI Assistant</h3>
-          <button onClick={handleNewChat} className="text-gray-700 px-3 py-1 border-2 border-gray-300 rounded-lg">
+          <h3 style={{ color: 'var(--foreground)' }}>AI Assistant</h3>
+          <button
+            onClick={handleNewChat}
+            className="px-3 py-1 rounded-xl shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-105 active:scale-95"
+            style={{ color: 'var(--foreground)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid rgba(46, 122, 217, 0.1)' }}
+          >
             New Chat
           </button>
         </div>
@@ -204,19 +208,20 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
 
       <div className="flex-1 overflow-y-auto px-6 py-6 pb-32">
         {messages.length === 1 && (
-          <div className="mb-6">
+          <div className="mb-6 animate-fade-in">
             <div className="flex justify-center mb-6">
-              <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center">
-                <Bot className="w-12 h-12 text-gray-600" strokeWidth={1.5} />
+              <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-premium-lg animate-pulse-soft" style={{ backgroundColor: 'var(--secondary)' }}>
+                <Bot className="w-12 h-12" style={{ color: 'var(--primary)' }} strokeWidth={1.5} />
               </div>
             </div>
-            <p className="text-center text-gray-900 mb-6">How can I help you today?</p>
+            <p className="text-center mb-6" style={{ color: 'var(--foreground)' }}>How can I help you today?</p>
             <div className="flex flex-wrap gap-2 justify-center">
-              {suggestedPrompts.map((prompt) => (
+              {suggestedPrompts.map((prompt, index) => (
                 <button
                   key={prompt}
                   onClick={() => handlePromptClick(prompt)}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full border-2 border-gray-200 hover:border-gray-800"
+                  className="px-4 py-2 rounded-full shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-105 active:scale-95 animate-fade-in-up"
+                  style={{ backgroundColor: 'var(--secondary)', color: 'var(--foreground)', border: '1px solid rgba(46, 122, 217, 0.1)', animationDelay: `${index * 0.05}s` }}
                 >
                   {prompt}
                 </button>
@@ -227,49 +232,50 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
 
         <div className="space-y-4">
           {messages.slice(1).map((message) => (
-            <div key={message.id}>
+            <div key={message.id} className="animate-fade-in-up">
               <div
                 className={`flex gap-3 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {message.sender === 'ai' && (
-                  <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-6 h-6 text-gray-600" />
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm" style={{ backgroundColor: 'var(--secondary)' }}>
+                    <Bot className="w-6 h-6" style={{ color: 'var(--primary)' }} />
                   </div>
                 )}
                 <div
-                  className={`max-w-[75%] p-4 rounded-2xl ${
-                    message.sender === 'user'
-                      ? 'bg-gray-800 text-white rounded-br-sm'
-                      : 'bg-gray-100 text-gray-900 rounded-bl-sm'
-                  }`}
+                  className="max-w-[75%] p-4 rounded-2xl shadow-premium-md"
+                  style={message.sender === 'user'
+                    ? { background: 'var(--primary-gradient)', color: 'white', borderBottomRightRadius: '0.125rem' }
+                    : { backgroundColor: 'var(--card)', color: 'var(--foreground)', borderBottomLeftRadius: '0.125rem', border: '1px solid rgba(46, 122, 217, 0.08)' }
+                  }
                 >
                   <p>{message.text}</p>
                 </div>
                 {message.sender === 'user' && (
-                  <div className="w-10 h-10 rounded-full bg-gray-300 flex-shrink-0"></div>
+                  <div className="w-10 h-10 rounded-full flex-shrink-0 shadow-premium-sm" style={{ backgroundColor: 'var(--secondary)' }}></div>
                 )}
               </div>
 
               {/* Service Cards */}
               {message.type === 'service-cards' && message.services && (
                 <div className="mt-3 ml-13 space-y-2">
-                  {message.services.map((service) => (
+                  {message.services.map((service, index) => (
                     <button
                       key={service.id}
                       onClick={() => handleServiceClick(service)}
-                      className="w-full p-4 border-2 border-gray-200 rounded-lg text-left hover:border-gray-800"
+                      className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-card-hover hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+                      style={{ backgroundColor: 'var(--card)', border: '1px solid rgba(46, 122, 217, 0.08)', animationDelay: `${index * 0.05}s` }}
                     >
                       <div className="flex gap-3">
-                        <div className="w-12 h-12 rounded-lg bg-gray-200 flex items-center justify-center text-xl flex-shrink-0">
+                        <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style={{ backgroundColor: 'var(--secondary)' }}>
                           {service.emoji}
                         </div>
                         <div className="flex-1">
-                          <p className="text-gray-900 mb-1">{service.name}</p>
-                          <p className="text-gray-600 text-sm mb-1">{service.vendor}</p>
+                          <p className="mb-1" style={{ color: 'var(--foreground)' }}>{service.name}</p>
+                          <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>{service.vendor}</p>
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-700 text-sm">★ {service.rating}</span>
-                            <span className="text-gray-500 text-sm">({service.reviews} reviews)</span>
-                            <span className="text-gray-900 ml-auto">{service.price}</span>
+                            <span className="text-sm" style={{ color: '#F59E0B' }}>★ {service.rating}</span>
+                            <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>({service.reviews} reviews)</span>
+                            <span className="ml-auto" style={{ color: 'var(--primary)' }}>{service.price}</span>
                           </div>
                         </div>
                       </div>
@@ -277,7 +283,8 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
                   ))}
                   <button
                     onClick={() => handleServiceClick(message.services![0])}
-                    className="w-full py-3 text-gray-700 border-2 border-gray-300 rounded-lg hover:border-gray-800"
+                    className="w-full py-3 border-2 rounded-xl transition-colors hover:border-[var(--primary)]"
+                    style={{ color: 'var(--primary)', borderColor: 'var(--border)' }}
                   >
                     View All Services
                   </button>
@@ -291,7 +298,8 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
                     <button
                       key={category}
                       onClick={() => handleCategoryClick(category)}
-                      className="px-4 py-2 bg-white text-gray-700 rounded-full border-2 border-gray-300 hover:border-gray-800 hover:bg-gray-50"
+                      className="px-4 py-2 rounded-full border-2 transition-colors hover:border-[var(--primary)]"
+                      style={{ backgroundColor: 'var(--chip-background)', color: 'var(--foreground)', borderColor: 'var(--border)' }}
                     >
                       {category}
                     </button>
@@ -304,14 +312,14 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
           {/* Typing Indicator */}
           {isTyping && (
             <div className="flex gap-3 justify-start">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                <Bot className="w-6 h-6 text-gray-600" />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'var(--secondary)' }}>
+                <Bot className="w-6 h-6" style={{ color: 'var(--primary)' }} />
               </div>
-              <div className="max-w-[75%] p-4 rounded-2xl bg-gray-100 text-gray-900 rounded-bl-sm">
+              <div className="max-w-[75%] p-4 rounded-2xl" style={{ backgroundColor: 'var(--card)', color: 'var(--foreground)', borderBottomLeftRadius: '0.125rem' }}>
                 <div className="flex gap-1">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                  <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: 'var(--primary)' }}></div>
+                  <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: 'var(--primary)', animationDelay: '0.2s' }}></div>
+                  <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: 'var(--primary)', animationDelay: '0.4s' }}></div>
                 </div>
               </div>
             </div>
@@ -319,7 +327,7 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 px-6 py-4">
+      <div className="absolute bottom-0 left-0 right-0 px-6 py-4 glass shadow-premium-lg" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex gap-3 mb-4">
           <input
             type="text"
@@ -327,39 +335,46 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Ask me anything..."
-            className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-full focus:outline-none focus:border-gray-500"
+            className="flex-1 px-4 py-3 rounded-full outline-none transition-all duration-300 shadow-premium-sm focus-glow"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', color: 'var(--foreground)', border: '1px solid rgba(46, 122, 217, 0.1)' }}
           />
-          <button className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 hover:bg-gray-200">
-            <Mic className="w-6 h-6 text-gray-600" />
+          <button
+            className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-105 active:scale-95"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+          >
+            <Mic className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} />
           </button>
           <button
             onClick={() => handleSend()}
             disabled={!input.trim()}
-            className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-              input.trim() ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-200'
-            }`}
+            className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110 active:scale-95"
+            style={{
+              background: input.trim() ? 'var(--primary-gradient)' : 'var(--muted)',
+              boxShadow: input.trim() ? '0 4px 14px 0 rgba(76, 166, 250, 0.39)' : 'none'
+            }}
           >
-            <Send className={`w-6 h-6 ${input.trim() ? 'text-white' : 'text-gray-400'}`} />
+            <Send className="w-6 h-6" style={{ color: input.trim() ? 'white' : 'var(--muted-foreground)' }} />
           </button>
         </div>
 
         {/* Bottom Navigation */}
         <div className="flex justify-around">
-          <button onClick={() => navigate('home')} className="flex flex-col items-center gap-1">
-            <Home className="w-6 h-6 text-gray-400" strokeWidth={2} />
-            <span className="text-gray-400">Home</span>
+          <button onClick={() => navigate('home')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
+            <Home className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
+            <span style={{ color: 'var(--muted-foreground)' }}>Home</span>
           </button>
-          <button onClick={() => navigate('myBookings')} className="flex flex-col items-center gap-1">
-            <Calendar className="w-6 h-6 text-gray-400" strokeWidth={2} />
-            <span className="text-gray-400">Bookings</span>
+          <button onClick={() => navigate('myBookings')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
+            <Calendar className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
+            <span style={{ color: 'var(--muted-foreground)' }}>Bookings</span>
           </button>
-          <button className="flex flex-col items-center gap-1">
-            <MessageCircle className="w-6 h-6 text-gray-800" strokeWidth={2} />
-            <span className="text-gray-800">AI Assistant</span>
+          <button className="flex flex-col items-center gap-1 nav-item-active relative">
+            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-8 h-1 rounded-full" style={{ background: 'var(--primary-gradient)' }} />
+            <MessageCircle className="w-6 h-6" style={{ color: 'var(--primary)' }} strokeWidth={2} />
+            <span style={{ color: 'var(--primary)' }}>AI Assistant</span>
           </button>
-          <button onClick={() => navigate('profile')} className="flex flex-col items-center gap-1">
-            <User className="w-6 h-6 text-gray-400" strokeWidth={2} />
-            <span className="text-gray-400">Profile</span>
+          <button onClick={() => navigate('profile')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
+            <User className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
+            <span style={{ color: 'var(--muted-foreground)' }}>Profile</span>
           </button>
         </div>
       </div>

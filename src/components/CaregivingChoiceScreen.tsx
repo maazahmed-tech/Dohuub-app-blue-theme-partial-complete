@@ -12,18 +12,27 @@ export function CaregivingChoiceScreen({
   onSelectCompanionship
 }: CaregivingChoiceScreenProps) {
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4 bg-white sticky top-0 z-10">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900">Caregiving Services</h1>
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Caregiving Services</h1>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto p-6">
-        <p className="text-gray-600 mb-6">
+      <div className="flex-1 overflow-y-auto p-6 relative z-10">
+        <p className="mb-6 animate-fade-in" style={{ color: 'var(--muted-foreground)' }}>
           Choose the type of caregiving service you need
         </p>
 
@@ -31,28 +40,34 @@ export function CaregivingChoiceScreen({
           {/* Ride Assistance */}
           <button
             onClick={onSelectRideAssistance}
-            className="w-full p-6 border-2 border-gray-200 rounded-xl text-left hover:border-gray-900 transition-colors"
+            className="w-full p-6 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex items-start gap-4">
-              <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Car className="w-8 h-8 text-gray-700" strokeWidth={2} />
+              <div
+                className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                style={{ background: 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))' }}
+              >
+                <Car className="w-8 h-8 text-white" strokeWidth={2} />
               </div>
               <div className="flex-1">
-                <h3 className="text-gray-900 mb-2">Ride Assistance</h3>
-                <p className="text-gray-600 text-sm mb-3">
+                <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Ride Assistance</h3>
+                <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>
                   Professional transportation services with pickup and multiple stops (pharmacy, grocery, appointments)
                 </p>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-gray-900 rounded-full" />
-                  <span className="text-gray-600 text-sm">Hourly rate booking</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-gray-900 rounded-full" />
-                  <span className="text-gray-600 text-sm">Multiple stops available</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-gray-900 rounded-full" />
-                  <span className="text-gray-600 text-sm">Round-trip option</span>
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'rgb(168, 85, 247)' }} />
+                    <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Hourly rate booking</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'rgb(168, 85, 247)' }} />
+                    <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Multiple stops available</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'rgb(168, 85, 247)' }} />
+                    <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Round-trip option</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -61,28 +76,34 @@ export function CaregivingChoiceScreen({
           {/* Companionship Support */}
           <button
             onClick={onSelectCompanionship}
-            className="w-full p-6 border-2 border-gray-200 rounded-xl text-left hover:border-gray-900 transition-colors"
+            className="w-full p-6 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
           >
             <div className="flex items-start gap-4">
-              <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Heart className="w-8 h-8 text-gray-700" strokeWidth={2} />
+              <div
+                className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))' }}
+              >
+                <Heart className="w-8 h-8 text-white" strokeWidth={2} />
               </div>
               <div className="flex-1">
-                <h3 className="text-gray-900 mb-2">Companionship Support</h3>
-                <p className="text-gray-600 text-sm mb-3">
+                <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Companionship Support</h3>
+                <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>
                   Professional caregivers providing conversation, activities, meal assistance, and daily living support
                 </p>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-gray-900 rounded-full" />
-                  <span className="text-gray-600 text-sm">Flexible duration</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-gray-900 rounded-full" />
-                  <span className="text-gray-600 text-sm">Personalized care plans</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-gray-900 rounded-full" />
-                  <span className="text-gray-600 text-sm">Certified caregivers</span>
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'rgb(236, 72, 153)' }} />
+                    <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Flexible duration</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'rgb(236, 72, 153)' }} />
+                    <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Personalized care plans</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'rgb(236, 72, 153)' }} />
+                    <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Certified caregivers</span>
+                  </div>
                 </div>
               </div>
             </div>

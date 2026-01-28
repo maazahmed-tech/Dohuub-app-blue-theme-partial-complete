@@ -32,92 +32,132 @@ export function NotificationsPanel({
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case 'order':
-        return <Package className="w-5 h-5 text-gray-700" />;
+        return <Package className="w-5 h-5" style={{ color: 'var(--primary)' }} />;
       case 'promo':
-        return <Bell className="w-5 h-5 text-gray-700" />;
+        return <Bell className="w-5 h-5" style={{ color: 'rgb(168, 85, 247)' }} />;
       case 'update':
-        return <CheckCircle className="w-5 h-5 text-gray-700" />;
+        return <CheckCircle className="w-5 h-5" style={{ color: 'rgb(34, 197, 94)' }} />;
       case 'reminder':
-        return <Clock className="w-5 h-5 text-gray-700" />;
+        return <Clock className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />;
       case 'points_earned':
-        return <Gift className="w-5 h-5 text-amber-500" />;
+        return <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />;
       default:
-        return <Info className="w-5 h-5 text-gray-700" />;
+        return <Info className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />;
     }
   };
 
   return (
-    <div 
-      className="absolute inset-0 bg-black bg-opacity-50 flex items-end z-50"
+    <div
+      className="absolute inset-0 z-50 flex items-end animate-fade-in"
       onClick={onClose}
     >
-      <div 
-        className="w-full bg-white rounded-t-3xl max-h-[90vh] flex flex-col shadow-2xl"
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)' }}
+      />
+
+      {/* Panel */}
+      <div
+        className="relative w-full rounded-t-3xl max-h-[90vh] flex flex-col shadow-premium-lg glass animate-slide-up"
+        style={{ backgroundColor: 'var(--surface-elevated)' }}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Background Pattern */}
+        <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none rounded-t-3xl" />
+
         {/* Header */}
-        <div className="px-6 py-4 border-b-2 border-gray-200">
+        <div
+          className="px-6 py-4 glass relative z-10"
+          style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}
+        >
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <h2 className="text-gray-800">Notifications</h2>
+            <div className="flex items-center gap-3">
+              <h2 className="font-semibold" style={{ color: 'var(--foreground)' }}>Notifications</h2>
               {unreadCount > 0 && (
-                <span className="px-2 py-1 bg-red-500 text-white rounded-full">
+                <span
+                  className="px-2 py-0.5 text-sm text-white rounded-full shadow-premium-sm"
+                  style={{ background: 'linear-gradient(135deg, rgb(239, 68, 68), rgb(220, 38, 38))' }}
+                >
                   {unreadCount}
                 </span>
               )}
             </div>
-            <button onClick={onClose} className="p-2">
-              <X className="w-6 h-6 text-gray-600" />
+            <button
+              onClick={onClose}
+              className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+              style={{ backgroundColor: 'var(--muted)' }}
+            >
+              <X className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
             </button>
           </div>
         </div>
 
         {/* Notifications List */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto relative z-10">
           {notifications.length === 0 ? (
-            <div className="text-center py-12 px-6">
-              <Bell className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <p className="text-gray-600 mb-2">No notifications</p>
-              <p className="text-gray-400">You're all caught up!</p>
+            <div className="text-center py-16 px-6 animate-fade-in-up">
+              <div
+                className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-card"
+                style={{ backgroundColor: 'var(--muted)' }}
+              >
+                <Bell className="w-10 h-10" style={{ color: 'var(--muted-foreground)' }} />
+              </div>
+              <p className="font-medium mb-2" style={{ color: 'var(--foreground)' }}>No notifications</p>
+              <p style={{ color: 'var(--muted-foreground)' }}>You're all caught up!</p>
             </div>
           ) : (
-            <div className="divide-y-2 divide-gray-100">
-              {notifications.map((notification) => (
+            <div className="divide-y" style={{ borderColor: 'var(--border)' }}>
+              {notifications.map((notification, index) => (
                 <button
                   key={notification.id}
                   onClick={() => onMarkNotificationAsRead(notification.id)}
-                  className={`w-full p-4 text-left hover:bg-gray-50 transition-colors ${
-                    !notification.isRead ? 'bg-blue-50' : 'bg-white'
-                  }`}
+                  className="w-full p-4 text-left transition-all duration-300 hover:bg-[var(--muted)] animate-fade-in-up"
+                  style={{
+                    backgroundColor: !notification.isRead ? 'rgba(46, 122, 217, 0.05)' : 'transparent',
+                    animationDelay: `${index * 0.03}s`
+                  }}
                 >
                   <div className="flex gap-3">
                     <div className="flex-shrink-0 mt-1">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        !notification.isRead ? 'bg-gray-200' : 'bg-gray-100'
-                      }`}>
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center shadow-card"
+                        style={{
+                          backgroundColor: !notification.isRead ? 'rgba(46, 122, 217, 0.1)' : 'var(--muted)'
+                        }}
+                      >
                         {getNotificationIcon(notification.type)}
                       </div>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2 mb-1">
                         <div className="flex items-center gap-2">
-                          <p className={`${!notification.isRead ? 'text-gray-800' : 'text-gray-700'}`}>
+                          <p
+                            className={!notification.isRead ? 'font-medium' : ''}
+                            style={{ color: 'var(--foreground)' }}
+                          >
                             {notification.title}
                           </p>
                           {notification.type === 'points_earned' && notification.pointsAmount && (
-                            <span className="inline-flex items-center justify-center h-5 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                            <span
+                              className="inline-flex items-center justify-center h-5 px-2 text-white text-xs font-bold rounded-full shadow-premium-sm"
+                              style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(249, 115, 22))' }}
+                            >
                               +{notification.pointsAmount}
                             </span>
                           )}
                         </div>
                         {!notification.isRead && (
-                          <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-2"></span>
+                          <span
+                            className="w-2 h-2 rounded-full flex-shrink-0 mt-2"
+                            style={{ backgroundColor: 'var(--primary)' }}
+                          />
                         )}
                       </div>
-                      <p className="text-gray-600 mb-2">
+                      <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>
                         {notification.message}
                       </p>
-                      <p className="text-gray-400">
+                      <p className="text-xs" style={{ color: 'var(--muted-foreground)', opacity: 0.7 }}>
                         {notification.timestamp}
                       </p>
                     </div>

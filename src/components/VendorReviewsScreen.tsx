@@ -101,49 +101,135 @@ export function VendorReviewsScreen({
   totalReviews,
   onBack
 }: VendorReviewsScreenProps) {
+  // Calculate rating distribution
+  const ratingCounts = [0, 0, 0, 0, 0];
+  allReviews.forEach(review => {
+    ratingCounts[review.rating - 1]++;
+  });
+
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900">Reviews</h1>
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Reviews</h1>
+        </div>
       </div>
 
-      {/* Vendor Info */}
-      <div className="px-6 py-4">
-        <p className="text-gray-700 mb-2">{vendorName}</p>
-        <div className="flex items-center gap-2">
-          <Star className="w-6 h-6 text-gray-700 fill-gray-700" />
-          <span className="text-gray-900 text-xl">{overallRating}</span>
-          <span className="text-gray-600">({totalReviews} reviews)</span>
+      {/* Vendor Info & Rating Summary */}
+      <div
+        className="px-6 py-6 glass relative z-10 animate-fade-in-up"
+        style={{
+          background: 'linear-gradient(135deg, rgba(46, 122, 217, 0.05), rgba(46, 122, 217, 0.1))',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.1)'
+        }}
+      >
+        <p className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>{vendorName}</p>
+        <div className="flex items-start gap-6">
+          {/* Average Rating */}
+          <div className="text-center">
+            <div className="text-5xl font-bold mb-1" style={{ color: 'var(--foreground)' }}>{overallRating}</div>
+            <div className="flex items-center justify-center gap-1 mb-1">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star
+                  key={star}
+                  className="w-4 h-4"
+                  style={{
+                    color: star <= Math.floor(overallRating) ? 'rgb(250, 204, 21)' : 'var(--muted)',
+                    fill: star <= Math.floor(overallRating) ? 'rgb(250, 204, 21)' : 'transparent'
+                  }}
+                />
+              ))}
+            </div>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{totalReviews} reviews</p>
+          </div>
+
+          {/* Rating Distribution */}
+          <div className="flex-1">
+            {[5, 4, 3, 2, 1].map((rating) => {
+              const count = ratingCounts[rating - 1];
+              const percentage = allReviews.length > 0 ? (count / allReviews.length) * 100 : 0;
+
+              return (
+                <div key={rating} className="flex items-center gap-2 mb-2">
+                  <span className="text-sm w-8" style={{ color: 'var(--muted-foreground)' }}>{rating}</span>
+                  <Star className="w-4 h-4" style={{ color: 'rgb(250, 204, 21)', fill: 'rgb(250, 204, 21)' }} />
+                  <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--muted)' }}>
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{
+                        background: 'var(--primary-gradient)',
+                        width: `${percentage}%`
+                      }}
+                    />
+                  </div>
+                  <span className="text-sm w-8" style={{ color: 'var(--muted-foreground)' }}>{count}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
       {/* Reviews List */}
-      <div className="flex-1 overflow-y-auto px-6 pb-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         <div className="space-y-4">
-          {allReviews.map((review) => (
-            <div key={review.id} className="p-4 border-2 border-gray-200 rounded-xl">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-gray-900">{review.userName}</span>
-                <span className="text-gray-500 text-sm">{review.date}</span>
+          {allReviews.map((review, index) => (
+            <div
+              key={review.id}
+              className="p-4 rounded-xl shadow-card animate-fade-in-up"
+              style={{
+                backgroundColor: 'var(--card)',
+                border: '1px solid var(--border)',
+                animationDelay: `${index * 0.05}s`
+              }}
+            >
+              <div className="flex items-start justify-between mb-2">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center shadow-card"
+                    style={{ background: 'var(--primary-gradient)' }}
+                  >
+                    <span className="text-white font-medium">{review.userName.charAt(0)}</span>
+                  </div>
+                  <div>
+                    <span className="font-medium" style={{ color: 'var(--foreground)' }}>{review.userName}</span>
+                    <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{review.date}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-4 h-4"
+                      style={{
+                        color: i < review.rating ? 'rgb(250, 204, 21)' : 'var(--muted)',
+                        fill: i < review.rating ? 'rgb(250, 204, 21)' : 'transparent'
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
-              <div className="flex items-center gap-1 mb-2">
-                {[...Array(5)].map((_, i) => (
-                  <Star 
-                    key={i} 
-                    className={`w-4 h-4 ${i < review.rating ? 'text-gray-700 fill-gray-700' : 'text-gray-300'}`}
-                  />
-                ))}
-              </div>
-              <p className="text-gray-600 mb-3">{review.comment}</p>
+              <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>{review.comment}</p>
               {review.imageCount && review.imageCount > 0 && (
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                   {Array.from({ length: review.imageCount }, (_, index) => (
-                    <div key={index} className="w-20 h-20 rounded-lg bg-gray-200 flex items-center justify-center">
-                      <ImageIcon className="w-8 h-8 text-gray-400" />
+                    <div
+                      key={index}
+                      className="w-16 h-16 rounded-lg flex items-center justify-center"
+                      style={{ backgroundColor: 'var(--muted)' }}
+                    >
+                      <ImageIcon className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} />
                     </div>
                   ))}
                 </div>

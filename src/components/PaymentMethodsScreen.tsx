@@ -10,9 +10,9 @@ interface PaymentMethodsScreenProps {
   onSetDefault: (id: number) => void;
 }
 
-export function PaymentMethodsScreen({ 
-  onBack, 
-  onAddCard, 
+export function PaymentMethodsScreen({
+  onBack,
+  onAddCard,
   cards,
   onEditCard,
   onDeleteCard,
@@ -30,57 +30,67 @@ export function PaymentMethodsScreen({
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack}>
-            <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+          <button onClick={onBack} className="transition-all duration-200 hover:opacity-80 hover:-translate-x-1">
+            <ArrowLeft className="w-6 h-6" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h3 className="text-gray-900">Payment Methods</h3>
+          <h3 style={{ color: 'var(--foreground)' }}>Payment Methods</h3>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {cards.length > 0 ? (
           <div className="space-y-4 mb-6">
-            {cards.map((card) => (
-              <div key={card.id} className="p-4 border-2 border-gray-200 rounded-lg">
+            {cards.map((card, index) => (
+              <div
+                key={card.id}
+                className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+                style={{ backgroundColor: 'var(--card)', animationDelay: `${index * 0.05}s` }}
+              >
                 <div className="flex gap-4 mb-3">
-                  <div className="w-12 h-12 rounded bg-gray-200 flex items-center justify-center flex-shrink-0">
-                    <CreditCard className="w-6 h-6 text-gray-600" />
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm" style={{ background: 'var(--primary-gradient)' }}>
+                    <CreditCard className="w-6 h-6 text-white" />
                   </div>
                   <div className="flex-1">
-                    <p className="text-gray-900 mb-1">
+                    <p className="mb-1" style={{ color: 'var(--foreground)' }}>
                       {getCardType(card.cardNumber)} •••• {card.cardNumber.slice(-4)}
                     </p>
-                    <p className="text-gray-600">
+                    <p style={{ color: 'var(--muted-foreground)' }}>
                       Expires {formatExpiry(card.expiryMonth, card.expiryYear)}
                     </p>
                     {card.isDefault ? (
-                      <span className="inline-block mt-1 px-2 py-0.5 bg-gray-800 text-white rounded-full">
+                      <span className="inline-block mt-1 px-2 py-0.5 text-white text-xs rounded-full shadow-premium-sm" style={{ background: 'var(--primary-gradient)' }}>
                         Default
                       </span>
                     ) : (
-                      <button 
+                      <button
                         onClick={() => onSetDefault(card.id)}
-                        className="inline-block mt-1 px-2 py-0.5 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100"
+                        className="inline-block mt-1 px-2 py-0.5 rounded-full text-sm transition-all duration-200 hover:opacity-80"
+                        style={{ border: '1px solid var(--border)', color: 'var(--muted-foreground)' }}
                       >
                         Set as Default
                       </button>
                     )}
                   </div>
                   <div className="flex gap-2 flex-shrink-0">
-                    <button 
+                    <button
                       onClick={() => onEditCard(card)}
-                      className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+                      className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+                      style={{ backgroundColor: 'var(--secondary)' }}
                     >
-                      <Edit className="w-5 h-5 text-gray-600" />
+                      <Edit className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
                     </button>
-                    <button 
+                    <button
                       onClick={() => onDeleteCard(card.id)}
-                      className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+                      className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+                      style={{ backgroundColor: 'var(--secondary)' }}
                     >
-                      <Trash2 className="w-5 h-5 text-gray-600" />
+                      <Trash2 className="w-5 h-5" style={{ color: 'var(--destructive)' }} />
                     </button>
                   </div>
                 </div>
@@ -88,26 +98,27 @@ export function PaymentMethodsScreen({
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 mb-6">
-            <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-              <CreditCard className="w-10 h-10 text-gray-400" />
+          <div className="text-center py-12 mb-6 animate-fade-in-up">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-premium-lg" style={{ backgroundColor: 'var(--secondary)' }}>
+              <CreditCard className="w-10 h-10" style={{ color: 'var(--muted-foreground)', opacity: 0.5 }} />
             </div>
-            <p className="text-gray-500 mb-2">No payment methods added</p>
-            <p className="text-gray-400">Add a card to get started</p>
+            <p className="mb-2" style={{ color: 'var(--muted-foreground)' }}>No payment methods added</p>
+            <p style={{ color: 'var(--muted-foreground)', opacity: 0.7 }}>Add a card to get started</p>
           </div>
         )}
 
-        <button 
+        <button
           onClick={onAddCard}
-          className="w-full p-4 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center gap-3 hover:border-gray-800 mb-6"
+          className="w-full p-4 border-2 border-dashed rounded-xl flex items-center justify-center gap-3 transition-all duration-300 hover:border-[var(--primary)] hover:shadow-card mb-6 animate-fade-in-up"
+          style={{ borderColor: 'var(--border)', animationDelay: `${cards.length * 0.05 + 0.1}s` }}
         >
-          <Plus className="w-6 h-6 text-gray-600" />
-          <span className="text-gray-700">Add New Card</span>
+          <Plus className="w-6 h-6" style={{ color: 'var(--primary)' }} />
+          <span style={{ color: 'var(--foreground)' }}>Add New Card</span>
         </button>
 
-        <div className="flex items-center justify-center gap-2 p-4 bg-gray-100 rounded-lg">
-          <Lock className="w-5 h-5 text-gray-600" />
-          <span className="text-gray-700">Secured by Stripe</span>
+        <div className="flex items-center justify-center gap-2 p-4 rounded-xl shadow-card" style={{ backgroundColor: 'var(--secondary)' }}>
+          <Lock className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+          <span style={{ color: 'var(--foreground)' }}>Secured by Stripe</span>
         </div>
       </div>
     </div>

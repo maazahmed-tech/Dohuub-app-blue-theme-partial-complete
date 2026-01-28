@@ -31,12 +31,12 @@ export function PropertyStayDetailsScreen({
     const end = new Date(checkOutDate);
     const diffTime = Math.abs(end.getTime() - start.getTime());
     const nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     const nightlyRate = property.pricePerNight * nights;
     const cleaningFee = 50;
     const serviceFee = Math.round(nightlyRate * 0.1);
     const total = nightlyRate + cleaningFee + serviceFee;
-    
+
     return { nights, nightlyRate, cleaningFee, serviceFee, total };
   };
 
@@ -48,79 +48,107 @@ export function PropertyStayDetailsScreen({
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900">Stay Details</h1>
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Stay Details</h1>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         <div className="space-y-6">
           {/* Property Summary */}
-          <div className="p-4 bg-gray-50 border-2 border-gray-200 rounded-xl">
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{
+              background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
+              border: '1px solid rgba(20, 184, 166, 0.3)'
+            }}
+          >
             <div className="flex gap-3">
-              <div className="w-20 h-20 bg-gray-300 rounded-lg flex items-center justify-center flex-shrink-0">
-                <span className="text-gray-500 text-3xl">🏠</span>
+              <div
+                className="w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
+              >
+                <span className="text-white text-3xl">🏠</span>
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-gray-900 mb-1">{property.name}</h3>
-                <p className="text-gray-600 text-sm mb-2">{property.location}</p>
-                <div className="flex items-center gap-2 text-gray-600 text-sm">
+                <h3 className="font-semibold mb-1" style={{ color: 'var(--foreground)' }}>{property.name}</h3>
+                <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>{property.location}</p>
+                <div className="flex items-center gap-2 text-sm" style={{ color: 'rgb(13, 148, 136)' }}>
                   <Calendar className="w-4 h-4" />
-                  <span>{duration}</span>
+                  <span className="font-medium">{duration}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Selected Dates */}
-          <div className="p-4 border-2 border-gray-200 rounded-xl">
-            <h3 className="text-gray-900 mb-3">Your Dates</h3>
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+          >
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Your Dates</h3>
             <div className="space-y-2">
               <div className="flex justify-between">
-                <span className="text-gray-600">Check-in</span>
-                <span className="text-gray-900">{formatDate(checkInDate)}</span>
+                <span style={{ color: 'var(--muted-foreground)' }}>Check-in</span>
+                <span className="font-medium" style={{ color: 'var(--foreground)' }}>{formatDate(checkInDate)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Check-out</span>
-                <span className="text-gray-900">{formatDate(checkOutDate)}</span>
+                <span style={{ color: 'var(--muted-foreground)' }}>Check-out</span>
+                <span className="font-medium" style={{ color: 'var(--foreground)' }}>{formatDate(checkOutDate)}</span>
               </div>
-              <div className="flex justify-between pt-2 border-t-2 border-gray-200">
-                <span className="text-gray-900">Duration</span>
-                <span className="text-gray-900">{duration}</span>
+              <div className="pt-2" style={{ borderTop: '1px solid var(--border)' }}>
+                <div className="flex justify-between">
+                  <span className="font-medium" style={{ color: 'var(--foreground)' }}>Duration</span>
+                  <span className="font-semibold" style={{ color: 'rgb(20, 184, 166)' }}>{duration}</span>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Number of Guests */}
-          <div className="p-4 border-2 border-gray-200 rounded-xl">
-            <h3 className="text-gray-900 mb-4">Number of Guests</h3>
-            
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+          >
+            <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Number of Guests</h3>
+
             {/* Adults */}
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="text-gray-900">Adults</p>
-                <p className="text-gray-600 text-sm">Age 13+</p>
+                <p className="font-medium" style={{ color: 'var(--foreground)' }}>Adults</p>
+                <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Age 13+</p>
               </div>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setAdults(Math.max(1, adults - 1))}
                   disabled={adults <= 1}
-                  className="w-10 h-10 border-2 border-gray-200 rounded-full flex items-center justify-center disabled:opacity-30"
+                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 disabled:opacity-30"
+                  style={{ backgroundColor: 'var(--muted)' }}
                 >
-                  <Minus className="w-4 h-4 text-gray-900" strokeWidth={2} />
+                  <Minus className="w-4 h-4" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
                 </button>
-                <span className="text-gray-900 w-8 text-center">{adults}</span>
+                <span className="w-8 text-center font-semibold" style={{ color: 'var(--foreground)' }}>{adults}</span>
                 <button
                   onClick={() => setAdults(Math.min(property.maxGuests - children, adults + 1))}
                   disabled={totalGuests >= property.maxGuests}
-                  className="w-10 h-10 border-2 border-gray-200 rounded-full flex items-center justify-center disabled:opacity-30"
+                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 disabled:opacity-30"
+                  style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
                 >
-                  <Plus className="w-4 h-4 text-gray-900" strokeWidth={2} />
+                  <Plus className="w-4 h-4 text-white" strokeWidth={2} />
                 </button>
               </div>
             </div>
@@ -128,66 +156,82 @@ export function PropertyStayDetailsScreen({
             {/* Children */}
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-900">Children</p>
-                <p className="text-gray-600 text-sm">Age 2-12</p>
+                <p className="font-medium" style={{ color: 'var(--foreground)' }}>Children</p>
+                <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Age 2-12</p>
               </div>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setChildren(Math.max(0, children - 1))}
                   disabled={children <= 0}
-                  className="w-10 h-10 border-2 border-gray-200 rounded-full flex items-center justify-center disabled:opacity-30"
+                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 disabled:opacity-30"
+                  style={{ backgroundColor: 'var(--muted)' }}
                 >
-                  <Minus className="w-4 h-4 text-gray-900" strokeWidth={2} />
+                  <Minus className="w-4 h-4" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
                 </button>
-                <span className="text-gray-900 w-8 text-center">{children}</span>
+                <span className="w-8 text-center font-semibold" style={{ color: 'var(--foreground)' }}>{children}</span>
                 <button
                   onClick={() => setChildren(Math.min(property.maxGuests - adults, children + 1))}
                   disabled={totalGuests >= property.maxGuests}
-                  className="w-10 h-10 border-2 border-gray-200 rounded-full flex items-center justify-center disabled:opacity-30"
+                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 disabled:opacity-30"
+                  style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
                 >
-                  <Plus className="w-4 h-4 text-gray-900" strokeWidth={2} />
+                  <Plus className="w-4 h-4 text-white" strokeWidth={2} />
                 </button>
               </div>
             </div>
 
-            <p className="text-gray-600 text-sm mt-3">
+            <p className="text-sm mt-3" style={{ color: 'var(--muted-foreground)' }}>
               Maximum {property.maxGuests} guests allowed
             </p>
           </div>
 
           {/* Special Requests */}
-          <div>
-            <label className="block text-gray-900 mb-2">
-              Special Requests <span className="text-gray-500">(Optional)</span>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+            <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>
+              Special Requests <span style={{ color: 'var(--muted-foreground)' }}>(Optional)</span>
             </label>
             <textarea
               value={specialRequests}
               onChange={(e) => setSpecialRequests(e.target.value)}
               placeholder="Any special requests or requirements?"
               rows={4}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-900 resize-none"
+              className="w-full px-4 py-3 rounded-xl resize-none outline-none transition-all duration-300 focus:ring-2 focus:ring-teal-500/50"
+              style={{
+                backgroundColor: 'var(--card)',
+                color: 'var(--foreground)',
+                border: '1px solid var(--border)'
+              }}
             />
           </div>
 
           {/* Price Breakdown */}
-          <div className="p-4 bg-gray-50 border-2 border-gray-200 rounded-xl">
-            <h3 className="text-gray-900 mb-4">Price Breakdown</h3>
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{
+              background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
+              border: '1px solid rgba(20, 184, 166, 0.3)',
+              animationDelay: '0.2s'
+            }}
+          >
+            <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Price Breakdown</h3>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-gray-600">${property.pricePerNight} × {pricing.nights} {pricing.nights === 1 ? 'night' : 'nights'}</span>
-                <span className="text-gray-900">${pricing.nightlyRate}</span>
+                <span style={{ color: 'var(--muted-foreground)' }}>
+                  ${property.pricePerNight} × {pricing.nights} {pricing.nights === 1 ? 'night' : 'nights'}
+                </span>
+                <span className="font-medium" style={{ color: 'var(--foreground)' }}>${pricing.nightlyRate}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Cleaning fee</span>
-                <span className="text-gray-900">${pricing.cleaningFee}</span>
+                <span style={{ color: 'var(--muted-foreground)' }}>Cleaning fee</span>
+                <span className="font-medium" style={{ color: 'var(--foreground)' }}>${pricing.cleaningFee}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Service fee</span>
-                <span className="text-gray-900">${pricing.serviceFee}</span>
+                <span style={{ color: 'var(--muted-foreground)' }}>Service fee</span>
+                <span className="font-medium" style={{ color: 'var(--foreground)' }}>${pricing.serviceFee}</span>
               </div>
-              <div className="pt-3 border-t-2 border-gray-200 flex justify-between">
-                <span className="text-gray-900">Total</span>
-                <span className="text-gray-900">${pricing.total}</span>
+              <div className="pt-3 flex justify-between" style={{ borderTop: '1px solid rgba(20, 184, 166, 0.3)' }}>
+                <span className="font-semibold" style={{ color: 'var(--foreground)' }}>Total</span>
+                <span className="text-xl font-bold" style={{ color: 'rgb(20, 184, 166)' }}>${pricing.total}</span>
               </div>
             </div>
           </div>
@@ -195,10 +239,11 @@ export function PropertyStayDetailsScreen({
       </div>
 
       {/* Bottom Button */}
-      <div className="p-6 border-t-2 border-gray-200 bg-white">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={() => onContinue(totalGuests, specialRequests, pricing.total)}
-          className="w-full py-3 bg-gray-900 text-white rounded-xl"
+          className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+          style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
         >
           Continue to Booking
         </button>

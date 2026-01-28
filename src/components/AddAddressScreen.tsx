@@ -28,6 +28,7 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
   const [state, setState] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [country, setCountry] = useState('');
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,22 +49,29 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
 
   const isFormValid = street && city && state && zipCode && country;
 
+  const inputClass = (field: string) => `w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 ${
+    focusedField === field ? 'shadow-glow' : 'shadow-card'
+  }`;
+
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack}>
-            <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+          <button onClick={onBack} className="transition-all duration-200 hover:opacity-80 hover:-translate-x-1">
+            <ArrowLeft className="w-6 h-6" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h3 className="text-gray-900">Add Address</h3>
+          <h3 style={{ color: 'var(--foreground)' }}>Add Address</h3>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32">
+      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Address Type Selection */}
-          <div>
-            <label className="text-gray-700 block mb-3">Address Type</label>
+          <div className="animate-fade-in-up">
+            <label className="block mb-3" style={{ color: 'var(--foreground)' }}>Address Type</label>
             <div className="grid grid-cols-3 gap-3">
               <button
                 type="button"
@@ -71,12 +79,16 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
                   setAddressType('Home');
                   if (label === addressType) setLabel('Home');
                 }}
-                className={`p-4 rounded-lg border-2 flex flex-col items-center gap-2 ${
-                  addressType === 'Home' ? 'border-gray-800 bg-gray-50' : 'border-gray-300'
+                className={`p-4 rounded-xl flex flex-col items-center gap-2 transition-all duration-300 ${
+                  addressType === 'Home' ? 'shadow-glow' : 'shadow-card hover:shadow-premium-sm'
                 }`}
+                style={{
+                  backgroundColor: addressType === 'Home' ? 'var(--secondary)' : 'var(--card)',
+                  border: addressType === 'Home' ? '2px solid var(--primary)' : '2px solid var(--border)'
+                }}
               >
-                <Home className="w-6 h-6 text-gray-600" />
-                <span className="text-gray-700">Home</span>
+                <Home className="w-6 h-6" style={{ color: addressType === 'Home' ? 'var(--primary)' : 'var(--muted-foreground)' }} />
+                <span style={{ color: addressType === 'Home' ? 'var(--primary)' : 'var(--muted-foreground)' }}>Home</span>
               </button>
               <button
                 type="button"
@@ -84,12 +96,16 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
                   setAddressType('Work');
                   if (label === addressType) setLabel('Work');
                 }}
-                className={`p-4 rounded-lg border-2 flex flex-col items-center gap-2 ${
-                  addressType === 'Work' ? 'border-gray-800 bg-gray-50' : 'border-gray-300'
+                className={`p-4 rounded-xl flex flex-col items-center gap-2 transition-all duration-300 ${
+                  addressType === 'Work' ? 'shadow-glow' : 'shadow-card hover:shadow-premium-sm'
                 }`}
+                style={{
+                  backgroundColor: addressType === 'Work' ? 'var(--secondary)' : 'var(--card)',
+                  border: addressType === 'Work' ? '2px solid var(--primary)' : '2px solid var(--border)'
+                }}
               >
-                <Briefcase className="w-6 h-6 text-gray-600" />
-                <span className="text-gray-700">Work</span>
+                <Briefcase className="w-6 h-6" style={{ color: addressType === 'Work' ? 'var(--primary)' : 'var(--muted-foreground)' }} />
+                <span style={{ color: addressType === 'Work' ? 'var(--primary)' : 'var(--muted-foreground)' }}>Work</span>
               </button>
               <button
                 type="button"
@@ -97,107 +113,164 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
                   setAddressType('Other');
                   if (label === addressType) setLabel('Other');
                 }}
-                className={`p-4 rounded-lg border-2 flex flex-col items-center gap-2 ${
-                  addressType === 'Other' ? 'border-gray-800 bg-gray-50' : 'border-gray-300'
+                className={`p-4 rounded-xl flex flex-col items-center gap-2 transition-all duration-300 ${
+                  addressType === 'Other' ? 'shadow-glow' : 'shadow-card hover:shadow-premium-sm'
                 }`}
+                style={{
+                  backgroundColor: addressType === 'Other' ? 'var(--secondary)' : 'var(--card)',
+                  border: addressType === 'Other' ? '2px solid var(--primary)' : '2px solid var(--border)'
+                }}
               >
-                <MapPin className="w-6 h-6 text-gray-600" />
-                <span className="text-gray-700">Other</span>
+                <MapPin className="w-6 h-6" style={{ color: addressType === 'Other' ? 'var(--primary)' : 'var(--muted-foreground)' }} />
+                <span style={{ color: addressType === 'Other' ? 'var(--primary)' : 'var(--muted-foreground)' }}>Other</span>
               </button>
             </div>
           </div>
 
           {/* Custom Label */}
           {addressType === 'Other' && (
-            <div>
-              <label className="text-gray-700 block mb-2">Label</label>
+            <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+              <label className="block mb-2" style={{ color: 'var(--foreground)' }}>Label</label>
               <input
                 type="text"
                 value={label}
                 onChange={(e) => setLabel(e.target.value)}
                 placeholder="e.g., Mom's House, Gym"
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-800 outline-none"
+                onFocus={() => setFocusedField('label')}
+                onBlur={() => setFocusedField(null)}
+                className={inputClass('label')}
+                style={{
+                  backgroundColor: 'var(--input-background)',
+                  border: focusedField === 'label' ? '2px solid var(--primary)' : '2px solid var(--border)',
+                  color: 'var(--foreground)'
+                }}
               />
             </div>
           )}
 
           {/* Country */}
-          <div>
-            <label className="text-gray-700 block mb-2">Country</label>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <label className="block mb-2" style={{ color: 'var(--foreground)' }}>Country</label>
             <input
               type="text"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               placeholder="United States"
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-800 outline-none"
+              onFocus={() => setFocusedField('country')}
+              onBlur={() => setFocusedField(null)}
+              className={inputClass('country')}
+              style={{
+                backgroundColor: 'var(--input-background)',
+                border: focusedField === 'country' ? '2px solid var(--primary)' : '2px solid var(--border)',
+                color: 'var(--foreground)'
+              }}
             />
           </div>
 
           {/* Street Address */}
-          <div>
-            <label className="text-gray-700 block mb-2">Street Address</label>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+            <label className="block mb-2" style={{ color: 'var(--foreground)' }}>Street Address</label>
             <input
               type="text"
               value={street}
               onChange={(e) => setStreet(e.target.value)}
               placeholder="123 Main Street, Apt 4B"
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-800 outline-none"
+              onFocus={() => setFocusedField('street')}
+              onBlur={() => setFocusedField(null)}
+              className={inputClass('street')}
+              style={{
+                backgroundColor: 'var(--input-background)',
+                border: focusedField === 'street' ? '2px solid var(--primary)' : '2px solid var(--border)',
+                color: 'var(--foreground)'
+              }}
             />
           </div>
 
           {/* City */}
-          <div>
-            <label className="text-gray-700 block mb-2">City</label>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <label className="block mb-2" style={{ color: 'var(--foreground)' }}>City</label>
             <input
               type="text"
               value={city}
               onChange={(e) => setCity(e.target.value)}
               placeholder="New York"
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-800 outline-none"
+              onFocus={() => setFocusedField('city')}
+              onBlur={() => setFocusedField(null)}
+              className={inputClass('city')}
+              style={{
+                backgroundColor: 'var(--input-background)',
+                border: focusedField === 'city' ? '2px solid var(--primary)' : '2px solid var(--border)',
+                color: 'var(--foreground)'
+              }}
             />
           </div>
 
           {/* State & Zip Code */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
             <div>
-              <label className="text-gray-700 block mb-2">State</label>
+              <label className="block mb-2" style={{ color: 'var(--foreground)' }}>State</label>
               <input
                 type="text"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
                 placeholder="NY"
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-800 outline-none"
+                onFocus={() => setFocusedField('state')}
+                onBlur={() => setFocusedField(null)}
+                className={inputClass('state')}
+                style={{
+                  backgroundColor: 'var(--input-background)',
+                  border: focusedField === 'state' ? '2px solid var(--primary)' : '2px solid var(--border)',
+                  color: 'var(--foreground)'
+                }}
               />
             </div>
             <div>
-              <label className="text-gray-700 block mb-2">Zip Code</label>
+              <label className="block mb-2" style={{ color: 'var(--foreground)' }}>Zip Code</label>
               <input
                 type="text"
                 value={zipCode}
                 onChange={(e) => setZipCode(e.target.value)}
                 placeholder="10001"
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-800 outline-none"
+                onFocus={() => setFocusedField('zipCode')}
+                onBlur={() => setFocusedField(null)}
+                className={inputClass('zipCode')}
+                style={{
+                  backgroundColor: 'var(--input-background)',
+                  border: focusedField === 'zipCode' ? '2px solid var(--primary)' : '2px solid var(--border)',
+                  color: 'var(--foreground)'
+                }}
               />
             </div>
           </div>
 
           {/* Additional Instructions */}
-          <div>
-            <label className="text-gray-700 block mb-2">Delivery Instructions (Optional)</label>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <label className="block mb-2" style={{ color: 'var(--foreground)' }}>Delivery Instructions (Optional)</label>
             <textarea
               placeholder="e.g., Ring doorbell twice, Leave at door"
               rows={3}
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gray-800 outline-none resize-none"
+              onFocus={() => setFocusedField('instructions')}
+              onBlur={() => setFocusedField(null)}
+              className={`${inputClass('instructions')} resize-none`}
+              style={{
+                backgroundColor: 'var(--input-background)',
+                border: focusedField === 'instructions' ? '2px solid var(--primary)' : '2px solid var(--border)',
+                color: 'var(--foreground)'
+              }}
             />
           </div>
         </form>
       </div>
 
-      <div className="p-6 border-t-2 border-gray-200">
+      <div className="p-6 glass relative z-10" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={handleSubmit}
           disabled={!isFormValid}
-          className="w-full py-4 rounded-lg border-2 bg-gray-800 text-white border-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-4 rounded-xl text-white shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 disabled:shadow-none"
+          style={{
+            background: isFormValid ? 'var(--primary-gradient)' : 'var(--muted)',
+            color: isFormValid ? 'white' : 'var(--muted-foreground)'
+          }}
         >
           Save Address
         </button>

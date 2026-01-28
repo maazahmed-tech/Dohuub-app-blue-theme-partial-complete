@@ -120,37 +120,45 @@ export function BeautyServicesList({
   // Generic categories for all beauty service providers
   const categories = ['All', 'Makeup', 'Hair', 'Skincare', 'Nails', 'Spa'];
 
-  const filteredServices = selectedCategory === 'All' 
-    ? services 
+  const filteredServices = selectedCategory === 'All'
+    ? services
     : services.filter(s => s.category === selectedCategory);
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack} className="text-gray-900">
-            <ArrowLeft className="w-6 h-6" />
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
           <div className="flex-1">
-            <h1 className="text-gray-900">{providerName}</h1>
-            <p className="text-sm text-gray-600">Browse services</p>
+            <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>{providerName}</h1>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Browse services</p>
           </div>
         </div>
       </div>
 
       {/* Horizontal Category Tabs */}
-      <div className="bg-white border-b border-gray-200 px-6 py-3 overflow-x-auto">
+      <div className="px-6 py-3 overflow-x-auto relative z-10 glass" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex gap-2">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
-                selectedCategory === category
-                  ? 'bg-gray-900 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
+              className="px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300"
+              style={{
+                background: selectedCategory === category ? 'var(--primary-gradient)' : 'var(--muted)',
+                color: selectedCategory === category ? 'white' : 'var(--muted-foreground)',
+                boxShadow: selectedCategory === category ? '0 4px 12px rgba(46, 122, 217, 0.3)' : 'none'
+              }}
             >
               {category}
             </button>
@@ -159,29 +167,34 @@ export function BeautyServicesList({
       </div>
 
       {/* Services List */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         <div className="space-y-3">
-          {filteredServices.map((service) => (
+          {filteredServices.map((service, index) => (
             <button
               key={service.id}
               onClick={() => onSelectService(service)}
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 hover:border-gray-900 transition-colors text-left"
+              className="w-full rounded-xl p-4 shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] text-left animate-fade-in-up"
+              style={{
+                backgroundColor: 'var(--card)',
+                border: '1px solid var(--border)',
+                animationDelay: `${index * 0.03}s`
+              }}
             >
               <div className="flex items-start justify-between gap-4 mb-2">
                 <div className="flex-1">
-                  <h4 className="text-gray-900 mb-1">{service.name}</h4>
-                  <p className="text-sm text-gray-600">{service.duration}</p>
+                  <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{service.name}</h4>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{service.duration}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-gray-900">{service.price}</p>
+                  <p className="font-semibold" style={{ color: 'var(--primary)' }}>{service.price}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4 text-gray-900 fill-gray-900" />
-                  <span className="text-sm text-gray-900">{service.rating}</span>
+                  <Star className="w-4 h-4" style={{ color: 'rgb(250, 204, 21)', fill: 'rgb(250, 204, 21)' }} />
+                  <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>{service.rating}</span>
                 </div>
-                <span className="text-sm text-gray-600">({service.reviews} reviews)</span>
+                <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>({service.reviews} reviews)</span>
               </div>
             </button>
           ))}

@@ -35,40 +35,56 @@ export function BeautyServiceConfirmationScreen({
   const pointsToEarn = Math.floor(finalPrice);
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Success Header */}
-      <div className="px-6 py-8 text-center">
-        <div className="flex justify-center mb-4">
-          <div className="w-24 h-24 rounded-full border-4 border-gray-900 flex items-center justify-center">
-            <CheckCircle className="w-16 h-16 text-gray-900" strokeWidth={2} />
+      <div className="px-6 py-8 text-center relative z-10">
+        <div className="flex justify-center mb-4 animate-scale-in">
+          <div
+            className="w-24 h-24 rounded-full flex items-center justify-center shadow-premium-md"
+            style={{ background: 'var(--primary-gradient)' }}
+          >
+            <CheckCircle className="w-16 h-16 text-white" strokeWidth={2} />
           </div>
         </div>
-        <h1 className="text-gray-900 mb-2">Order Confirmed</h1>
-        <p className="text-gray-600">Your beauty service has been successfully booked</p>
+        <h1 className="text-xl font-bold mb-2 animate-fade-in-up" style={{ color: 'var(--foreground)', animationDelay: '0.1s' }}>Order Confirmed</h1>
+        <p className="animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.15s' }}>Your beauty service has been successfully booked</p>
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-6 pb-6">
+      <div className="flex-1 overflow-y-auto px-6 pb-6 relative z-10">
         {/* Order Number */}
-        <div className="mb-6 p-4 bg-gray-50 rounded-xl text-center">
-          <p className="text-gray-600 mb-1">Order Number</p>
-          <p className="text-gray-900">{bookingData.referenceNumber}</p>
+        <div
+          className="mb-6 p-4 rounded-xl text-center shadow-card animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)', animationDelay: '0.2s' }}
+        >
+          <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Order Number</p>
+          <p className="font-semibold" style={{ color: 'var(--foreground)' }}>{bookingData.referenceNumber}</p>
         </div>
 
         {/* Points Earned - Only for Powered by DoHuub providers */}
         {isPoweredByDoHuub && (
-          <div className="mb-6 p-6 bg-gradient-to-r from-amber-400 to-orange-400 rounded-xl text-center">
+          <div
+            className="mb-6 p-6 rounded-xl text-center shadow-premium-md animate-fade-in-up"
+            style={{
+              background: 'linear-gradient(135deg, rgb(251, 191, 36), rgb(245, 158, 11))',
+              animationDelay: '0.25s'
+            }}
+          >
             <div className="flex items-center justify-center gap-3 mb-2">
-              <Gift className="w-8 h-8 text-black" />
-              <span className="text-2xl font-bold text-black">
+              <Gift className="w-8 h-8 text-white" />
+              <span className="text-2xl font-bold text-white">
                 +{pointsToEarn} Points!
               </span>
             </div>
-            <p className="text-black/70">Added to your rewards wallet after service completion</p>
+            <p className="text-white/80">Added to your rewards wallet after service completion</p>
             {navigate && (
               <button
                 onClick={() => navigate('rewardsWallet')}
-                className="mt-4 w-full py-2 bg-white/20 rounded-lg text-black font-medium hover:bg-white/30 transition-colors"
+                className="mt-4 w-full py-2 rounded-lg font-medium transition-all duration-300 hover:bg-white/30"
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', color: 'white' }}
               >
                 View My Rewards
               </button>
@@ -77,47 +93,53 @@ export function BeautyServiceConfirmationScreen({
         )}
 
         {/* Booking Details */}
-        <div className="mb-6">
-          <h3 className="text-gray-900 mb-3">Booking Details</h3>
-          
-          <div className="p-4 border-2 border-gray-200 rounded-xl space-y-4">
+        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Booking Details</h3>
+
+          <div
+            className="p-4 rounded-xl shadow-card space-y-4"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
             {/* Service */}
             <div className="flex gap-3">
-              <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                <span className="text-gray-400 text-2xl">💅</span>
+              <div
+                className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(244, 114, 182))' }}
+              >
+                <span className="text-2xl">💅</span>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-gray-900 mb-1">{bookingData.service.name}</h4>
-                <p className="text-gray-600 text-sm">{bookingData.providerName}</p>
+                <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{bookingData.service.name}</h4>
+                <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{bookingData.providerName}</p>
               </div>
             </div>
 
             {/* Date & Time */}
-            <div className="pt-4 border-t-2 border-gray-200">
+            <div className="pt-4" style={{ borderTop: '1px solid var(--border)' }}>
               <div className="flex items-start gap-3 mb-3">
-                <Calendar className="w-5 h-5 text-gray-700 mt-0.5" />
+                <Calendar className="w-5 h-5 mt-0.5" style={{ color: 'var(--primary)' }} />
                 <div>
-                  <p className="text-gray-600 text-sm">Date</p>
-                  <p className="text-gray-900">{bookingData.date}</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Date</p>
+                  <p style={{ color: 'var(--foreground)' }}>{bookingData.date}</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <Clock className="w-5 h-5 text-gray-700 mt-0.5" />
+                <Clock className="w-5 h-5 mt-0.5" style={{ color: 'var(--primary)' }} />
                 <div>
-                  <p className="text-gray-600 text-sm">Time</p>
-                  <p className="text-gray-900">{bookingData.time}</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Time</p>
+                  <p style={{ color: 'var(--foreground)' }}>{bookingData.time}</p>
                 </div>
               </div>
             </div>
 
             {/* Address */}
-            <div className="pt-4 border-t-2 border-gray-200">
+            <div className="pt-4" style={{ borderTop: '1px solid var(--border)' }}>
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-gray-700 mt-0.5" />
+                <MapPin className="w-5 h-5 mt-0.5" style={{ color: 'var(--primary)' }} />
                 <div className="flex-1 min-w-0">
-                  <p className="text-gray-600 text-sm">Service Address</p>
-                  <p className="text-gray-900">{bookingData.address.label}</p>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Service Address</p>
+                  <p style={{ color: 'var(--foreground)' }}>{bookingData.address.label}</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
                     {bookingData.address.street}, {bookingData.address.city}, {bookingData.address.state} {bookingData.address.zipCode}
                   </p>
                 </div>
@@ -127,67 +149,79 @@ export function BeautyServiceConfirmationScreen({
         </div>
 
         {/* Payment Method */}
-        <div className="mb-6 p-4 border-2 border-gray-200 rounded-xl">
+        <div
+          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.35s' }}
+        >
           <div className="flex items-start gap-3 mb-4">
-            <CreditCard className="w-5 h-5 text-gray-700 mt-0.5" />
+            <CreditCard className="w-5 h-5 mt-0.5" style={{ color: 'var(--primary)' }} />
             <div>
-              <p className="text-gray-600 text-sm">Payment Method</p>
-              <p className="text-gray-900">{getCardType(bookingData.paymentCard.cardNumber)} •••• {bookingData.paymentCard.cardNumber.replace(/\s/g, '').slice(-4)}</p>
+              <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Payment Method</p>
+              <p style={{ color: 'var(--foreground)' }}>{getCardType(bookingData.paymentCard.cardNumber)} •••• {bookingData.paymentCard.cardNumber.replace(/\s/g, '').slice(-4)}</p>
             </div>
           </div>
 
           {/* Price */}
-          <div className="pt-4 border-t-2 border-gray-200 space-y-2">
+          <div className="pt-4 space-y-2" style={{ borderTop: '1px solid var(--border)' }}>
             <div className="flex items-center justify-between">
-              <p className="text-gray-900">Price</p>
-              <p className="text-gray-900">{bookingData.estimatedPrice}</p>
+              <p style={{ color: 'var(--foreground)' }}>Price</p>
+              <p style={{ color: 'var(--foreground)' }}>{bookingData.estimatedPrice}</p>
             </div>
             {actualPointsRedeemed > 0 && (
-              <div className="flex items-center justify-between text-green-600">
+              <div className="flex items-center justify-between" style={{ color: 'rgb(34, 197, 94)' }}>
                 <p>Points Redeemed ({actualPointsRedeemed.toLocaleString()} pts)</p>
                 <p>-${discountAmount.toFixed(2)}</p>
               </div>
             )}
             {actualPointsRedeemed > 0 && (
-              <div className="flex items-center justify-between pt-2 border-t border-gray-200">
-                <p className="text-gray-900 font-semibold">Total</p>
-                <p className="text-gray-900 font-semibold">${finalPrice.toFixed(2)}</p>
+              <div className="flex items-center justify-between pt-2" style={{ borderTop: '1px solid var(--border)' }}>
+                <p className="font-semibold" style={{ color: 'var(--foreground)' }}>Total</p>
+                <p className="font-semibold" style={{ color: 'var(--primary)' }}>${finalPrice.toFixed(2)}</p>
               </div>
             )}
           </div>
         </div>
 
         {/* What's Next */}
-        <div className="mb-6">
-          <h3 className="text-gray-900 mb-4">What's Next?</h3>
+        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>What's Next?</h3>
           <ul className="space-y-3">
-            <li className="flex items-start gap-3">
-              <span className="text-gray-900">1.</span>
-              <span className="text-gray-600">Your order has been automatically accepted</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-gray-900">2.</span>
-              <span className="text-gray-600">Track your order status in real-time</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-gray-900">3.</span>
-              <span className="text-gray-600">Rate and review your experience after completion</span>
-            </li>
+            {[
+              'Your order has been automatically accepted',
+              'Track your order status in real-time',
+              'Rate and review your experience after completion'
+            ].map((text, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <span
+                  className="w-6 h-6 rounded-full flex items-center justify-center text-sm text-white flex-shrink-0"
+                  style={{ background: 'var(--primary-gradient)' }}
+                >
+                  {index + 1}
+                </span>
+                <span style={{ color: 'var(--muted-foreground)' }}>{text}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
 
       {/* Bottom Actions */}
-      <div className="p-6 border-t-2 border-gray-200 space-y-3">
+      <div className="p-6 glass relative z-10 space-y-3" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={onTrackOrder}
-          className="w-full py-4 bg-gray-900 text-white rounded-xl"
+          className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+          style={{ background: 'var(--primary-gradient)' }}
         >
           Track Order Status
         </button>
         <button
           onClick={onHome}
-          className="w-full py-4 border-2 border-gray-300 text-gray-900 rounded-xl"
+          className="w-full py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-card"
+          style={{
+            backgroundColor: 'var(--card)',
+            color: 'var(--foreground)',
+            border: '1px solid var(--border)'
+          }}
         >
           Back to Home
         </button>

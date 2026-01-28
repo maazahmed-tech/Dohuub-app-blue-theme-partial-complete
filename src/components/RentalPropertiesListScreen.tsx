@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Bed, Bath, SlidersHorizontal, X, Gift } from 'lucide-react';
+import { ArrowLeft, Star, Bed, Bath, SlidersHorizontal, X, Gift, Award } from 'lucide-react';
 import { useState } from 'react';
 
 export interface Property {
@@ -73,7 +73,7 @@ export function RentalPropertiesListScreen({
     // Always prioritize "Powered by DoHuub" properties first
     if (a.isPoweredByDoHuub && !b.isPoweredByDoHuub) return -1;
     if (!a.isPoweredByDoHuub && b.isPoweredByDoHuub) return 1;
-    
+
     // Then apply the selected sort
     if (sortBy === 'price-low') return a.pricePerNight - b.pricePerNight;
     if (sortBy === 'price-high') return b.pricePerNight - a.pricePerNight;
@@ -89,22 +89,33 @@ export function RentalPropertiesListScreen({
   ].filter(Boolean).length;
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200">
-        <div className="flex items-center gap-4 mb-3">
-          <button onClick={onBack}>
-            <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-          </button>
-          <h1 className="text-gray-900 flex-1">Rental Properties</h1>
-          <button 
-            onClick={() => setShowFilters(!showFilters)}
-            className="relative"
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
           >
-            <SlidersHorizontal className="w-6 h-6 text-gray-700" strokeWidth={2} />
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold flex-1" style={{ color: 'var(--foreground)' }}>Rental Properties</h1>
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="relative p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <SlidersHorizontal className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
             {activeFiltersCount > 0 && (
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gray-900 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">{activeFiltersCount}</span>
+              <div
+                className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center shadow-premium-sm"
+                style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
+              >
+                <span className="text-white text-xs font-medium">{activeFiltersCount}</span>
               </div>
             )}
           </button>
@@ -113,29 +124,41 @@ export function RentalPropertiesListScreen({
 
       {/* Filters Modal */}
       {showFilters && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-50 flex items-end">
-          <div className="bg-white w-full rounded-t-3xl max-h-[80vh] overflow-y-auto">
-            <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center justify-between sticky top-0 bg-white">
-              <h2 className="text-gray-900">Filters</h2>
-              <button onClick={() => setShowFilters(false)}>
-                <X className="w-6 h-6 text-gray-700" strokeWidth={2} />
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end animate-fade-in">
+          <div
+            className="w-full rounded-t-3xl max-h-[80vh] overflow-y-auto animate-slide-up shadow-premium-lg"
+            style={{ backgroundColor: 'var(--background)' }}
+          >
+            <div
+              className="px-6 py-4 flex items-center justify-between sticky top-0 glass"
+              style={{ borderBottom: '1px solid var(--border)' }}
+            >
+              <h2 className="font-semibold" style={{ color: 'var(--foreground)' }}>Filters</h2>
+              <button
+                onClick={() => setShowFilters(false)}
+                className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{ backgroundColor: 'var(--card)' }}
+              >
+                <X className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
               </button>
             </div>
 
             <div className="px-6 py-6 space-y-6">
               {/* Property Type */}
-              <div>
-                <h3 className="text-gray-900 mb-3">Property Type</h3>
+              <div className="animate-fade-in-up">
+                <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Property Type</h3>
                 <div className="flex flex-wrap gap-2">
                   {propertyTypes.map(type => (
                     <button
                       key={type}
                       onClick={() => setSelectedPropertyType(type)}
-                      className={`px-4 py-2 rounded-full text-sm ${
-                        selectedPropertyType === type
-                          ? 'bg-gray-900 text-white'
-                          : 'bg-gray-100 text-gray-700'
-                      }`}
+                      className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
+                      style={{
+                        background: selectedPropertyType === type
+                          ? 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))'
+                          : 'var(--muted)',
+                        color: selectedPropertyType === type ? 'white' : 'var(--foreground)'
+                      }}
                     >
                       {type}
                     </button>
@@ -144,18 +167,20 @@ export function RentalPropertiesListScreen({
               </div>
 
               {/* Bedrooms */}
-              <div>
-                <h3 className="text-gray-900 mb-3">Bedrooms</h3>
+              <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+                <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Bedrooms</h3>
                 <div className="flex flex-wrap gap-2">
                   {bedroomOptions.map(option => (
                     <button
                       key={option}
                       onClick={() => setSelectedBedrooms(option)}
-                      className={`px-4 py-2 rounded-full text-sm ${
-                        selectedBedrooms === option
-                          ? 'bg-gray-900 text-white'
-                          : 'bg-gray-100 text-gray-700'
-                      }`}
+                      className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
+                      style={{
+                        background: selectedBedrooms === option
+                          ? 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))'
+                          : 'var(--muted)',
+                        color: selectedBedrooms === option ? 'white' : 'var(--foreground)'
+                      }}
                     >
                       {option}
                     </button>
@@ -164,18 +189,20 @@ export function RentalPropertiesListScreen({
               </div>
 
               {/* Bathrooms */}
-              <div>
-                <h3 className="text-gray-900 mb-3">Bathrooms</h3>
+              <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+                <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Bathrooms</h3>
                 <div className="flex flex-wrap gap-2">
                   {bathroomOptions.map(option => (
                     <button
                       key={option}
                       onClick={() => setSelectedBathrooms(option)}
-                      className={`px-4 py-2 rounded-full text-sm ${
-                        selectedBathrooms === option
-                          ? 'bg-gray-900 text-white'
-                          : 'bg-gray-100 text-gray-700'
-                      }`}
+                      className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
+                      style={{
+                        background: selectedBathrooms === option
+                          ? 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))'
+                          : 'var(--muted)',
+                        color: selectedBathrooms === option ? 'white' : 'var(--foreground)'
+                      }}
                     >
                       {option}
                     </button>
@@ -184,18 +211,20 @@ export function RentalPropertiesListScreen({
               </div>
 
               {/* Price Range */}
-              <div>
-                <h3 className="text-gray-900 mb-3">Price per Night</h3>
+              <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+                <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Price per Night</h3>
                 <div className="flex flex-wrap gap-2">
                   {priceRanges.map(range => (
                     <button
                       key={range}
                       onClick={() => setPriceRange(range)}
-                      className={`px-4 py-2 rounded-full text-sm ${
-                        priceRange === range
-                          ? 'bg-gray-900 text-white'
-                          : 'bg-gray-100 text-gray-700'
-                      }`}
+                      className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
+                      style={{
+                        background: priceRange === range
+                          ? 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))'
+                          : 'var(--muted)',
+                        color: priceRange === range ? 'white' : 'var(--foreground)'
+                      }}
                     >
                       {range}
                     </button>
@@ -212,7 +241,12 @@ export function RentalPropertiesListScreen({
                     setSelectedBathrooms('Any');
                     setPriceRange('Any');
                   }}
-                  className="w-full py-3 border-2 border-gray-900 text-gray-900 rounded-xl"
+                  className="w-full py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-card"
+                  style={{
+                    backgroundColor: 'var(--card)',
+                    color: 'var(--foreground)',
+                    border: '2px solid var(--border)'
+                  }}
                 >
                   Clear All Filters
                 </button>
@@ -221,7 +255,8 @@ export function RentalPropertiesListScreen({
               {/* Apply Button */}
               <button
                 onClick={() => setShowFilters(false)}
-                className="w-full py-3 bg-gray-900 text-white rounded-xl"
+                className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+                style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
               >
                 Show {sortedProperties.length} Properties
               </button>
@@ -231,27 +266,42 @@ export function RentalPropertiesListScreen({
       )}
 
       {/* Properties Grid */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
-        <p className="text-gray-600 text-sm mb-4">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
+        <p className="text-sm mb-4" style={{ color: 'var(--muted-foreground)' }}>
           {sortedProperties.length} properties available
         </p>
-        
+
         <div className="space-y-4">
-          {sortedProperties.map(property => (
+          {sortedProperties.map((property, index) => (
             <button
               key={property.id}
               onClick={() => onPropertySelect(property)}
-              className="w-full bg-gray-50 border-2 border-gray-200 rounded-2xl overflow-hidden hover:border-gray-900 transition-colors"
+              className="w-full rounded-2xl overflow-hidden text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+              style={{
+                backgroundColor: 'var(--card)',
+                border: '1px solid var(--border)',
+                animationDelay: `${index * 0.05}s`
+              }}
             >
               {/* Property Image */}
-              <div className="w-full h-48 bg-gray-300 flex items-center justify-center relative">
-                <span className="text-gray-500 text-4xl">🏠</span>
+              <div
+                className="w-full h-48 flex items-center justify-center relative"
+                style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
+              >
+                <span className="text-white text-5xl">🏠</span>
                 {property.isPoweredByDoHuub && (
                   <div className="absolute top-3 right-3 flex items-center gap-2">
-                    <div className="bg-gray-900 text-white px-3 py-1 rounded-full text-xs">
-                      Powered by DoHuub
-                    </div>
-                    <span className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                    <span
+                      className="px-3 py-1.5 text-white text-xs font-medium rounded-full flex items-center gap-1 shadow-premium-sm"
+                      style={{ background: 'var(--primary-gradient)' }}
+                    >
+                      <Award className="w-3 h-3" />
+                      DoHuub
+                    </span>
+                    <span
+                      className="inline-flex items-center justify-center min-w-[52px] h-7 px-2 text-white text-xs font-bold rounded-full shadow-premium-sm"
+                      style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(234, 88, 12))' }}
+                    >
                       <Gift className="w-3 h-3 mr-1" />
                       {property.pricePerNight}+
                     </span>
@@ -260,20 +310,20 @@ export function RentalPropertiesListScreen({
               </div>
 
               {/* Property Info */}
-              <div className="p-4 text-left">
+              <div className="p-4">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-gray-900 mb-1 truncate">{property.name}</h3>
-                    <p className="text-gray-600 text-sm">{property.location}</p>
+                    <h3 className="font-semibold mb-1 truncate" style={{ color: 'var(--foreground)' }}>{property.name}</h3>
+                    <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{property.location}</p>
                   </div>
                   <div className="flex items-center gap-1 ml-2 flex-shrink-0">
-                    <Star className="w-4 h-4 text-gray-900 fill-gray-900" />
-                    <span className="text-gray-900 text-sm">{property.rating}</span>
-                    <span className="text-gray-600 text-sm">({property.reviews})</span>
+                    <Star className="w-4 h-4" style={{ color: 'rgb(250, 204, 21)', fill: 'rgb(250, 204, 21)' }} />
+                    <span className="font-medium text-sm" style={{ color: 'var(--foreground)' }}>{property.rating}</span>
+                    <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>({property.reviews})</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 mb-3 text-gray-600 text-sm">
+                <div className="flex items-center gap-4 mb-3 text-sm" style={{ color: 'var(--muted-foreground)' }}>
                   <div className="flex items-center gap-1">
                     <Bed className="w-4 h-4" />
                     <span>{property.bedrooms} bed</span>
@@ -286,8 +336,8 @@ export function RentalPropertiesListScreen({
                 </div>
 
                 <div className="flex items-baseline gap-1">
-                  <span className="text-gray-900">${property.pricePerNight}</span>
-                  <span className="text-gray-600 text-sm">/ night</span>
+                  <span className="text-lg font-bold" style={{ color: 'rgb(20, 184, 166)' }}>${property.pricePerNight}</span>
+                  <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>/ night</span>
                 </div>
               </div>
             </button>

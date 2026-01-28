@@ -11,6 +11,7 @@ export function RatingReviewScreen({ booking, onBack, onSubmit }: RatingReviewSc
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [review, setReview] = useState('');
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const ratingLabels = ['Terrible', 'Poor', 'Average', 'Good', 'Excellent!'];
 
@@ -21,24 +22,38 @@ export function RatingReviewScreen({ booking, onBack, onSubmit }: RatingReviewSc
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      {/* Header */}
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack}>
-            <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h3 className="text-gray-900">Rate Your Experience</h3>
+          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Rate Your Experience</h3>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32">
-        <div className="mb-6 p-4 bg-gray-100 rounded-lg">
-          <p className="text-gray-900 mb-1">{booking?.service}</p>
-          <p className="text-gray-600">{booking?.date}</p>
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
+        {/* Booking Info */}
+        <div
+          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)' }}
+        >
+          <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{booking?.service}</p>
+          <p style={{ color: 'var(--muted-foreground)' }}>{booking?.date}</p>
         </div>
 
-        <div className="mb-8 text-center">
-          <p className="text-gray-900 mb-4">How was your experience?</p>
+        {/* Rating Stars */}
+        <div className="mb-8 text-center animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <p className="mb-4 font-medium" style={{ color: 'var(--foreground)' }}>How was your experience?</p>
           <div className="flex justify-center gap-2 mb-3">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
@@ -46,60 +61,92 @@ export function RatingReviewScreen({ booking, onBack, onSubmit }: RatingReviewSc
                 onClick={() => setRating(star)}
                 onMouseEnter={() => setHoveredRating(star)}
                 onMouseLeave={() => setHoveredRating(0)}
-                className="transition-transform hover:scale-110"
+                className="transition-all duration-300 hover:scale-125"
               >
                 <Star
-                  className={`w-12 h-12 ${
-                    star <= (hoveredRating || rating)
-                      ? 'text-gray-700 fill-gray-700'
-                      : 'text-gray-300'
-                  }`}
+                  className="w-12 h-12 transition-all duration-300"
+                  style={{
+                    color: star <= (hoveredRating || rating) ? 'rgb(250, 204, 21)' : 'var(--muted)',
+                    fill: star <= (hoveredRating || rating) ? 'rgb(250, 204, 21)' : 'transparent'
+                  }}
                   strokeWidth={1.5}
                 />
               </button>
             ))}
           </div>
           {rating > 0 && (
-            <p className="text-gray-700">{ratingLabels[rating - 1]}</p>
+            <p
+              className="font-medium animate-fade-in-up"
+              style={{ color: 'var(--primary)' }}
+            >
+              {ratingLabels[rating - 1]}
+            </p>
           )}
         </div>
 
-        <div className="mb-6">
-          <label className="block text-gray-900 mb-2">Share more details (optional)</label>
+        {/* Review Text */}
+        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Share more details (optional)</label>
           <textarea
             value={review}
             onChange={(e) => setReview(e.target.value)}
+            onFocus={() => setFocusedField('review')}
+            onBlur={() => setFocusedField(null)}
             placeholder="Tell us about your experience..."
             rows={5}
             maxLength={500}
-            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg resize-none"
+            className={`w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 resize-none ${
+              focusedField === 'review' ? 'shadow-glow' : 'shadow-card'
+            }`}
+            style={{
+              backgroundColor: 'var(--card)',
+              color: 'var(--foreground)',
+              border: '1px solid var(--border)'
+            }}
           />
-          <p className="text-gray-500 mt-2">{review.length}/500</p>
+          <p className="mt-2 text-sm" style={{ color: 'var(--muted-foreground)' }}>{review.length}/500</p>
         </div>
 
-        <div className="mb-6">
-          <label className="block text-gray-900 mb-2">Add Photos (optional)</label>
-          <button className="w-full p-8 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center gap-2">
-            <Camera className="w-8 h-8 text-gray-400" />
-            <span className="text-gray-600">Tap to add photos</span>
-            <span className="text-gray-500">Max 5 photos</span>
+        {/* Photo Upload */}
+        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Add Photos (optional)</label>
+          <button
+            className="w-full p-8 rounded-xl flex flex-col items-center gap-2 transition-all duration-300 hover:shadow-card"
+            style={{
+              backgroundColor: 'var(--card)',
+              border: '2px dashed var(--border)'
+            }}
+          >
+            <div
+              className="w-14 h-14 rounded-full flex items-center justify-center shadow-premium-sm"
+              style={{ backgroundColor: 'var(--muted)' }}
+            >
+              <Camera className="w-7 h-7" style={{ color: 'var(--muted-foreground)' }} />
+            </div>
+            <span style={{ color: 'var(--foreground)' }}>Tap to add photos</span>
+            <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Max 5 photos</span>
           </button>
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 px-6 py-4 space-y-3">
+      {/* Footer */}
+      <div className="absolute bottom-0 left-0 right-0 glass px-6 py-4 space-y-3" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={handleSubmit}
           disabled={rating === 0}
-          className={`w-full py-4 rounded-lg border-2 ${
-            rating > 0
-              ? 'bg-gray-800 text-white border-gray-800'
-              : 'bg-gray-200 text-gray-400 border-gray-200'
-          }`}
+          className="w-full py-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-premium-lg hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          style={{
+            background: rating > 0 ? 'var(--primary-gradient)' : 'var(--muted)',
+            color: rating > 0 ? 'white' : 'var(--muted-foreground)'
+          }}
         >
           Submit Review
         </button>
-        <button onClick={onBack} className="w-full text-gray-600">
+        <button
+          onClick={onBack}
+          className="w-full py-2 transition-all duration-300"
+          style={{ color: 'var(--muted-foreground)' }}
+        >
           Skip for now
         </button>
       </div>

@@ -94,10 +94,10 @@ export function PropertyCalendarScreen({
 
   const calculateDuration = (): string => {
     if (!checkInDate || !checkOutDate) return '';
-    
+
     const diffTime = Math.abs(checkOutDate.getTime() - checkInDate.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays === 1) return '1 night';
     if (diffDays < 7) return `${diffDays} nights`;
     if (diffDays < 30) {
@@ -142,28 +142,31 @@ export function PropertyCalendarScreen({
       const isToday = isSameDay(today, date);
       const isDisabled = isUnavailable || isPast;
 
-      let dayClasses = 'aspect-square flex items-center justify-center rounded-lg text-sm transition-colors ';
-      
-      if (isDisabled) {
-        dayClasses += 'bg-gray-200 text-gray-400 cursor-not-allowed';
-      } else if (isCheckIn || isCheckOut) {
-        dayClasses += 'bg-gray-900 text-white';
-      } else if (isInRange) {
-        dayClasses += 'bg-gray-300 text-gray-900 cursor-pointer hover:bg-gray-400';
-      } else {
-        dayClasses += 'text-gray-900 cursor-pointer hover:bg-gray-100 border-2 border-transparent';
-      }
-
-      if (isToday && !isCheckIn && !isCheckOut && !isDisabled) {
-        dayClasses += ' border-2 border-gray-900';
-      }
-
       days.push(
         <button
           key={day}
           onClick={() => handleDateClick(date)}
           disabled={isDisabled}
-          className={dayClasses}
+          className="aspect-square flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-300"
+          style={{
+            background: isCheckIn || isCheckOut
+              ? 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))'
+              : isInRange
+                ? 'rgba(20, 184, 166, 0.2)'
+                : isDisabled
+                  ? 'var(--muted)'
+                  : 'transparent',
+            color: isCheckIn || isCheckOut
+              ? 'white'
+              : isDisabled
+                ? 'var(--muted-foreground)'
+                : 'var(--foreground)',
+            border: isToday && !isCheckIn && !isCheckOut && !isDisabled
+              ? '2px solid rgb(20, 184, 166)'
+              : '2px solid transparent',
+            cursor: isDisabled ? 'not-allowed' : 'pointer',
+            opacity: isDisabled ? 0.5 : 1
+          }}
         >
           {day}
         </button>
@@ -177,63 +180,94 @@ export function PropertyCalendarScreen({
   const duration = calculateDuration();
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900">Select Dates</h1>
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Select Dates</h1>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         <div className="space-y-6">
           {/* Selected Dates Display */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="p-4 border-2 border-gray-200 rounded-xl">
-              <p className="text-gray-600 text-sm mb-1">Check-in</p>
-              <p className="text-gray-900">{checkInDate ? formatDate(checkInDate) : 'Select date'}</p>
+          <div className="grid grid-cols-2 gap-3 animate-fade-in-up">
+            <div
+              className="p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
+              <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Check-in</p>
+              <p className="font-medium" style={{ color: 'var(--foreground)' }}>
+                {checkInDate ? formatDate(checkInDate) : 'Select date'}
+              </p>
             </div>
-            <div className="p-4 border-2 border-gray-200 rounded-xl">
-              <p className="text-gray-600 text-sm mb-1">Check-out</p>
-              <p className="text-gray-900">{checkOutDate ? formatDate(checkOutDate) : 'Select date'}</p>
+            <div
+              className="p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
+              <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Check-out</p>
+              <p className="font-medium" style={{ color: 'var(--foreground)' }}>
+                {checkOutDate ? formatDate(checkOutDate) : 'Select date'}
+              </p>
             </div>
           </div>
 
           {/* Duration Display */}
           {duration && (
-            <div className="p-4 bg-gray-900 text-white rounded-xl">
-              <p className="text-sm text-gray-300 mb-1">Duration</p>
-              <p className="text-xl">{duration}</p>
+            <div
+              className="p-4 rounded-xl text-white shadow-premium-sm animate-fade-in-up"
+              style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))', animationDelay: '0.05s' }}
+            >
+              <p className="text-sm text-white/70 mb-1">Duration</p>
+              <p className="text-xl font-semibold">{duration}</p>
             </div>
           )}
 
           {/* Calendar */}
-          <div className="border-2 border-gray-200 rounded-xl p-4">
+          <div
+            className="rounded-xl p-4 shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+          >
             {/* Month Navigation */}
             <div className="flex items-center justify-between mb-4">
               <button
                 onClick={goToPreviousMonth}
-                className="p-2 hover:bg-gray-100 rounded-lg"
+                className="p-2 rounded-lg transition-all duration-300 hover:shadow-card"
+                style={{ backgroundColor: 'var(--muted)' }}
               >
-                <ChevronLeft className="w-5 h-5 text-gray-700" />
+                <ChevronLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} />
               </button>
-              <h3 className="text-gray-900">
+              <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>
                 {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
               </h3>
               <button
                 onClick={goToNextMonth}
-                className="p-2 hover:bg-gray-100 rounded-lg"
+                className="p-2 rounded-lg transition-all duration-300 hover:shadow-card"
+                style={{ backgroundColor: 'var(--muted)' }}
               >
-                <ChevronRight className="w-5 h-5 text-gray-700" />
+                <ChevronRight className="w-5 h-5" style={{ color: 'var(--foreground)' }} />
               </button>
             </div>
 
             {/* Weekday Headers */}
             <div className="grid grid-cols-7 gap-1 mb-2">
               {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
-                <div key={day} className="aspect-square flex items-center justify-center text-gray-600 text-sm">
+                <div
+                  key={day}
+                  className="aspect-square flex items-center justify-center text-sm font-medium"
+                  style={{ color: 'var(--muted-foreground)' }}
+                >
                   {day}
                 </div>
               ))}
@@ -246,31 +280,53 @@ export function PropertyCalendarScreen({
           </div>
 
           {/* Legend */}
-          <div className="p-4 border-2 border-gray-200 rounded-xl">
-            <h3 className="text-gray-900 mb-3">Legend</h3>
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+          >
+            <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Legend</h3>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-gray-900 rounded" />
-                <span className="text-gray-600">Selected dates</span>
+                <div
+                  className="w-6 h-6 rounded"
+                  style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
+                />
+                <span style={{ color: 'var(--muted-foreground)' }}>Selected dates</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-gray-300 rounded" />
-                <span className="text-gray-600">Date range</span>
+                <div
+                  className="w-6 h-6 rounded"
+                  style={{ backgroundColor: 'rgba(20, 184, 166, 0.2)' }}
+                />
+                <span style={{ color: 'var(--muted-foreground)' }}>Date range</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-gray-200 rounded" />
-                <span className="text-gray-600">Unavailable dates</span>
+                <div
+                  className="w-6 h-6 rounded"
+                  style={{ backgroundColor: 'var(--muted)', opacity: 0.5 }}
+                />
+                <span style={{ color: 'var(--muted-foreground)' }}>Unavailable dates</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 border-2 border-gray-900 rounded" />
-                <span className="text-gray-600">Today</span>
+                <div
+                  className="w-6 h-6 rounded"
+                  style={{ border: '2px solid rgb(20, 184, 166)' }}
+                />
+                <span style={{ color: 'var(--muted-foreground)' }}>Today</span>
               </div>
             </div>
           </div>
 
           {/* Info */}
-          <div className="p-4 bg-gray-50 rounded-xl">
-            <p className="text-gray-600 text-sm">
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{
+              background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
+              border: '1px solid rgba(20, 184, 166, 0.3)',
+              animationDelay: '0.2s'
+            }}
+          >
+            <p className="text-sm" style={{ color: 'rgb(13, 148, 136)' }}>
               {!checkInDate && "Select your check-in date to begin"}
               {checkInDate && !checkOutDate && "Now select your check-out date"}
               {checkInDate && checkOutDate && "Dates selected! Click Continue to proceed"}
@@ -280,7 +336,7 @@ export function PropertyCalendarScreen({
       </div>
 
       {/* Bottom Button */}
-      <div className="p-6 border-t-2 border-gray-200 bg-white">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={() => {
             if (canContinue) {
@@ -290,7 +346,8 @@ export function PropertyCalendarScreen({
             }
           }}
           disabled={!canContinue}
-          className="w-full py-3 bg-gray-900 text-white rounded-xl disabled:bg-gray-300 disabled:text-gray-500"
+          className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
         >
           Continue
         </button>

@@ -61,26 +61,47 @@ export function FoodGroceryOrderTrackingScreen({
   const timelineSteps = getTimelineSteps();
   const currentStatusIndex = timelineSteps.findIndex(s => s.status === order.status);
 
+  // Get gradient based on order type
+  const getTypeGradient = () => {
+    switch (order.type) {
+      case 'food':
+        return 'linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12))';
+      case 'grocery':
+        return 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))';
+      case 'beauty-products':
+        return 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))';
+      default:
+        return 'var(--primary-gradient)';
+    }
+  };
+
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack} className="text-gray-900">
-            <ArrowLeft className="w-6 h-6" />
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
           <div className="flex-1">
-            <h1 className="text-gray-900">Order Status</h1>
-            <p className="text-sm text-gray-600">Order #{order.id}</p>
+            <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Order Status</h1>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Order #{order.id}</p>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 relative z-10">
         {/* Order Timeline */}
-        <div>
-          <h3 className="text-gray-900 mb-4">Order Timeline</h3>
+        <div className="animate-fade-in-up">
+          <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Order Timeline</h3>
           <div className="space-y-1">
             {timelineSteps.map((step, index) => {
               const isCompleted = index < currentStatusIndex;
@@ -93,33 +114,37 @@ export function FoodGroceryOrderTrackingScreen({
                   <div className="flex items-start gap-4">
                     {/* Icon */}
                     <div className="flex flex-col items-center">
-                      <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${
-                        isCompleted ? 'border-gray-900 bg-gray-900' :
-                        isCurrent ? 'border-gray-900 bg-white' :
-                        'border-gray-300 bg-white'
-                      }`}>
+                      <div
+                        className="w-8 h-8 rounded-full border-2 flex items-center justify-center shadow-card transition-all duration-300"
+                        style={{
+                          borderColor: isCompleted || isCurrent ? 'var(--primary)' : 'var(--border)',
+                          background: isCompleted ? 'var(--primary-gradient)' : 'var(--card)'
+                        }}
+                      >
                         {isCompleted ? (
                           <Check className="w-5 h-5 text-white" strokeWidth={3} />
                         ) : isCurrent ? (
-                          <Loader2 className="w-5 h-5 text-gray-900" strokeWidth={3} />
+                          <Loader2 className="w-5 h-5 animate-spin" style={{ color: 'var(--primary)' }} strokeWidth={3} />
                         ) : null}
                       </div>
                     </div>
 
                     {/* Content */}
                     <div className="flex-1 pb-6">
-                      <h4 className={`mb-1 ${
-                        isCompleted || isCurrent ? 'text-gray-900' : 'text-gray-400'
-                      }`}>
+                      <h4
+                        className="mb-1 font-medium"
+                        style={{ color: isCompleted || isCurrent ? 'var(--foreground)' : 'var(--muted-foreground)' }}
+                      >
                         {step.label}
                       </h4>
-                      <p className={`text-sm mb-1 ${
-                        isCompleted || isCurrent ? 'text-gray-600' : 'text-gray-400'
-                      }`}>
+                      <p
+                        className="text-sm mb-1"
+                        style={{ color: isCompleted || isCurrent ? 'var(--muted-foreground)' : 'var(--muted)' }}
+                      >
                         {step.description}
                       </p>
                       {step.timestamp && (isCompleted || isCurrent) && (
-                        <p className="text-xs text-gray-500">{step.timestamp}</p>
+                        <p className="text-xs" style={{ color: 'var(--primary)' }}>{step.timestamp}</p>
                       )}
                     </div>
                   </div>
@@ -128,9 +153,10 @@ export function FoodGroceryOrderTrackingScreen({
                   {!isLast && (
                     <div className="flex items-start gap-4 -mt-6">
                       <div className="w-8 flex justify-center">
-                        <div className={`w-0.5 h-6 ${
-                          isCompleted ? 'bg-gray-900' : 'bg-gray-300'
-                        }`} />
+                        <div
+                          className="w-0.5 h-6 transition-all duration-300"
+                          style={{ backgroundColor: isCompleted ? 'var(--primary)' : 'var(--border)' }}
+                        />
                       </div>
                     </div>
                   )}
@@ -141,71 +167,109 @@ export function FoodGroceryOrderTrackingScreen({
         </div>
 
         {/* Vendor Information */}
-        <div className="space-y-3">
-          <h3 className="text-gray-900">Vendor</h3>
-          <div className="bg-gray-50 rounded-xl p-4">
-            <p className="text-gray-900">{order.vendor}</p>
-            <p className="text-sm text-gray-600 mt-1">
-              {order.type === 'food' ? 'Restaurant' : order.type === 'grocery' ? 'Grocery Store' : 'Beauty Store'}
-            </p>
+        <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Vendor</h3>
+          <div
+            className="rounded-xl p-4 shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center shadow-premium-sm"
+                style={{ background: getTypeGradient() }}
+              >
+                <Package className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="font-medium" style={{ color: 'var(--foreground)' }}>{order.vendor}</p>
+                <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
+                  {order.type === 'food' ? 'Restaurant' : order.type === 'grocery' ? 'Grocery Store' : 'Beauty Store'}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Order Items */}
-        <div className="space-y-3">
-          <h3 className="text-gray-900">Order Items</h3>
-          <div className="bg-gray-50 rounded-xl divide-y divide-gray-200">
+        <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Order Items</h3>
+          <div
+            className="rounded-xl overflow-hidden shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
             {order.items?.map((item, index) => (
-              <div key={index} className="p-4 flex items-center justify-between">
+              <div
+                key={index}
+                className="p-4 flex items-center justify-between"
+                style={{ borderBottom: index < order.items.length - 1 ? '1px solid var(--border)' : 'none' }}
+              >
                 <div className="flex-1">
-                  <p className="text-gray-900">{item.name}</p>
-                  <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+                  <p className="font-medium" style={{ color: 'var(--foreground)' }}>{item.name}</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Qty: {item.quantity}</p>
                 </div>
-                <p className="text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
+                <p className="font-medium" style={{ color: 'var(--foreground)' }}>${(item.price * item.quantity).toFixed(2)}</p>
               </div>
             ))}
           </div>
-          
+
           {/* Total */}
-          <div className="bg-gray-900 text-white rounded-xl p-4 flex items-center justify-between">
-            <span>Total</span>
-            <span className="text-lg">{order.price}</span>
+          <div
+            className="rounded-xl p-4 flex items-center justify-between shadow-premium-sm"
+            style={{ background: 'var(--primary-gradient)' }}
+          >
+            <span className="text-white font-medium">Total</span>
+            <span className="text-white text-lg font-bold">{order.price}</span>
           </div>
         </div>
 
         {/* Delivery Address */}
-        <div className="space-y-3">
-          <h3 className="text-gray-900">Delivery Address</h3>
-          <div className="bg-gray-50 rounded-xl p-4 flex items-start gap-3">
-            <MapPin className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" />
-            <p className="text-gray-900 flex-1">{order.address}</p>
+        <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Delivery Address</h3>
+          <div
+            className="rounded-xl p-4 flex items-start gap-3 shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'var(--primary)' }} />
+            <p className="flex-1" style={{ color: 'var(--foreground)' }}>{order.address}</p>
           </div>
         </div>
 
         {/* Payment Method */}
-        <div className="space-y-3">
-          <h3 className="text-gray-900">Payment Method</h3>
-          <div className="bg-gray-50 rounded-xl p-4 flex items-center gap-3">
-            <CreditCard className="w-5 h-5 text-gray-600" />
-            <p className="text-gray-900">{order.paymentMethod || 'Credit Card •••• 1234'}</p>
+        <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Payment Method</h3>
+          <div
+            className="rounded-xl p-4 flex items-center gap-3 shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <div
+              className="w-10 h-10 rounded-lg flex items-center justify-center shadow-premium-sm"
+              style={{ background: 'var(--primary-gradient)' }}
+            >
+              <CreditCard className="w-5 h-5 text-white" />
+            </div>
+            <p className="font-medium" style={{ color: 'var(--foreground)' }}>{order.paymentMethod || 'Credit Card •••• 1234'}</p>
           </div>
         </div>
 
         {/* Order Date & Time */}
-        <div className="space-y-3">
-          <h3 className="text-gray-900">Order Date & Time</h3>
-          <div className="bg-gray-50 rounded-xl p-4">
-            <p className="text-gray-900">{order.date}</p>
-            <p className="text-sm text-gray-600 mt-1">{order.time}</p>
+        <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Order Date & Time</h3>
+          <div
+            className="rounded-xl p-4 shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <p className="font-medium" style={{ color: 'var(--foreground)' }}>{order.date}</p>
+            <p className="text-sm mt-1" style={{ color: 'var(--muted-foreground)' }}>{order.time}</p>
           </div>
         </div>
 
         {/* Actions for Completed Orders */}
         {order.status === 'completed' && (
-          <div className="space-y-3 pt-2">
+          <div className="space-y-3 pt-2 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <button
               onClick={onReorder}
-              className="w-full py-4 bg-gray-900 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-gray-800"
+              className="w-full py-4 rounded-xl text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+              style={{ background: 'var(--primary-gradient)' }}
             >
               <RefreshCcw className="w-5 h-5" />
               Re-order
@@ -214,9 +278,14 @@ export function FoodGroceryOrderTrackingScreen({
             {!order.hasReview && (
               <button
                 onClick={onReview}
-                className="w-full py-4 bg-white text-gray-900 border-2 border-gray-200 rounded-xl flex items-center justify-center gap-2 hover:border-gray-800"
+                className="w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-card hover:scale-[1.02] active:scale-[0.98]"
+                style={{
+                  backgroundColor: 'var(--card)',
+                  color: 'var(--foreground)',
+                  border: '2px solid var(--border)'
+                }}
               >
-                <Star className="w-5 h-5" />
+                <Star className="w-5 h-5" style={{ color: 'rgb(250, 204, 21)' }} />
                 Leave a Review
               </button>
             )}

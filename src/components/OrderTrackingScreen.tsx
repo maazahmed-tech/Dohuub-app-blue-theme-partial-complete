@@ -27,7 +27,7 @@ export function OrderTrackingScreen({
   // Handle status change with delay for completed
   const handleStatusChange = (status: OrderStatus) => {
     setCurrentStatus(status);
-    
+
     // Only navigate to review if booking doesn't already have a review
     if (status === 'completed' && !bookingData.hasReview) {
       // Wait 2 seconds then navigate to review screen
@@ -41,8 +41,8 @@ export function OrderTrackingScreen({
     {
       id: 'accepted',
       label: 'Accepted',
-      description: (bookingData as any).type === 'rental' 
-        ? 'Booking confirmed, waiting for check-in date' 
+      description: (bookingData as any).type === 'rental'
+        ? 'Booking confirmed, waiting for check-in date'
         : 'Your booking has been confirmed',
       time: 'Just now'
     },
@@ -70,11 +70,32 @@ export function OrderTrackingScreen({
 
   const getStatusIcon = (stepIndex: number) => {
     if (stepIndex < currentStatusIndex) {
-      return <CheckCircle className="w-8 h-8 text-gray-900" />;
+      return (
+        <div
+          className="w-8 h-8 rounded-full flex items-center justify-center shadow-premium-sm"
+          style={{ background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))' }}
+        >
+          <CheckCircle className="w-5 h-5 text-white" />
+        </div>
+      );
     } else if (stepIndex === currentStatusIndex) {
-      return <Loader className="w-8 h-8 text-gray-900" />;
+      return (
+        <div
+          className="w-8 h-8 rounded-full flex items-center justify-center shadow-premium-sm"
+          style={{ background: 'var(--primary-gradient)' }}
+        >
+          <Loader className="w-5 h-5 text-white animate-spin" />
+        </div>
+      );
     } else {
-      return <Circle className="w-8 h-8 text-gray-300" />;
+      return (
+        <div
+          className="w-8 h-8 rounded-full flex items-center justify-center"
+          style={{ backgroundColor: 'var(--muted)', border: '2px solid var(--border)' }}
+        >
+          <Circle className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
+        </div>
+      );
     }
   };
 
@@ -84,33 +105,48 @@ export function OrderTrackingScreen({
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900">Order Status</h1>
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Order Status</h1>
+        </div>
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Service Card */}
-        <div className="mb-6 p-4 bg-gray-50 rounded-xl">
+        <div
+          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+        >
           <div className="flex gap-3 mb-3">
-            <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-gray-400 text-2xl">
+            <div
+              className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+              style={{ background: 'var(--primary-gradient)' }}
+            >
+              <span className="text-2xl">
                 {(bookingData as any).type === 'rental' ? '🏠' : (bookingData as any).providerName ? '💅' : '🧹'}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-gray-900 mb-1">
+              <h3 className="font-semibold mb-1" style={{ color: 'var(--foreground)' }}>
                 {(bookingData as any).type === 'rental'
                   ? (bookingData as any).property?.name || bookingData.service.name
                   : bookingData.service.name
                 }
               </h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
                 {(bookingData as any).type === 'rental'
                   ? (bookingData as any).property?.location || 'Rental Property'
                   : (bookingData as any).vendor?.name || (bookingData as any).providerName
@@ -119,12 +155,18 @@ export function OrderTrackingScreen({
               {((bookingData as any).isPoweredByDoHuub && (bookingData as any).pointsEarned) || (bookingData as any).pointsRedeemed ? (
                 <div className="mt-2 flex flex-wrap gap-2">
                   {(bookingData as any).isPoweredByDoHuub && (bookingData as any).pointsEarned && (
-                    <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                    <span
+                      className="inline-block px-3 py-1 rounded-full text-sm text-white shadow-premium-sm"
+                      style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(249, 115, 22))' }}
+                    >
                       +{(bookingData as any).pointsEarned} pts earned
                     </span>
                   )}
                   {(bookingData as any).pointsRedeemed && (
-                    <span className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                    <span
+                      className="inline-block px-3 py-1 rounded-full text-sm"
+                      style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)', color: 'rgb(22, 163, 74)' }}
+                    >
                       -{(bookingData as any).pointsRedeemed} pts redeemed
                     </span>
                   )}
@@ -135,9 +177,9 @@ export function OrderTrackingScreen({
         </div>
 
         {/* Status Timeline */}
-        <div className="mb-6">
-          <h3 className="text-gray-900 mb-4">Order Timeline</h3>
-          <div className="space-y-6">
+        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Order Timeline</h3>
+          <div className="space-y-4">
             {statusSteps.map((step, index) => (
               <div key={step.id} className="flex gap-4">
                 {/* Icon Column */}
@@ -146,24 +188,31 @@ export function OrderTrackingScreen({
                     {getStatusIcon(index)}
                   </div>
                   {index < statusSteps.length - 1 && (
-                    <div 
-                      className={`w-0.5 h-12 mt-2 ${
-                        index < currentStatusIndex ? 'bg-gray-900' : 'bg-gray-300'
-                      }`}
+                    <div
+                      className="w-0.5 h-12 mt-2 rounded-full"
+                      style={{
+                        backgroundColor: index < currentStatusIndex ? 'var(--primary)' : 'var(--border)'
+                      }}
                     />
                   )}
                 </div>
 
                 {/* Content Column */}
                 <div className="flex-1 pb-4">
-                  <h4 className={`mb-1 ${index <= currentStatusIndex ? 'text-gray-900' : 'text-gray-500'}`}>
+                  <h4
+                    className={`font-medium mb-1 ${index <= currentStatusIndex ? '' : 'opacity-50'}`}
+                    style={{ color: 'var(--foreground)' }}
+                  >
                     {step.label}
                   </h4>
-                  <p className={`text-sm mb-1 ${index <= currentStatusIndex ? 'text-gray-600' : 'text-gray-400'}`}>
+                  <p
+                    className={`text-sm mb-1 ${index <= currentStatusIndex ? '' : 'opacity-50'}`}
+                    style={{ color: 'var(--muted-foreground)' }}
+                  >
                     {step.description}
                   </p>
                   {step.time && index <= currentStatusIndex && (
-                    <p className="text-gray-500 text-sm">{step.time}</p>
+                    <p className="text-sm" style={{ color: 'var(--primary)' }}>{step.time}</p>
                   )}
                 </div>
               </div>
@@ -172,46 +221,49 @@ export function OrderTrackingScreen({
         </div>
 
         {/* Service Details */}
-        <div className="mb-6 p-4 border-2 border-gray-200 rounded-xl">
-          <h3 className="text-gray-900 mb-3">Service Details</h3>
+        <div
+          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+        >
+          <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Service Details</h3>
 
           <div className="space-y-3">
             {(bookingData as any).type === 'rental' ? (
               <>
                 <div className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-gray-700 mt-0.5 flex-shrink-0" />
+                  <Calendar className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: 'var(--primary)' }} />
                   <div>
-                    <p className="text-gray-700">Check-in / Check-out</p>
-                    <p className="text-gray-900">
+                    <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Check-in / Check-out</p>
+                    <p className="font-medium" style={{ color: 'var(--foreground)' }}>
                       {(bookingData as any).checkInDate || bookingData.date} - {(bookingData as any).checkOutDate || bookingData.date}
                     </p>
-                    <p className="text-gray-600 text-sm">{(bookingData as any).duration || '1 night'}</p>
+                    <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{(bookingData as any).duration || '1 night'}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-gray-700 mt-0.5 flex-shrink-0" />
+                  <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: 'var(--primary)' }} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-gray-700">Property Location</p>
-                    <p className="text-gray-900">{(bookingData as any).property?.location || bookingData.address.label}</p>
+                    <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Property Location</p>
+                    <p className="font-medium" style={{ color: 'var(--foreground)' }}>{(bookingData as any).property?.location || bookingData.address.label}</p>
                   </div>
                 </div>
               </>
             ) : (
               <>
                 <div className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-gray-700 mt-0.5 flex-shrink-0" />
+                  <Calendar className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: 'var(--primary)' }} />
                   <div>
-                    <p className="text-gray-700">Scheduled Date & Time</p>
-                    <p className="text-gray-900">{bookingData.date} at {bookingData.time}</p>
+                    <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Scheduled Date & Time</p>
+                    <p className="font-medium" style={{ color: 'var(--foreground)' }}>{bookingData.date} at {bookingData.time}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-gray-700 mt-0.5 flex-shrink-0" />
+                  <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: 'var(--primary)' }} />
                   <div className="flex-1 min-w-0">
-                    <p className="text-gray-700">Service Address</p>
-                    <p className="text-gray-900">{bookingData.address.label}</p>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Service Address</p>
+                    <p className="font-medium" style={{ color: 'var(--foreground)' }}>{bookingData.address.label}</p>
+                    <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
                       {bookingData.address.street}, {bookingData.address.city}
                     </p>
                   </div>
@@ -223,48 +275,46 @@ export function OrderTrackingScreen({
 
         {/* Check-in Instructions (for rental properties) */}
         {(bookingData as any).type === 'rental' && (
-          <div className="mb-6 p-4 bg-gray-50 border-2 border-gray-200 rounded-xl">
-            <h3 className="text-gray-900 mb-3">Check-in Instructions</h3>
-            <p className="text-gray-600 leading-relaxed">
+          <div
+            className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{
+              background: 'linear-gradient(135deg, rgba(46, 122, 217, 0.05), rgba(46, 122, 217, 0.1))',
+              border: '1px solid rgba(46, 122, 217, 0.2)',
+              animationDelay: '0.15s'
+            }}
+          >
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Check-in Instructions</h3>
+            <p style={{ color: 'var(--muted-foreground)' }}>
               {(bookingData as any).property?.checkInInstructions}
             </p>
           </div>
         )}
 
         {/* Demo Status Changer (for testing) */}
-        <div className="mb-6 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-xl">
-          <p className="text-gray-900 mb-2 text-sm">Demo: Change Status</p>
+        <div
+          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          style={{
+            background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.1))',
+            border: '1px solid rgba(245, 158, 11, 0.3)',
+            animationDelay: '0.2s'
+          }}
+        >
+          <p className="font-medium mb-3 text-sm" style={{ color: 'rgb(180, 83, 9)' }}>Demo: Change Status</p>
           <div className="flex gap-2">
-            <button
-              onClick={() => handleStatusChange('accepted')}
-              className={`flex-1 py-2 rounded-lg text-sm ${
-                currentStatus === 'accepted' 
-                  ? 'bg-gray-900 text-white' 
-                  : 'bg-white text-gray-900 border-2 border-gray-300'
-              }`}
-            >
-              Accepted
-            </button>
-            <button
-              onClick={() => handleStatusChange('in-progress')}
-              className={`flex-1 py-2 rounded-lg text-sm ${
-                currentStatus === 'in-progress' 
-                  ? 'bg-gray-900 text-white' 
-                  : 'bg-white text-gray-900 border-2 border-gray-300'
-              }`}
-            >
-              In Progress
-            </button>
-            <button
-              onClick={() => handleStatusChange('completed')}
-              className={`flex-1 py-2 rounded-lg text-sm ${
-                currentStatus === 'completed' 
-                  ? 'bg-gray-900 text-white' 
-                  : 'bg-white text-gray-900 border-2 border-gray-300'
-              }`}
-            >
-              Completed
-            </button>
+            {['accepted', 'in-progress', 'completed'].map((status) => (
+              <button
+                key={status}
+                onClick={() => handleStatusChange(status as OrderStatus)}
+                className="flex-1 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+                style={{
+                  backgroundColor: currentStatus === status ? 'var(--primary)' : 'var(--card)',
+                  color: currentStatus === status ? 'white' : 'var(--foreground)',
+                  border: `1px solid ${currentStatus === status ? 'var(--primary)' : 'var(--border)'}`
+                }}
+              >
+                {status === 'in-progress' ? 'In Progress' : status.charAt(0).toUpperCase() + status.slice(1)}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -272,7 +322,12 @@ export function OrderTrackingScreen({
         {currentStatus === 'completed' && onViewInvoice && (
           <button
             onClick={onViewInvoice}
-            className="w-full py-4 bg-gray-100 text-gray-900 rounded-xl mb-3"
+            className="w-full py-4 rounded-xl font-medium mb-3 transition-all duration-300 hover:shadow-card animate-fade-in-up"
+            style={{
+              backgroundColor: 'var(--muted)',
+              color: 'var(--foreground)',
+              animationDelay: '0.25s'
+            }}
           >
             View Invoice
           </button>
@@ -282,7 +337,8 @@ export function OrderTrackingScreen({
         {currentStatus === 'completed' && onReorder && (
           <button
             onClick={onReorder}
-            className="w-full py-4 bg-gray-900 text-white rounded-xl mb-3"
+            className="w-full py-4 rounded-xl text-white font-medium mb-3 transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
+            style={{ background: 'var(--primary-gradient)', animationDelay: '0.3s' }}
           >
             Reorder Service
           </button>
@@ -292,7 +348,8 @@ export function OrderTrackingScreen({
         {currentStatus === 'completed' && !bookingData.hasReview && (
           <button
             onClick={() => onRequestReview(bookingData)}
-            className="w-full py-4 bg-gray-900 text-white rounded-xl"
+            className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
+            style={{ background: 'var(--primary-gradient)', animationDelay: '0.35s' }}
           >
             Leave a Review
           </button>
@@ -300,7 +357,15 @@ export function OrderTrackingScreen({
 
         {/* Already Reviewed (if completed and has review) */}
         {currentStatus === 'completed' && bookingData.hasReview && (
-          <div className="w-full py-4 border-2 border-gray-300 text-gray-600 rounded-xl text-center">
+          <div
+            className="w-full py-4 rounded-xl text-center font-medium shadow-card animate-fade-in-up"
+            style={{
+              backgroundColor: 'rgba(34, 197, 94, 0.1)',
+              color: 'rgb(22, 163, 74)',
+              border: '1px solid rgba(34, 197, 94, 0.3)',
+              animationDelay: '0.35s'
+            }}
+          >
             ✓ Review Submitted
           </div>
         )}

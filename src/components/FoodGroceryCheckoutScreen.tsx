@@ -87,32 +87,42 @@ export function FoodGroceryCheckoutScreen({
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="bg-white border-b-2 border-gray-200 px-6 py-4">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack} className="text-gray-900">
-            <ArrowLeft className="w-6 h-6" strokeWidth={2} />
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
           <div>
-            <h1 className="text-gray-900">Checkout</h1>
-            <p className="text-gray-600">{vendor.name}</p>
+            <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Checkout</h1>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{vendor.name}</p>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32">
+      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
         {/* Delivery Address */}
         {selectedAddress && (
-          <div className="mb-6">
-            <h3 className="text-gray-900 mb-3">Delivery Address</h3>
-            <div className="bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
+          <div className="mb-6 animate-fade-in-up">
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Delivery Address</h3>
+            <div
+              className="rounded-xl p-4 shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-gray-700 flex-shrink-0 mt-1" />
+                <MapPin className="w-5 h-5 flex-shrink-0 mt-1" style={{ color: 'var(--primary)' }} />
                 <div className="flex-1">
-                  <p className="text-gray-900 mb-1">{selectedAddress.label}</p>
-                  <p className="text-gray-600">
+                  <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{selectedAddress.label}</p>
+                  <p style={{ color: 'var(--muted-foreground)' }}>
                     {selectedAddress.street}, {selectedAddress.city}, {selectedAddress.state} {selectedAddress.zipCode}
                   </p>
                 </div>
@@ -122,40 +132,51 @@ export function FoodGroceryCheckoutScreen({
         )}
 
         {/* Order Items */}
-        <div className="mb-6">
-          <h3 className="text-gray-900 mb-3">Order Items</h3>
+        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Order Items</h3>
           <div className="space-y-3">
-            {cartItems.map(item => (
-              <div key={item.id} className="bg-white rounded-xl border-2 border-gray-200 p-4">
+            {cartItems.map((item, index) => (
+              <div
+                key={item.id}
+                className="rounded-xl p-4 shadow-card"
+                style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+              >
                 <div className="flex gap-3">
-                  <div className="w-16 h-16 rounded-lg bg-gray-200 flex items-center justify-center flex-shrink-0">
-                    <ImageIcon className="w-8 h-8 text-gray-400" />
+                  <div
+                    className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                    style={{ background: orderType === 'food' ? 'linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12))' : 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))' }}
+                  >
+                    <span className="text-xl">{orderType === 'food' ? '🍽️' : '🛒'}</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-gray-900 mb-1">{item.name}</h4>
-                    <p className="text-gray-600 mb-2">${item.price.toFixed(2)}</p>
-                    <div className="flex items-center gap-2 bg-gray-100 text-gray-900 rounded-lg p-1 w-fit">
+                    <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{item.name}</h4>
+                    <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>${item.price.toFixed(2)}</p>
+                    <div
+                      className="flex items-center gap-2 rounded-lg p-1 w-fit"
+                      style={{ backgroundColor: 'var(--muted)' }}
+                    >
                       <button
                         onClick={() => handleUpdateQuantity(item.id, -1)}
-                        className="w-7 h-7 flex items-center justify-center hover:bg-gray-200 rounded"
+                        className="w-7 h-7 flex items-center justify-center rounded transition-all duration-300 hover:bg-white/50"
                       >
-                        <Minus className="w-4 h-4" />
+                        <Minus className="w-4 h-4" style={{ color: 'var(--foreground)' }} />
                       </button>
-                      <span className="w-7 text-center">{item.quantity}</span>
+                      <span className="w-7 text-center font-medium" style={{ color: 'var(--foreground)' }}>{item.quantity}</span>
                       <button
                         onClick={() => handleUpdateQuantity(item.id, 1)}
-                        className="w-7 h-7 flex items-center justify-center hover:bg-gray-200 rounded"
+                        className="w-7 h-7 flex items-center justify-center rounded transition-all duration-300 hover:bg-white/50"
                       >
-                        <Plus className="w-4 h-4" />
+                        <Plus className="w-4 h-4" style={{ color: 'var(--foreground)' }} />
                       </button>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
+                    <p className="font-semibold" style={{ color: 'var(--primary)' }}>${(item.price * item.quantity).toFixed(2)}</p>
                   </div>
                   <button
                     onClick={() => handleRemoveItem(item.id)}
-                    className="text-gray-500 hover:text-gray-900"
+                    className="p-2 rounded-lg transition-all duration-300 hover:bg-red-50"
+                    style={{ color: 'var(--muted-foreground)' }}
                   >
                     <Trash2 className="w-5 h-5" />
                   </button>
@@ -167,7 +188,7 @@ export function FoodGroceryCheckoutScreen({
 
         {/* Points Redemption - Only for Powered by DoHuub vendors */}
         {vendor.isPoweredByDoHuub && availablePoints > 0 && (
-          <div className="mb-4">
+          <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             <PointsRedemptionCard
               availablePoints={availablePoints}
               selectedPoints={pointsToRedeem}
@@ -180,31 +201,34 @@ export function FoodGroceryCheckoutScreen({
         )}
 
         {/* Price Breakdown */}
-        <div className="bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
-          <h3 className="text-gray-900 mb-3">Price Details</h3>
+        <div
+          className="rounded-xl p-4 shadow-card animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+        >
+          <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Price Details</h3>
           <div className="space-y-2">
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between" style={{ color: 'var(--muted-foreground)' }}>
               <span>Subtotal</span>
               <span>${subtotal.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between" style={{ color: 'var(--muted-foreground)' }}>
               <span>Delivery Fee</span>
               <span>${deliveryFee.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between text-gray-600">
+            <div className="flex justify-between" style={{ color: 'var(--muted-foreground)' }}>
               <span>Tax</span>
               <span>${tax.toFixed(2)}</span>
             </div>
             {pointsRedemptionEnabled && pointsToRedeem > 0 && (
-              <div className="flex justify-between text-green-600">
+              <div className="flex justify-between" style={{ color: 'rgb(34, 197, 94)' }}>
                 <span>Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
                 <span>-${discountAmount.toFixed(2)}</span>
               </div>
             )}
-            <div className="border-t-2 border-gray-200 pt-2 mt-2">
-              <div className="flex justify-between text-gray-900">
-                <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+            <div className="pt-2 mt-2" style={{ borderTop: '1px solid var(--border)' }}>
+              <div className="flex justify-between">
+                <span className="font-semibold" style={{ color: 'var(--foreground)' }}>Total</span>
+                <span className="font-semibold" style={{ color: 'var(--primary)' }}>${total.toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -212,27 +236,35 @@ export function FoodGroceryCheckoutScreen({
 
         {/* Points Preview - Only for Powered by DoHuub vendors */}
         {vendor.isPoweredByDoHuub && (
-          <div className="mt-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+          <div
+            className="mt-4 p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+            style={{
+              background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
+              border: '1px solid rgba(245, 158, 11, 0.3)',
+              animationDelay: '0.2s'
+            }}
+          >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Gift className="w-5 h-5 text-amber-600" />
-                <span className="font-medium text-amber-800">Points you'll earn</span>
+                <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />
+                <span className="font-medium" style={{ color: 'rgb(180, 83, 9)' }}>Points you'll earn</span>
               </div>
-              <span className="text-lg font-bold text-amber-600">
+              <span className="text-lg font-bold" style={{ color: 'rgb(245, 158, 11)' }}>
                 +{Math.floor(total)} pts
               </span>
             </div>
-            <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after delivery</p>
+            <p className="text-sm mt-1" style={{ color: 'rgb(217, 119, 6)' }}>1 point per $1 spent • Added after delivery</p>
           </div>
         )}
       </div>
 
       {/* Place Order Button */}
-      <div className="bg-white border-t-2 border-gray-200 px-6 py-4">
+      <div className="absolute bottom-0 left-0 right-0 px-6 py-4 glass z-20" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={handlePlaceOrder}
           disabled={cartItems.length === 0}
-          className="w-full bg-gray-900 text-white rounded-xl py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          style={{ background: 'var(--primary-gradient)' }}
         >
           Confirm Address and Payment
         </button>

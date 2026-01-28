@@ -38,13 +38,13 @@ export function LocationSelectorModal({
   };
 
   return (
-    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-end z-50">
-      <div className="w-full bg-white rounded-t-3xl max-h-[80vh] flex flex-col">
+    <div className="absolute inset-0 backdrop-blur-modal flex items-end z-50 animate-fade-in">
+      <div className="w-full rounded-t-3xl max-h-[80vh] flex flex-col glass shadow-premium-xl animate-slide-up" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.5)' }}>
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b-2 border-gray-200">
-          <h2 className="text-gray-800">Select Service Location</h2>
-          <button onClick={onClose} className="p-2">
-            <X className="w-6 h-6 text-gray-600" />
+        <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: 'rgba(46, 122, 217, 0.1)' }}>
+          <h2 style={{ color: 'var(--foreground)' }}>Select Service Location</h2>
+          <button onClick={onClose} className="p-2 transition-all duration-200 hover:scale-110 active:scale-95 hover:opacity-80">
+            <X className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} />
           </button>
         </div>
 
@@ -52,9 +52,9 @@ export function LocationSelectorModal({
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {addresses.length === 0 ? (
             <div className="text-center py-8">
-              <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 mb-2">No saved addresses</p>
-              <p className="text-gray-400 mb-6">Add an address to get started</p>
+              <MapPin className="w-12 h-12 mx-auto mb-4" style={{ color: 'var(--primary)' }} />
+              <p className="mb-2" style={{ color: 'var(--foreground)' }}>No saved addresses</p>
+              <p className="mb-6" style={{ color: 'var(--muted-foreground)' }}>Add an address to get started</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -64,33 +64,31 @@ export function LocationSelectorModal({
                   <button
                     key={address.id}
                     onClick={() => handleSelectAddress(address.id)}
-                    className={`w-full p-4 rounded-lg border-2 text-left transition-all ${
-                      isSelected
-                        ? 'border-gray-800 bg-gray-50'
-                        : 'border-gray-300 bg-white hover:border-gray-400'
-                    }`}
+                    className={`w-full p-4 rounded-xl text-left transition-all duration-300 shadow-premium-sm hover:shadow-premium-md ${isSelected ? 'accent-border-left' : ''}`}
+                    style={{
+                      border: isSelected ? '2px solid var(--primary)' : '1px solid rgba(46, 122, 217, 0.1)',
+                      backgroundColor: isSelected ? 'var(--secondary)' : 'rgba(255, 255, 255, 0.5)'
+                    }}
                   >
                     <div className="flex items-start gap-3">
-                      <MapPin className={`w-5 h-5 mt-1 ${
-                        isSelected ? 'text-gray-800' : 'text-gray-600'
-                      }`} />
+                      <MapPin className="w-5 h-5 mt-1" style={{ color: isSelected ? 'var(--primary)' : 'var(--muted-foreground)' }} />
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <p className="text-gray-800">{address.label}</p>
+                          <p style={{ color: 'var(--foreground)' }}>{address.label}</p>
                           {address.isDefault && (
-                            <span className="px-2 py-1 bg-gray-200 rounded text-gray-700">
+                            <span className="px-2 py-1 rounded text-xs" style={{ backgroundColor: 'var(--secondary)', color: 'var(--primary)' }}>
                               Default
                             </span>
                           )}
                           {isSelected && (
-                            <span className="ml-auto text-gray-800">✓</span>
+                            <span className="ml-auto" style={{ color: 'var(--primary)' }}>✓</span>
                           )}
                         </div>
-                        <p className="text-gray-600">
+                        <p style={{ color: 'var(--muted-foreground)' }}>
                           {address.street}
                           {address.apartment && `, ${address.apartment}`}
                         </p>
-                        <p className="text-gray-500">
+                        <p style={{ color: 'var(--muted-foreground)' }}>
                           {address.city}, {address.state} {address.zipCode}
                         </p>
                       </div>
@@ -103,16 +101,17 @@ export function LocationSelectorModal({
         </div>
 
         {/* Add New Address Button */}
-        <div className="px-6 py-4 border-t-2 border-gray-200">
+        <div className="px-6 py-4 border-t" style={{ borderColor: 'rgba(46, 122, 217, 0.1)' }}>
           <button
             onClick={() => {
               onAddAddress();
               onClose();
             }}
-            className="w-full flex items-center justify-center gap-2 px-6 py-4 border-2 border-gray-800 rounded-lg hover:bg-gray-50"
+            className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl shadow-premium-md transition-all duration-300 hover:shadow-premium-lg hover:scale-[1.02] active:scale-[0.98] text-white"
+            style={{ background: 'var(--primary-gradient)' }}
           >
-            <Plus className="w-5 h-5 text-gray-800" />
-            <span className="text-gray-800">Add New Address</span>
+            <Plus className="w-5 h-5" />
+            <span>Add New Address</span>
           </button>
         </div>
       </div>

@@ -51,40 +51,58 @@ export function HostProfileScreen({
   const hostName = property.isPoweredByDoHuub ? 'DoHuub Properties' : 'Sarah Johnson';
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4 bg-white sticky top-0 z-10">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900">Host Profile</h1>
+      <div className="px-6 py-4 glass relative z-10 sticky top-0" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Host Profile</h1>
+        </div>
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto relative z-10">
         <div className="px-6 py-6 space-y-6">
           {/* Host Header */}
-          <div className="text-center">
-            <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span className="text-gray-600 text-4xl">👤</span>
+          <div className="text-center animate-fade-in-up">
+            <div
+              className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-premium-md"
+              style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
+            >
+              <span className="text-4xl">👤</span>
             </div>
-            <h2 className="text-gray-900 mb-2">{hostName}</h2>
+            <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>{hostName}</h2>
             {property.isPoweredByDoHuub && (
-              <div className="inline-block bg-gray-900 text-white px-3 py-1 rounded-full text-sm mb-3">
+              <div
+                className="inline-block px-3 py-1 rounded-full text-sm text-white mb-3 shadow-premium-sm"
+                style={{ background: 'var(--primary-gradient)' }}
+              >
                 Powered by DoHuub
               </div>
             )}
             <div className="flex items-center justify-center gap-2">
-              <Star className="w-5 h-5 text-gray-900 fill-gray-900" />
-              <span className="text-gray-900">{averageRating}</span>
+              <Star className="w-5 h-5 fill-current" style={{ color: 'rgb(250, 204, 21)' }} />
+              <span className="font-medium" style={{ color: 'var(--foreground)' }}>{averageRating}</span>
             </div>
           </div>
 
           {/* About */}
-          <div className="p-4 bg-gray-50 rounded-xl">
-            <h3 className="text-gray-900 mb-3">About</h3>
-            <p className="text-gray-600">
-              {property.isPoweredByDoHuub 
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+          >
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>About</h3>
+            <p style={{ color: 'var(--muted-foreground)' }}>
+              {property.isPoweredByDoHuub
                 ? 'DoHuub Properties is a professional property management company dedicated to providing exceptional rental experiences. We manage a diverse portfolio of properties and pride ourselves on hospitality, cleanliness, and guest satisfaction.'
                 : 'Experienced host with a passion for hospitality. I love welcoming guests to Miami and ensuring they have a comfortable and memorable stay. With years of hosting experience, I understand what makes a great vacation rental.'
               }
@@ -92,43 +110,47 @@ export function HostProfileScreen({
           </div>
 
           {/* Host Stats */}
-          <div className="flex items-center justify-center gap-8 p-4 border-2 border-gray-200 rounded-xl">
+          <div
+            className="flex items-center justify-center gap-8 p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+          >
             <div className="text-center">
-              <p className="text-gray-900 mb-1">2019</p>
-              <p className="text-gray-600 text-sm">Host since</p>
+              <p className="font-bold text-lg" style={{ color: 'var(--foreground)' }}>2019</p>
+              <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Host since</p>
             </div>
-            <div className="w-px h-12 bg-gray-200" />
+            <div className="w-px h-12" style={{ backgroundColor: 'var(--border)' }} />
             <div className="text-center">
-              <p className="text-gray-900 mb-1">3</p>
-              <p className="text-gray-600 text-sm">Rental properties</p>
+              <p className="font-bold text-lg" style={{ color: 'var(--foreground)' }}>3</p>
+              <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Rental properties</p>
             </div>
           </div>
 
           {/* Properties Hosted */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Properties Hosted</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Properties Hosted</h3>
             <div className="space-y-3">
-              {hostedProperties.map(prop => (
+              {hostedProperties.map((prop, index) => (
                 <button
                   key={prop.id}
                   onClick={() => onSelectProperty(property)}
-                  className="w-full p-4 border-2 border-gray-200 rounded-xl text-left hover:border-gray-900 transition-colors"
+                  className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
+                  style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
-                      <h4 className="text-gray-900 mb-1">{prop.name}</h4>
-                      <p className="text-gray-600 text-sm mb-2">{prop.location}</p>
+                      <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{prop.name}</h4>
+                      <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>{prop.location}</p>
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
-                          <Star className="w-4 h-4 text-gray-900 fill-gray-900" />
-                          <span className="text-gray-900 text-sm">{prop.rating}</span>
+                          <Star className="w-4 h-4 fill-current" style={{ color: 'rgb(250, 204, 21)' }} />
+                          <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>{prop.rating}</span>
                         </div>
-                        <span className="text-gray-600 text-sm">{prop.bedrooms} bed · {prop.bathrooms} bath</span>
+                        <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{prop.bedrooms} bed · {prop.bathrooms} bath</span>
                       </div>
                     </div>
                     <div className="text-right ml-4">
-                      <p className="text-gray-900">${prop.pricePerNight}</p>
-                      <p className="text-gray-600 text-sm">per night</p>
+                      <p className="font-bold" style={{ color: 'var(--primary)' }}>${prop.pricePerNight}</p>
+                      <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>per night</p>
                     </div>
                   </div>
                 </button>
@@ -137,12 +159,13 @@ export function HostProfileScreen({
           </div>
 
           {/* Reviews & Ratings */}
-          <div>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-gray-900">Reviews & Ratings</h3>
-              <button 
+              <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Reviews & Ratings</h3>
+              <button
                 onClick={onViewAllReviews}
-                className="flex items-center gap-1 text-gray-900 text-sm"
+                className="flex items-center gap-1 text-sm transition-all duration-300 hover:opacity-70"
+                style={{ color: 'var(--primary)' }}
               >
                 View All
                 <ChevronRight className="w-4 h-4" />
@@ -150,25 +173,31 @@ export function HostProfileScreen({
             </div>
 
             {/* Rating Summary */}
-            <div className="p-4 bg-gray-50 rounded-xl mb-4">
+            <div
+              className="p-4 rounded-xl mb-4 shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
               <div className="flex items-center gap-6 mb-4">
                 <div className="text-center">
-                  <p className="text-gray-900 text-4xl mb-1">{averageRating}</p>
+                  <p className="text-4xl font-bold mb-1" style={{ color: 'var(--foreground)' }}>{averageRating}</p>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="w-4 h-4 text-gray-900 fill-gray-900" />
+                      <Star key={star} className="w-4 h-4 fill-current" style={{ color: 'rgb(250, 204, 21)' }} />
                     ))}
                   </div>
-                  <p className="text-gray-600 text-sm">{totalReviews} reviews</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{totalReviews} reviews</p>
                 </div>
                 <div className="flex-1 space-y-1">
                   {[5, 4, 3, 2, 1].map(rating => (
                     <div key={rating} className="flex items-center gap-2">
-                      <span className="text-gray-600 text-sm w-3">{rating}</span>
-                      <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gray-900 rounded-full"
-                          style={{ width: `${rating === 5 ? 75 : rating === 4 ? 20 : 5}%` }}
+                      <span className="text-sm w-3" style={{ color: 'var(--muted-foreground)' }}>{rating}</span>
+                      <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--muted)' }}>
+                        <div
+                          className="h-full rounded-full"
+                          style={{
+                            width: `${rating === 5 ? 75 : rating === 4 ? 20 : 5}%`,
+                            background: 'var(--primary-gradient)'
+                          }}
                         />
                       </div>
                     </div>
@@ -179,84 +208,114 @@ export function HostProfileScreen({
 
             {/* Recent Reviews */}
             <div className="space-y-3">
-              <div className="p-4 border-2 border-gray-200 rounded-xl">
+              {/* Review 1 */}
+              <div
+                className="p-4 rounded-xl shadow-card"
+                style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+              >
                 <div className="flex items-start gap-3 mb-2">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="w-5 h-5 text-gray-600" />
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-card"
+                    style={{ background: 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))' }}
+                  >
+                    <User className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-gray-900">Michael T.</span>
-                      <span className="text-gray-600 text-sm">1 week ago</span>
+                      <span className="font-medium" style={{ color: 'var(--foreground)' }}>Michael T.</span>
+                      <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>1 week ago</span>
                     </div>
                     <div className="flex items-center gap-1 mb-2">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className="w-4 h-4 text-gray-900 fill-gray-900" />
+                        <Star key={star} className="w-4 h-4 fill-current" style={{ color: 'rgb(250, 204, 21)' }} />
                       ))}
                     </div>
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm mb-3">
+                <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>
                   Excellent host! Very responsive and helpful throughout our stay. The property was exactly as described and in great condition. Highly recommend!
                 </p>
                 {/* Review Images */}
                 <div className="flex gap-2">
-                  <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <span className="text-gray-500 text-xs">Photo</span>
+                  <div
+                    className="w-20 h-20 rounded-lg flex items-center justify-center"
+                    style={{ backgroundColor: 'var(--muted)' }}
+                  >
+                    <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Photo</span>
                   </div>
-                  <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <span className="text-gray-500 text-xs">Photo</span>
+                  <div
+                    className="w-20 h-20 rounded-lg flex items-center justify-center"
+                    style={{ backgroundColor: 'var(--muted)' }}
+                  >
+                    <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Photo</span>
                   </div>
                 </div>
               </div>
 
-              <div className="p-4 border-2 border-gray-200 rounded-xl">
+              {/* Review 2 */}
+              <div
+                className="p-4 rounded-xl shadow-card"
+                style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+              >
                 <div className="flex items-start gap-3 mb-2">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="w-5 h-5 text-gray-600" />
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-card"
+                    style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))' }}
+                  >
+                    <User className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-gray-900">Emma R.</span>
-                      <span className="text-gray-600 text-sm">2 weeks ago</span>
+                      <span className="font-medium" style={{ color: 'var(--foreground)' }}>Emma R.</span>
+                      <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>2 weeks ago</span>
                     </div>
                     <div className="flex items-center gap-1 mb-2">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className="w-4 h-4 text-gray-900 fill-gray-900" />
+                        <Star key={star} className="w-4 h-4 fill-current" style={{ color: 'rgb(250, 204, 21)' }} />
                       ))}
                     </div>
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm">
+                <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
                   Great communication and a wonderful property. Everything was clean and well-maintained. Would definitely book again!
                 </p>
               </div>
 
-              <div className="p-4 border-2 border-gray-200 rounded-xl">
+              {/* Review 3 */}
+              <div
+                className="p-4 rounded-xl shadow-card"
+                style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+              >
                 <div className="flex items-start gap-3 mb-2">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="w-5 h-5 text-gray-600" />
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-card"
+                    style={{ background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))' }}
+                  >
+                    <User className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-gray-900">James L.</span>
-                      <span className="text-gray-600 text-sm">3 weeks ago</span>
+                      <span className="font-medium" style={{ color: 'var(--foreground)' }}>James L.</span>
+                      <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>3 weeks ago</span>
                     </div>
                     <div className="flex items-center gap-1 mb-2">
                       {[1, 2, 3, 4].map((star) => (
-                        <Star key={star} className="w-4 h-4 text-gray-900 fill-gray-900" />
+                        <Star key={star} className="w-4 h-4 fill-current" style={{ color: 'rgb(250, 204, 21)' }} />
                       ))}
-                      <Star className="w-4 h-4 text-gray-400" />
+                      <Star className="w-4 h-4" style={{ color: 'var(--muted)' }} />
                     </div>
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm mb-3">
+                <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>
                   Nice place and good host. Check-in was smooth. Only minor issue was the WiFi speed, but overall a good experience.
                 </p>
                 {/* Review Images */}
                 <div className="flex gap-2">
-                  <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <span className="text-gray-500 text-xs">Photo</span>
+                  <div
+                    className="w-20 h-20 rounded-lg flex items-center justify-center"
+                    style={{ backgroundColor: 'var(--muted)' }}
+                  >
+                    <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Photo</span>
                   </div>
                 </div>
               </div>

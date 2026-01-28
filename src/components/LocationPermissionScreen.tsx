@@ -7,28 +7,33 @@ interface LocationPermissionScreenProps {
 
 export function LocationPermissionScreen({ onAllow, onManual }: LocationPermissionScreenProps) {
   return (
-    <div className="h-full flex flex-col items-center justify-center bg-white px-8">
-      <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center mb-8">
-        <MapPin className="w-16 h-16 text-gray-700" strokeWidth={1.5} />
+    <div className="h-full flex flex-col items-center justify-center px-8 relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      <div className="w-32 h-32 rounded-full flex items-center justify-center mb-8 shadow-premium-lg animate-scale-in relative z-10" style={{ backgroundColor: 'var(--icon-surface)' }}>
+        <MapPin className="w-16 h-16 animate-float" style={{ color: 'var(--primary)' }} strokeWidth={1.5} />
       </div>
-      
-      <h2 className="text-gray-900 mb-4 text-center">Enable Location Services</h2>
-      <p className="text-gray-600 text-center mb-12 max-w-sm">
+
+      <h2 className="mb-4 text-center animate-fade-in-up relative z-10" style={{ color: 'var(--foreground)' }}>Enable Location Services</h2>
+      <p className="text-center mb-12 max-w-sm animate-fade-in-up relative z-10" style={{ color: 'var(--muted-foreground)', animationDelay: '0.1s' }}>
         DoHuub uses your location to show nearby services and providers
       </p>
-      
-      <div className="w-full max-w-sm space-y-4">
-        <button 
+
+      <div className="w-full max-w-sm space-y-4 relative z-10">
+        <button
           onClick={onAllow}
-          className="w-full bg-gray-800 text-white py-4 rounded-lg border-2 border-gray-800"
+          className="w-full text-white py-4 rounded-xl shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
+          style={{ background: 'var(--primary-gradient)', animationDelay: '0.15s' }}
         >
           Allow Location Access
         </button>
       </div>
-      
-      <button 
+
+      <button
         onClick={onAllow}
-        className="mt-8 text-gray-500"
+        className="mt-8 transition-all duration-200 hover:opacity-80 hover:scale-105 active:scale-95 animate-fade-in relative z-10"
+        style={{ color: 'var(--primary)', animationDelay: '0.2s' }}
       >
         Skip
       </button>

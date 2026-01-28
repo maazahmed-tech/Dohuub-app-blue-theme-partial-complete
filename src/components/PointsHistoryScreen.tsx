@@ -41,17 +41,17 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
   const getTransactionIcon = (type: string) => {
     switch (type) {
       case 'earned':
-        return <TrendingUp className="w-5 h-5 text-green-500" />;
+        return <TrendingUp className="w-5 h-5" style={{ color: 'rgb(34, 197, 94)' }} />;
       case 'redeemed':
-        return <TrendingDown className="w-5 h-5 text-blue-500" />;
+        return <TrendingDown className="w-5 h-5" style={{ color: 'var(--primary)' }} />;
       case 'expired':
-        return <Clock className="w-5 h-5 text-red-500" />;
+        return <Clock className="w-5 h-5" style={{ color: 'var(--destructive)' }} />;
       case 'referral_bonus':
-        return <Users className="w-5 h-5 text-purple-500" />;
+        return <Users className="w-5 h-5" style={{ color: 'rgb(147, 51, 234)' }} />;
       case 'signup_bonus':
-        return <Gift className="w-5 h-5 text-amber-500" />;
+        return <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />;
       default:
-        return <Gift className="w-5 h-5 text-gray-500" />;
+        return <Gift className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />;
     }
   };
 
@@ -60,13 +60,13 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
       case 'earned':
       case 'referral_bonus':
       case 'signup_bonus':
-        return 'text-green-600';
+        return 'rgb(22, 163, 74)';
       case 'redeemed':
-        return 'text-blue-600';
+        return 'var(--primary)';
       case 'expired':
-        return 'text-red-600';
+        return 'var(--destructive)';
       default:
-        return 'text-gray-600';
+        return 'var(--muted-foreground)';
     }
   };
 
@@ -84,6 +84,21 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
         return 'Sign-up Bonus';
       default:
         return 'Transaction';
+    }
+  };
+
+  const getTransactionBadgeStyle = (type: string) => {
+    switch (type) {
+      case 'earned':
+      case 'referral_bonus':
+      case 'signup_bonus':
+        return { backgroundColor: 'rgba(34, 197, 94, 0.1)', color: 'rgb(22, 163, 74)' };
+      case 'redeemed':
+        return { backgroundColor: 'rgba(46, 122, 217, 0.1)', color: 'var(--primary)' };
+      case 'expired':
+        return { backgroundColor: 'rgba(239, 68, 68, 0.1)', color: 'var(--destructive)' };
+      default:
+        return { backgroundColor: 'var(--muted)', color: 'var(--muted-foreground)' };
     }
   };
 
@@ -122,46 +137,63 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
     .reduce((sum, t) => sum + Math.abs(t.amount), 0);
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4">
-        <button onClick={() => navigate('rewardsWallet')} className="p-1">
-          <ArrowLeft className="w-6 h-6 text-gray-900" />
+      <div className="px-6 py-4 glass relative z-10 flex items-center gap-4" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <button
+          onClick={() => navigate('rewardsWallet')}
+          className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+          style={{ backgroundColor: 'var(--card)' }}
+        >
+          <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} />
         </button>
-        <h3 className="text-gray-900">Points History</h3>
+        <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Points History</h3>
       </div>
 
-      <div className="flex-1 overflow-y-auto pb-24">
+      <div className="flex-1 overflow-y-auto pb-24 relative z-10">
         {/* Summary Stats */}
-        <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
+        <div className="px-6 py-4 animate-fade-in-up">
           <div className="grid grid-cols-3 gap-3">
-            <div className="text-center">
-              <div className="text-lg font-bold text-green-600">+{totalEarned.toLocaleString()}</div>
-              <div className="text-xs text-gray-500">Total Earned</div>
+            <div
+              className="text-center p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)' }}
+            >
+              <div className="text-lg font-bold" style={{ color: 'rgb(22, 163, 74)' }}>+{totalEarned.toLocaleString()}</div>
+              <div className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Total Earned</div>
             </div>
-            <div className="text-center">
-              <div className="text-lg font-bold text-blue-600">-{totalRedeemed.toLocaleString()}</div>
-              <div className="text-xs text-gray-500">Total Redeemed</div>
+            <div
+              className="text-center p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)' }}
+            >
+              <div className="text-lg font-bold" style={{ color: 'var(--primary)' }}>-{totalRedeemed.toLocaleString()}</div>
+              <div className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Total Redeemed</div>
             </div>
-            <div className="text-center">
-              <div className="text-lg font-bold text-red-600">-{totalExpired.toLocaleString()}</div>
-              <div className="text-xs text-gray-500">Total Expired</div>
+            <div
+              className="text-center p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)' }}
+            >
+              <div className="text-lg font-bold" style={{ color: 'var(--destructive)' }}>-{totalExpired.toLocaleString()}</div>
+              <div className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Total Expired</div>
             </div>
           </div>
         </div>
 
         {/* Filter Tabs */}
-        <div className="px-6 py-4 border-b border-gray-200">
+        <div className="px-6 py-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           <div className="flex gap-2">
             {filters.map((filter) => (
               <button
                 key={filter.key}
                 onClick={() => setActiveFilter(filter.key)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeFilter === filter.key
-                    ? 'bg-gray-900 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
+                className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
+                style={{
+                  background: activeFilter === filter.key ? 'var(--primary-gradient)' : 'var(--chip-background)',
+                  color: activeFilter === filter.key ? 'white' : 'var(--muted-foreground)',
+                  boxShadow: activeFilter === filter.key ? '0 4px 12px rgba(46, 122, 217, 0.3)' : 'none'
+                }}
               >
                 {filter.label}
               </button>
@@ -172,42 +204,46 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
         {/* Transactions List */}
         <div className="px-6 py-4">
           {Object.entries(groupedTransactions).length > 0 ? (
-            Object.entries(groupedTransactions).map(([monthYear, transactions]) => (
-              <div key={monthYear} className="mb-6">
-                <h4 className="text-sm font-semibold text-gray-500 mb-3">{monthYear}</h4>
+            Object.entries(groupedTransactions).map(([monthYear, transactions], groupIndex) => (
+              <div key={monthYear} className="mb-6 animate-fade-in-up" style={{ animationDelay: `${0.15 + groupIndex * 0.05}s` }}>
+                <h4 className="text-sm font-semibold mb-3" style={{ color: 'var(--muted-foreground)' }}>{monthYear}</h4>
                 <div className="space-y-3">
-                  {transactions.map((transaction) => (
+                  {transactions.map((transaction, index) => (
                     <div
                       key={transaction.id}
-                      className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl"
+                      className="flex items-start gap-4 p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm"
+                      style={{
+                        backgroundColor: 'var(--card)',
+                        animationDelay: `${0.2 + (groupIndex * 0.05) + (index * 0.03)}s`
+                      }}
                     >
-                      <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0">
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                        style={{ backgroundColor: 'var(--background)' }}
+                      >
                         {getTransactionIcon(transaction.type)}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2 mb-1">
-                          <p className="font-medium text-gray-900 truncate">
+                          <p className="font-medium truncate" style={{ color: 'var(--foreground)' }}>
                             {transaction.description}
                           </p>
-                          <span className={`font-semibold whitespace-nowrap ${getTransactionColor(transaction.type)}`}>
+                          <span className="font-semibold whitespace-nowrap" style={{ color: getTransactionColor(transaction.type) }}>
                             {transaction.amount > 0 ? '+' : ''}{transaction.amount} pts
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <span className={`px-2 py-0.5 rounded text-xs ${
-                            transaction.type === 'earned' || transaction.type === 'referral_bonus' || transaction.type === 'signup_bonus'
-                              ? 'bg-green-100 text-green-700'
-                              : transaction.type === 'redeemed'
-                              ? 'bg-blue-100 text-blue-700'
-                              : 'bg-red-100 text-red-700'
-                          }`}>
+                        <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--muted-foreground)' }}>
+                          <span
+                            className="px-2 py-0.5 rounded text-xs font-medium"
+                            style={getTransactionBadgeStyle(transaction.type)}
+                          >
                             {getTransactionLabel(transaction.type)}
                           </span>
                           <span>•</span>
                           <span>{formatDate(transaction.date)}</span>
                         </div>
                         {transaction.vendorName && (
-                          <p className="text-sm text-gray-500 mt-1">
+                          <p className="text-sm mt-1" style={{ color: 'var(--muted-foreground)' }}>
                             {transaction.vendorName}
                             {transaction.orderId && ` • Order #${transaction.orderId}`}
                           </p>
@@ -219,10 +255,15 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
               </div>
             ))
           ) : (
-            <div className="text-center py-12 text-gray-500">
-              <Gift className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-              <p className="font-medium">No transactions found</p>
-              <p className="text-sm">
+            <div className="text-center py-12 animate-fade-in-up">
+              <div
+                className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center shadow-premium-md"
+                style={{ backgroundColor: 'var(--card)' }}
+              >
+                <Gift className="w-8 h-8" style={{ color: 'var(--muted-foreground)' }} />
+              </div>
+              <p className="font-medium" style={{ color: 'var(--foreground)' }}>No transactions found</p>
+              <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
                 {activeFilter === 'all'
                   ? 'Start earning points on Powered by DoHuub services!'
                   : `No ${activeFilter} transactions yet`}
@@ -232,10 +273,16 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
         </div>
 
         {/* Points Info */}
-        <div className="px-6 pb-6">
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-            <h4 className="font-semibold text-amber-800 mb-2">Points Redemption Info</h4>
-            <ul className="text-sm text-amber-700 space-y-1">
+        <div className="px-6 pb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div
+            className="rounded-xl p-4 shadow-card"
+            style={{
+              background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05))',
+              border: '1px solid rgba(245, 158, 11, 0.2)'
+            }}
+          >
+            <h4 className="font-semibold mb-2" style={{ color: 'rgb(180, 83, 9)' }}>Points Redemption Info</h4>
+            <ul className="text-sm space-y-1" style={{ color: 'rgb(146, 64, 14)' }}>
               <li>• 100 points = $1 discount</li>
               <li>• Minimum 100 points to redeem</li>
               <li>• Points expire 12 months after earning</li>
@@ -246,23 +293,26 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
       </div>
 
       {/* Bottom Navigation */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 px-6 py-4">
+      <div
+        className="absolute bottom-0 left-0 right-0 glass px-6 py-4"
+        style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}
+      >
         <div className="flex justify-around">
-          <button onClick={() => navigate('home')} className="flex flex-col items-center gap-1">
-            <Home className="w-6 h-6 text-gray-400" strokeWidth={2} />
-            <span className="text-gray-400">Home</span>
+          <button onClick={() => navigate('home')} className="flex flex-col items-center gap-1 transition-all duration-300">
+            <Home className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
+            <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Home</span>
           </button>
-          <button onClick={() => navigate('myBookings')} className="flex flex-col items-center gap-1">
-            <Calendar className="w-6 h-6 text-gray-400" strokeWidth={2} />
-            <span className="text-gray-400">Bookings</span>
+          <button onClick={() => navigate('myBookings')} className="flex flex-col items-center gap-1 transition-all duration-300">
+            <Calendar className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
+            <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Bookings</span>
           </button>
-          <button onClick={() => navigate('aiChat')} className="flex flex-col items-center gap-1">
-            <MessageCircle className="w-6 h-6 text-gray-400" strokeWidth={2} />
-            <span className="text-gray-400">AI Assistant</span>
+          <button onClick={() => navigate('aiChat')} className="flex flex-col items-center gap-1 transition-all duration-300">
+            <MessageCircle className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
+            <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>AI Assistant</span>
           </button>
-          <button onClick={() => navigate('profile')} className="flex flex-col items-center gap-1">
-            <User className="w-6 h-6 text-gray-400" strokeWidth={2} />
-            <span className="text-gray-400">Profile</span>
+          <button onClick={() => navigate('profile')} className="flex flex-col items-center gap-1 transition-all duration-300">
+            <User className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
+            <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Profile</span>
           </button>
         </div>
       </div>

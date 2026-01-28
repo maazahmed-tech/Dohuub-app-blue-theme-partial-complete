@@ -115,49 +115,66 @@ export function CleaningServiceBookingFormScreen({
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+      <div className="px-6 py-4 glass relative z-10 flex items-center gap-4" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <button
+          onClick={onBack}
+          className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+          style={{ backgroundColor: 'var(--card)' }}
+        >
+          <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
         </button>
-        <h1 className="text-gray-900">Book Service</h1>
+        <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Book Service</h1>
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-4">
+      <div className="flex-1 overflow-y-auto px-6 py-4 relative z-10">
         {/* Service Summary */}
-        <div className="mb-6 p-4 bg-gray-50 rounded-xl">
+        <div
+          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)' }}
+        >
           <div className="flex gap-3">
-            <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-gray-400 text-2xl">🧹</span>
+            <div
+              className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+              style={{ background: 'var(--primary-gradient)' }}
+            >
+              <span className="text-2xl">🧹</span>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="text-gray-900 mb-1">{service.name}</h3>
-              <p className="text-gray-600 text-sm mb-1">{vendor.name}</p>
-              <p className="text-gray-700">{service.price}</p>
+              <h3 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{service.name}</h3>
+              <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>{vendor.name}</p>
+              <p className="font-semibold" style={{ color: 'var(--primary)' }}>{service.price}</p>
             </div>
           </div>
         </div>
 
         {/* Date Selection */}
-        <div className="mb-4">
-          <label className="block text-gray-900 mb-2">Select Date</label>
+        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Select Date</label>
           <button
             onClick={() => setShowDatePicker(!showDatePicker)}
-            className="w-full p-4 border-2 border-gray-300 rounded-xl flex items-center justify-between"
+            className="w-full p-4 rounded-xl flex items-center justify-between shadow-card transition-all duration-300 hover:shadow-premium-sm"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex items-center gap-3">
-              <Calendar className="w-5 h-5 text-gray-700" />
-              <span className={selectedDate ? 'text-gray-900' : 'text-gray-500'}>
+              <Calendar className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+              <span style={{ color: selectedDate ? 'var(--foreground)' : 'var(--muted-foreground)' }}>
                 {selectedDate || 'Choose a date'}
               </span>
             </div>
-            <ChevronRight className={`w-5 h-5 text-gray-700 transition-transform ${showDatePicker ? 'rotate-90' : ''}`} />
+            <ChevronRight className={`w-5 h-5 transition-transform duration-300 ${showDatePicker ? 'rotate-90' : ''}`} style={{ color: 'var(--muted-foreground)' }} />
           </button>
 
           {showDatePicker && (
-            <div className="mt-2 p-4 border-2 border-gray-300 rounded-xl space-y-2">
+            <div
+              className="mt-2 p-4 rounded-xl shadow-premium-sm space-y-2 animate-fade-in-up"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
               {dates.map((date) => (
                 <button
                   key={date}
@@ -165,11 +182,11 @@ export function CleaningServiceBookingFormScreen({
                     setSelectedDate(date);
                     setShowDatePicker(false);
                   }}
-                  className={`w-full p-3 rounded-lg text-left ${
-                    selectedDate === date 
-                      ? 'bg-gray-900 text-white' 
-                      : 'bg-gray-50 text-gray-900 hover:bg-gray-100'
-                  }`}
+                  className="w-full p-3 rounded-xl text-left transition-all duration-300"
+                  style={{
+                    background: selectedDate === date ? 'var(--primary-gradient)' : 'var(--muted)',
+                    color: selectedDate === date ? 'white' : 'var(--foreground)'
+                  }}
                 >
                   {date}
                 </button>
@@ -179,23 +196,27 @@ export function CleaningServiceBookingFormScreen({
         </div>
 
         {/* Time Selection */}
-        <div className="mb-4">
-          <label className="block text-gray-900 mb-2">Select Time</label>
+        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Select Time</label>
           <button
             onClick={() => setShowTimePicker(!showTimePicker)}
-            className="w-full p-4 border-2 border-gray-300 rounded-xl flex items-center justify-between"
+            className="w-full p-4 rounded-xl flex items-center justify-between shadow-card transition-all duration-300 hover:shadow-premium-sm"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex items-center gap-3">
-              <Clock className="w-5 h-5 text-gray-700" />
-              <span className={selectedTime ? 'text-gray-900' : 'text-gray-500'}>
+              <Clock className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+              <span style={{ color: selectedTime ? 'var(--foreground)' : 'var(--muted-foreground)' }}>
                 {selectedTime || 'Choose a time'}
               </span>
             </div>
-            <ChevronRight className={`w-5 h-5 text-gray-700 transition-transform ${showTimePicker ? 'rotate-90' : ''}`} />
+            <ChevronRight className={`w-5 h-5 transition-transform duration-300 ${showTimePicker ? 'rotate-90' : ''}`} style={{ color: 'var(--muted-foreground)' }} />
           </button>
 
           {showTimePicker && (
-            <div className="mt-2 p-4 border-2 border-gray-300 rounded-xl grid grid-cols-2 gap-2">
+            <div
+              className="mt-2 p-4 rounded-xl shadow-premium-sm grid grid-cols-2 gap-2 animate-fade-in-up"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
               {times.map((time) => (
                 <button
                   key={time}
@@ -203,11 +224,11 @@ export function CleaningServiceBookingFormScreen({
                     setSelectedTime(time);
                     setShowTimePicker(false);
                   }}
-                  className={`p-3 rounded-lg ${
-                    selectedTime === time 
-                      ? 'bg-gray-900 text-white' 
-                      : 'bg-gray-50 text-gray-900 hover:bg-gray-100'
-                  }`}
+                  className="p-3 rounded-xl transition-all duration-300"
+                  style={{
+                    background: selectedTime === time ? 'var(--primary-gradient)' : 'var(--muted)',
+                    color: selectedTime === time ? 'white' : 'var(--foreground)'
+                  }}
                 >
                   {time}
                 </button>
@@ -217,21 +238,29 @@ export function CleaningServiceBookingFormScreen({
         </div>
 
         {/* Address Selection */}
-        <div className="mb-4">
-          <label className="block text-gray-900 mb-2">Service Address</label>
-          <div className="w-full p-4 border-2 border-gray-300 rounded-xl bg-gray-50">
+        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Service Address</label>
+          <div
+            className="w-full p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
             <div className="flex items-center gap-3 flex-1 min-w-0">
-              <MapPin className="w-5 h-5 text-gray-700 flex-shrink-0" />
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: 'var(--muted)' }}
+              >
+                <MapPin className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+              </div>
               <div className="text-left flex-1 min-w-0">
                 {selectedAddress ? (
                   <>
-                    <p className="text-gray-900">{selectedAddress.label}</p>
-                    <p className="text-gray-600 text-sm truncate">
+                    <p className="font-medium" style={{ color: 'var(--foreground)' }}>{selectedAddress.label}</p>
+                    <p className="text-sm truncate" style={{ color: 'var(--muted-foreground)' }}>
                       {selectedAddress.street}, {selectedAddress.city}
                     </p>
                   </>
                 ) : (
-                  <span className="text-gray-500">No address available</span>
+                  <span style={{ color: 'var(--muted-foreground)' }}>No address available</span>
                 )}
               </div>
             </div>
@@ -239,23 +268,32 @@ export function CleaningServiceBookingFormScreen({
         </div>
 
         {/* Payment Method Selection */}
-        <div className="mb-4">
-          <label className="block text-gray-900 mb-2">Payment Method</label>
+        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Payment Method</label>
           <button
             onClick={() => setShowPaymentPicker(!showPaymentPicker)}
-            className="w-full p-4 border-2 border-gray-300 rounded-xl flex items-center justify-between"
+            className="w-full p-4 rounded-xl flex items-center justify-between shadow-card transition-all duration-300 hover:shadow-premium-sm"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex items-center gap-3">
-              <CreditCard className="w-5 h-5 text-gray-700" />
-              <span className={selectedCard ? 'text-gray-900' : 'text-gray-500'}>
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: 'var(--muted)' }}
+              >
+                <CreditCard className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+              </div>
+              <span style={{ color: selectedCard ? 'var(--foreground)' : 'var(--muted-foreground)' }}>
                 {selectedCard ? `•••• ${selectedCard.cardNumber.slice(-4)}` : 'Choose payment method'}
               </span>
             </div>
-            <ChevronRight className={`w-5 h-5 text-gray-700 transition-transform ${showPaymentPicker ? 'rotate-90' : ''}`} />
+            <ChevronRight className={`w-5 h-5 transition-transform duration-300 ${showPaymentPicker ? 'rotate-90' : ''}`} style={{ color: 'var(--muted-foreground)' }} />
           </button>
 
           {showPaymentPicker && (
-            <div className="mt-2 p-4 border-2 border-gray-300 rounded-xl space-y-2">
+            <div
+              className="mt-2 p-4 rounded-xl shadow-premium-sm space-y-2 animate-fade-in-up"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
               {paymentCards.map((card) => (
                 <button
                   key={card.id}
@@ -263,23 +301,24 @@ export function CleaningServiceBookingFormScreen({
                     setSelectedCardId(card.id.toString());
                     setShowPaymentPicker(false);
                   }}
-                  className={`w-full p-3 rounded-lg text-left ${
-                    selectedCardId === card.id.toString()
-                      ? 'bg-gray-900 text-white' 
-                      : 'bg-gray-50 text-gray-900 hover:bg-gray-100'
-                  }`}
+                  className="w-full p-3 rounded-xl text-left transition-all duration-300"
+                  style={{
+                    background: selectedCardId === card.id.toString() ? 'var(--primary-gradient)' : 'var(--muted)',
+                    color: selectedCardId === card.id.toString() ? 'white' : 'var(--foreground)'
+                  }}
                 >
-                  <p className={selectedCardId === card.id.toString() ? 'text-white' : 'text-gray-900'}>
+                  <p style={{ color: selectedCardId === card.id.toString() ? 'white' : 'var(--foreground)' }}>
                     {card.cardType} •••• {card.last4}
                   </p>
-                  <p className={`text-sm ${selectedCardId === card.id.toString() ? 'text-gray-300' : 'text-gray-600'}`}>
+                  <p className="text-sm" style={{ color: selectedCardId === card.id.toString() ? 'rgba(255,255,255,0.7)' : 'var(--muted-foreground)' }}>
                     Expires {card.expiryDate}
                   </p>
                 </button>
               ))}
               <button
                 onClick={onAddPaymentCard}
-                className="w-full p-3 rounded-lg bg-gray-100 text-gray-900 hover:bg-gray-200"
+                className="w-full p-3 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{ backgroundColor: 'var(--background)', color: 'var(--primary)', border: '1px solid var(--border)' }}
               >
                 + Add New Card
               </button>
@@ -289,7 +328,7 @@ export function CleaningServiceBookingFormScreen({
 
         {/* Points Redemption - Only for Powered by DoHuub vendors */}
         {vendor.isPoweredByDoHuub && availablePoints > 0 && (
-          <div className="mb-4">
+          <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
             <PointsRedemptionCard
               availablePoints={availablePoints}
               selectedPoints={pointsToRedeem}
@@ -303,52 +342,62 @@ export function CleaningServiceBookingFormScreen({
 
         {/* Points Preview - Only for Powered by DoHuub vendors */}
         {vendor.isPoweredByDoHuub && (
-          <div className="mb-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+          <div
+            className="mb-4 p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{
+              background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
+              border: '1px solid rgba(245, 158, 11, 0.3)',
+              animationDelay: '0.3s'
+            }}
+          >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Gift className="w-5 h-5 text-amber-600" />
-                <span className="font-medium text-amber-800">Points you'll earn</span>
+                <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />
+                <span className="font-medium" style={{ color: 'rgb(180, 83, 9)' }}>Points you'll earn</span>
               </div>
-              <span className="text-lg font-bold text-amber-600">
+              <span className="text-lg font-bold" style={{ color: 'rgb(245, 158, 11)' }}>
                 +{Math.floor(finalPrice)} pts
               </span>
             </div>
-            <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after service completion</p>
+            <p className="text-sm mt-1" style={{ color: 'rgb(180, 83, 9)' }}>1 point per $1 spent • Added after service completion</p>
           </div>
         )}
 
         {/* Price Summary */}
-        <div className="mb-4 p-4 bg-gray-50 rounded-xl">
+        <div
+          className="mb-4 p-4 rounded-xl shadow-card animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)', animationDelay: '0.35s' }}
+        >
           <div className="flex items-center justify-between mb-2">
-            <span className="text-gray-700">Service Price</span>
-            <span className="text-gray-900">{service.price}</span>
+            <span style={{ color: 'var(--muted-foreground)' }}>Service Price</span>
+            <span className="font-medium" style={{ color: 'var(--foreground)' }}>{service.price}</span>
           </div>
           {pointsRedemptionEnabled && pointsToRedeem > 0 && (
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-green-600">Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
-              <span className="text-green-600">-${discountAmount.toFixed(2)}</span>
+            <div className="flex items-center justify-between mb-2" style={{ color: 'rgb(34, 197, 94)' }}>
+              <span>Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
+              <span>-${discountAmount.toFixed(2)}</span>
             </div>
           )}
           {pointsRedemptionEnabled && pointsToRedeem > 0 && (
-            <div className="flex items-center justify-between mb-2 pt-2 border-t border-gray-200">
-              <span className="text-gray-900 font-semibold">Total</span>
-              <span className="text-gray-900 font-semibold">${finalPrice.toFixed(2)}</span>
+            <div className="flex items-center justify-between mb-2 pt-2" style={{ borderTop: '1px solid var(--border)' }}>
+              <span className="font-semibold" style={{ color: 'var(--foreground)' }}>Total</span>
+              <span className="font-semibold" style={{ color: 'var(--primary)' }}>${finalPrice.toFixed(2)}</span>
             </div>
           )}
-          <p className="text-gray-600 text-sm">Final price will be confirmed by the service provider</p>
+          <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Final price will be confirmed by the service provider</p>
         </div>
       </div>
 
       {/* Bottom CTA */}
-      <div className="p-6 border-t-2 border-gray-200">
+      <div className="p-6 glass relative z-10" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={handleConfirm}
           disabled={!isFormValid}
-          className={`w-full py-4 rounded-xl ${
-            isFormValid 
-              ? 'bg-gray-900 text-white' 
-              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-          }`}
+          className="w-full py-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-premium-lg hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          style={{
+            background: isFormValid ? 'var(--primary-gradient)' : 'var(--muted)',
+            color: isFormValid ? 'white' : 'var(--muted-foreground)'
+          }}
         >
           Confirm Booking
         </button>

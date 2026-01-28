@@ -188,24 +188,35 @@ export function BeautyProductsCatalog({
   const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack} className="text-gray-900">
-            <ArrowLeft className="w-6 h-6" />
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
           <div className="flex-1">
-            <h1 className="text-gray-900">{vendorName}</h1>
-            <p className="text-sm text-gray-600">Browse products</p>
+            <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>{vendorName}</h1>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Browse products</p>
           </div>
           {totalCartItems > 0 && (
             <button
               onClick={onViewCart}
-              className="relative p-2 text-gray-900"
+              className="relative p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+              style={{ backgroundColor: 'var(--card)' }}
             >
-              <ShoppingCart className="w-6 h-6" />
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-gray-900 text-white rounded-full text-xs flex items-center justify-center">
+              <ShoppingCart className="w-6 h-6" style={{ color: 'var(--foreground)' }} />
+              <span
+                className="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs flex items-center justify-center text-white shadow-premium-sm"
+                style={{ background: 'var(--primary-gradient)' }}
+              >
                 {totalCartItems}
               </span>
             </button>
@@ -214,17 +225,18 @@ export function BeautyProductsCatalog({
       </div>
 
       {/* Horizontal Category Tabs */}
-      <div className="bg-white border-b border-gray-200 px-6 py-3 overflow-x-auto">
+      <div className="px-6 py-3 overflow-x-auto relative z-10 glass" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex gap-2">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors ${
-                selectedCategory === category
-                  ? 'bg-gray-900 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
+              className="px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300"
+              style={{
+                background: selectedCategory === category ? 'var(--primary-gradient)' : 'var(--muted)',
+                color: selectedCategory === category ? 'white' : 'var(--muted-foreground)',
+                boxShadow: selectedCategory === category ? '0 4px 12px rgba(46, 122, 217, 0.3)' : 'none'
+              }}
             >
               {category}
             </button>
@@ -233,35 +245,43 @@ export function BeautyProductsCatalog({
       </div>
 
       {/* Products List */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         <div className="space-y-3">
-          {filteredProducts.map((product) => {
+          {filteredProducts.map((product, index) => {
             const quantity = getProductQuantity(product.id);
             return (
               <div
                 key={product.id}
-                className="bg-gray-50 border border-gray-200 rounded-xl p-4"
+                className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+                style={{
+                  backgroundColor: 'var(--card)',
+                  animationDelay: `${index * 0.03}s`
+                }}
               >
                 <div className="flex items-start gap-4">
                   {/* Product Image Placeholder */}
-                  <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0 border-2 border-gray-300">
-                    <div className="w-16 h-16 bg-gray-400 rounded"></div>
+                  <div
+                    className="w-20 h-20 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                    style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(244, 114, 182))' }}
+                  >
+                    <span className="text-2xl">💄</span>
                   </div>
 
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-gray-900 mb-1">{product.name}</h4>
-                    <p className="text-sm text-gray-600 mb-2">{product.description}</p>
+                    <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{product.name}</h4>
+                    <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>{product.description}</p>
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-gray-900">${product.price.toFixed(2)}</p>
-                        <p className="text-xs text-gray-500">{product.size}</p>
+                        <p className="font-semibold" style={{ color: 'var(--primary)' }}>${product.price.toFixed(2)}</p>
+                        <p className="text-xs" style={{ color: 'var(--muted-foreground)' }}>{product.size}</p>
                       </div>
-                      
+
                       {quantity === 0 ? (
                         <button
                           onClick={() => onAddToCart(product)}
-                          className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 flex items-center gap-2"
+                          className="px-4 py-2 rounded-xl flex items-center gap-2 text-white transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+                          style={{ background: 'var(--primary-gradient)' }}
                         >
                           <Plus className="w-4 h-4" />
                           Add
@@ -270,14 +290,16 @@ export function BeautyProductsCatalog({
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => onRemoveFromCart(product.id)}
-                            className="w-8 h-8 bg-gray-900 text-white rounded-lg hover:bg-gray-800 flex items-center justify-center"
+                            className="w-8 h-8 rounded-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-[1.1]"
+                            style={{ background: 'var(--primary-gradient)' }}
                           >
                             <Minus className="w-4 h-4" />
                           </button>
-                          <span className="w-8 text-center text-gray-900">{quantity}</span>
+                          <span className="w-8 text-center font-semibold" style={{ color: 'var(--foreground)' }}>{quantity}</span>
                           <button
                             onClick={() => onAddToCart(product)}
-                            className="w-8 h-8 bg-gray-900 text-white rounded-lg hover:bg-gray-800 flex items-center justify-center"
+                            className="w-8 h-8 rounded-xl flex items-center justify-center text-white transition-all duration-300 hover:scale-[1.1]"
+                            style={{ background: 'var(--primary-gradient)' }}
                           >
                             <Plus className="w-4 h-4" />
                           </button>

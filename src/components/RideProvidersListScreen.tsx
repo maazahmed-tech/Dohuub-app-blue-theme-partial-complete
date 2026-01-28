@@ -113,40 +113,67 @@ export function RideProvidersListScreen({
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4 bg-white sticky top-0 z-10">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900 flex-1">Ride Providers</h1>
-        <button onClick={() => setShowFilters(true)}>
-          <SlidersHorizontal className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold flex-1" style={{ color: 'var(--foreground)' }}>Ride Providers</h1>
+          <button
+            onClick={() => setShowFilters(true)}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <SlidersHorizontal className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+        </div>
       </div>
 
       {/* Providers List */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto relative z-10">
         <div className="p-6 space-y-4">
-          {sortedProviders.map(provider => (
+          {sortedProviders.map((provider, index) => (
             <button
               key={provider.id}
               onClick={() => onSelectProvider(provider)}
-              className="w-full p-4 border-2 border-gray-200 rounded-xl text-left hover:border-gray-900 transition-colors"
+              className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+              style={{
+                backgroundColor: 'var(--card)',
+                border: '1px solid var(--border)',
+                animationDelay: `${index * 0.05}s`
+              }}
             >
               <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-gray-200 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Car className="w-8 h-8 text-gray-600" strokeWidth={2} />
+                <div
+                  className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                  style={{ background: 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))' }}
+                >
+                  <Car className="w-8 h-8 text-white" strokeWidth={2} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
-                    <h3 className="text-gray-900">{provider.name}</h3>
+                    <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>{provider.name}</h3>
                     {provider.isPoweredByDoHuub && (
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        <div className="bg-gray-900 text-white px-2 py-1 rounded-full text-xs whitespace-nowrap">
+                        <div
+                          className="px-2 py-1 rounded-full text-xs whitespace-nowrap text-white shadow-premium-sm"
+                          style={{ background: 'var(--primary-gradient)' }}
+                        >
                           Powered by DoHuub
                         </div>
-                        <span className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                        <span
+                          className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 text-white text-xs font-bold rounded-full shadow-premium-sm"
+                          style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(249, 115, 22))' }}
+                        >
                           <Gift className="w-3 h-3 mr-1" />
                           {provider.hourlyRate}+
                         </span>
@@ -155,21 +182,25 @@ export function RideProvidersListScreen({
                   </div>
                   <div className="flex items-center gap-2 mb-2">
                     <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 text-gray-900 fill-gray-900" />
-                      <span className="text-gray-900 text-sm">{provider.rating}</span>
+                      <Star className="w-4 h-4 fill-current" style={{ color: 'rgb(250, 204, 21)' }} />
+                      <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>{provider.rating}</span>
                     </div>
-                    <span className="text-gray-600 text-sm">({provider.reviews} reviews)</span>
+                    <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>({provider.reviews} reviews)</span>
                   </div>
-                  <p className="text-gray-900 mb-2">${provider.hourlyRate}/hour</p>
+                  <p className="font-semibold mb-2" style={{ color: 'rgb(168, 85, 247)' }}>${provider.hourlyRate}/hour</p>
                   <div className="flex flex-wrap gap-2 mb-2">
                     {provider.vehicleTypes.map(type => (
-                      <span key={type} className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">
+                      <span
+                        key={type}
+                        className="px-2 py-1 rounded-full text-xs"
+                        style={{ backgroundColor: 'rgba(168, 85, 247, 0.1)', color: 'rgb(139, 92, 246)' }}
+                      >
                         {type}
                       </span>
                     ))}
                   </div>
                   {provider.wheelchairAccessible && (
-                    <div className="flex items-center gap-2 text-gray-700 text-sm">
+                    <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--muted-foreground)' }}>
                       <span className="text-base">♿</span>
                       <span>Wheelchair Accessible</span>
                     </div>
@@ -183,29 +214,49 @@ export function RideProvidersListScreen({
 
       {/* Filters Modal */}
       {showFilters && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-50 flex items-end">
-          <div className="bg-white w-full rounded-t-3xl max-h-[80vh] overflow-y-auto">
-            <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center justify-between sticky top-0 bg-white">
-              <h2 className="text-gray-900">Filters</h2>
-              <button onClick={() => setShowFilters(false)}>
-                <X className="w-6 h-6 text-gray-700" strokeWidth={2} />
+        <div className="absolute inset-0 z-50 flex items-end animate-fade-in">
+          <div
+            className="absolute inset-0"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)' }}
+            onClick={() => setShowFilters(false)}
+          />
+          <div
+            className="relative w-full rounded-t-3xl max-h-[80vh] overflow-y-auto animate-slide-up glass"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <div
+              className="px-6 py-4 flex items-center justify-between sticky top-0 glass"
+              style={{ borderBottom: '1px solid var(--border)' }}
+            >
+              <h2 className="font-semibold" style={{ color: 'var(--foreground)' }}>Filters</h2>
+              <button
+                onClick={() => setShowFilters(false)}
+                className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{ backgroundColor: 'var(--muted)' }}
+              >
+                <X className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
               </button>
             </div>
 
             <div className="p-6 space-y-6">
               {/* Vehicle Type */}
               <div>
-                <h3 className="text-gray-900 mb-3">Vehicle Type</h3>
+                <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Vehicle Type</h3>
                 <div className="space-y-2">
                   {['Standard', 'Wheelchair Accessible', 'Pet-Friendly'].map(type => (
                     <button
                       key={type}
                       onClick={() => toggleVehicleType(type)}
-                      className={`w-full px-4 py-3 rounded-xl border-2 text-left ${
-                        selectedVehicleType.includes(type)
-                          ? 'border-gray-900 bg-gray-50'
-                          : 'border-gray-200'
-                      }`}
+                      className="w-full px-4 py-3 rounded-xl text-left transition-all duration-300"
+                      style={{
+                        backgroundColor: selectedVehicleType.includes(type)
+                          ? 'rgba(168, 85, 247, 0.1)'
+                          : 'var(--muted)',
+                        border: selectedVehicleType.includes(type)
+                          ? '2px solid rgb(168, 85, 247)'
+                          : '2px solid var(--border)',
+                        color: 'var(--foreground)'
+                      }}
                     >
                       {type}
                     </button>
@@ -215,14 +266,19 @@ export function RideProvidersListScreen({
 
               {/* Accessibility */}
               <div>
-                <h3 className="text-gray-900 mb-3">Accessibility</h3>
+                <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Accessibility</h3>
                 <button
                   onClick={() => setSelectedAccessibility(!selectedAccessibility)}
-                  className={`w-full px-4 py-3 rounded-xl border-2 text-left ${
-                    selectedAccessibility
-                      ? 'border-gray-900 bg-gray-50'
-                      : 'border-gray-200'
-                  }`}
+                  className="w-full px-4 py-3 rounded-xl text-left transition-all duration-300"
+                  style={{
+                    backgroundColor: selectedAccessibility
+                      ? 'rgba(168, 85, 247, 0.1)'
+                      : 'var(--muted)',
+                    border: selectedAccessibility
+                      ? '2px solid rgb(168, 85, 247)'
+                      : '2px solid var(--border)',
+                    color: 'var(--foreground)'
+                  }}
                 >
                   Wheelchair Accessible Only
                 </button>
@@ -230,19 +286,20 @@ export function RideProvidersListScreen({
 
               {/* Price Range */}
               <div>
-                <h3 className="text-gray-900 mb-3">Price Range (per hour)</h3>
+                <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Price Range (per hour)</h3>
                 <div className="flex items-center gap-4">
-                  <span className="text-gray-600">${priceRange[0]}</span>
-                  <div className="flex-1 h-2 bg-gray-200 rounded-full relative">
+                  <span style={{ color: 'var(--muted-foreground)' }}>${priceRange[0]}</span>
+                  <div className="flex-1 h-2 rounded-full relative" style={{ backgroundColor: 'var(--muted)' }}>
                     <div
-                      className="absolute h-full bg-gray-900 rounded-full"
+                      className="absolute h-full rounded-full"
                       style={{
+                        background: 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))',
                         left: `${priceRange[0]}%`,
                         right: `${100 - priceRange[1]}%`
                       }}
                     />
                   </div>
-                  <span className="text-gray-600">${priceRange[1]}</span>
+                  <span style={{ color: 'var(--muted-foreground)' }}>${priceRange[1]}</span>
                 </div>
               </div>
 
@@ -250,13 +307,15 @@ export function RideProvidersListScreen({
               <div className="flex gap-3 pt-4">
                 <button
                   onClick={clearFilters}
-                  className="flex-1 py-3 border-2 border-gray-200 text-gray-900 rounded-xl"
+                  className="flex-1 py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-card"
+                  style={{ backgroundColor: 'var(--muted)', color: 'var(--foreground)', border: '1px solid var(--border)' }}
                 >
                   Clear All
                 </button>
                 <button
                   onClick={() => setShowFilters(false)}
-                  className="flex-1 py-3 bg-gray-900 text-white rounded-xl"
+                  className="flex-1 py-3 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+                  style={{ background: 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))' }}
                 >
                   Apply Filters
                 </button>

@@ -91,48 +91,65 @@ export function CompanionshipBookingFormScreen({
   const isFormValid = serviceLocation && date && time && supportTypes.length > 0 && selectedPayment;
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4 bg-white sticky top-0 z-10">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900">Book Companion</h1>
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Book Companion</h1>
+        </div>
       </div>
 
       {/* Scrollable Form */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto relative z-10">
         <div className="px-6 py-6 space-y-6">
           {/* Companion Info */}
-          <div className="p-4 bg-gray-50 rounded-xl flex items-center gap-4">
-            <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-gray-600 text-xl">👤</span>
+          <div
+            className="p-4 rounded-xl flex items-center gap-4 shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <div
+              className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+              style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))' }}
+            >
+              <span className="text-white text-xl">👤</span>
             </div>
             <div className="flex-1">
-              <p className="text-gray-600 text-sm mb-1">Booking with</p>
-              <p className="text-gray-900">{companion.name}</p>
+              <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Booking with</p>
+              <p className="font-medium" style={{ color: 'var(--foreground)' }}>{companion.name}</p>
             </div>
           </div>
 
           {/* Service Location */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Service Location *</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Service Location *</h3>
             <div className="space-y-2">
               {savedAddresses.map(addr => (
                 <button
                   key={addr.id}
                   onClick={() => setServiceLocation(addr.id)}
-                  className={`w-full px-4 py-3 rounded-xl border-2 text-left ${
-                    serviceLocation === addr.id
-                      ? 'border-gray-900 bg-gray-50'
-                      : 'border-gray-200'
-                  }`}
+                  className="w-full px-4 py-3 rounded-xl text-left transition-all duration-300"
+                  style={{
+                    backgroundColor: serviceLocation === addr.id ? 'rgba(236, 72, 153, 0.1)' : 'var(--card)',
+                    border: serviceLocation === addr.id
+                      ? '2px solid rgb(236, 72, 153)'
+                      : '1px solid var(--border)'
+                  }}
                 >
                   <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-gray-700 flex-shrink-0 mt-0.5" />
+                    <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: serviceLocation === addr.id ? 'rgb(236, 72, 153)' : 'var(--muted-foreground)' }} />
                     <div className="flex-1">
-                      <p className="text-gray-900 mb-1">{addr.label}</p>
-                      <p className="text-gray-600 text-sm">{addr.address}</p>
+                      <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{addr.label}</p>
+                      <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{addr.address}</p>
                     </div>
                   </div>
                 </button>
@@ -141,34 +158,49 @@ export function CompanionshipBookingFormScreen({
           </div>
 
           {/* Date & Time */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             <div>
-              <label className="block text-gray-600 text-sm mb-2">Date *</label>
+              <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Date *</label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+                className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-pink-500/50"
+                style={{
+                  backgroundColor: 'var(--input-background)',
+                  color: 'var(--foreground)',
+                  border: '1px solid var(--border)'
+                }}
               />
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-2">Time *</label>
+              <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Time *</label>
               <input
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+                className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-pink-500/50"
+                style={{
+                  backgroundColor: 'var(--input-background)',
+                  color: 'var(--foreground)',
+                  border: '1px solid var(--border)'
+                }}
               />
             </div>
           </div>
 
           {/* Duration */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Duration</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Duration</h3>
             <select
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+              className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-pink-500/50"
+              style={{
+                backgroundColor: 'var(--input-background)',
+                color: 'var(--foreground)',
+                border: '1px solid var(--border)'
+              }}
             >
               {durations.map(d => (
                 <option key={d.value} value={d.value}>{d.label}</option>
@@ -177,64 +209,75 @@ export function CompanionshipBookingFormScreen({
           </div>
 
           {/* Type of Support Needed */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Type of Support Needed *</h3>
-            <p className="text-gray-600 text-sm mb-3">Select all that apply</p>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Type of Support Needed *</h3>
+            <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>Select all that apply</p>
             <div className="space-y-2">
               {supportOptions.map(option => (
                 <button
                   key={option}
                   onClick={() => toggleSupportType(option)}
-                  className={`w-full px-4 py-3 rounded-xl border-2 text-left flex items-center gap-3 ${
-                    supportTypes.includes(option)
-                      ? 'border-gray-900 bg-gray-50'
-                      : 'border-gray-200'
-                  }`}
+                  className="w-full px-4 py-3 rounded-xl text-left flex items-center gap-3 transition-all duration-300"
+                  style={{
+                    backgroundColor: supportTypes.includes(option) ? 'rgba(236, 72, 153, 0.1)' : 'var(--card)',
+                    border: supportTypes.includes(option)
+                      ? '2px solid rgb(236, 72, 153)'
+                      : '1px solid var(--border)'
+                  }}
                 >
-                  <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                    supportTypes.includes(option)
-                      ? 'border-gray-900 bg-gray-900'
-                      : 'border-gray-300'
-                  }`}>
+                  <div
+                    className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0 transition-all duration-300"
+                    style={{
+                      backgroundColor: supportTypes.includes(option) ? 'rgb(236, 72, 153)' : 'transparent',
+                      border: supportTypes.includes(option) ? 'none' : '2px solid var(--border)'
+                    }}
+                  >
                     {supportTypes.includes(option) && (
                       <Check className="w-4 h-4 text-white" strokeWidth={3} />
                     )}
                   </div>
-                  <span className="text-gray-900">{option}</span>
+                  <span style={{ color: 'var(--foreground)' }}>{option}</span>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Special Requests */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Special Requests / Medical Conditions</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Special Requests / Medical Conditions</h3>
             <textarea
               value={specialRequests}
               onChange={(e) => setSpecialRequests(e.target.value)}
               placeholder="Please share any medical conditions, allergies, dietary restrictions, or special preferences we should be aware of..."
               rows={4}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900 resize-none"
+              className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-pink-500/50 resize-none"
+              style={{
+                backgroundColor: 'var(--input-background)',
+                color: 'var(--foreground)',
+                border: '1px solid var(--border)'
+              }}
             />
           </div>
 
           {/* Payment Method */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Payment Method *</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Payment Method *</h3>
             <div className="space-y-2">
               {paymentMethods.map(method => (
                 <button
                   key={method.id}
                   onClick={() => setSelectedPayment(method.id)}
-                  className={`w-full px-4 py-3 rounded-xl border-2 text-left ${
-                    selectedPayment === method.id
-                      ? 'border-gray-900 bg-gray-50'
-                      : 'border-gray-200'
-                  }`}
+                  className="w-full px-4 py-3 rounded-xl text-left transition-all duration-300"
+                  style={{
+                    backgroundColor: selectedPayment === method.id ? 'rgba(236, 72, 153, 0.1)' : 'var(--card)',
+                    border: selectedPayment === method.id
+                      ? '2px solid rgb(236, 72, 153)'
+                      : '1px solid var(--border)'
+                  }}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-900">{method.type}</span>
-                    <span className="text-gray-600">•••• {method.last4}</span>
+                    <span style={{ color: 'var(--foreground)' }}>{method.type}</span>
+                    <span style={{ color: 'var(--muted-foreground)' }}>•••• {method.last4}</span>
                   </div>
                 </button>
               ))}
@@ -243,52 +286,64 @@ export function CompanionshipBookingFormScreen({
 
           {/* Points Redemption - Only for Powered by DoHuub companions */}
           {companion.isPoweredByDoHuub && availablePoints > 0 && (
-            <PointsRedemptionCard
-              availablePoints={availablePoints}
-              selectedPoints={pointsToRedeem}
-              onPointsChange={setPointsToRedeem}
-              enabled={pointsRedemptionEnabled}
-              onToggle={setPointsRedemptionEnabled}
-              maxRedeemablePoints={maxRedeemablePoints}
-            />
+            <div className="animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+              <PointsRedemptionCard
+                availablePoints={availablePoints}
+                selectedPoints={pointsToRedeem}
+                onPointsChange={setPointsToRedeem}
+                enabled={pointsRedemptionEnabled}
+                onToggle={setPointsRedemptionEnabled}
+                maxRedeemablePoints={maxRedeemablePoints}
+              />
+            </div>
           )}
 
           {/* Price Summary */}
-          <div className="p-4 bg-gray-50 rounded-xl space-y-2">
+          <div
+            className="p-4 rounded-xl shadow-card space-y-2 animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.4s' }}
+          >
             <div className="flex justify-between">
-              <span className="text-gray-600">Hourly Rate</span>
-              <span className="text-gray-900">${companion.hourlyRate}/hour</span>
+              <span style={{ color: 'var(--muted-foreground)' }}>Hourly Rate</span>
+              <span style={{ color: 'var(--foreground)' }}>${companion.hourlyRate}/hour</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Duration</span>
-              <span className="text-gray-900">{duration} hours</span>
+              <span style={{ color: 'var(--muted-foreground)' }}>Duration</span>
+              <span style={{ color: 'var(--foreground)' }}>{duration} hours</span>
             </div>
             {pointsRedemptionEnabled && pointsToRedeem > 0 && (
-              <div className="flex justify-between text-green-600">
+              <div className="flex justify-between" style={{ color: 'rgb(34, 197, 94)' }}>
                 <span>Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
                 <span>-${discountAmount.toFixed(2)}</span>
               </div>
             )}
-            <div className="h-px bg-gray-200 my-2" />
+            <div className="my-2" style={{ height: '1px', backgroundColor: 'var(--border)' }} />
             <div className="flex justify-between">
-              <span className="text-gray-900">Total</span>
-              <span className="text-gray-900 text-xl">${finalPrice.toFixed(2)}</span>
+              <span className="font-semibold" style={{ color: 'var(--foreground)' }}>Total</span>
+              <span className="text-xl font-bold" style={{ color: 'rgb(236, 72, 153)' }}>${finalPrice.toFixed(2)}</span>
             </div>
           </div>
 
           {/* Points Preview - Only for Powered by DoHuub companions */}
           {companion.isPoweredByDoHuub && (
-            <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+            <div
+              className="p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+              style={{
+                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
+                border: '1px solid rgba(245, 158, 11, 0.3)',
+                animationDelay: '0.45s'
+              }}
+            >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Gift className="w-5 h-5 text-amber-600" />
-                  <span className="font-medium text-amber-800">Points you'll earn</span>
+                  <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />
+                  <span className="font-medium" style={{ color: 'rgb(180, 83, 9)' }}>Points you'll earn</span>
                 </div>
-                <span className="text-lg font-bold text-amber-600">
+                <span className="text-lg font-bold" style={{ color: 'rgb(245, 158, 11)' }}>
                   +{Math.floor(finalPrice)} pts
                 </span>
               </div>
-              <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after service completion</p>
+              <p className="text-sm mt-1" style={{ color: 'rgb(217, 119, 6)' }}>1 point per $1 spent • Added after service completion</p>
             </div>
           )}
 
@@ -298,15 +353,17 @@ export function CompanionshipBookingFormScreen({
       </div>
 
       {/* Sticky Bottom Button */}
-      <div className="p-6 border-t-2 border-gray-200 bg-white">
+      <div className="p-6 glass relative z-10" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={handleConfirm}
           disabled={!isFormValid}
-          className={`w-full py-3 rounded-xl ${
-            isFormValid
-              ? 'bg-gray-900 text-white'
-              : 'bg-gray-300 text-gray-500'
-          }`}
+          className="w-full py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          style={{
+            background: isFormValid
+              ? 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))'
+              : 'var(--muted)',
+            color: isFormValid ? 'white' : 'var(--muted-foreground)'
+          }}
         >
           Confirm & Pay ${finalPrice.toFixed(2)}
         </button>

@@ -52,21 +52,40 @@ const mockServices = [
 
 export function ServiceListingsScreen({ category, location, onBack, onServiceSelect }: ServiceListingsScreenProps) {
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      {/* Header */}
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
-            <button onClick={onBack}>
-              <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+            <button
+              onClick={onBack}
+              className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+              style={{ backgroundColor: 'var(--card)' }}
+            >
+              <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
             </button>
-            <h3 className="text-gray-900">{category}</h3>
+            <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>{category}</h3>
           </div>
-          <button>
-            <SlidersHorizontal className="w-6 h-6 text-gray-700" strokeWidth={2} />
+          <button
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <SlidersHorizontal className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
         </div>
 
-        <select className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg text-gray-700">
+        {/* Sort Dropdown */}
+        <select
+          className="w-full px-4 py-3 rounded-xl outline-none shadow-card transition-all duration-300 focus:shadow-premium-sm animate-fade-in-up"
+          style={{
+            backgroundColor: 'var(--card)',
+            border: '1px solid var(--border)',
+            color: 'var(--foreground)'
+          }}
+        >
           <option>Recommended</option>
           <option>Highest Rated</option>
           <option>Lowest Price</option>
@@ -74,47 +93,70 @@ export function ServiceListingsScreen({ category, location, onBack, onServiceSel
         </select>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-4">
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto px-6 py-4 relative z-10">
         <div className="space-y-4">
-          {mockServices.map((service) => (
+          {mockServices.map((service, index) => (
             <button
               key={service.id}
               onClick={() => onServiceSelect(service)}
-              className="w-full p-4 rounded-lg border-2 border-gray-200 hover:border-gray-800 text-left"
+              className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+              style={{
+                backgroundColor: 'var(--card)',
+                border: service.isPowered ? '2px solid var(--primary)' : '1px solid var(--border)',
+                animationDelay: `${index * 0.05}s`
+              }}
             >
+              {/* Powered by DoHuub Badge */}
               {service.isPowered && (
-                <div className="mb-2 flex items-center gap-2">
-                  <div className="inline-block px-3 py-1 bg-gray-800 text-white rounded-full text-sm">
+                <div className="mb-3 flex items-center gap-2">
+                  <div
+                    className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm text-white shadow-premium-sm"
+                    style={{ background: 'var(--primary-gradient)' }}
+                  >
+                    <Gift className="w-3 h-3" />
                     Powered by DoHuub
                   </div>
-                  <span className="inline-flex items-center justify-center h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                  <span
+                    className="inline-flex items-center justify-center h-6 px-2 text-white text-xs font-bold rounded-full shadow-sm"
+                    style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(249, 115, 22))' }}
+                  >
                     <Gift className="w-3 h-3 mr-1" />
                     pts
                   </span>
                 </div>
               )}
+
               <div className="flex gap-4">
-                <div className="w-20 h-20 rounded-lg bg-gray-200 flex items-center justify-center text-3xl flex-shrink-0">
+                {/* Image */}
+                <div
+                  className="w-20 h-20 rounded-xl flex items-center justify-center text-3xl flex-shrink-0 shadow-card"
+                  style={{ background: 'linear-gradient(135deg, rgba(46, 122, 217, 0.1), rgba(76, 166, 250, 0.1))' }}
+                >
                   {service.image}
                 </div>
+
+                {/* Details */}
                 <div className="flex-1 min-w-0">
-                  <h4 className="text-gray-900 mb-1">{service.name}</h4>
+                  <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{service.name}</h4>
                   <div className="flex items-center gap-2 mb-2">
                     <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 text-gray-700 fill-gray-700" />
-                      <span className="text-gray-700">{service.rating}</span>
+                      <Star className="w-4 h-4 fill-current" style={{ color: 'rgb(250, 204, 21)' }} />
+                      <span className="font-medium" style={{ color: 'var(--foreground)' }}>{service.rating}</span>
                     </div>
-                    <span className="text-gray-500">({service.reviews} reviews)</span>
+                    <span style={{ color: 'var(--muted-foreground)' }}>({service.reviews} reviews)</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1 text-gray-600">
-                      <MapPin className="w-4 h-4" />
+                    <div className="flex items-center gap-1" style={{ color: 'var(--muted-foreground)' }}>
+                      <MapPin className="w-4 h-4" style={{ color: 'var(--primary)' }} />
                       <span>{service.distance}</span>
                     </div>
-                    <span className="text-gray-900">{service.price}</span>
+                    <span className="font-semibold" style={{ color: 'var(--primary)' }}>{service.price}</span>
                   </div>
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0" />
+
+                {/* Arrow */}
+                <ChevronRight className="w-5 h-5 flex-shrink-0 self-center" style={{ color: 'var(--muted-foreground)' }} />
               </div>
             </button>
           ))}

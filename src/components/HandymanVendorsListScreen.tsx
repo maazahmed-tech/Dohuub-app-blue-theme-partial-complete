@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, MapPin, Search, Gift } from 'lucide-react';
+import { ArrowLeft, Star, Gift, Award } from 'lucide-react';
 
 export interface HandymanVendor {
   id: string;
@@ -57,50 +57,72 @@ const handymanVendors: HandymanVendor[] = [
 
 export function HandymanVendorsListScreen({ category, onBack, onVendorSelect }: HandymanVendorsListScreenProps) {
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack}>
-            <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h1 className="text-gray-900">Handyman Services</h1>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Handyman Services</h1>
         </div>
       </div>
 
       {/* Vendors List */}
-      <div className="flex-1 overflow-y-auto px-6 py-4">
+      <div className="flex-1 overflow-y-auto px-6 py-4 relative z-10">
         <div className="space-y-4">
-          {handymanVendors.map((vendor) => (
+          {handymanVendors.map((vendor, index) => (
             <button
               key={vendor.id}
               onClick={() => onVendorSelect(vendor)}
-              className="w-full p-4 border-2 border-gray-200 rounded-xl hover:border-gray-800 text-left"
+              className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+              style={{
+                backgroundColor: 'var(--card)',
+                border: '1px solid var(--border)',
+                animationDelay: `${index * 0.05}s`
+              }}
             >
               <div className="flex gap-4">
-                <div className="w-12 h-12 bg-gray-200 rounded-full flex-shrink-0 flex items-center justify-center">
-                  <span className="text-gray-400 text-xl">👤</span>
+                <div
+                  className="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center shadow-premium-sm"
+                  style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
+                >
+                  <span className="text-xl">🔧</span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <h3 className="text-gray-900">{vendor.name}</h3>
+                    <h3 className="font-medium" style={{ color: 'var(--foreground)' }}>{vendor.name}</h3>
                     {vendor.isPoweredByDoHuub && (
                       <>
-                        <span className="px-2 py-1 bg-gray-900 text-white text-xs rounded">
-                          Powered by DoHuub
-                        </span>
-                        <span className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 bg-amber-500 text-white text-xs font-bold rounded-full shadow-sm">
+                        <div
+                          className="px-2 py-1 rounded-full text-xs flex items-center gap-1 text-white shadow-premium-sm"
+                          style={{ background: 'var(--primary-gradient)' }}
+                        >
+                          <Award className="w-3 h-3" />
+                          DoHuub
+                        </div>
+                        <span
+                          className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 text-white text-xs font-bold rounded-full shadow-sm"
+                          style={{ backgroundColor: 'rgb(245, 158, 11)' }}
+                        >
                           <Gift className="w-3 h-3 mr-1" />
                           {vendor.startingPrice || 50}+
                         </span>
                       </>
                     )}
                   </div>
-                  <p className="text-gray-600 text-sm mb-2">{vendor.bio}</p>
+                  <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>{vendor.bio}</p>
                   <div className="flex items-center gap-1">
-                    <Star className="w-4 h-4 text-gray-700 fill-gray-700" />
-                    <span className="text-gray-900">{vendor.rating}</span>
-                    <span className="text-gray-600">({vendor.reviewCount})</span>
+                    <Star className="w-4 h-4" style={{ color: 'rgb(250, 204, 21)', fill: 'rgb(250, 204, 21)' }} />
+                    <span className="font-medium" style={{ color: 'var(--foreground)' }}>{vendor.rating}</span>
+                    <span style={{ color: 'var(--muted-foreground)' }}>({vendor.reviewCount})</span>
                   </div>
                 </div>
               </div>

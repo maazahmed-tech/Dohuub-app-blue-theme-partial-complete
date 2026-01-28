@@ -20,57 +20,72 @@ export function SavedAddressesScreen({ onBack, addresses, onAddAddress, onEditAd
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack}>
-            <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+          <button onClick={onBack} className="transition-all duration-200 hover:opacity-80 hover:-translate-x-1">
+            <ArrowLeft className="w-6 h-6" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h3 className="text-gray-900">Saved Addresses</h3>
+          <h3 style={{ color: 'var(--foreground)' }}>Saved Addresses</h3>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {addresses.length > 0 ? (
           <div className="space-y-4 mb-6">
-            {addresses.map((addr) => {
+            {addresses.map((addr, index) => {
               const Icon = getIcon(addr.type);
               return (
-                <div key={addr.id} className={`p-4 border-2 rounded-lg ${addr.isDefault ? 'border-gray-800 bg-gray-50' : 'border-gray-200'}`}>
+                <div
+                  key={addr.id}
+                  className={`p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up ${addr.isDefault ? 'accent-border-left' : ''}`}
+                  style={{
+                    backgroundColor: 'var(--card)',
+                    animationDelay: `${index * 0.05}s`
+                  }}
+                >
                   <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-6 h-6 text-gray-600" />
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm" style={{ backgroundColor: 'var(--secondary)' }}>
+                      <Icon className="w-6 h-6" style={{ color: 'var(--primary)' }} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <p className="text-gray-900">{addr.label}</p>
+                        <p style={{ color: 'var(--foreground)' }}>{addr.label}</p>
                         {addr.isDefault && (
-                          <span className="px-2 py-0.5 bg-gray-800 text-white text-xs rounded-full">Default</span>
+                          <span className="px-2 py-0.5 text-white text-xs rounded-full shadow-premium-sm" style={{ background: 'var(--primary-gradient)' }}>Default</span>
                         )}
                       </div>
-                      <p className="text-gray-600">{addr.fullAddress}</p>
+                      <p style={{ color: 'var(--muted-foreground)' }}>{addr.fullAddress}</p>
                     </div>
                     <div className="flex gap-2 flex-shrink-0">
-                      <button 
+                      <button
                         onClick={() => onEditAddress(addr)}
-                        className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+                        className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+                        style={{ backgroundColor: 'var(--secondary)' }}
                       >
-                        <Edit className="w-5 h-5 text-gray-600" />
+                        <Edit className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
                       </button>
-                      <button 
+                      <button
                         onClick={() => onDeleteAddress(addr.id)}
-                        className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+                        className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+                        style={{ backgroundColor: 'var(--secondary)' }}
                       >
-                        <Trash2 className="w-5 h-5 text-gray-600" />
+                        <Trash2 className="w-5 h-5" style={{ color: 'var(--destructive)' }} />
                       </button>
-                      <button 
+                      <button
                         onClick={() => onSetDefault(addr.id)}
-                        className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                          addr.isDefault ? 'bg-gray-800' : 'bg-gray-100 hover:bg-gray-200'
+                        className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 ${
+                          addr.isDefault ? '' : ''
                         }`}
+                        style={{
+                          background: addr.isDefault ? 'var(--primary-gradient)' : 'var(--secondary)',
+                        }}
                         disabled={addr.isDefault}
                       >
-                        <Star className={`w-5 h-5 ${addr.isDefault ? 'text-white fill-white' : 'text-gray-600'}`} />
+                        <Star className={`w-5 h-5 ${addr.isDefault ? 'text-white fill-white' : ''}`} style={{ color: addr.isDefault ? 'white' : 'var(--muted-foreground)' }} />
                       </button>
                     </div>
                   </div>
@@ -79,19 +94,22 @@ export function SavedAddressesScreen({ onBack, addresses, onAddAddress, onEditAd
             })}
           </div>
         ) : (
-          <div className="text-center py-12">
-            <MapPin className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-600 mb-2">No saved addresses yet</p>
-            <p className="text-gray-500">Add your frequently used addresses for faster booking</p>
+          <div className="text-center py-12 animate-fade-in-up">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-premium-lg" style={{ backgroundColor: 'var(--secondary)' }}>
+              <MapPin className="w-10 h-10" style={{ color: 'var(--muted-foreground)', opacity: 0.5 }} />
+            </div>
+            <p className="mb-2" style={{ color: 'var(--muted-foreground)' }}>No saved addresses yet</p>
+            <p style={{ color: 'var(--muted-foreground)', opacity: 0.7 }}>Add your frequently used addresses for faster booking</p>
           </div>
         )}
 
-        <button 
+        <button
           onClick={onAddAddress}
-          className="w-full p-4 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center gap-3 hover:border-gray-800"
+          className="w-full p-4 border-2 border-dashed rounded-xl flex items-center justify-center gap-3 transition-all duration-300 hover:border-[var(--primary)] hover:shadow-card animate-fade-in-up"
+          style={{ borderColor: 'var(--border)', animationDelay: `${addresses.length * 0.05 + 0.1}s` }}
         >
-          <Plus className="w-6 h-6 text-gray-600" />
-          <span className="text-gray-700">Add New Address</span>
+          <Plus className="w-6 h-6" style={{ color: 'var(--primary)' }} />
+          <span style={{ color: 'var(--foreground)' }}>Add New Address</span>
         </button>
       </div>
     </div>

@@ -27,32 +27,42 @@ export function NotificationsSettingsScreen({ onBack }: NotificationsSettingsScr
   ];
 
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack}>
-            <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+          <button onClick={onBack} className="transition-all duration-200 hover:opacity-80 hover:-translate-x-1">
+            <ArrowLeft className="w-6 h-6" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h3 className="text-gray-900">Notifications</h3>
+          <h3 style={{ color: 'var(--foreground)' }}>Notifications</h3>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         <div className="space-y-1">
-          {notificationItems.map((item) => (
-            <div key={item.key} className="p-4 flex items-center gap-4">
+          {notificationItems.map((item, index) => (
+            <div
+              key={item.key}
+              className="p-4 flex items-center gap-4 rounded-xl transition-all duration-300 hover:shadow-card animate-fade-in-up"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
               <div className="flex-1">
-                <p className="text-gray-900 mb-1">{item.label}</p>
-                <p className="text-gray-600">{item.description}</p>
+                <p className="mb-1" style={{ color: 'var(--foreground)' }}>{item.label}</p>
+                <p style={{ color: 'var(--muted-foreground)' }}>{item.description}</p>
               </div>
               <button
                 onClick={() => toggleSetting(item.key)}
-                className={`w-14 h-7 rounded-full relative transition-colors flex-shrink-0 ${
-                  settings[item.key] ? 'bg-gray-700' : 'bg-gray-300'
+                className={`w-14 h-7 rounded-full relative transition-all duration-300 flex-shrink-0 shadow-card ${
+                  settings[item.key] ? '' : ''
                 }`}
+                style={{
+                  background: settings[item.key] ? 'var(--primary-gradient)' : 'var(--muted)'
+                }}
               >
                 <div
-                  className={`absolute top-0.5 w-6 h-6 bg-white rounded-full transition-transform ${
+                  className={`absolute top-0.5 w-6 h-6 bg-white rounded-full transition-transform shadow-premium-sm ${
                     settings[item.key] ? 'translate-x-7' : 'translate-x-0.5'
                   }`}
                 ></div>
@@ -62,8 +72,11 @@ export function NotificationsSettingsScreen({ onBack }: NotificationsSettingsScr
         </div>
       </div>
 
-      <div className="p-6 border-t-2 border-gray-200">
-        <button className="w-full py-4 bg-gray-800 text-white rounded-lg border-2 border-gray-800">
+      <div className="p-6 glass relative z-10" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <button
+          className="w-full py-4 rounded-xl text-white shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98]"
+          style={{ background: 'var(--primary-gradient)' }}
+        >
           Save Settings
         </button>
       </div>

@@ -8,54 +8,87 @@ interface BookingConfirmationScreenProps {
 
 export function BookingConfirmationScreen({ booking, onViewDetails, onHome }: BookingConfirmationScreenProps) {
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex justify-end">
-        <button className="p-2">
-          <Share2 className="w-6 h-6 text-gray-700" />
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      {/* Header */}
+      <div className="px-6 py-4 glass relative z-10 flex justify-end" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <button
+          className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+          style={{ backgroundColor: 'var(--card)' }}
+        >
+          <Share2 className="w-5 h-5" style={{ color: 'var(--foreground)' }} />
         </button>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-8">
-        <div className="w-32 h-32 rounded-full bg-gray-100 flex items-center justify-center mb-6">
-          <CheckCircle className="w-20 h-20 text-gray-700" strokeWidth={1.5} />
+      {/* Content */}
+      <div className="flex-1 flex flex-col items-center justify-center px-8 relative z-10">
+        {/* Success Icon */}
+        <div
+          className="w-32 h-32 rounded-full flex items-center justify-center mb-6 shadow-premium-lg animate-scale-in"
+          style={{ background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1))' }}
+        >
+          <CheckCircle className="w-20 h-20" style={{ color: 'rgb(34, 197, 94)' }} strokeWidth={1.5} />
         </div>
 
-        <h2 className="text-gray-900 mb-2">Booking Confirmed!</h2>
-        <p className="text-gray-600 mb-8">Booking reference: #{booking?.id || 'DOH12345'}</p>
+        <h2 className="text-2xl font-bold mb-2 animate-fade-in-up" style={{ color: 'var(--foreground)', animationDelay: '0.1s' }}>
+          Booking Confirmed!
+        </h2>
+        <p className="mb-8 animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.15s' }}>
+          Booking reference: #{booking?.id || 'DOH12345'}
+        </p>
 
-        <div className="w-full max-w-sm p-6 border-2 border-gray-200 rounded-lg space-y-4 mb-8">
+        {/* Booking Summary Card */}
+        <div
+          className="w-full max-w-sm p-6 rounded-2xl shadow-premium-md space-y-4 mb-8 animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)', animationDelay: '0.2s' }}
+        >
           <div>
-            <p className="text-gray-600 mb-1">Service</p>
-            <p className="text-gray-900">{booking?.service || 'Cleaning Service'}</p>
+            <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Service</p>
+            <p className="font-medium" style={{ color: 'var(--foreground)' }}>{booking?.service || 'Cleaning Service'}</p>
           </div>
           <div>
-            <p className="text-gray-600 mb-1">Date & Time</p>
-            <p className="text-gray-900">{booking?.date} at {booking?.time}</p>
+            <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Date & Time</p>
+            <p className="font-medium" style={{ color: 'var(--foreground)' }}>{booking?.date} at {booking?.time}</p>
           </div>
           <div>
-            <p className="text-gray-600 mb-1">Address</p>
-            <p className="text-gray-900">{booking?.address}</p>
+            <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Address</p>
+            <p className="font-medium" style={{ color: 'var(--foreground)' }}>{booking?.address}</p>
           </div>
-          <div>
-            <p className="text-gray-600 mb-1">Amount Paid</p>
-            <p className="text-gray-900">{booking?.total}</p>
+          <div
+            className="pt-4"
+            style={{ borderTop: '1px solid var(--border)' }}
+          >
+            <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Amount Paid</p>
+            <p className="text-xl font-bold" style={{ color: 'var(--primary)' }}>{booking?.total}</p>
           </div>
         </div>
 
-        <p className="text-gray-600 text-center mb-8">
+        <p
+          className="text-center mb-8 animate-fade-in-up"
+          style={{ color: 'var(--muted-foreground)', animationDelay: '0.25s' }}
+        >
           You'll receive updates via notifications
         </p>
 
-        <div className="w-full max-w-sm space-y-3">
+        {/* Action Buttons */}
+        <div className="w-full max-w-sm space-y-3 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
           <button
             onClick={onViewDetails}
-            className="w-full py-4 bg-gray-800 text-white rounded-lg border-2 border-gray-800"
+            className="w-full py-4 rounded-xl font-semibold text-white shadow-premium-md transition-all duration-300 hover:shadow-premium-lg hover:scale-[1.02] active:scale-[0.98]"
+            style={{ background: 'var(--primary-gradient)' }}
           >
             View Booking Details
           </button>
           <button
             onClick={onHome}
-            className="w-full py-4 bg-white text-gray-800 rounded-lg border-2 border-gray-800"
+            className="w-full py-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-card"
+            style={{
+              backgroundColor: 'var(--card)',
+              color: 'var(--foreground)',
+              border: '1px solid var(--border)'
+            }}
           >
             Back to Home
           </button>

@@ -1,4 +1,4 @@
-import { ArrowLeft, Calendar, Users, CreditCard, ChevronDown, ChevronRight, Gift } from 'lucide-react';
+import { ArrowLeft, Calendar, Users, CreditCard, ChevronDown, ChevronRight, Gift, Award } from 'lucide-react';
 import { useState } from 'react';
 import type { Property } from './RentalPropertiesListScreen';
 import type { Address } from './AddAddressScreen';
@@ -111,37 +111,64 @@ export function PropertyBookingScreen({
   };
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900">Confirm Booking</h1>
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Confirm Booking</h1>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         <div className="space-y-6">
           {/* Property Summary */}
-          <div className="p-4 bg-gray-50 border-2 border-gray-200 rounded-xl">
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{
+              background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
+              border: '1px solid rgba(20, 184, 166, 0.3)'
+            }}
+          >
             <div className="flex gap-3 mb-3">
-              <div className="w-20 h-20 bg-gray-300 rounded-lg flex items-center justify-center flex-shrink-0">
-                <span className="text-gray-500 text-3xl">🏠</span>
+              <div
+                className="w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
+              >
+                <span className="text-white text-3xl">🏠</span>
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-gray-900 mb-1">{property.name}</h3>
-                <p className="text-gray-600 text-sm">{property.location}</p>
+                <h3 className="font-semibold mb-1" style={{ color: 'var(--foreground)' }}>{property.name}</h3>
+                <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{property.location}</p>
+                {property.isPoweredByDoHuub && (
+                  <span
+                    className="inline-flex items-center gap-1 mt-2 px-2 py-1 text-white text-xs font-medium rounded-full shadow-premium-sm"
+                    style={{ background: 'var(--primary-gradient)' }}
+                  >
+                    <Award className="w-3 h-3" />
+                    DoHuub
+                  </span>
+                )}
               </div>
             </div>
-            
-            <div className="space-y-2 pt-3 border-t-2 border-gray-200">
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <Calendar className="w-4 h-4" />
+
+            <div className="space-y-2 pt-3" style={{ borderTop: '1px solid rgba(20, 184, 166, 0.3)' }}>
+              <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--muted-foreground)' }}>
+                <Calendar className="w-4 h-4" style={{ color: 'rgb(20, 184, 166)' }} />
                 <span>{formatDate(checkInDate)} - {formatDate(checkOutDate)}</span>
               </div>
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <Users className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-sm" style={{ color: 'var(--muted-foreground)' }}>
+                <Users className="w-4 h-4" style={{ color: 'rgb(20, 184, 166)' }} />
                 <span>{guests} {guests === 1 ? 'guest' : 'guests'} • {duration}</span>
               </div>
             </div>
@@ -149,26 +176,37 @@ export function PropertyBookingScreen({
 
           {/* Special Requests */}
           {specialRequests && (
-            <div className="p-4 border-2 border-gray-200 rounded-xl">
-              <h3 className="text-gray-900 mb-2">Special Requests</h3>
-              <p className="text-gray-600">{specialRequests}</p>
+            <div
+              className="p-4 rounded-xl shadow-card animate-fade-in-up"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+            >
+              <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Special Requests</h3>
+              <p style={{ color: 'var(--muted-foreground)' }}>{specialRequests}</p>
             </div>
           )}
 
           {/* Billing Address (Auto-selected) */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Billing Address</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Billing Address</h3>
             {selectedAddress ? (
-              <div className="p-4 border-2 border-gray-200 rounded-xl">
-                <p className="text-gray-900 mb-1">{selectedAddress.label}</p>
-                <p className="text-gray-600 text-sm">
+              <div
+                className="p-4 rounded-xl shadow-card"
+                style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+              >
+                <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{selectedAddress.label}</p>
+                <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
                   {selectedAddress.street}, {selectedAddress.city}, {selectedAddress.state} {selectedAddress.zipCode}
                 </p>
               </div>
             ) : (
               <button
                 onClick={onAddAddress}
-                className="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 hover:border-gray-900 hover:text-gray-900 transition-colors"
+                className="w-full p-4 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{
+                  backgroundColor: 'var(--card)',
+                  border: '2px dashed var(--border)',
+                  color: 'var(--muted-foreground)'
+                }}
               >
                 + Add Address
               </button>
@@ -176,24 +214,35 @@ export function PropertyBookingScreen({
           </div>
 
           {/* Payment Method Selection */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Payment Method</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Payment Method</h3>
             {selectedCard ? (
               <button
                 onClick={() => setShowCardSheet(true)}
-                className="w-full p-4 border-2 border-gray-200 rounded-xl flex items-center gap-3 hover:border-gray-900 transition-colors"
+                className="w-full p-4 rounded-xl flex items-center gap-3 shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
+                style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
               >
-                <CreditCard className="w-5 h-5 text-gray-700 flex-shrink-0" />
-                <div className="flex-1 text-left">
-                  <p className="text-gray-900">•••• {selectedCard.cardNumber.slice(-4)}</p>
-                  <p className="text-gray-600 text-sm">{selectedCard.cardholderName}</p>
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                  style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
+                >
+                  <CreditCard className="w-5 h-5 text-white" />
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                <div className="flex-1 text-left">
+                  <p className="font-medium" style={{ color: 'var(--foreground)' }}>•••• {selectedCard.cardNumber.slice(-4)}</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{selectedCard.cardholderName}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 flex-shrink-0" style={{ color: 'var(--muted-foreground)' }} />
               </button>
             ) : (
               <button
                 onClick={onAddPaymentCard}
-                className="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 hover:border-gray-900 hover:text-gray-900 transition-colors"
+                className="w-full p-4 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{
+                  backgroundColor: 'var(--card)',
+                  border: '2px dashed var(--border)',
+                  color: 'var(--muted-foreground)'
+                }}
               >
                 + Add Payment Card
               </button>
@@ -202,63 +251,80 @@ export function PropertyBookingScreen({
 
           {/* Points Redemption - Only for Powered by DoHuub properties */}
           {property.isPoweredByDoHuub && availablePoints > 0 && (
-            <PointsRedemptionCard
-              availablePoints={availablePoints}
-              selectedPoints={pointsToRedeem}
-              onPointsChange={setPointsToRedeem}
-              enabled={pointsRedemptionEnabled}
-              onToggle={setPointsRedemptionEnabled}
-              maxRedeemablePoints={maxRedeemablePoints}
-            />
+            <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              <PointsRedemptionCard
+                availablePoints={availablePoints}
+                selectedPoints={pointsToRedeem}
+                onPointsChange={setPointsToRedeem}
+                enabled={pointsRedemptionEnabled}
+                onToggle={setPointsRedemptionEnabled}
+                maxRedeemablePoints={maxRedeemablePoints}
+              />
+            </div>
           )}
 
           {/* Price Summary */}
-          <div className="p-4 bg-gray-50 border-2 border-gray-200 rounded-xl">
-            <h3 className="text-gray-900 mb-4">Total Amount</h3>
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{
+              background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
+              border: '1px solid rgba(20, 184, 166, 0.3)',
+              animationDelay: '0.25s'
+            }}
+          >
+            <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Total Amount</h3>
             <div className="space-y-2">
               <div className="flex items-baseline justify-between">
-                <span className="text-gray-600">Subtotal</span>
-                <span className="text-gray-900">${totalPrice}</span>
+                <span style={{ color: 'var(--muted-foreground)' }}>Subtotal</span>
+                <span className="font-medium" style={{ color: 'var(--foreground)' }}>${totalPrice}</span>
               </div>
               {pointsRedemptionEnabled && pointsToRedeem > 0 && (
-                <div className="flex items-baseline justify-between text-green-600">
+                <div className="flex items-baseline justify-between" style={{ color: 'rgb(34, 197, 94)' }}>
                   <span>Points Discount ({pointsToRedeem.toLocaleString()} pts)</span>
                   <span>-${discountAmount.toFixed(2)}</span>
                 </div>
               )}
-              <div className="flex items-baseline justify-between pt-2 border-t border-gray-200">
-                <span className="text-gray-900 font-semibold">Total</span>
-                <span className="text-gray-900 text-2xl">${finalPrice.toFixed(2)}</span>
+              <div className="flex items-baseline justify-between pt-2" style={{ borderTop: '1px solid rgba(20, 184, 166, 0.3)' }}>
+                <span className="font-semibold" style={{ color: 'var(--foreground)' }}>Total</span>
+                <span className="text-2xl font-bold" style={{ color: 'rgb(20, 184, 166)' }}>${finalPrice.toFixed(2)}</span>
               </div>
             </div>
           </div>
 
           {/* Points Preview - Only for Powered by DoHuub properties */}
           {property.isPoweredByDoHuub && (
-            <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+            <div
+              className="p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+              style={{
+                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
+                border: '1px solid rgba(245, 158, 11, 0.3)',
+                animationDelay: '0.3s'
+              }}
+            >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Gift className="w-5 h-5 text-amber-600" />
-                  <span className="font-medium text-amber-800">Points you'll earn</span>
+                  <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />
+                  <span className="font-medium" style={{ color: 'rgb(180, 83, 9)' }}>Points you'll earn</span>
                 </div>
-                <span className="text-lg font-bold text-amber-600">
+                <span className="text-lg font-bold" style={{ color: 'rgb(245, 158, 11)' }}>
                   +{Math.floor(finalPrice)} pts
                 </span>
               </div>
-              <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after stay</p>
+              <p className="text-sm mt-1" style={{ color: 'rgb(217, 119, 6)' }}>1 point per $1 spent • Added after stay</p>
             </div>
           )}
 
           {/* Terms & Conditions */}
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-3 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
             <input
               type="checkbox"
               id="terms"
               checked={acceptedTerms}
               onChange={(e) => setAcceptedTerms(e.target.checked)}
-              className="mt-1 w-5 h-5 border-2 border-gray-300 rounded"
+              className="mt-1 w-5 h-5 rounded accent-teal-500"
+              style={{ accentColor: 'rgb(20, 184, 166)' }}
             />
-            <label htmlFor="terms" className="text-gray-600 text-sm flex-1">
+            <label htmlFor="terms" className="text-sm flex-1" style={{ color: 'var(--muted-foreground)' }}>
               I agree to the Terms & Conditions and House Rules
             </label>
           </div>
@@ -266,11 +332,12 @@ export function PropertyBookingScreen({
       </div>
 
       {/* Bottom Button */}
-      <div className="p-6 border-t-2 border-gray-200 bg-white">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={handleConfirm}
           disabled={!selectedAddress || !selectedCard || !acceptedTerms}
-          className="w-full py-3 bg-gray-900 text-white rounded-xl disabled:bg-gray-300 disabled:text-gray-500"
+          className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
         >
           Confirm & Pay ${finalPrice.toFixed(2)}
         </button>
@@ -278,30 +345,41 @@ export function PropertyBookingScreen({
 
       {/* Payment Card Selection Bottom Sheet */}
       {showCardSheet && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-50 flex items-end">
-          <div className="bg-white w-full rounded-t-3xl max-h-[70vh] overflow-y-auto">
-            <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center justify-between sticky top-0 bg-white">
-              <h2 className="text-gray-900">Select Payment Card</h2>
-              <button onClick={() => setShowCardSheet(false)}>
-                <ChevronDown className="w-6 h-6 text-gray-700" strokeWidth={2} />
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end animate-fade-in">
+          <div
+            className="w-full rounded-t-3xl max-h-[70vh] overflow-y-auto animate-slide-up shadow-premium-lg"
+            style={{ backgroundColor: 'var(--background)' }}
+          >
+            <div
+              className="px-6 py-4 flex items-center justify-between sticky top-0 glass"
+              style={{ borderBottom: '1px solid var(--border)' }}
+            >
+              <h2 className="font-semibold" style={{ color: 'var(--foreground)' }}>Select Payment Card</h2>
+              <button
+                onClick={() => setShowCardSheet(false)}
+                className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{ backgroundColor: 'var(--card)' }}
+              >
+                <ChevronDown className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
               </button>
             </div>
             <div className="px-6 py-6 space-y-3">
-              {paymentCards.map(card => (
+              {paymentCards.map((card, index) => (
                 <button
                   key={card.id}
                   onClick={() => {
                     setSelectedCard(card);
                     setShowCardSheet(false);
                   }}
-                  className={`w-full p-4 border-2 rounded-xl text-left ${
-                    selectedCard?.id === card.id
-                      ? 'border-gray-900 bg-gray-50'
-                      : 'border-gray-200'
-                  }`}
+                  className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+                  style={{
+                    backgroundColor: selectedCard?.id === card.id ? 'rgba(20, 184, 166, 0.1)' : 'var(--card)',
+                    border: selectedCard?.id === card.id ? '2px solid rgb(20, 184, 166)' : '1px solid var(--border)',
+                    animationDelay: `${index * 0.05}s`
+                  }}
                 >
-                  <p className="text-gray-900 mb-1">•••• {card.cardNumber.slice(-4)}</p>
-                  <p className="text-gray-600 text-sm">{card.cardholderName}</p>
+                  <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>•••• {card.cardNumber.slice(-4)}</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{card.cardholderName}</p>
                 </button>
               ))}
               <button
@@ -309,7 +387,12 @@ export function PropertyBookingScreen({
                   setShowCardSheet(false);
                   onAddPaymentCard();
                 }}
-                className="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-600"
+                className="w-full p-4 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{
+                  backgroundColor: 'var(--card)',
+                  border: '2px dashed var(--border)',
+                  color: 'var(--muted-foreground)'
+                }}
               >
                 + Add New Card
               </button>

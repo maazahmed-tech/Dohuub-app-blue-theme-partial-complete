@@ -21,12 +21,12 @@ export function FoodGroceryPaymentScreen({
 
   const handleConfirmPayment = () => {
     setIsProcessing(true);
-    
+
     // Simulate payment processing
     setTimeout(() => {
       setIsProcessing(false);
       setPaymentComplete(true);
-      
+
       // Show success briefly then call onPaymentSuccess
       setTimeout(() => {
         onPaymentSuccess();
@@ -36,45 +36,67 @@ export function FoodGroceryPaymentScreen({
 
   if (paymentComplete) {
     return (
-      <div className="h-full bg-white flex flex-col items-center justify-center px-6">
-        <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-6">
-          <CheckCircle2 className="w-16 h-16 text-green-600" strokeWidth={2} />
+      <div className="h-full flex flex-col items-center justify-center px-6 relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+        {/* Background Pattern */}
+        <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+        <div className="relative z-10 text-center animate-scale-in">
+          <div
+            className="w-24 h-24 rounded-full flex items-center justify-center mb-6 mx-auto shadow-premium-md"
+            style={{ background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))' }}
+          >
+            <CheckCircle2 className="w-16 h-16 text-white" strokeWidth={2} />
+          </div>
+          <h1 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>Payment Successful!</h1>
+          <p style={{ color: 'var(--muted-foreground)' }}>Processing your order...</p>
         </div>
-        <h1 className="text-gray-900 mb-2 text-center">Payment Successful!</h1>
-        <p className="text-gray-600 text-center">Processing your order...</p>
       </div>
     );
   }
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="bg-white border-b-2 border-gray-200 px-6 py-4">
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack} className="text-gray-900" disabled={isProcessing}>
-            <ArrowLeft className="w-6 h-6" strokeWidth={2} />
+          <button
+            onClick={onBack}
+            disabled={isProcessing}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card disabled:opacity-50"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
           <div>
-            <h1 className="text-gray-900">Payment</h1>
-            <p className="text-gray-600">Confirm payment details</p>
+            <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Payment</h1>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Confirm payment details</p>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32">
+      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
         {/* Amount */}
-        <div className="mb-6 text-center">
-          <p className="text-gray-600 mb-2">Amount to Pay</p>
-          <h2 className="text-gray-900">${total.toFixed(2)}</h2>
+        <div className="mb-6 text-center animate-fade-in-up">
+          <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Amount to Pay</p>
+          <h2 className="text-4xl font-bold" style={{ color: 'var(--primary)' }}>${total.toFixed(2)}</h2>
         </div>
 
         {/* Payment Card */}
-        <div className="mb-6">
-          <h3 className="text-gray-900 mb-3">Payment Method</h3>
-          <div className="bg-gray-900 text-white rounded-2xl p-6">
+        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Payment Method</h3>
+          <div
+            className="rounded-2xl p-6 text-white shadow-premium-md"
+            style={{ background: 'var(--primary-gradient)' }}
+          >
             <div className="flex items-start justify-between mb-8">
-              <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+              <div
+                className="w-12 h-12 rounded-lg flex items-center justify-center"
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
+              >
                 <CreditCard className="w-6 h-6 text-white" />
               </div>
               <div className="text-right">
@@ -82,54 +104,63 @@ export function FoodGroceryPaymentScreen({
               </div>
             </div>
             <div className="mb-6">
-              <p className="text-white text-xl tracking-widest">
+              <p className="text-xl tracking-widest">
                 •••• •••• •••• {selectedCard.lastFourDigits || selectedCard.cardNumber.slice(-4)}
               </p>
             </div>
             <div className="flex justify-between">
               <div>
                 <p className="text-white/60 text-xs mb-1">Cardholder Name</p>
-                <p className="text-white">{selectedCard.cardholderName}</p>
+                <p>{selectedCard.cardholderName}</p>
               </div>
               <div className="text-right">
                 <p className="text-white/60 text-xs mb-1">Expires</p>
-                <p className="text-white">{selectedCard.expiryDate}</p>
+                <p>{selectedCard.expiryDate}</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* CVV Input */}
-        <div className="mb-6">
-          <label className="block text-gray-900 mb-2">CVV / Security Code</label>
+        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>CVV / Security Code</label>
           <input
             type="password"
             maxLength={4}
             value={cvv}
             onChange={(e) => setCvv(e.target.value.replace(/\D/g, ''))}
             placeholder="Enter CVV"
-            className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-gray-900 outline-none"
+            className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-blue-500/50"
+            style={{
+              backgroundColor: 'var(--card)',
+              color: 'var(--foreground)',
+              border: '1px solid var(--border)'
+            }}
             disabled={isProcessing}
           />
-          <p className="text-gray-500 text-sm mt-2">
+          <p className="text-sm mt-2" style={{ color: 'var(--muted-foreground)' }}>
             3 or 4 digit code on the back of your card
           </p>
         </div>
 
         {/* Security Notice */}
-        <div className="bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
-          <p className="text-gray-600 text-sm">
-            🔒 Your payment information is encrypted and secure. We never store your CVV.
+        <div
+          className="rounded-xl p-4 shadow-card animate-fade-in-up"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+        >
+          <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
+            Your payment information is encrypted and secure. We never store your CVV.
           </p>
         </div>
       </div>
 
       {/* Confirm Payment Button */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 px-6 py-4">
+      <div className="absolute bottom-0 left-0 right-0 px-6 py-4 glass z-20" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={handleConfirmPayment}
           disabled={cvv.length < 3 || isProcessing}
-          className="w-full bg-gray-900 text-white rounded-xl py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          style={{ background: 'var(--primary-gradient)' }}
         >
           {isProcessing ? 'Processing Payment...' : `Confirm Payment • $${total.toFixed(2)}`}
         </button>

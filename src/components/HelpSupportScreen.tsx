@@ -29,36 +29,44 @@ export function HelpSupportScreen({ onBack, onAIChat }: HelpSupportScreenProps) 
   ];
 
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack}>
-            <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+          <button onClick={onBack} className="transition-all duration-200 hover:opacity-80 hover:-translate-x-1">
+            <ArrowLeft className="w-6 h-6" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h3 className="text-gray-900">Help & Support</h3>
+          <h3 style={{ color: 'var(--foreground)' }}>Help & Support</h3>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         <div className="mb-6">
-          <h4 className="text-gray-900 mb-4">Frequently Asked Questions</h4>
+          <h4 className="mb-4" style={{ color: 'var(--foreground)' }}>Frequently Asked Questions</h4>
           <div className="space-y-2">
             {faqs.map((faq, index) => (
-              <div key={index} className="border-2 border-gray-200 rounded-lg overflow-hidden">
+              <div
+                key={index}
+                className="rounded-xl overflow-hidden shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+                style={{ backgroundColor: 'var(--card)', animationDelay: `${index * 0.05}s` }}
+              >
                 <button
                   onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
                   className="w-full p-4 text-left flex items-center justify-between"
                 >
-                  <span className="text-gray-900">{faq.question}</span>
+                  <span style={{ color: 'var(--foreground)' }}>{faq.question}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-gray-600 transition-transform flex-shrink-0 ${
+                    className={`w-5 h-5 transition-transform flex-shrink-0 ${
                       expandedFAQ === index ? 'rotate-180' : ''
                     }`}
+                    style={{ color: 'var(--muted-foreground)' }}
                   />
                 </button>
                 {expandedFAQ === index && (
-                  <div className="px-4 pb-4">
-                    <p className="text-gray-600">{faq.answer}</p>
+                  <div className="px-4 pb-4 animate-fade-in">
+                    <p style={{ color: 'var(--muted-foreground)' }}>{faq.answer}</p>
                   </div>
                 )}
               </div>
@@ -67,20 +75,30 @@ export function HelpSupportScreen({ onBack, onAIChat }: HelpSupportScreenProps) 
         </div>
 
         <div className="mb-6">
-          <h4 className="text-gray-900 mb-4">Contact Us</h4>
+          <h4 className="mb-4" style={{ color: 'var(--foreground)' }}>Contact Us</h4>
           <div className="space-y-3">
-            <div className="p-4 border-2 border-gray-200 rounded-lg flex items-center gap-3">
-              <Mail className="w-6 h-6 text-gray-600 flex-shrink-0" />
+            <div
+              className="p-4 rounded-xl flex items-center gap-3 shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+              style={{ backgroundColor: 'var(--card)', animationDelay: '0.2s' }}
+            >
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-premium-sm" style={{ backgroundColor: 'var(--secondary)' }}>
+                <Mail className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+              </div>
               <div className="flex-1">
-                <p className="text-gray-900 mb-1">Email Support</p>
-                <p className="text-gray-600">support@dohuub.com</p>
+                <p className="mb-1" style={{ color: 'var(--foreground)' }}>Email Support</p>
+                <p style={{ color: 'var(--muted-foreground)' }}>support@dohuub.com</p>
               </div>
             </div>
-            <div className="p-4 border-2 border-gray-200 rounded-lg flex items-center gap-3">
-              <Clock className="w-6 h-6 text-gray-600 flex-shrink-0" />
+            <div
+              className="p-4 rounded-xl flex items-center gap-3 shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+              style={{ backgroundColor: 'var(--card)', animationDelay: '0.25s' }}
+            >
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-premium-sm" style={{ backgroundColor: 'var(--secondary)' }}>
+                <Clock className="w-5 h-5" style={{ color: 'var(--primary)' }} />
+              </div>
               <div className="flex-1">
-                <p className="text-gray-900 mb-1">AI Assistant Availability</p>
-                <p className="text-gray-600">24/7 Support</p>
+                <p className="mb-1" style={{ color: 'var(--foreground)' }}>AI Assistant Availability</p>
+                <p style={{ color: 'var(--muted-foreground)' }}>24/7 Support</p>
               </div>
             </div>
           </div>

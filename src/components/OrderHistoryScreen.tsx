@@ -8,18 +8,34 @@ interface OrderHistoryScreenProps {
 
 export function OrderHistoryScreen({ bookings, onBack, onReorder }: OrderHistoryScreenProps) {
   return (
-    <div className="h-full bg-white flex flex-col">
-      <div className="px-6 py-4 border-b-2 border-gray-200">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
+      {/* Header */}
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex items-center gap-4">
-          <button onClick={onBack}>
-            <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h3 className="text-gray-900">Order History</h3>
+          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Order History</h3>
         </div>
       </div>
 
-      <div className="px-6 py-4 border-b-2 border-gray-200">
-        <select className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg">
+      {/* Filter */}
+      <div className="px-6 py-4 relative z-10 animate-fade-in-up">
+        <select
+          className="w-full px-4 py-3 rounded-xl shadow-card outline-none transition-all duration-300 focus:shadow-glow"
+          style={{
+            backgroundColor: 'var(--card)',
+            color: 'var(--foreground)',
+            border: '1px solid var(--border)'
+          }}
+        >
           <option>All</option>
           <option>Last 30 Days</option>
           <option>Last 6 Months</option>
@@ -27,39 +43,70 @@ export function OrderHistoryScreen({ bookings, onBack, onReorder }: OrderHistory
         </select>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6">
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto px-6 py-4 relative z-10">
         {bookings.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center">
-            <div className="w-32 h-32 rounded-full bg-gray-100 flex items-center justify-center mb-6">
-              <FileText className="w-16 h-16 text-gray-400" strokeWidth={1.5} />
+          <div className="h-full flex flex-col items-center justify-center animate-fade-in-up">
+            <div
+              className="w-32 h-32 rounded-full flex items-center justify-center mb-6 shadow-premium-lg"
+              style={{ backgroundColor: 'var(--card)' }}
+            >
+              <FileText className="w-16 h-16" style={{ color: 'var(--muted-foreground)' }} strokeWidth={1.5} />
             </div>
-            <p className="text-gray-600">No order history yet</p>
+            <p style={{ color: 'var(--muted-foreground)' }}>No order history yet</p>
           </div>
         ) : (
           <div className="space-y-4">
-            {bookings.map((booking) => (
-              <div key={booking.id} className="p-4 border-2 border-gray-200 rounded-lg">
+            {bookings.map((booking, index) => (
+              <div
+                key={booking.id}
+                className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+                style={{
+                  backgroundColor: 'var(--card)',
+                  animationDelay: `${index * 0.05}s`
+                }}
+              >
                 <div className="flex gap-4 mb-4">
-                  <div className="w-16 h-16 rounded-lg bg-gray-200 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-8 h-8 text-gray-600" />
+                  <div
+                    className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
+                    style={{ background: 'var(--primary-gradient)' }}
+                  >
+                    <Sparkles className="w-8 h-8 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-gray-900 mb-1">{booking.service}</p>
-                    <p className="text-gray-600 mb-2">{booking.date}</p>
-                    <div className="inline-block px-3 py-1 bg-gray-100 text-gray-700 rounded-full">
+                    <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{booking.service}</p>
+                    <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>{booking.date}</p>
+                    <div
+                      className="inline-block px-3 py-1 rounded-full text-sm"
+                      style={{
+                        backgroundColor: booking.status === 'Completed' ? 'rgba(34, 197, 94, 0.1)' : 'var(--muted)',
+                        color: booking.status === 'Completed' ? 'rgb(22, 163, 74)' : 'var(--muted-foreground)'
+                      }}
+                    >
                       {booking.status}
                     </div>
                   </div>
-                  <p className="text-gray-900 flex-shrink-0">{booking.total}</p>
+                  <p className="font-semibold flex-shrink-0" style={{ color: 'var(--foreground)' }}>{booking.total}</p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <button
                     onClick={() => onReorder(booking)}
-                    className="flex-1 py-3 border-2 border-gray-800 text-gray-800 rounded-lg"
+                    className="flex-1 py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+                    style={{
+                      background: 'var(--primary-gradient)',
+                      color: 'white'
+                    }}
                   >
                     Book Again
                   </button>
-                  <button className="flex-1 py-3 border-2 border-gray-300 text-gray-700 rounded-lg">
+                  <button
+                    className="flex-1 py-3 rounded-xl font-medium transition-all duration-300 hover:shadow-card"
+                    style={{
+                      backgroundColor: 'var(--background)',
+                      color: 'var(--foreground)',
+                      border: '1px solid var(--border)'
+                    }}
+                  >
                     View Receipt
                   </button>
                 </div>

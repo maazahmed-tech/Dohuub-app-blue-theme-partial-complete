@@ -85,7 +85,7 @@ export function RideBookingFormScreen({
   const handleConfirm = () => {
     const selectedAddress = savedAddresses.find(addr => addr.id === pickupAddress);
     const selectedPaymentMethod = paymentMethods.find(pm => pm.id === selectedPayment);
-    
+
     onConfirmBooking({
       provider,
       passengerName,
@@ -108,64 +108,89 @@ export function RideBookingFormScreen({
   const isFormValid = passengerName && passengerPhone && pickupAddress && date && time && selectedPayment;
 
   return (
-    <div className="h-full bg-white flex flex-col">
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
+
       {/* Header */}
-      <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center gap-4 bg-white sticky top-0 z-10">
-        <button onClick={onBack}>
-          <ArrowLeft className="w-6 h-6 text-gray-700" strokeWidth={2} />
-        </button>
-        <h1 className="text-gray-900">Book Ride Service</h1>
+      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={onBack}
+            className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
+          </button>
+          <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>Book Ride Service</h1>
+        </div>
       </div>
 
       {/* Scrollable Form */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto relative z-10">
         <div className="px-6 py-6 space-y-6">
           {/* Provider Info */}
-          <div className="p-4 bg-gray-50 rounded-xl">
-            <p className="text-gray-600 text-sm mb-1">Booking with</p>
-            <p className="text-gray-900">{provider.name}</p>
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Booking with</p>
+            <p className="font-medium" style={{ color: 'var(--foreground)' }}>{provider.name}</p>
           </div>
 
           {/* Passenger Details */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Passenger Details</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Passenger Details</h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-gray-600 text-sm mb-2">Full Name *</label>
+                <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Full Name *</label>
                 <input
                   type="text"
                   value={passengerName}
                   onChange={(e) => setPassengerName(e.target.value)}
                   placeholder="Enter passenger name"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+                  className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50"
+                  style={{
+                    backgroundColor: 'var(--input-background)',
+                    color: 'var(--foreground)',
+                    border: '1px solid var(--border)'
+                  }}
                 />
               </div>
               <div>
-                <label className="block text-gray-600 text-sm mb-2">Phone Number *</label>
+                <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Phone Number *</label>
                 <input
                   type="tel"
                   value={passengerPhone}
                   onChange={(e) => setPassengerPhone(e.target.value)}
                   placeholder="(555) 123-4567"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+                  className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50"
+                  style={{
+                    backgroundColor: 'var(--input-background)',
+                    color: 'var(--foreground)',
+                    border: '1px solid var(--border)'
+                  }}
                 />
               </div>
             </div>
           </div>
 
           {/* Vehicle Type */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Vehicle Type</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Vehicle Type</h3>
             <div className="space-y-2">
               {provider.vehicleTypes.map(type => (
                 <button
                   key={type}
                   onClick={() => setVehicleType(type)}
-                  className={`w-full px-4 py-3 rounded-xl border-2 text-left ${
-                    vehicleType === type
-                      ? 'border-gray-900 bg-gray-50'
-                      : 'border-gray-200'
-                  }`}
+                  className="w-full px-4 py-3 rounded-xl text-left transition-all duration-300"
+                  style={{
+                    backgroundColor: vehicleType === type ? 'rgba(168, 85, 247, 0.1)' : 'var(--card)',
+                    border: vehicleType === type
+                      ? '2px solid rgb(168, 85, 247)'
+                      : '1px solid var(--border)',
+                    color: 'var(--foreground)'
+                  }}
                 >
                   {type}
                 </button>
@@ -174,55 +199,72 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Pickup Address */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Pickup Address *</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Pickup Address *</h3>
             <div className="space-y-2">
               {savedAddresses.map(addr => (
                 <button
                   key={addr.id}
                   onClick={() => setPickupAddress(addr.id)}
-                  className={`w-full px-4 py-3 rounded-xl border-2 text-left ${
-                    pickupAddress === addr.id
-                      ? 'border-gray-900 bg-gray-50'
-                      : 'border-gray-200'
-                  }`}
+                  className="w-full px-4 py-3 rounded-xl text-left transition-all duration-300"
+                  style={{
+                    backgroundColor: pickupAddress === addr.id ? 'rgba(168, 85, 247, 0.1)' : 'var(--card)',
+                    border: pickupAddress === addr.id
+                      ? '2px solid rgb(168, 85, 247)'
+                      : '1px solid var(--border)'
+                  }}
                 >
-                  <p className="text-gray-900 mb-1">{addr.label}</p>
-                  <p className="text-gray-600 text-sm">{addr.address}</p>
+                  <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{addr.label}</p>
+                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{addr.address}</p>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Date & Time */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <div>
-              <label className="block text-gray-600 text-sm mb-2">Date *</label>
+              <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Date *</label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+                className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50"
+                style={{
+                  backgroundColor: 'var(--input-background)',
+                  color: 'var(--foreground)',
+                  border: '1px solid var(--border)'
+                }}
               />
             </div>
             <div>
-              <label className="block text-gray-600 text-sm mb-2">Time *</label>
+              <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Time *</label>
               <input
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+                className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50"
+                style={{
+                  backgroundColor: 'var(--input-background)',
+                  color: 'var(--foreground)',
+                  border: '1px solid var(--border)'
+                }}
               />
             </div>
           </div>
 
           {/* Duration */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Duration</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Duration</h3>
             <select
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+              className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50"
+              style={{
+                backgroundColor: 'var(--input-background)',
+                color: 'var(--foreground)',
+                border: '1px solid var(--border)'
+              }}
             >
               {durations.map(d => (
                 <option key={d.value} value={d.value}>{d.label}</option>
@@ -231,25 +273,31 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Number of Passengers */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Number of Passengers</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Number of Passengers</h3>
             <input
               type="number"
               min="1"
               max="6"
               value={passengers}
               onChange={(e) => setPassengers(e.target.value)}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+              className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50"
+              style={{
+                backgroundColor: 'var(--input-background)',
+                color: 'var(--foreground)',
+                border: '1px solid var(--border)'
+              }}
             />
           </div>
 
           {/* Stops */}
-          <div>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-gray-900">Stops (Optional)</h3>
+              <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Stops (Optional)</h3>
               <button
                 onClick={() => setShowAddStopModal(true)}
-                className="flex items-center gap-2 text-gray-900"
+                className="flex items-center gap-2 transition-all duration-300 hover:opacity-70"
+                style={{ color: 'rgb(168, 85, 247)' }}
               >
                 <Plus className="w-5 h-5" />
                 <span className="text-sm">Add Stop</span>
@@ -258,90 +306,116 @@ export function RideBookingFormScreen({
             {stops.length > 0 ? (
               <div className="space-y-2">
                 {stops.map((stop, index) => (
-                  <div key={stop.id} className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
-                    <GripVertical className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                  <div
+                    key={stop.id}
+                    className="flex items-start gap-3 p-3 rounded-xl shadow-card"
+                    style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+                  >
+                    <GripVertical className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: 'var(--muted-foreground)' }} />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-gray-900 text-sm">Stop {index + 1}</span>
-                        <span className="px-2 py-0.5 bg-gray-200 text-gray-700 rounded-full text-xs">
+                        <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>Stop {index + 1}</span>
+                        <span
+                          className="px-2 py-0.5 rounded-full text-xs"
+                          style={{ backgroundColor: 'rgba(168, 85, 247, 0.1)', color: 'rgb(139, 92, 246)' }}
+                        >
                           {stop.purpose}
                         </span>
                       </div>
-                      <p className="text-gray-600 text-sm">{stop.address}</p>
+                      <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{stop.address}</p>
                     </div>
                     <button onClick={() => removeStop(stop.id)}>
-                      <X className="w-5 h-5 text-gray-500" />
+                      <X className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
                     </button>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-sm text-center py-4">No stops added yet</p>
+              <p className="text-sm text-center py-4" style={{ color: 'var(--muted-foreground)' }}>No stops added yet</p>
             )}
           </div>
 
           {/* Round Trip */}
-          <div className="p-4 border-2 border-gray-200 rounded-xl">
+          <div
+            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.4s' }}
+          >
             <div className="flex items-center justify-between mb-2">
               <div>
-                <h3 className="text-gray-900">Round Trip</h3>
-                <p className="text-gray-600 text-sm">Return to pickup location</p>
+                <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Round Trip</h3>
+                <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Return to pickup location</p>
               </div>
               <button
                 onClick={() => setIsRoundTrip(!isRoundTrip)}
-                className={`w-14 h-8 rounded-full transition-colors ${
-                  isRoundTrip ? 'bg-gray-900' : 'bg-gray-300'
-                }`}
+                className="w-14 h-8 rounded-full transition-all duration-300 shadow-card"
+                style={{
+                  background: isRoundTrip
+                    ? 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))'
+                    : 'var(--muted)'
+                }}
               >
                 <div
-                  className={`w-6 h-6 bg-white rounded-full transition-transform ${
-                    isRoundTrip ? 'translate-x-7' : 'translate-x-1'
-                  }`}
+                  className="w-6 h-6 bg-white rounded-full transition-transform shadow-premium-sm"
+                  style={{
+                    transform: isRoundTrip ? 'translateX(28px)' : 'translateX(4px)'
+                  }}
                 />
               </button>
             </div>
             {isRoundTrip && (
               <div className="mt-3">
-                <label className="block text-gray-600 text-sm mb-2">Return Time</label>
+                <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Return Time</label>
                 <input
                   type="time"
                   value={returnTime}
                   onChange={(e) => setReturnTime(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+                  className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50"
+                  style={{
+                    backgroundColor: 'var(--muted)',
+                    color: 'var(--foreground)',
+                    border: '1px solid var(--border)'
+                  }}
                 />
               </div>
             )}
           </div>
 
           {/* Special Requests */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Special Requests (Optional)</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.45s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Special Requests (Optional)</h3>
             <textarea
               value={specialRequests}
               onChange={(e) => setSpecialRequests(e.target.value)}
               placeholder="Medical equipment, walker, oxygen tank, pet carrier, etc."
               rows={3}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900 resize-none"
+              className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50 resize-none"
+              style={{
+                backgroundColor: 'var(--input-background)',
+                color: 'var(--foreground)',
+                border: '1px solid var(--border)'
+              }}
             />
           </div>
 
           {/* Payment Method */}
-          <div>
-            <h3 className="text-gray-900 mb-3">Payment Method *</h3>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+            <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Payment Method *</h3>
             <div className="space-y-2">
               {paymentMethods.map(method => (
                 <button
                   key={method.id}
                   onClick={() => setSelectedPayment(method.id)}
-                  className={`w-full px-4 py-3 rounded-xl border-2 text-left ${
-                    selectedPayment === method.id
-                      ? 'border-gray-900 bg-gray-50'
-                      : 'border-gray-200'
-                  }`}
+                  className="w-full px-4 py-3 rounded-xl text-left transition-all duration-300"
+                  style={{
+                    backgroundColor: selectedPayment === method.id ? 'rgba(168, 85, 247, 0.1)' : 'var(--card)',
+                    border: selectedPayment === method.id
+                      ? '2px solid rgb(168, 85, 247)'
+                      : '1px solid var(--border)'
+                  }}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-900">{method.type}</span>
-                    <span className="text-gray-600">•••• {method.last4}</span>
+                    <span style={{ color: 'var(--foreground)' }}>{method.type}</span>
+                    <span style={{ color: 'var(--muted-foreground)' }}>•••• {method.last4}</span>
                   </div>
                 </button>
               ))}
@@ -349,35 +423,45 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Price Summary */}
-          <div className="p-4 bg-gray-50 rounded-xl space-y-2">
+          <div
+            className="p-4 rounded-xl shadow-card space-y-2 animate-fade-in-up"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.55s' }}
+          >
             <div className="flex justify-between">
-              <span className="text-gray-600">Hourly Rate</span>
-              <span className="text-gray-900">${provider.hourlyRate}/hour</span>
+              <span style={{ color: 'var(--muted-foreground)' }}>Hourly Rate</span>
+              <span style={{ color: 'var(--foreground)' }}>${provider.hourlyRate}/hour</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Duration</span>
-              <span className="text-gray-900">{duration} hours</span>
+              <span style={{ color: 'var(--muted-foreground)' }}>Duration</span>
+              <span style={{ color: 'var(--foreground)' }}>{duration} hours</span>
             </div>
-            <div className="h-px bg-gray-200 my-2" />
+            <div className="my-2" style={{ height: '1px', backgroundColor: 'var(--border)' }} />
             <div className="flex justify-between">
-              <span className="text-gray-900">Total</span>
-              <span className="text-gray-900 text-xl">${calculateTotal()}</span>
+              <span className="font-semibold" style={{ color: 'var(--foreground)' }}>Total</span>
+              <span className="text-xl font-bold" style={{ color: 'rgb(168, 85, 247)' }}>${calculateTotal()}</span>
             </div>
           </div>
 
           {/* Points Preview - Only for Powered by DoHuub providers */}
           {provider.isPoweredByDoHuub && (
-            <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl">
+            <div
+              className="p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+              style={{
+                background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
+                border: '1px solid rgba(245, 158, 11, 0.3)',
+                animationDelay: '0.6s'
+              }}
+            >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Gift className="w-5 h-5 text-amber-600" />
-                  <span className="font-medium text-amber-800">Points you'll earn</span>
+                  <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />
+                  <span className="font-medium" style={{ color: 'rgb(180, 83, 9)' }}>Points you'll earn</span>
                 </div>
-                <span className="text-lg font-bold text-amber-600">
+                <span className="text-lg font-bold" style={{ color: 'rgb(245, 158, 11)' }}>
                   +{calculateTotal()} pts
                 </span>
               </div>
-              <p className="text-sm text-amber-600 mt-1">1 point per $1 spent • Added after service completion</p>
+              <p className="text-sm mt-1" style={{ color: 'rgb(217, 119, 6)' }}>1 point per $1 spent • Added after service completion</p>
             </div>
           )}
 
@@ -387,15 +471,17 @@ export function RideBookingFormScreen({
       </div>
 
       {/* Sticky Bottom Button */}
-      <div className="p-6 border-t-2 border-gray-200 bg-white">
+      <div className="p-6 glass relative z-10" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <button
           onClick={handleConfirm}
           disabled={!isFormValid}
-          className={`w-full py-3 rounded-xl ${
-            isFormValid
-              ? 'bg-gray-900 text-white'
-              : 'bg-gray-300 text-gray-500'
-          }`}
+          className="w-full py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          style={{
+            background: isFormValid
+              ? 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))'
+              : 'var(--muted)',
+            color: isFormValid ? 'white' : 'var(--muted-foreground)'
+          }}
         >
           Confirm & Pay ${calculateTotal()}
         </button>
@@ -403,31 +489,56 @@ export function RideBookingFormScreen({
 
       {/* Add Stop Modal */}
       {showAddStopModal && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-6">
-          <div className="bg-white w-full max-w-md rounded-2xl">
-            <div className="px-6 py-4 border-b-2 border-gray-200 flex items-center justify-between">
-              <h2 className="text-gray-900">Add Stop</h2>
-              <button onClick={() => setShowAddStopModal(false)}>
-                <X className="w-6 h-6 text-gray-700" strokeWidth={2} />
+        <div className="absolute inset-0 z-50 flex items-center justify-center p-6 animate-fade-in">
+          <div
+            className="absolute inset-0"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)' }}
+            onClick={() => setShowAddStopModal(false)}
+          />
+          <div
+            className="relative w-full max-w-md rounded-2xl shadow-premium-lg animate-scale-in glass"
+            style={{ backgroundColor: 'var(--card)' }}
+          >
+            <div
+              className="px-6 py-4 flex items-center justify-between"
+              style={{ borderBottom: '1px solid var(--border)' }}
+            >
+              <h2 className="font-semibold" style={{ color: 'var(--foreground)' }}>Add Stop</h2>
+              <button
+                onClick={() => setShowAddStopModal(false)}
+                className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
+                style={{ backgroundColor: 'var(--muted)' }}
+              >
+                <X className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
               </button>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-gray-600 text-sm mb-2">Address</label>
+                <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Address</label>
                 <input
                   type="text"
                   value={newStopAddress}
                   onChange={(e) => setNewStopAddress(e.target.value)}
                   placeholder="Enter stop address"
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+                  className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50"
+                  style={{
+                    backgroundColor: 'var(--muted)',
+                    color: 'var(--foreground)',
+                    border: '1px solid var(--border)'
+                  }}
                 />
               </div>
               <div>
-                <label className="block text-gray-600 text-sm mb-2">Purpose</label>
+                <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Purpose</label>
                 <select
                   value={newStopPurpose}
                   onChange={(e) => setNewStopPurpose(e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-gray-900"
+                  className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-300 focus:ring-2 focus:ring-purple-500/50"
+                  style={{
+                    backgroundColor: 'var(--muted)',
+                    color: 'var(--foreground)',
+                    border: '1px solid var(--border)'
+                  }}
                 >
                   {stopPurposes.map(purpose => (
                     <option key={purpose} value={purpose}>{purpose}</option>
@@ -437,11 +548,13 @@ export function RideBookingFormScreen({
               <button
                 onClick={addStop}
                 disabled={!newStopAddress.trim()}
-                className={`w-full py-3 rounded-xl ${
-                  newStopAddress.trim()
-                    ? 'bg-gray-900 text-white'
-                    : 'bg-gray-300 text-gray-500'
-                }`}
+                className="w-full py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                style={{
+                  background: newStopAddress.trim()
+                    ? 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))'
+                    : 'var(--muted)',
+                  color: newStopAddress.trim() ? 'white' : 'var(--muted-foreground)'
+                }}
               >
                 Add Stop
               </button>
