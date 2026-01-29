@@ -48,7 +48,7 @@ export function NotificationsPanel({
 
   return (
     <div
-      className="absolute inset-0 z-50 flex items-end overflow-hidden"
+      className="absolute inset-0 z-50 overflow-hidden"
       onClick={onClose}
     >
       {/* Backdrop */}
@@ -57,19 +57,23 @@ export function NotificationsPanel({
         style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)' }}
       />
 
-      {/* Panel */}
+      {/* Panel - positioned at bottom */}
       <div
-        className="relative w-full rounded-t-3xl max-h-[80%] flex flex-col shadow-premium-lg animate-slide-up"
-        style={{ backgroundColor: 'var(--background)' }}
+        className="absolute bottom-0 left-0 right-0 rounded-t-3xl shadow-premium-lg animate-slide-up"
+        style={{
+          backgroundColor: 'var(--background)',
+          maxHeight: '75%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div
-          className="px-6 py-5 relative z-10 flex-shrink-0"
+          className="px-6 py-5 flex-shrink-0 rounded-t-3xl"
           style={{
             background: 'var(--background)',
             borderBottom: '1px solid var(--border)',
-            borderRadius: '24px 24px 0 0',
           }}
         >
           <div className="flex items-center justify-between">
@@ -94,7 +98,7 @@ export function NotificationsPanel({
         </div>
 
         {/* Notifications List */}
-        <div className="flex-1 overflow-y-auto" style={{ backgroundColor: 'var(--background)' }}>
+        <div className="overflow-y-auto flex-1" style={{ backgroundColor: 'var(--background)' }}>
           {notifications.length === 0 ? (
             <div className="text-center py-16 px-6">
               <div
