@@ -48,7 +48,7 @@ export function NotificationsPanel({
 
   return (
     <div
-      className="absolute inset-0 z-50 flex items-end"
+      className="absolute inset-0 z-50 flex items-end overflow-hidden"
       onClick={onClose}
     >
       {/* Backdrop */}
@@ -59,32 +59,26 @@ export function NotificationsPanel({
 
       {/* Panel */}
       <div
-        className="relative w-full rounded-t-3xl max-h-[90vh] flex flex-col shadow-premium-lg glass animate-slide-up"
-        style={{ backgroundColor: 'var(--surface-elevated)' }}
+        className="relative w-full rounded-t-3xl max-h-[80%] flex flex-col shadow-premium-lg animate-slide-up"
+        style={{ backgroundColor: 'var(--background)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Background Pattern */}
-        <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none rounded-t-3xl" />
-
         {/* Header */}
         <div
-          className="px-6 py-6 relative z-10"
+          className="px-6 py-5 relative z-10 flex-shrink-0"
           style={{
-            background: 'rgba(255, 255, 255, 0.95)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
-            borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
-            borderRadius: '0 0 24px 24px',
+            background: 'var(--background)',
+            borderBottom: '1px solid var(--border)',
+            borderRadius: '24px 24px 0 0',
           }}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <h2 className="font-semibold" style={{ color: 'var(--foreground)' }}>Notifications</h2>
+              <h2 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>Notifications</h2>
               {unreadCount > 0 && (
                 <span
-                  className="px-2 py-0.5 text-sm text-white rounded-full shadow-premium-sm"
-                  style={{ background: 'linear-gradient(135deg, rgb(239, 68, 68), rgb(220, 38, 38))' }}
+                  className="px-2 py-0.5 text-sm text-white rounded-full"
+                  style={{ backgroundColor: 'var(--destructive)' }}
                 >
                   {unreadCount}
                 </span>
@@ -92,8 +86,7 @@ export function NotificationsPanel({
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
-              style={{ backgroundColor: 'var(--muted)' }}
+              className="p-2 rounded-xl transition-all duration-300 hover:bg-[var(--muted)]"
             >
               <X className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
             </button>
@@ -101,11 +94,11 @@ export function NotificationsPanel({
         </div>
 
         {/* Notifications List */}
-        <div className="flex-1 overflow-y-auto relative z-10">
+        <div className="flex-1 overflow-y-auto" style={{ backgroundColor: 'var(--background)' }}>
           {notifications.length === 0 ? (
             <div className="text-center py-16 px-6">
               <div
-                className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-card"
+                className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
                 style={{ backgroundColor: 'var(--muted)' }}
               >
                 <Bell className="w-10 h-10" style={{ color: 'var(--muted-foreground)' }} />
@@ -115,19 +108,19 @@ export function NotificationsPanel({
             </div>
           ) : (
             <div className="divide-y" style={{ borderColor: 'var(--border)' }}>
-              {notifications.map((notification, index) => (
+              {notifications.map((notification) => (
                 <button
                   key={notification.id}
                   onClick={() => onMarkNotificationAsRead(notification.id)}
                   className="w-full p-4 text-left transition-all duration-300 hover:bg-[var(--muted)]"
                   style={{
                     backgroundColor: !notification.isRead ? 'rgba(46, 122, 217, 0.05)' : 'transparent',
-                                      }}
+                  }}
                 >
                   <div className="flex gap-3">
                     <div className="flex-shrink-0 mt-1">
                       <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center shadow-card"
+                        className="w-10 h-10 rounded-full flex items-center justify-center"
                         style={{
                           backgroundColor: !notification.isRead ? 'rgba(46, 122, 217, 0.1)' : 'var(--muted)'
                         }}
@@ -146,7 +139,7 @@ export function NotificationsPanel({
                           </p>
                           {notification.type === 'points_earned' && notification.pointsAmount && (
                             <span
-                              className="inline-flex items-center justify-center h-5 px-2 text-white text-xs font-bold rounded-full shadow-premium-sm"
+                              className="inline-flex items-center justify-center h-5 px-2 text-white text-xs font-bold rounded-full"
                               style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(249, 115, 22))' }}
                             >
                               +{notification.pointsAmount}
