@@ -88,9 +88,9 @@ export function ProfileScreen({ userName, userEmail, navigate, rewardsWallet }: 
         </h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6 pb-24">
+      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32">
         {/* Profile Section */}
-        <div className="flex items-center gap-4 mb-8 animate-fade-in">
+        <div className="flex items-center gap-4 mb-8">
           <div className="w-20 h-20 rounded-full flex-shrink-0 shadow-premium-md relative" style={{ backgroundColor: 'var(--secondary)' }}>
             {/* Gradient ring */}
             <div className="absolute inset-0 rounded-full" style={{ background: 'var(--primary-gradient)', padding: '3px' }}>
@@ -119,8 +119,8 @@ export function ProfileScreen({ userName, userEmail, navigate, rewardsWallet }: 
                 <button
                   key={item.label}
                   onClick={() => item.screen && navigate(item.screen)}
-                  className="w-full p-3 flex items-center gap-3 rounded-xl transition-all duration-300 hover:translate-x-1 hover:shadow-premium-sm animate-fade-in-up group"
-                  style={{ backgroundColor: 'transparent', animationDelay: `${index * 0.05}s`, animationFillMode: 'backwards' }}
+                  className="w-full p-3 flex items-center gap-3 rounded-xl transition-all duration-300 hover:translate-x-1 hover:shadow-premium-sm group"
+                  style={{ backgroundColor: 'transparent', animationFillMode: 'backwards' }}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 >
@@ -159,8 +159,8 @@ export function ProfileScreen({ userName, userEmail, navigate, rewardsWallet }: 
                     }
                   }
                 }}
-                className="w-full p-3 flex items-center gap-3 rounded-xl transition-all duration-300 hover:translate-x-1 hover:shadow-premium-sm animate-fade-in-up group"
-                style={{ backgroundColor: 'transparent', animationDelay: `${(index + 2) * 0.05}s`, animationFillMode: 'backwards' }}
+                className="w-full p-3 flex items-center gap-3 rounded-xl transition-all duration-300 hover:translate-x-1 hover:shadow-premium-sm group"
+                style={{ backgroundColor: 'transparent', animationFillMode: 'backwards' }}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
               >

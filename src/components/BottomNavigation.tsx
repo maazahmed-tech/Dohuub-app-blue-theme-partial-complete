@@ -41,19 +41,19 @@ export function BottomNavigation({ activeTab, navigate, embedded = false }: Bott
                 height: isActive ? '60px' : '48px',
                 borderRadius: '18px',
                 background: isActive
-                  ? 'linear-gradient(135deg, #2E7AD9 0%, #1E5BA8 100%)'
+                  ? 'rgba(255, 255, 255, 0.2)'
                   : 'transparent',
                 boxShadow: isActive
-                  ? '0 8px 24px rgba(46, 122, 217, 0.4), 0 4px 8px rgba(46, 122, 217, 0.2)'
+                  ? '0 4px 12px rgba(0, 0, 0, 0.15)'
                   : 'none',
               }}
             >
               <Icon
                 className="transition-all duration-300"
                 style={{
-                  color: isActive ? '#FFFFFF' : 'var(--muted-foreground)',
-                  width: isActive ? '28px' : '26px',
-                  height: isActive ? '28px' : '26px',
+                  color: isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.7)',
+                  width: isActive ? '32px' : '30px',
+                  height: isActive ? '32px' : '30px',
                 }}
                 strokeWidth={isActive ? 2.5 : 2}
                 fill={isActive ? 'rgba(255,255,255,0.2)' : 'none'}
@@ -64,10 +64,10 @@ export function BottomNavigation({ activeTab, navigate, embedded = false }: Bott
             <span
               className="text-sm font-medium transition-all duration-300 mt-1.5"
               style={{
-                color: isActive ? 'var(--primary)' : 'var(--muted-foreground)',
-                opacity: isActive ? 1 : 0.85,
+                color: isActive ? '#FFFFFF' : 'rgba(255, 255, 255, 0.7)',
+                opacity: 1,
                 fontWeight: isActive ? 600 : 500,
-                fontSize: isActive ? '13px' : '12px',
+                fontSize: isActive ? '15px' : '14px',
               }}
             >
               {item.label}
@@ -86,11 +86,8 @@ export function BottomNavigation({ activeTab, navigate, embedded = false }: Bott
     <div
       className="absolute bottom-0 left-0 right-0 px-0 pt-3 pb-0"
       style={{
-        background: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        boxShadow: '0 -4px 30px rgba(0, 0, 0, 0.08)',
-        borderTop: '1px solid rgba(46, 122, 217, 0.1)',
+        background: 'linear-gradient(135deg, #4CA6FA 0%, #1D4ADD 100%)',
+        boxShadow: '0 -4px 30px rgba(29, 74, 221, 0.3)',
         borderRadius: '24px 24px 0 0',
         paddingBottom: 'env(safe-area-inset-bottom, 8px)',
       }}

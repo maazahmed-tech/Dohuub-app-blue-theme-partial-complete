@@ -13,43 +13,30 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
       icon: Sparkles,
       title: 'Welcome to DoHuub',
       description: 'Infinite Services - Your platform for cleaning, handyman, food, beauty, rentals, and caregiving',
-      iconColor: '#2E7AD9', // Primary blue - brand welcome
-      bgColor: '#DBEAFE'
     },
     {
       icon: Grid3x3,
       title: 'Everything You Need, One App',
       description: '6 service categories to simplify your daily life and help your loved ones',
-      iconColor: '#8B5CF6', // Purple - variety/categories
-      bgColor: '#EDE9FE'
     },
     {
       icon: Calendar,
       title: 'Easy Booking Process',
       description: 'Select, customize, pay securely, and track your services in real-time',
-      iconColor: '#14B8A6', // Teal - booking/scheduling
-      bgColor: '#CCFBF1'
     },
     {
       icon: MessageCircle,
       title: '24/7 AI Assistant & Secure Payments',
       description: 'Get instant help anytime. All payments processed securely through Stripe',
-      iconColor: '#10B981', // Green - support/success
-      bgColor: '#D1FAE5'
     }
   ];
 
   const CurrentIcon = slides[currentSlide].icon;
-  const currentIconColor = slides[currentSlide].iconColor;
-  const currentBgColor = slides[currentSlide].bgColor;
 
   return (
-    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
-      {/* Background pattern */}
-      <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
-
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #4CA6FA 0%, #1D4ADD 100%)' }}>
       <div className="flex justify-end p-6 relative z-10">
-        <button onClick={onComplete} style={{ color: 'var(--primary)' }} className="hover:opacity-80 transition-all duration-200 hover:scale-105 active:scale-95">
+        <button onClick={onComplete} className="text-white hover:opacity-80 transition-all duration-200 hover:scale-105 active:scale-95">
           Skip
         </button>
       </div>
@@ -58,20 +45,19 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
         <div
           key={currentSlide}
           className="w-48 h-48 rounded-full flex items-center justify-center mb-8 transition-all duration-500 shadow-premium-lg animate-scale-in"
-          style={{ backgroundColor: currentBgColor }}
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
         >
           <CurrentIcon
-            className="w-24 h-24 transition-all duration-300 animate-float"
-            style={{ color: currentIconColor }}
+            className="w-24 h-24 transition-all duration-300 animate-float text-white"
             strokeWidth={1.5}
           />
         </div>
 
-        <h2 key={`title-${currentSlide}`} className="mb-4 text-center animate-fade-in-up" style={{ color: 'var(--foreground)' }}>
+        <h2 key={`title-${currentSlide}`} className="mb-4 text-center text-white">
           {slides[currentSlide].title}
         </h2>
 
-        <p key={`desc-${currentSlide}`} className="text-center max-w-sm mb-12 animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.1s' }}>
+        <p key={`desc-${currentSlide}`} className="text-center max-w-sm mb-12 text-white">
           {slides[currentSlide].description}
         </p>
 
@@ -82,8 +68,8 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
               className="h-2 rounded-full transition-all duration-500"
               style={{
                 width: index === currentSlide ? '2rem' : '0.5rem',
-                background: index === currentSlide ? 'var(--primary-gradient)' : 'var(--border)',
-                boxShadow: index === currentSlide ? '0 0 8px rgba(76, 166, 250, 0.4)' : 'none'
+                background: index === currentSlide ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.4)',
+                boxShadow: index === currentSlide ? '0 0 8px rgba(255, 255, 255, 0.4)' : 'none'
               }}
             />
           ))}
@@ -94,8 +80,8 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
         {currentSlide > 0 && (
           <button
             onClick={() => setCurrentSlide(currentSlide - 1)}
-            className="flex items-center gap-2 px-6 py-4 rounded-xl shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-105 active:scale-95"
-            style={{ color: 'var(--muted-foreground)', backgroundColor: 'rgba(255, 255, 255, 0.5)' }}
+            className="flex items-center gap-2 px-6 py-4 rounded-xl transition-all duration-300 hover:bg-white/30 hover:scale-105 active:scale-95"
+            style={{ color: 'white', backgroundColor: 'rgba(255, 255, 255, 0.2)', border: '2px solid rgba(255, 255, 255, 0.5)' }}
           >
             <ChevronLeft className="w-5 h-5" />
             Back
@@ -110,8 +96,8 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
               onComplete();
             }
           }}
-          className="flex-1 flex items-center justify-center gap-2 text-white py-4 rounded-xl shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98]"
-          style={{ background: 'var(--primary-gradient)' }}
+          className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl transition-all duration-300 hover:bg-white hover:scale-[1.02] active:scale-[0.98]"
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', color: '#1D4ADD' }}
         >
           {currentSlide < slides.length - 1 ? (
             <>

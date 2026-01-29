@@ -136,7 +136,7 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
       </div>
 
       {/* Search Bar */}
-      <div className="px-6 py-4 animate-fade-in">
+      <div className="px-6 py-4">
         <button
           onClick={() => navigate('aiChat')}
           className="w-full flex items-center gap-3 px-4 py-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-card-hover hover:scale-[1.01] active:scale-[0.99] focus-glow"
@@ -149,7 +149,7 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
 
       {/* Combined Rewards Banner */}
       {(rewardsWallet?.totalPoints > 0 || (streakData && streakData.currentStreak > 0)) && (
-        <div className="px-6 pb-4 animate-fade-in-up">
+        <div className="px-6 pb-4">
           <button
             onClick={() => navigate('rewardsWallet')}
             className="w-full flex items-center justify-between px-4 py-3 rounded-xl shadow-premium-sm hover:shadow-premium-md transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
@@ -175,8 +175,8 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
       )}
 
       {/* Categories Grid */}
-      <div className="flex-1 overflow-y-auto px-6 pb-24">
-        <p className="mb-4 animate-fade-in" style={{ color: 'var(--foreground)' }}>Available Services</p>
+      <div className="flex-1 overflow-y-auto px-6 pb-32">
+        <p className="mb-4" style={{ color: 'var(--foreground)' }}>Available Services</p>
         <div className="grid grid-cols-2 gap-4">
           {categories.map((category, index) => {
             const Icon = category.icon;
@@ -190,12 +190,11 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
                 key={category.id}
                 onClick={() => isAvailable && onCategorySelect(category.name)}
                 disabled={!isAvailable}
-                className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300 animate-fade-in-up ${isAvailable ? 'premium-card-interactive' : ''}`}
+                className={`p-6 rounded-xl flex flex-col items-center gap-3 transition-all duration-300 ${isAvailable ? 'premium-card-interactive' : ''}`}
                 style={{
                   backgroundColor: isAvailable ? 'var(--card)' : 'var(--muted)',
                   opacity: isAvailable ? 1 : 0.6,
-                  animationDelay: `${index * 0.05}s`,
-                  animationFillMode: 'backwards'
+                                    animationFillMode: 'backwards'
                 }}
               >
                 <div

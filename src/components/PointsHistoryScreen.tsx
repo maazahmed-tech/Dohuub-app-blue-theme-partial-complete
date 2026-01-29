@@ -164,9 +164,9 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
         <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>Points History</h3>
       </div>
 
-      <div className="flex-1 overflow-y-auto pb-24 relative z-10">
+      <div className="flex-1 overflow-y-auto pb-32 relative z-10">
         {/* Summary Stats */}
-        <div className="px-6 py-4 animate-fade-in-up">
+        <div className="px-6 py-4">
           <div className="grid grid-cols-3 gap-3">
             <div
               className="text-center p-4 rounded-xl shadow-card"
@@ -193,7 +193,7 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
         </div>
 
         {/* Filter Tabs */}
-        <div className="px-6 py-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <div className="px-6 py-4">
           <div className="flex gap-2">
             {filters.map((filter) => (
               <button
@@ -216,7 +216,7 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
         <div className="px-6 py-4">
           {Object.entries(groupedTransactions).length > 0 ? (
             Object.entries(groupedTransactions).map(([monthYear, transactions], groupIndex) => (
-              <div key={monthYear} className="mb-6 animate-fade-in-up" style={{ animationDelay: `${0.15 + groupIndex * 0.05}s` }}>
+              <div key={monthYear} className="mb-6" style={{ }}>
                 <h4 className="text-sm font-semibold mb-3" style={{ color: 'var(--muted-foreground)' }}>{monthYear}</h4>
                 <div className="space-y-3">
                   {transactions.map((transaction, index) => (
@@ -225,8 +225,7 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
                       className="flex items-start gap-4 p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm"
                       style={{
                         backgroundColor: 'var(--card)',
-                        animationDelay: `${0.2 + (groupIndex * 0.05) + (index * 0.03)}s`
-                      }}
+                                              }}
                     >
                       <div
                         className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
@@ -266,7 +265,7 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
               </div>
             ))
           ) : (
-            <div className="text-center py-12 animate-fade-in-up">
+            <div className="text-center py-12">
               <div
                 className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center shadow-premium-md"
                 style={{ backgroundColor: 'var(--card)' }}
@@ -284,7 +283,7 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
         </div>
 
         {/* Points Info */}
-        <div className="px-6 pb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+        <div className="px-6 pb-6">
           <div
             className="rounded-xl p-4 shadow-card"
             style={{

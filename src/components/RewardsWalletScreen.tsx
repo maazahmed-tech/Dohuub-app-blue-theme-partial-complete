@@ -132,9 +132,9 @@ export function RewardsWalletScreen({
         <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>Rewards Wallet</h3>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6 pb-24 relative z-10">
+      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
         {/* Points Balance Card */}
-        <div className="rounded-2xl p-6 mb-6 shadow-premium-lg animate-fade-in-up" style={{ background: 'var(--primary-gradient)' }}>
+        <div className="rounded-2xl p-6 mb-6 shadow-premium-lg" style={{ background: 'var(--primary-gradient)' }}>
           <div className="flex items-center gap-2 mb-2">
             <Gift className="w-6 h-6 text-white/80" />
             <span className="text-white/80">Available Points</span>
@@ -149,7 +149,7 @@ export function RewardsWalletScreen({
 
         {/* Points Breakdown */}
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="rounded-xl p-4 shadow-card animate-fade-in-up" style={{ backgroundColor: 'var(--secondary)', animationDelay: '0.05s' }}>
+          <div className="rounded-xl p-4 shadow-card" style={{ backgroundColor: 'var(--secondary)' }}>
             <div className="flex items-center gap-2 mb-2">
               <Clock className="w-4 h-4" style={{ color: 'var(--muted-foreground)' }} />
               <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Pending</span>
@@ -159,7 +159,7 @@ export function RewardsWalletScreen({
             </div>
             <div className="text-xs" style={{ color: 'var(--muted-foreground)' }}>pts</div>
           </div>
-          <div className="rounded-xl p-4 shadow-card animate-fade-in-up" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', animationDelay: '0.1s' }}>
+          <div className="rounded-xl p-4 shadow-card" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)' }}>
             <div className="flex items-center gap-2 mb-2">
               <Clock className="w-4 h-4" style={{ color: 'var(--destructive)' }} />
               <span className="text-sm" style={{ color: 'var(--destructive)' }}>Expiring Soon</span>
@@ -180,16 +180,16 @@ export function RewardsWalletScreen({
         <div className="grid grid-cols-2 gap-4 mb-8">
           <button
             onClick={() => navigate('referralScreen')}
-            className="flex items-center justify-center gap-2 py-4 px-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
-            style={{ backgroundColor: 'rgba(147, 51, 234, 0.1)', border: '1px solid rgba(147, 51, 234, 0.2)', animationDelay: '0.15s' }}
+            className="flex items-center justify-center gap-2 py-4 px-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98]"
+            style={{ backgroundColor: 'rgba(147, 51, 234, 0.1)', border: '1px solid rgba(147, 51, 234, 0.2)' }}
           >
             <Users className="w-5 h-5" style={{ color: 'rgb(147, 51, 234)' }} />
             <span className="font-medium" style={{ color: 'rgb(126, 34, 206)' }}>Refer & Earn</span>
           </button>
           <button
             onClick={() => navigate('pointsHistory')}
-            className="flex items-center justify-center gap-2 py-4 px-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
-            style={{ backgroundColor: 'var(--secondary)', border: '1px solid var(--border)', animationDelay: '0.2s' }}
+            className="flex items-center justify-center gap-2 py-4 px-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98]"
+            style={{ backgroundColor: 'var(--secondary)', border: '1px solid var(--border)' }}
           >
             <History className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
             <span className="font-medium" style={{ color: 'var(--foreground)' }}>View History</span>
@@ -217,7 +217,7 @@ export function RewardsWalletScreen({
         )}
 
         {/* How to Earn */}
-        <div className="rounded-xl p-4 mb-8 shadow-card animate-fade-in-up" style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.2)', animationDelay: '0.25s' }}>
+        <div className="rounded-xl p-4 mb-8 shadow-card" style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.2)' }}>
           <h4 className="font-semibold mb-3" style={{ color: 'rgb(180, 83, 9)' }}>How to Earn Points</h4>
           <div className="space-y-2 text-sm" style={{ color: 'rgb(180, 83, 9)' }}>
             <div className="flex items-center gap-2">
@@ -251,8 +251,8 @@ export function RewardsWalletScreen({
             {recentTransactions.map((transaction, index) => (
               <div
                 key={transaction.id}
-                className="flex items-center gap-4 p-3 rounded-lg shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
-                style={{ backgroundColor: 'var(--card)', animationDelay: `${0.3 + index * 0.05}s` }}
+                className="flex items-center gap-4 p-3 rounded-lg shadow-card transition-all duration-300 hover:shadow-premium-sm"
+                style={{ backgroundColor: 'var(--card)' }}
               >
                 <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-premium-sm" style={{ backgroundColor: 'var(--background)' }}>
                   {getTransactionIcon(transaction.type)}

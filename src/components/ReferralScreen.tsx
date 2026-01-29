@@ -82,9 +82,9 @@ export function ReferralScreen({ navigate, referralInfo }: ReferralScreenProps) 
         <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>Refer a Friend</h3>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-6 pb-24 relative z-10">
+      <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
         {/* Hero Section */}
-        <div className="text-center mb-8 animate-fade-in-up">
+        <div className="text-center mb-8">
           <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-premium-lg animate-float" style={{ background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(126, 34, 206, 0.3))' }}>
             <Gift className="w-10 h-10" style={{ color: 'rgb(147, 51, 234)' }} />
           </div>
@@ -97,7 +97,7 @@ export function ReferralScreen({ navigate, referralInfo }: ReferralScreenProps) 
         </div>
 
         {/* Referral Code Card */}
-        <div className="rounded-2xl p-6 mb-6 shadow-premium-md animate-fade-in-up" style={{ backgroundColor: 'var(--card)', animationDelay: '0.1s' }}>
+        <div className="rounded-2xl p-6 mb-6 shadow-premium-md" style={{ backgroundColor: 'var(--card)' }}>
           <p className="text-sm mb-2 text-center" style={{ color: 'var(--muted-foreground)' }}>Your Referral Code</p>
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="text-2xl font-bold tracking-wider" style={{ color: 'var(--foreground)' }}>
@@ -136,7 +136,7 @@ export function ReferralScreen({ navigate, referralInfo }: ReferralScreenProps) 
         </div>
 
         {/* How it Works */}
-        <div className="rounded-xl p-5 mb-8 shadow-card animate-fade-in-up" style={{ background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(126, 34, 206, 0.15))', border: '1px solid rgba(147, 51, 234, 0.2)', animationDelay: '0.15s' }}>
+        <div className="rounded-xl p-5 mb-8 shadow-card" style={{ background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(126, 34, 206, 0.15))', border: '1px solid rgba(147, 51, 234, 0.2)' }}>
           <h4 className="font-semibold mb-4" style={{ color: 'rgb(126, 34, 206)' }}>How it Works</h4>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
@@ -173,15 +173,15 @@ export function ReferralScreen({ navigate, referralInfo }: ReferralScreenProps) 
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-3 mb-8">
-          <div className="rounded-xl p-4 text-center shadow-card animate-fade-in-up" style={{ backgroundColor: 'var(--secondary)', animationDelay: '0.2s' }}>
+          <div className="rounded-xl p-4 text-center shadow-card" style={{ backgroundColor: 'var(--secondary)' }}>
             <div className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{referralInfo.totalReferrals}</div>
             <div className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Total Referrals</div>
           </div>
-          <div className="rounded-xl p-4 text-center shadow-card animate-fade-in-up" style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)', animationDelay: '0.25s' }}>
+          <div className="rounded-xl p-4 text-center shadow-card" style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)' }}>
             <div className="text-2xl font-bold" style={{ color: 'rgb(217, 119, 6)' }}>{referralInfo.pendingReferrals}</div>
             <div className="text-xs" style={{ color: 'rgb(217, 119, 6)' }}>Pending</div>
           </div>
-          <div className="rounded-xl p-4 text-center shadow-card animate-fade-in-up" style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)', animationDelay: '0.3s' }}>
+          <div className="rounded-xl p-4 text-center shadow-card" style={{ backgroundColor: 'rgba(34, 197, 94, 0.1)' }}>
             <div className="text-2xl font-bold" style={{ color: 'rgb(22, 163, 74)' }}>{referralInfo.totalPointsFromReferrals}</div>
             <div className="text-xs" style={{ color: 'rgb(22, 163, 74)' }}>Points Earned</div>
           </div>
@@ -195,8 +195,8 @@ export function ReferralScreen({ navigate, referralInfo }: ReferralScreenProps) 
               {referralInfo.referrals.map((referral, index) => (
                 <div
                   key={referral.id}
-                  className="flex items-center gap-4 p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
-                  style={{ backgroundColor: 'var(--card)', animationDelay: `${0.35 + index * 0.05}s` }}
+                  className="flex items-center gap-4 p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm"
+                  style={{ backgroundColor: 'var(--card)' }}
                 >
                   <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-premium-sm" style={{ backgroundColor: 'var(--secondary)' }}>
                     <span className="font-medium" style={{ color: 'var(--primary)' }}>

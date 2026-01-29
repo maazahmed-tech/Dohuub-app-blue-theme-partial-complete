@@ -54,6 +54,7 @@ import { EmailRegistrationScreen } from './components/EmailRegistrationScreen';
 import { OTPVerificationScreen } from './components/OTPVerificationScreen';
 import { ProfileSetupScreen } from './components/ProfileSetupScreen';
 import { SavedAddressesSetupScreen } from './components/SavedAddressesSetupScreen';
+import { ReferralCodeSetupScreen } from './components/ReferralCodeSetupScreen';
 import { AddAddressScreen } from './components/AddAddressScreen';
 import { EditAddressScreen } from './components/EditAddressScreen';
 import { TermsOfServiceScreen } from './components/TermsOfServiceScreen';
@@ -126,6 +127,7 @@ export type Screen =
   | 'otpVerification'
   | 'profileSetup'
   | 'savedAddressesSetup'
+  | 'referralCodeSetup'
   | 'addAddress'
   | 'editAddress'
   | 'termsOfService'
@@ -261,6 +263,8 @@ export interface AppState {
   selectedCompanion?: Companion;
   caregivingServiceType?: 'ride' | 'companionship';
   caregivingBookingData?: any;
+  // Applied referral code from signup
+  appliedReferralCode?: string;
   // Rewards System
   rewardsWallet: {
     totalPoints: number;
@@ -1435,16 +1439,7 @@ export default function App() {
   const renderScreen = () => {
     switch (currentScreen) {
       case 'splash':
-        return <SplashScreen onComplete={() => navigate('locationPermission')} />;
-      case 'locationPermission':
-        return <LocationPermissionScreen 
-          onAllow={() => navigate('onboarding')}
-          onManual={() => navigate('manualLocation')}
-        />;
-      case 'manualLocation':
-        return <ManualLocationScreen 
-          onConfirm={(location) => navigate('onboarding', { userLocation: location })}
-        />;
+        return <SplashScreen onComplete={() => navigate('onboarding')} />;
       case 'onboarding':
         return <OnboardingCarousel onComplete={() => navigate('welcomeAuth')} />;
       case 'welcomeAuth':
@@ -1472,9 +1467,31 @@ export default function App() {
         />;
       case 'savedAddressesSetup':
         return <SavedAddressesSetupScreen
-          onDone={handleProfileSetupComplete}
-          onSkip={handleProfileSetupComplete}
+          onDone={() => navigate('referralCodeSetup')}
+          onSkip={() => navigate('referralCodeSetup')}
           onAddAddress={(type) => navigate('addAddress', { addressType: type, previousScreen: 'savedAddressesSetup' })}
+        />;
+      case 'referralCodeSetup':
+        return <ReferralCodeSetupScreen
+          onDone={(referralCode) => {
+            if (referralCode) {
+              updateAppState({ appliedReferralCode: referralCode });
+            }
+            navigate('locationPermission');
+          }}
+          onSkip={() => navigate('locationPermission')}
+        />;
+      case 'locationPermission':
+        return <LocationPermissionScreen
+          onAllow={handleProfileSetupComplete}
+          onManual={() => navigate('manualLocation')}
+        />;
+      case 'manualLocation':
+        return <ManualLocationScreen
+          onConfirm={(location) => {
+            updateAppState({ userLocation: location });
+            handleProfileSetupComplete();
+          }}
         />;
       case 'addAddress':
         return <AddAddressScreen 

@@ -64,7 +64,7 @@ export function MyBookingsScreen({ bookings, navigate, onBookingSelect }: MyBook
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 py-4 pb-24">
+      <div className="flex-1 overflow-y-auto px-6 py-4 pb-32">
         {filteredBookings.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center">
             <div className="w-32 h-32 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: 'var(--secondary)' }}>
@@ -86,8 +86,8 @@ export function MyBookingsScreen({ bookings, navigate, onBookingSelect }: MyBook
               <button
                 key={booking.id}
                 onClick={() => onBookingSelect(booking)}
-                className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-card-hover hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up accent-border-left"
-                style={{ backgroundColor: 'var(--card)', border: '1px solid rgba(46, 122, 217, 0.08)', animationDelay: `${index * 0.05}s`, animationFillMode: 'backwards' }}
+                className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-card-hover hover:scale-[1.01] active:scale-[0.99] accent-border-left"
+                style={{ backgroundColor: 'var(--card)', border: '1px solid rgba(46, 122, 217, 0.08)', animationFillMode: 'backwards' }}
               >
                 <div className="flex gap-4">
                   <div className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm" style={{ backgroundColor: 'var(--secondary)' }}>
