@@ -3138,7 +3138,7 @@ export default function App() {
     <div className="min-h-screen bg-white flex items-center justify-center">
       <div className="w-full max-w-[430px] h-[932px] bg-gray-50 relative overflow-hidden border-4 border-gray-800 rounded-[3rem] shadow-2xl">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-7 bg-gray-800 rounded-b-3xl z-50"></div>
-        <div className="w-full h-full overflow-y-auto pt-8">
+        <div className="w-full h-full overflow-y-auto pt-0">
           {renderScreen()}
         </div>
       </div>
