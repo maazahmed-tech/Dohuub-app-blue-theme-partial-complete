@@ -26,8 +26,8 @@ export function SavedAddressesSetupScreen({ onDone, onSkip, onAddAddress }: Save
       </div>
 
       <div className="flex-1 px-8 pt-12 overflow-y-auto relative z-10">
-        <h2 className="mb-2 animate-fade-in-up" style={{ color: 'var(--foreground)' }}>Add Your Addresses</h2>
-        <p className="mb-8 animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.05s' }}>Save time by adding your frequent locations</p>
+        <h2 className="mb-2" style={{ color: 'var(--foreground)' }}>Add Your Addresses</h2>
+        <p className="mb-8" style={{ color: 'var(--muted-foreground)' }}>Save time by adding your frequent locations</p>
 
         <div className="space-y-3 mb-8">
           {addressTypes.map((addr, index) => {
@@ -35,12 +35,11 @@ export function SavedAddressesSetupScreen({ onDone, onSkip, onAddAddress }: Save
             return (
               <button
                 key={addr.type}
-                className="w-full p-4 rounded-xl flex items-center gap-4 shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] hover:translate-x-1 active:scale-[0.98] animate-fade-in-up group"
+                className="w-full p-4 rounded-xl flex items-center gap-4 shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] hover:translate-x-1 active:scale-[0.98] group"
                 style={{
                   backgroundColor: 'var(--card)',
                   border: '1px solid rgba(46, 122, 217, 0.08)',
-                  animationDelay: `${0.1 + index * 0.05}s`
-                }}
+                                  }}
                 onClick={() => onAddAddress(addr.type)}
               >
                 <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-premium-sm transition-all duration-300 group-hover:shadow-premium-md" style={{ backgroundColor: 'var(--secondary)' }}>

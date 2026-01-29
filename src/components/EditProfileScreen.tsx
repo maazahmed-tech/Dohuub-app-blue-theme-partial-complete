@@ -48,7 +48,7 @@ export function EditProfileScreen({ userName, onBack, onSave }: EditProfileScree
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-12 relative z-10">
         {/* Profile Avatar */}
-        <div className="flex justify-center mb-8 animate-fade-in-up">
+        <div className="flex justify-center mb-8">
           <div className="relative">
             <div
               className="w-48 h-48 rounded-full shadow-premium-lg flex items-center justify-center"
@@ -73,7 +73,7 @@ export function EditProfileScreen({ userName, onBack, onSave }: EditProfileScree
         {/* Form Fields */}
         <div className="space-y-5">
           {/* Full Name */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Full Name</label>
             <input
               type="text"
@@ -91,7 +91,7 @@ export function EditProfileScreen({ userName, onBack, onSave }: EditProfileScree
           </div>
 
           {/* Phone Number */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Phone Number</label>
             <div className="flex gap-3">
               <select
@@ -124,7 +124,7 @@ export function EditProfileScreen({ userName, onBack, onSave }: EditProfileScree
           </div>
 
           {/* Email */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Email</label>
             <input
               type="email"

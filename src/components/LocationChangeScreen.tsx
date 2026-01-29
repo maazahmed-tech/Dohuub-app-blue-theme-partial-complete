@@ -45,7 +45,7 @@ export function LocationChangeScreen({ currentLocation, onBack, onSelect }: Loca
         </div>
 
         {/* Search Input */}
-        <div className="relative animate-fade-in-up">
+        <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
           <input
             type="text"
@@ -66,7 +66,7 @@ export function LocationChangeScreen({ currentLocation, onBack, onSelect }: Loca
       <div className="flex-1 overflow-y-auto px-6 py-4 relative z-10">
         {/* Current Location Button */}
         <button
-          className="w-full p-4 rounded-xl flex items-center gap-3 mb-6 shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+          className="w-full p-4 rounded-xl flex items-center gap-3 mb-6 shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-[1.01] active:scale-[0.99]"
           style={{
             background: 'linear-gradient(135deg, rgba(46, 122, 217, 0.1), rgba(76, 166, 250, 0.1))',
             border: '2px solid var(--primary)'
@@ -82,7 +82,7 @@ export function LocationChangeScreen({ currentLocation, onBack, onSelect }: Loca
         </button>
 
         {/* Recent Locations */}
-        <p className="mb-3 animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.05s' }}>
+        <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
           Recent Locations
         </p>
         <div className="space-y-3">
@@ -90,12 +90,11 @@ export function LocationChangeScreen({ currentLocation, onBack, onSelect }: Loca
             <button
               key={`${loc.city}-${loc.country}`}
               onClick={() => onSelect(`${loc.city}, ${loc.country}`)}
-              className="w-full p-4 rounded-xl text-left flex items-center gap-3 shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+              className="w-full p-4 rounded-xl text-left flex items-center gap-3 shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
               style={{
                 backgroundColor: 'var(--card)',
                 border: '1px solid var(--border)',
-                animationDelay: `${0.1 + index * 0.05}s`
-              }}
+                              }}
             >
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center"

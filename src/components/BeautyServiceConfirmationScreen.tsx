@@ -49,16 +49,16 @@ export function BeautyServiceConfirmationScreen({
             <CheckCircle className="w-16 h-16 text-white" strokeWidth={2} />
           </div>
         </div>
-        <h1 className="text-xl font-bold mb-2 animate-fade-in-up" style={{ color: 'var(--foreground)', animationDelay: '0.1s' }}>Order Confirmed</h1>
-        <p className="animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.15s' }}>Your beauty service has been successfully booked</p>
+        <h1 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>Order Confirmed</h1>
+        <p className="" style={{ color: 'var(--muted-foreground)' }}>Your beauty service has been successfully booked</p>
       </div>
 
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto px-6 pb-6 relative z-10">
         {/* Order Number */}
         <div
-          className="mb-6 p-4 rounded-xl text-center shadow-card animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', animationDelay: '0.2s' }}
+          className="mb-6 p-4 rounded-xl text-center shadow-card"
+          style={{ backgroundColor: 'var(--card)' }}
         >
           <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Order Number</p>
           <p className="font-semibold" style={{ color: 'var(--foreground)' }}>{bookingData.referenceNumber}</p>
@@ -67,10 +67,10 @@ export function BeautyServiceConfirmationScreen({
         {/* Points Earned - Only for Powered by DoHuub providers */}
         {isPoweredByDoHuub && (
           <div
-            className="mb-6 p-6 rounded-xl text-center shadow-premium-md animate-fade-in-up"
+            className="mb-6 p-6 rounded-xl text-center shadow-premium-md"
             style={{
               background: 'linear-gradient(135deg, rgb(251, 191, 36), rgb(245, 158, 11))',
-              animationDelay: '0.25s'
+              
             }}
           >
             <div className="flex items-center justify-center gap-3 mb-2">
@@ -93,7 +93,7 @@ export function BeautyServiceConfirmationScreen({
         )}
 
         {/* Booking Details */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+        <div className="mb-6">
           <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Booking Details</h3>
 
           <div
@@ -150,8 +150,8 @@ export function BeautyServiceConfirmationScreen({
 
         {/* Payment Method */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.35s' }}
+          className="mb-6 p-4 rounded-xl shadow-card"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
         >
           <div className="flex items-start gap-3 mb-4">
             <CreditCard className="w-5 h-5 mt-0.5" style={{ color: 'var(--primary)' }} />
@@ -183,7 +183,7 @@ export function BeautyServiceConfirmationScreen({
         </div>
 
         {/* What's Next */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+        <div className="mb-6">
           <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>What's Next?</h3>
           <ul className="space-y-3">
             {[

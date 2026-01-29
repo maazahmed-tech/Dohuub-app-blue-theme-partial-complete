@@ -300,11 +300,10 @@ export function BeautyProductsCatalog({
             return (
               <div
                 key={product.id}
-                className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+                className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm"
                 style={{
                   backgroundColor: 'var(--card)',
-                  animationDelay: `${index * 0.03}s`
-                }}
+                                  }}
               >
                 <div className="flex items-start gap-4">
                   {/* Product Image Placeholder */}

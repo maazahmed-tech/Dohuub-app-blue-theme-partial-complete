@@ -83,7 +83,7 @@ export function HostProfileScreen({
       <div className="flex-1 overflow-y-auto relative z-10">
         <div className="px-6 py-6 space-y-6">
           {/* Host Header */}
-          <div className="text-center animate-fade-in-up">
+          <div className="text-center">
             <div
               className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-premium-md"
               style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
@@ -107,8 +107,8 @@ export function HostProfileScreen({
 
           {/* About */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+            className="p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>About</h3>
             <p style={{ color: 'var(--muted-foreground)' }}>
@@ -121,8 +121,8 @@ export function HostProfileScreen({
 
           {/* Host Stats */}
           <div
-            className="flex items-center justify-center gap-8 p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+            className="flex items-center justify-center gap-8 p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="text-center">
               <p className="font-bold text-lg" style={{ color: 'var(--foreground)' }}>2019</p>
@@ -136,7 +136,7 @@ export function HostProfileScreen({
           </div>
 
           {/* Properties Hosted */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Properties Hosted</h3>
             <div className="space-y-3">
               {hostedProperties.map((prop, index) => (
@@ -169,7 +169,7 @@ export function HostProfileScreen({
           </div>
 
           {/* Reviews & Ratings */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Reviews & Ratings</h3>
               <button

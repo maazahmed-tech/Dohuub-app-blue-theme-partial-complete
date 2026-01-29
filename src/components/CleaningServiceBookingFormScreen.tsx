@@ -145,7 +145,7 @@ export function CleaningServiceBookingFormScreen({
       <div className="flex-1 overflow-y-auto px-6 py-4 relative z-10">
         {/* Service Summary */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          className="mb-6 p-4 rounded-xl shadow-card"
           style={{ backgroundColor: 'var(--card)' }}
         >
           <div className="flex gap-3">
@@ -164,7 +164,7 @@ export function CleaningServiceBookingFormScreen({
         </div>
 
         {/* Date Selection */}
-        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+        <div className="mb-4">
           <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Select Date</label>
           <button
             onClick={() => setShowDatePicker(!showDatePicker)}
@@ -182,7 +182,7 @@ export function CleaningServiceBookingFormScreen({
 
           {showDatePicker && (
             <div
-              className="mt-2 p-4 rounded-xl shadow-premium-sm space-y-2 animate-fade-in-up"
+              className="mt-2 p-4 rounded-xl shadow-premium-sm space-y-2"
               style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               {dates.map((date) => (
@@ -206,7 +206,7 @@ export function CleaningServiceBookingFormScreen({
         </div>
 
         {/* Time Selection */}
-        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <div className="mb-4">
           <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Select Time</label>
           <button
             onClick={() => setShowTimePicker(!showTimePicker)}
@@ -224,7 +224,7 @@ export function CleaningServiceBookingFormScreen({
 
           {showTimePicker && (
             <div
-              className="mt-2 p-4 rounded-xl shadow-premium-sm grid grid-cols-2 gap-2 animate-fade-in-up"
+              className="mt-2 p-4 rounded-xl shadow-premium-sm grid grid-cols-2 gap-2"
               style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               {times.map((time) => (
@@ -248,7 +248,7 @@ export function CleaningServiceBookingFormScreen({
         </div>
 
         {/* Address Selection */}
-        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        <div className="mb-4">
           <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Service Address</label>
           <div
             className="w-full p-4 rounded-xl shadow-card"
@@ -278,7 +278,7 @@ export function CleaningServiceBookingFormScreen({
         </div>
 
         {/* Payment Method Selection */}
-        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="mb-4">
           <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Payment Method</label>
           <button
             onClick={() => setShowPaymentPicker(!showPaymentPicker)}
@@ -301,7 +301,7 @@ export function CleaningServiceBookingFormScreen({
 
           {showPaymentPicker && (
             <div
-              className="mt-2 p-4 rounded-xl shadow-premium-sm space-y-2 animate-fade-in-up"
+              className="mt-2 p-4 rounded-xl shadow-premium-sm space-y-2"
               style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               {paymentCards.map((card) => (
@@ -338,7 +338,7 @@ export function CleaningServiceBookingFormScreen({
 
         {/* Points Redemption - Only for Powered by DoHuub vendors */}
         {vendor.isPoweredByDoHuub && availablePoints > 0 && (
-          <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <div className="mb-4">
             <PointsRedemptionCard
               availablePoints={availablePoints}
               selectedPoints={pointsToRedeem}
@@ -353,11 +353,11 @@ export function CleaningServiceBookingFormScreen({
         {/* Points Preview - Only for Powered by DoHuub vendors */}
         {vendor.isPoweredByDoHuub && (
           <div
-            className="mb-4 p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="mb-4 p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
               border: '1px solid rgba(245, 158, 11, 0.3)',
-              animationDelay: '0.3s'
+              
             }}
           >
             <div className="flex items-center justify-between">
@@ -375,8 +375,8 @@ export function CleaningServiceBookingFormScreen({
 
         {/* Price Summary */}
         <div
-          className="mb-4 p-4 rounded-xl shadow-card animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', animationDelay: '0.35s' }}
+          className="mb-4 p-4 rounded-xl shadow-card"
+          style={{ backgroundColor: 'var(--card)' }}
         >
           <div className="flex items-center justify-between mb-2">
             <span style={{ color: 'var(--muted-foreground)' }}>Service Price</span>

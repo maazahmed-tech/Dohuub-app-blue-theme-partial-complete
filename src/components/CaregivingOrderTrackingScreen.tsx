@@ -71,7 +71,7 @@ export function CaregivingOrderTrackingScreen({
         <div className="px-6 py-6 space-y-6">
           {/* Status Timeline */}
           <div
-            className="p-6 rounded-xl shadow-card animate-fade-in-up"
+            className="p-6 rounded-xl shadow-card"
             style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <h3 className="font-semibold mb-6" style={{ color: 'var(--foreground)' }}>Status</h3>
@@ -132,8 +132,8 @@ export function CaregivingOrderTrackingScreen({
           {/* Provider/Companion Info */}
           {serviceType === 'ride' ? (
             <div
-              className="p-4 rounded-xl shadow-card animate-fade-in-up"
-              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+              className="p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Ride Provider</h3>
               <div className="flex items-center gap-3 mb-4">
@@ -158,8 +158,8 @@ export function CaregivingOrderTrackingScreen({
             </div>
           ) : (
             <div
-              className="p-4 rounded-xl shadow-card animate-fade-in-up"
-              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+              className="p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Your Companion</h3>
               <div className="flex items-center gap-3 mb-4">
@@ -186,8 +186,8 @@ export function CaregivingOrderTrackingScreen({
 
           {/* Service Details */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+            className="p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Service Details</h3>
             <div className="space-y-2">
@@ -241,8 +241,8 @@ export function CaregivingOrderTrackingScreen({
           {/* Updates / Check-in Notes (for Companionship) */}
           {serviceType === 'companionship' && currentStatusIndex >= 1 && (
             <div
-              className="p-4 rounded-xl shadow-card animate-fade-in-up"
-              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+              className="p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Check-in Notes</h3>
               <div className="space-y-3">
@@ -279,8 +279,8 @@ export function CaregivingOrderTrackingScreen({
           {/* Updates (for Ride) */}
           {serviceType === 'ride' && currentStatusIndex >= 1 && (
             <div
-              className="p-4 rounded-xl shadow-card animate-fade-in-up"
-              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+              className="p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Updates</h3>
               <div className="space-y-3">
@@ -301,13 +301,13 @@ export function CaregivingOrderTrackingScreen({
 
           {/* Total Amount */}
           <div
-            className="p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+            className="p-4 rounded-xl shadow-premium-sm"
             style={{
               background: serviceType === 'ride'
                 ? 'linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.1))'
                 : 'linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(219, 39, 119, 0.1))',
               border: `1px solid ${serviceType === 'ride' ? 'rgba(168, 85, 247, 0.3)' : 'rgba(236, 72, 153, 0.3)'}`,
-              animationDelay: '0.2s'
+              
             }}
           >
             <div className="flex justify-between items-center">

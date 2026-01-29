@@ -289,12 +289,11 @@ export function FoodVendorDetailScreen({
             return (
               <div
                 key={item.id}
-                className="rounded-xl p-4 shadow-card animate-fade-in-up"
+                className="rounded-xl p-4 shadow-card"
                 style={{
                   backgroundColor: 'var(--card)',
                   border: '1px solid var(--border)',
-                  animationDelay: `${index * 0.03}s`
-                }}
+                                  }}
               >
                 <div className="flex gap-4">
                   {/* Item Image */}

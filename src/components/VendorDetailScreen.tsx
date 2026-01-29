@@ -99,7 +99,7 @@ export function VendorDetailScreen({ vendor, onBack, onServiceSelect, onViewProf
       </div>
 
       {/* Vendor Summary */}
-      <div className="px-6 py-6 glass relative z-10 animate-fade-in-up" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div className="px-6 py-6 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex gap-4 items-center">
           {/* Vendor Image */}
           <div
@@ -184,12 +184,11 @@ export function VendorDetailScreen({ vendor, onBack, onServiceSelect, onViewProf
             <button
               key={service.id}
               onClick={() => onServiceSelect(service, vendor)}
-              className="rounded-xl overflow-hidden text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up flex flex-col"
+              className="rounded-xl overflow-hidden text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] flex flex-col"
               style={{
                 backgroundColor: 'var(--card)',
                 border: '1px solid var(--border)',
-                animationDelay: `${index * 0.05}s`,
-                height: 'fit-content'
+                                height: 'fit-content'
               }}
             >
               {/* Service Image */}

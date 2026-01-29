@@ -134,7 +134,7 @@ export function RentalPropertiesListScreen({
 
       {/* Filters Modal */}
       {showFilters && (
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end animate-fade-in">
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end">
           <div
             className="w-full rounded-t-3xl max-h-[80vh] overflow-y-auto animate-slide-up shadow-premium-lg"
             style={{ backgroundColor: 'var(--background)' }}
@@ -155,7 +155,7 @@ export function RentalPropertiesListScreen({
 
             <div className="px-6 py-6 space-y-6">
               {/* Property Type */}
-              <div className="animate-fade-in-up">
+              <div className="">
                 <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Property Type</h3>
                 <div className="flex flex-wrap gap-2">
                   {propertyTypes.map(type => (
@@ -177,7 +177,7 @@ export function RentalPropertiesListScreen({
               </div>
 
               {/* Bedrooms */}
-              <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+              <div className="">
                 <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Bedrooms</h3>
                 <div className="flex flex-wrap gap-2">
                   {bedroomOptions.map(option => (
@@ -199,7 +199,7 @@ export function RentalPropertiesListScreen({
               </div>
 
               {/* Bathrooms */}
-              <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+              <div className="">
                 <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Bathrooms</h3>
                 <div className="flex flex-wrap gap-2">
                   {bathroomOptions.map(option => (
@@ -221,7 +221,7 @@ export function RentalPropertiesListScreen({
               </div>
 
               {/* Price Range */}
-              <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+              <div className="">
                 <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Price per Night</h3>
                 <div className="flex flex-wrap gap-2">
                   {priceRanges.map(range => (
@@ -286,12 +286,11 @@ export function RentalPropertiesListScreen({
             <button
               key={property.id}
               onClick={() => onPropertySelect(property)}
-              className="w-full rounded-2xl overflow-hidden text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+              className="w-full rounded-2xl overflow-hidden text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
               style={{
                 backgroundColor: 'var(--card)',
                 border: '1px solid var(--border)',
-                animationDelay: `${index * 0.05}s`
-              }}
+                              }}
             >
               {/* Property Image */}
               <div

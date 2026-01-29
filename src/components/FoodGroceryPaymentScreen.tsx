@@ -90,13 +90,13 @@ export function FoodGroceryPaymentScreen({
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
         {/* Amount */}
-        <div className="mb-6 text-center animate-fade-in-up">
+        <div className="mb-6 text-center">
           <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Amount to Pay</p>
           <h2 className="text-4xl font-bold" style={{ color: 'var(--primary)' }}>${total.toFixed(2)}</h2>
         </div>
 
         {/* Payment Card */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+        <div className="mb-6">
           <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Payment Method</h3>
           <div
             className="rounded-2xl p-6 text-white shadow-premium-md"
@@ -132,7 +132,7 @@ export function FoodGroceryPaymentScreen({
         </div>
 
         {/* CVV Input */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <div className="mb-6">
           <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>CVV / Security Code</label>
           <input
             type="password"
@@ -155,8 +155,8 @@ export function FoodGroceryPaymentScreen({
 
         {/* Security Notice */}
         <div
-          className="rounded-xl p-4 shadow-card animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+          className="rounded-xl p-4 shadow-card"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
         >
           <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
             Your payment information is encrypted and secure. We never store your CVV.

@@ -48,7 +48,7 @@ export function NotificationsPanel({
 
   return (
     <div
-      className="absolute inset-0 z-50 flex items-end animate-fade-in"
+      className="absolute inset-0 z-50 flex items-end"
       onClick={onClose}
     >
       {/* Backdrop */}
@@ -103,7 +103,7 @@ export function NotificationsPanel({
         {/* Notifications List */}
         <div className="flex-1 overflow-y-auto relative z-10">
           {notifications.length === 0 ? (
-            <div className="text-center py-16 px-6 animate-fade-in-up">
+            <div className="text-center py-16 px-6">
               <div
                 className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-card"
                 style={{ backgroundColor: 'var(--muted)' }}
@@ -119,11 +119,10 @@ export function NotificationsPanel({
                 <button
                   key={notification.id}
                   onClick={() => onMarkNotificationAsRead(notification.id)}
-                  className="w-full p-4 text-left transition-all duration-300 hover:bg-[var(--muted)] animate-fade-in-up"
+                  className="w-full p-4 text-left transition-all duration-300 hover:bg-[var(--muted)]"
                   style={{
                     backgroundColor: !notification.isRead ? 'rgba(46, 122, 217, 0.05)' : 'transparent',
-                    animationDelay: `${index * 0.03}s`
-                  }}
+                                      }}
                 >
                   <div className="flex gap-3">
                     <div className="flex-shrink-0 mt-1">

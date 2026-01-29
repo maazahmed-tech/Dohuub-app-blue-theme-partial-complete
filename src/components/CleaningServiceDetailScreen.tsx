@@ -90,7 +90,7 @@ export function CleaningServiceDetailScreen({
         {/* Service Info */}
         <div className="px-6 py-4">
           {/* Title and Rating */}
-          <div className="mb-4 animate-fade-in-up">
+          <div className="mb-4">
             <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>{service.name}</h2>
             <div className="flex items-center gap-2 mb-2">
               <div className="flex items-center gap-1">
@@ -104,8 +104,8 @@ export function CleaningServiceDetailScreen({
 
           {/* Vendor Info */}
           <div
-            className="mb-4 p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', animationDelay: '0.05s' }}
+            className="mb-4 p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="flex items-center gap-3">
               <div
@@ -137,11 +137,11 @@ export function CleaningServiceDetailScreen({
           {/* Points Earning Banner */}
           {vendor.isPoweredByDoHuub && (
             <div
-              className="mb-4 rounded-xl p-4 shadow-card animate-fade-in-up"
+              className="mb-4 rounded-xl p-4 shadow-card"
               style={{
                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
                 border: '1px solid rgba(245, 158, 11, 0.3)',
-                animationDelay: '0.1s'
+                
               }}
             >
               <div className="flex items-center gap-3">
@@ -165,8 +165,8 @@ export function CleaningServiceDetailScreen({
 
           {/* Price Info */}
           <div
-            className="mb-4 p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', animationDelay: '0.15s' }}
+            className="mb-4 p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="flex items-center gap-2">
               <DollarSign className="w-5 h-5" style={{ color: 'var(--primary)' }} />
@@ -176,7 +176,7 @@ export function CleaningServiceDetailScreen({
           </div>
 
           {/* Service Details */}
-          <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="mb-4">
             <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>What's Included</h3>
             <div className="space-y-2">
               {[
@@ -198,7 +198,7 @@ export function CleaningServiceDetailScreen({
           </div>
 
           {/* Reviews Section */}
-          <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <div className="mb-4">
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-medium" style={{ color: 'var(--foreground)' }}>Reviews</h3>
               <button

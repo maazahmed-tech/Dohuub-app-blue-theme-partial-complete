@@ -21,8 +21,8 @@ export function ProfileSetupScreen({ onContinue }: ProfileSetupScreenProps) {
       </div>
 
       <div className="flex-1 px-8 pt-12 relative z-10">
-        <h2 className="mb-2 animate-fade-in-up" style={{ color: 'var(--foreground)' }}>Complete Your Profile</h2>
-        <p className="mb-8 animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.05s' }}>Tell us a bit about yourself</p>
+        <h2 className="mb-2" style={{ color: 'var(--foreground)' }}>Complete Your Profile</h2>
+        <p className="mb-8" style={{ color: 'var(--muted-foreground)' }}>Tell us a bit about yourself</p>
 
         <div className="flex justify-center mb-8 animate-scale-in">
           <div className="relative">
@@ -39,7 +39,7 @@ export function ProfileSetupScreen({ onContinue }: ProfileSetupScreenProps) {
         </div>
 
         <div className="space-y-4 mb-8">
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Full Name *</label>
             <div className={`relative rounded-xl transition-all duration-300 ${nameFocused ? 'shadow-glow' : 'shadow-premium-sm'}`}>
               <input
@@ -59,7 +59,7 @@ export function ProfileSetupScreen({ onContinue }: ProfileSetupScreenProps) {
             </div>
           </div>
 
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Phone Number</label>
             <div className="flex gap-2">
               <select
@@ -93,11 +93,11 @@ export function ProfileSetupScreen({ onContinue }: ProfileSetupScreenProps) {
         <button
           onClick={() => name && onContinue(name)}
           disabled={!name}
-          className="w-full py-4 rounded-xl text-white shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 disabled:shadow-none mb-4 animate-fade-in-up"
+          className="w-full py-4 rounded-xl text-white shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 disabled:shadow-none mb-4"
           style={{
             background: name ? 'var(--primary-gradient)' : 'var(--muted)',
             color: name ? 'white' : 'var(--muted-foreground)',
-            animationDelay: '0.2s'
+            
           }}
         >
           Continue

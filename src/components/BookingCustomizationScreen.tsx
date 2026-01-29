@@ -49,7 +49,7 @@ export function BookingCustomizationScreen({ service, category, onBack, onContin
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-6 pb-56 relative z-10">
         {/* Service Type */}
-        <div className="mb-6 animate-fade-in-up">
+        <div className="mb-6">
           <p className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Service Type</p>
           <div className="flex gap-2 overflow-x-auto pb-2">
             {serviceTypes.map((type) => (
@@ -70,7 +70,7 @@ export function BookingCustomizationScreen({ service, category, onBack, onContin
         </div>
 
         {/* Date */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+        <div className="mb-6">
           <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Date *</label>
           <div className="relative">
             <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
@@ -91,7 +91,7 @@ export function BookingCustomizationScreen({ service, category, onBack, onContin
         </div>
 
         {/* Time */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <div className="mb-6">
           <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Time *</label>
           <div className="relative">
             <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
@@ -121,7 +121,7 @@ export function BookingCustomizationScreen({ service, category, onBack, onContin
         </div>
 
         {/* Address */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        <div className="mb-6">
           <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Address *</label>
           <div className="relative">
             <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
@@ -146,7 +146,7 @@ export function BookingCustomizationScreen({ service, category, onBack, onContin
         </div>
 
         {/* Special Instructions */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="mb-6">
           <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Special Instructions (Optional)</label>
           <div className="relative">
             <FileText className="absolute left-4 top-4 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />

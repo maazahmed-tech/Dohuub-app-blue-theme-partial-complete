@@ -37,7 +37,7 @@ export function EmailSignInScreen({ onBack, onSignIn }: EmailSignInScreenProps) 
       {/* Content */}
       <div className="flex-1 flex flex-col px-8 pt-8 relative z-10">
         {/* Header Text */}
-        <div className="animate-fade-in-up">
+        <div className="">
           <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>Sign In</h2>
           <p className="mb-8" style={{ color: 'var(--muted-foreground)' }}>Enter your credentials to continue</p>
         </div>
@@ -45,7 +45,7 @@ export function EmailSignInScreen({ onBack, onSignIn }: EmailSignInScreenProps) 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Email Field */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Email Address</label>
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
@@ -67,7 +67,7 @@ export function EmailSignInScreen({ onBack, onSignIn }: EmailSignInScreenProps) 
           </div>
 
           {/* Password Field */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Password</label>
             <div className="relative">
               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
@@ -91,8 +91,8 @@ export function EmailSignInScreen({ onBack, onSignIn }: EmailSignInScreenProps) 
           {/* Forgot Password */}
           <button
             type="button"
-            className="underline self-start transition-all duration-300 hover:opacity-70 animate-fade-in-up"
-            style={{ color: 'var(--primary)', animationDelay: '0.15s' }}
+            className="underline self-start transition-all duration-300 hover:opacity-70"
+            style={{ color: 'var(--primary)' }}
           >
             Forgot Password?
           </button>
@@ -100,10 +100,10 @@ export function EmailSignInScreen({ onBack, onSignIn }: EmailSignInScreenProps) 
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full text-white py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 animate-fade-in-up shadow-premium-sm"
+            className="w-full text-white py-4 rounded-xl font-medium transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 shadow-premium-sm"
             style={{
               background: 'var(--primary-gradient)',
-              animationDelay: '0.2s'
+              
             }}
             disabled={!email || !password}
           >
@@ -113,7 +113,7 @@ export function EmailSignInScreen({ onBack, onSignIn }: EmailSignInScreenProps) 
 
         {/* Decorative Element */}
         <div className="flex-1 flex items-end justify-center pb-8">
-          <p className="text-sm animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.25s' }}>
+          <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
             Don't have an account?{' '}
             <button className="font-medium underline transition-opacity hover:opacity-70" style={{ color: 'var(--primary)' }}>
               Sign Up

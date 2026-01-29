@@ -167,7 +167,7 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Card Preview */}
         <div
-          className="mb-6 p-6 rounded-2xl text-white shadow-premium-lg animate-fade-in-up"
+          className="mb-6 p-6 rounded-2xl text-white shadow-premium-lg"
           style={{ background: 'var(--primary-gradient)' }}
         >
           <div className="flex justify-between items-start mb-12">
@@ -192,7 +192,7 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
         </div>
 
         {/* Card Number */}
-        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <div className="mb-4">
           <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Card Number *</label>
           <input
             type="text"
@@ -217,7 +217,7 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
         </div>
 
         {/* Cardholder Name */}
-        <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        <div className="mb-4">
           <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Cardholder Name *</label>
           <input
             type="text"
@@ -248,7 +248,7 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
 
         {/* Expiry Date and CVV */}
         <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Expiry Date *</label>
             <div className="flex gap-2 items-center">
               <input
@@ -294,7 +294,7 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
               </div>
             )}
           </div>
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>CVV *</label>
             <input
               type="text"
@@ -320,7 +320,7 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
         </div>
 
         {/* Set as Default */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+        <div className="mb-6">
           <label className="flex items-center gap-3 cursor-pointer">
             <div
               onClick={() => setIsDefault(!isDefault)}
@@ -342,10 +342,10 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
 
         {/* Security Notice */}
         <div
-          className="flex items-center justify-center gap-2 p-4 rounded-xl mb-6 animate-fade-in-up"
+          className="flex items-center justify-center gap-2 p-4 rounded-xl mb-6"
           style={{
             background: 'var(--primary-gradient)',
-            animationDelay: '0.35s'
+            
           }}
         >
           <Lock className="w-5 h-5 text-white" />
@@ -355,8 +355,8 @@ export function AddPaymentCardScreen({ onBack, onSave }: AddPaymentCardScreenPro
         {/* Save Button */}
         <button
           onClick={handleSave}
-          className="w-full py-4 rounded-xl text-white font-semibold shadow-premium-md transition-all duration-300 hover:shadow-premium-lg hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
-          style={{ background: 'var(--primary-gradient)', animationDelay: '0.4s' }}
+          className="w-full py-4 rounded-xl text-white font-semibold shadow-premium-md transition-all duration-300 hover:shadow-premium-lg hover:scale-[1.02] active:scale-[0.98]"
+          style={{ background: 'var(--primary-gradient)' }}
         >
           Add Card
         </button>

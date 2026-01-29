@@ -170,7 +170,7 @@ export function HandymanServiceBookingFormScreen({
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Service Summary */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          className="mb-6 p-4 rounded-xl shadow-card"
           style={{ backgroundColor: 'var(--card)' }}
         >
           <div className="flex gap-3">
@@ -192,7 +192,7 @@ export function HandymanServiceBookingFormScreen({
         </div>
 
         {/* Select Date */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.05s', position: 'relative', zIndex: showDatePicker ? 50 : 1 }}>
+        <div className="mb-6" style={{ position: 'relative', zIndex: showDatePicker ? 50 : 1 }}>
           <label className="block font-medium mb-3" style={{ color: 'var(--foreground)' }}>Select Date</label>
           <div className="relative">
             <button
@@ -214,7 +214,7 @@ export function HandymanServiceBookingFormScreen({
             </button>
             {showDatePicker && (
               <div
-                className="absolute top-full left-0 right-0 mt-2 p-2 rounded-xl shadow-premium-md animate-fade-in max-h-64 overflow-y-auto"
+                className="absolute top-full left-0 right-0 mt-2 p-2 rounded-xl shadow-premium-md max-h-64 overflow-y-auto"
                 style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
               >
                 {dates.map((date) => (
@@ -239,7 +239,7 @@ export function HandymanServiceBookingFormScreen({
         </div>
 
         {/* Select Time */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s', position: 'relative', zIndex: showTimePicker ? 50 : 1 }}>
+        <div className="mb-6" style={{ position: 'relative', zIndex: showTimePicker ? 50 : 1 }}>
           <label className="block font-medium mb-3" style={{ color: 'var(--foreground)' }}>Select Time</label>
           <div className="relative">
             <button
@@ -261,7 +261,7 @@ export function HandymanServiceBookingFormScreen({
             </button>
             {showTimePicker && (
               <div
-                className="absolute top-full left-0 right-0 mt-2 p-4 rounded-xl shadow-premium-md animate-fade-in"
+                className="absolute top-full left-0 right-0 mt-2 p-4 rounded-xl shadow-premium-md"
                 style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
               >
                 <div className="grid grid-cols-2 gap-2">
@@ -289,7 +289,7 @@ export function HandymanServiceBookingFormScreen({
         </div>
 
         {/* Select Duration */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.15s', position: 'relative', zIndex: showDurationPicker ? 50 : 1 }}>
+        <div className="mb-6" style={{ position: 'relative', zIndex: showDurationPicker ? 50 : 1 }}>
           <label className="block font-medium mb-3" style={{ color: 'var(--foreground)' }}>Select Duration</label>
           <div className="relative">
             <button
@@ -311,7 +311,7 @@ export function HandymanServiceBookingFormScreen({
             </button>
             {showDurationPicker && (
               <div
-                className="absolute top-full left-0 right-0 mt-2 p-4 rounded-xl shadow-premium-md animate-fade-in"
+                className="absolute top-full left-0 right-0 mt-2 p-4 rounded-xl shadow-premium-md"
                 style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
               >
                 <div className="grid grid-cols-2 gap-2">
@@ -339,7 +339,7 @@ export function HandymanServiceBookingFormScreen({
         </div>
 
         {/* Select Address */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s', position: 'relative', zIndex: showAddressPicker ? 50 : 1 }}>
+        <div className="mb-6" style={{ position: 'relative', zIndex: showAddressPicker ? 50 : 1 }}>
           <label className="block font-medium mb-3" style={{ color: 'var(--foreground)' }}>Service Address</label>
           {addresses.length === 0 ? (
             <button
@@ -382,7 +382,7 @@ export function HandymanServiceBookingFormScreen({
               </button>
               {showAddressPicker && (
                 <div
-                  className="absolute top-full left-0 right-0 mt-2 p-2 rounded-xl shadow-premium-md animate-fade-in"
+                  className="absolute top-full left-0 right-0 mt-2 p-2 rounded-xl shadow-premium-md"
                   style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
                 >
                   {addresses.map((address) => (
@@ -426,7 +426,7 @@ export function HandymanServiceBookingFormScreen({
         </div>
 
         {/* Additional Notes */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+        <div className="mb-6">
           <label className="block font-medium mb-3" style={{ color: 'var(--foreground)' }}>Additional Notes (Optional)</label>
           <textarea
             value={notes}
@@ -442,7 +442,7 @@ export function HandymanServiceBookingFormScreen({
         </div>
 
         {/* Payment Method */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s', position: 'relative', zIndex: showPaymentPicker ? 50 : 1 }}>
+        <div className="mb-6" style={{ position: 'relative', zIndex: showPaymentPicker ? 50 : 1 }}>
           <label className="block font-medium mb-3" style={{ color: 'var(--foreground)' }}>Payment Method</label>
           {paymentCards.length === 0 ? (
             <button
@@ -485,7 +485,7 @@ export function HandymanServiceBookingFormScreen({
               </button>
               {showPaymentPicker && (
                 <div
-                  className="absolute top-full left-0 right-0 mt-2 p-2 rounded-xl shadow-premium-md animate-fade-in"
+                  className="absolute top-full left-0 right-0 mt-2 p-2 rounded-xl shadow-premium-md"
                   style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
                 >
                   {paymentCards.map((card) => (
@@ -530,7 +530,7 @@ export function HandymanServiceBookingFormScreen({
 
         {/* Points Redemption - Only for Powered by DoHuub vendors */}
         {vendor.isPoweredByDoHuub && availablePoints > 0 && (
-          <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+          <div className="mb-6">
             <PointsRedemptionCard
               availablePoints={availablePoints}
               selectedPoints={pointsToRedeem}
@@ -545,11 +545,11 @@ export function HandymanServiceBookingFormScreen({
         {/* Points Preview - Only for Powered by DoHuub vendors */}
         {vendor.isPoweredByDoHuub && (
           <div
-            className="mb-6 p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+            className="mb-6 p-4 rounded-xl shadow-premium-sm"
             style={{
               background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
               border: '1px solid rgba(245, 158, 11, 0.3)',
-              animationDelay: '0.4s'
+              
             }}
           >
             <div className="flex items-center justify-between">
@@ -568,8 +568,8 @@ export function HandymanServiceBookingFormScreen({
         {/* Price Summary */}
         {pointsRedemptionEnabled && pointsToRedeem > 0 && (
           <div
-            className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', animationDelay: '0.45s' }}
+            className="mb-6 p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="flex items-center justify-between mb-2">
               <span style={{ color: 'var(--foreground)' }}>Service Price</span>

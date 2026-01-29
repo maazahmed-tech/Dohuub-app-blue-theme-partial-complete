@@ -49,7 +49,7 @@ export function BeautyChoiceScreen({
           {/* Services Card */}
           <button
             onClick={onSelectServices}
-            className="w-full rounded-2xl p-8 shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
+            className="w-full rounded-2xl p-8 shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98]"
             style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="flex flex-col items-center gap-4">
@@ -71,8 +71,8 @@ export function BeautyChoiceScreen({
           {/* Products Card */}
           <button
             onClick={onSelectProducts}
-            className="w-full rounded-2xl p-8 shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', animationDelay: '0.1s' }}
+            className="w-full rounded-2xl p-8 shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98]"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="flex flex-col items-center gap-4">
               <div

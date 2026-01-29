@@ -63,7 +63,7 @@ export function BeautyProductsVendorProfileScreen({
       <div className="flex-1 overflow-y-auto relative z-10">
         <div className="px-6 py-6 space-y-6">
           {/* Store Header */}
-          <div className="text-center animate-fade-in-up">
+          <div className="text-center">
             <div
               className="w-24 h-24 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-premium-lg"
               style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(244, 114, 182))' }}
@@ -91,8 +91,8 @@ export function BeautyProductsVendorProfileScreen({
 
           {/* About */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', animationDelay: '0.05s' }}
+            className="p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>About</h3>
             <p style={{ color: 'var(--muted-foreground)' }}>
@@ -101,7 +101,7 @@ export function BeautyProductsVendorProfileScreen({
           </div>
 
           {/* Store Info */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="">
             <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Store Information</h3>
             <div className="space-y-3">
               <div
@@ -138,7 +138,7 @@ export function BeautyProductsVendorProfileScreen({
           </div>
 
           {/* Reviews & Ratings */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-medium" style={{ color: 'var(--foreground)' }}>Reviews & Ratings</h3>
               <button

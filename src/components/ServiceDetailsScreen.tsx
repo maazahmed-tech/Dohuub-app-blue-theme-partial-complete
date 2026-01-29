@@ -46,7 +46,7 @@ export function ServiceDetailsScreen({ service, onBack, onBook, onReviews, onRep
         {/* Powered by DoHuub Badge */}
         {service.isPowered && (
           <div
-            className="mb-4 inline-flex items-center px-4 py-2 rounded-full text-white shadow-premium-sm animate-fade-in-up"
+            className="mb-4 inline-flex items-center px-4 py-2 rounded-full text-white shadow-premium-sm"
             style={{ background: 'var(--primary-gradient)' }}
           >
             Powered by DoHuub
@@ -54,15 +54,15 @@ export function ServiceDetailsScreen({ service, onBack, onBook, onReviews, onRep
         )}
 
         {/* Title */}
-        <h2 className="text-xl font-bold mb-3 animate-fade-in-up" style={{ color: 'var(--foreground)', animationDelay: '0.05s' }}>
+        <h2 className="text-xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
           {service.name}
         </h2>
 
         {/* Rating */}
         <button
           onClick={onReviews}
-          className="flex items-center gap-2 mb-3 transition-opacity hover:opacity-70 animate-fade-in-up"
-          style={{ animationDelay: '0.1s' }}
+          className="flex items-center gap-2 mb-3 transition-opacity hover:opacity-70"
+         
         >
           <div className="flex items-center gap-1">
             <Star className="w-5 h-5 fill-current" style={{ color: 'rgb(250, 204, 21)' }} />
@@ -73,7 +73,7 @@ export function ServiceDetailsScreen({ service, onBack, onBook, onReviews, onRep
         </button>
 
         {/* Distance */}
-        <div className="flex items-center gap-2 mb-6 animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.15s' }}>
+        <div className="flex items-center gap-2 mb-6" style={{ color: 'var(--muted-foreground)' }}>
           <MapPin className="w-5 h-5" style={{ color: 'var(--primary)' }} />
           <span>{service.distance} away</span>
         </div>
@@ -81,11 +81,11 @@ export function ServiceDetailsScreen({ service, onBack, onBook, onReviews, onRep
         {/* Points Earning Banner */}
         {service.isPowered && (
           <div
-            className="p-4 rounded-xl mb-6 shadow-premium-sm animate-fade-in-up"
+            className="p-4 rounded-xl mb-6 shadow-premium-sm"
             style={{
               background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
               border: '1px solid rgba(245, 158, 11, 0.3)',
-              animationDelay: '0.2s'
+              
             }}
           >
             <div className="flex items-center gap-3">
@@ -108,7 +108,7 @@ export function ServiceDetailsScreen({ service, onBack, onBook, onReviews, onRep
         )}
 
         {/* About Section */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+        <div className="mb-6">
           <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>About</h3>
           <p style={{ color: 'var(--muted-foreground)' }}>
             Professional cleaning services with experienced staff. We provide deep cleaning, laundry services, and office cleaning solutions. All our cleaners are background-checked and insured.
@@ -116,7 +116,7 @@ export function ServiceDetailsScreen({ service, onBack, onBook, onReviews, onRep
         </div>
 
         {/* Pricing Section */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+        <div className="mb-6">
           <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Pricing</h3>
           <div className="space-y-2">
             {[
@@ -137,7 +137,7 @@ export function ServiceDetailsScreen({ service, onBack, onBook, onReviews, onRep
         </div>
 
         {/* Reviews Section */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+        <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Reviews</h3>
             <button
@@ -183,8 +183,8 @@ export function ServiceDetailsScreen({ service, onBack, onBook, onReviews, onRep
         {/* Report Button */}
         <button
           onClick={onReport}
-          className="flex items-center gap-2 mt-6 transition-opacity hover:opacity-70 animate-fade-in-up"
-          style={{ color: 'var(--muted-foreground)', animationDelay: '0.4s' }}
+          className="flex items-center gap-2 mt-6 transition-opacity hover:opacity-70"
+          style={{ color: 'var(--muted-foreground)' }}
         >
           <Flag className="w-4 h-4" />
           <span>Report Listing</span>

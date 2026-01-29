@@ -212,7 +212,7 @@ export function PropertyCalendarScreen({
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         <div className="space-y-6">
           {/* Selected Dates Display */}
-          <div className="grid grid-cols-2 gap-3 animate-fade-in-up">
+          <div className="grid grid-cols-2 gap-3">
             <div
               className="p-4 rounded-xl shadow-card"
               style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
@@ -236,8 +236,8 @@ export function PropertyCalendarScreen({
           {/* Duration Display */}
           {duration && (
             <div
-              className="p-4 rounded-xl text-white shadow-premium-sm animate-fade-in-up"
-              style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))', animationDelay: '0.05s' }}
+              className="p-4 rounded-xl text-white shadow-premium-sm"
+              style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
             >
               <p className="text-sm text-white/70 mb-1">Duration</p>
               <p className="text-xl font-semibold">{duration}</p>
@@ -246,8 +246,8 @@ export function PropertyCalendarScreen({
 
           {/* Calendar */}
           <div
-            className="rounded-xl p-4 shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+            className="rounded-xl p-4 shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             {/* Month Navigation */}
             <div className="flex items-center justify-between mb-4">
@@ -291,8 +291,8 @@ export function PropertyCalendarScreen({
 
           {/* Legend */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+            className="p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Legend</h3>
             <div className="space-y-2 text-sm">
@@ -329,11 +329,11 @@ export function PropertyCalendarScreen({
 
           {/* Info */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
               border: '1px solid rgba(20, 184, 166, 0.3)',
-              animationDelay: '0.2s'
+              
             }}
           >
             <p className="text-sm" style={{ color: 'rgb(13, 148, 136)' }}>

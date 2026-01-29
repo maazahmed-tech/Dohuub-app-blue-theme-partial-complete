@@ -55,8 +55,8 @@ export function NotificationsSettingsScreen({ onBack }: NotificationsSettingsScr
           {notificationItems.map((item, index) => (
             <div
               key={item.key}
-              className="p-4 flex items-center gap-4 rounded-xl transition-all duration-300 hover:shadow-card animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.05}s` }}
+              className="p-4 flex items-center gap-4 rounded-xl transition-all duration-300 hover:shadow-card"
+              style={{ }}
             >
               <div className="flex-1">
                 <p className="mb-1" style={{ color: 'var(--foreground)' }}>{item.label}</p>

@@ -115,12 +115,11 @@ export function FoodVendorsListScreen({
           {vendors.map((vendor, index) => (
             <div
               key={vendor.id}
-              className="w-full rounded-xl p-4 shadow-card animate-fade-in-up"
+              className="w-full rounded-xl p-4 shadow-card"
               style={{
                 backgroundColor: 'var(--card)',
                 border: '1px solid var(--border)',
-                animationDelay: `${index * 0.05}s`
-              }}
+                              }}
             >
               <div className="flex gap-4 mb-3">
                 {/* Vendor Image */}

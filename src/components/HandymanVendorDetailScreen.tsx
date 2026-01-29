@@ -102,7 +102,7 @@ export function HandymanVendorDetailScreen({ vendor, onBack, onServiceSelect, on
       <div className="flex-1 overflow-y-auto relative z-10">
         {/* Vendor Profile */}
         <div className="px-6 py-6 glass" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
-          <div className="flex gap-4 items-start animate-fade-in-up">
+          <div className="flex gap-4 items-start">
             <div
               className="w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center shadow-premium-md"
               style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
@@ -154,12 +154,11 @@ export function HandymanVendorDetailScreen({ vendor, onBack, onServiceSelect, on
               <button
                 key={service.id}
                 onClick={() => onServiceSelect(service, vendor)}
-                className="p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
+                className="p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
                 style={{
                   backgroundColor: 'var(--card)',
                   border: '1px solid var(--border)',
-                  animationDelay: `${index * 0.05}s`
-                }}
+                                  }}
               >
                 {/* Service Image */}
                 <div

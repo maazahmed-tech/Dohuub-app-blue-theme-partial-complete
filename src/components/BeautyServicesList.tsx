@@ -221,12 +221,11 @@ export function BeautyServicesList({
             <button
               key={service.id}
               onClick={() => onSelectService(service)}
-              className="w-full rounded-xl p-4 shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] text-left animate-fade-in-up"
+              className="w-full rounded-xl p-4 shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] text-left"
               style={{
                 backgroundColor: 'var(--card)',
                 border: '1px solid var(--border)',
-                animationDelay: `${index * 0.03}s`
-              }}
+                              }}
             >
               <div className="flex items-start justify-between gap-4 mb-2">
                 <div className="flex-1">

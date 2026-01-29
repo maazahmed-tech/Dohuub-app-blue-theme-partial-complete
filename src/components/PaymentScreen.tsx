@@ -90,7 +90,7 @@ export function PaymentScreen({ service, onBack, onComplete, isPoweredByDoHuub =
         {/* Order Summary */}
         <button
           onClick={() => setShowSummary(!showSummary)}
-          className="w-full p-4 mb-6 rounded-xl shadow-card text-left transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+          className="w-full p-4 mb-6 rounded-xl shadow-card text-left transition-all duration-300 hover:shadow-premium-sm"
           style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
         >
           <div className="flex items-center justify-between">
@@ -137,11 +137,11 @@ export function PaymentScreen({ service, onBack, onComplete, isPoweredByDoHuub =
         {/* Points Redemption Section - Only for Powered by DoHuub */}
         {isPoweredByDoHuub && availablePoints >= 100 && (
           <div
-            className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="mb-6 p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
               border: '1px solid rgba(245, 158, 11, 0.3)',
-              animationDelay: '0.05s'
+              
             }}
           >
             <div className="flex items-center justify-between mb-4">
@@ -211,11 +211,11 @@ export function PaymentScreen({ service, onBack, onComplete, isPoweredByDoHuub =
         {/* Points Earning Info - Only for Powered by DoHuub */}
         {isPoweredByDoHuub && (
           <div
-            className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="mb-6 p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(249, 115, 22, 0.1))',
               border: '1px solid rgba(245, 158, 11, 0.2)',
-              animationDelay: '0.1s'
+              
             }}
           >
             <div className="flex justify-between items-center">
@@ -234,7 +234,7 @@ export function PaymentScreen({ service, onBack, onComplete, isPoweredByDoHuub =
         )}
 
         {/* Payment Method */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        <div className="mb-6">
           <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Payment Method</h3>
 
           <div className="mb-4">
@@ -319,8 +319,8 @@ export function PaymentScreen({ service, onBack, onComplete, isPoweredByDoHuub =
 
         {/* Security Notice */}
         <div
-          className="flex items-center justify-center gap-2 p-4 rounded-xl shadow-card animate-fade-in-up"
-          style={{ backgroundColor: 'var(--muted)', animationDelay: '0.2s' }}
+          className="flex items-center justify-center gap-2 p-4 rounded-xl shadow-card"
+          style={{ backgroundColor: 'var(--muted)' }}
         >
           <Lock className="w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
           <span style={{ color: 'var(--muted-foreground)' }}>Secured by Stripe</span>

@@ -110,7 +110,7 @@ export function FoodGroceryOrderTrackingScreen({
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 relative z-10">
         {/* Order Timeline */}
-        <div className="animate-fade-in-up">
+        <div className="">
           <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Order Timeline</h3>
           <div className="space-y-1">
             {timelineSteps.map((step, index) => {
@@ -177,7 +177,7 @@ export function FoodGroceryOrderTrackingScreen({
         </div>
 
         {/* Vendor Information */}
-        <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+        <div className="space-y-3">
           <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Vendor</h3>
           <div
             className="rounded-xl p-4 shadow-card"
@@ -201,7 +201,7 @@ export function FoodGroceryOrderTrackingScreen({
         </div>
 
         {/* Order Items */}
-        <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <div className="space-y-3">
           <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Order Items</h3>
           <div
             className="rounded-xl overflow-hidden shadow-card"
@@ -233,7 +233,7 @@ export function FoodGroceryOrderTrackingScreen({
         </div>
 
         {/* Delivery Address */}
-        <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        <div className="space-y-3">
           <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Delivery Address</h3>
           <div
             className="rounded-xl p-4 flex items-start gap-3 shadow-card"
@@ -245,7 +245,7 @@ export function FoodGroceryOrderTrackingScreen({
         </div>
 
         {/* Payment Method */}
-        <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="space-y-3">
           <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Payment Method</h3>
           <div
             className="rounded-xl p-4 flex items-center gap-3 shadow-card"
@@ -262,7 +262,7 @@ export function FoodGroceryOrderTrackingScreen({
         </div>
 
         {/* Order Date & Time */}
-        <div className="space-y-3 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+        <div className="space-y-3">
           <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Order Date & Time</h3>
           <div
             className="rounded-xl p-4 shadow-card"
@@ -275,7 +275,7 @@ export function FoodGroceryOrderTrackingScreen({
 
         {/* Actions for Completed Orders */}
         {order.status === 'completed' && (
-          <div className="space-y-3 pt-2 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="space-y-3 pt-2">
             <button
               onClick={onReorder}
               className="w-full py-4 rounded-xl text-white font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"

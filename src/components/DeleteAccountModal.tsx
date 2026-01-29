@@ -11,7 +11,7 @@ export function DeleteAccountModal({ isOpen, onClose, onConfirm }: DeleteAccount
 
   return (
     <div
-      className="absolute inset-0 backdrop-blur-modal flex items-center justify-center z-50 p-6 animate-fade-in"
+      className="absolute inset-0 backdrop-blur-modal flex items-center justify-center z-50 p-6"
       onClick={onClose}
     >
       <div

@@ -137,7 +137,7 @@ export function OrderTrackingScreen({
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Service Card */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          className="mb-6 p-4 rounded-xl shadow-card"
           style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
         >
           <div className="flex gap-3 mb-3">
@@ -187,7 +187,7 @@ export function OrderTrackingScreen({
         </div>
 
         {/* Status Timeline */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+        <div className="mb-6">
           <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Order Timeline</h3>
           <div className="space-y-4">
             {statusSteps.map((step, index) => (
@@ -232,8 +232,8 @@ export function OrderTrackingScreen({
 
         {/* Service Details */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+          className="mb-6 p-4 rounded-xl shadow-card"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
         >
           <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Service Details</h3>
 
@@ -286,11 +286,11 @@ export function OrderTrackingScreen({
         {/* Check-in Instructions (for rental properties) */}
         {(bookingData as any).type === 'rental' && (
           <div
-            className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="mb-6 p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(46, 122, 217, 0.05), rgba(46, 122, 217, 0.1))',
               border: '1px solid rgba(46, 122, 217, 0.2)',
-              animationDelay: '0.15s'
+              
             }}
           >
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Check-in Instructions</h3>
@@ -302,11 +302,11 @@ export function OrderTrackingScreen({
 
         {/* Demo Status Changer (for testing) */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          className="mb-6 p-4 rounded-xl shadow-card"
           style={{
             background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.1))',
             border: '1px solid rgba(245, 158, 11, 0.3)',
-            animationDelay: '0.2s'
+            
           }}
         >
           <p className="font-medium mb-3 text-sm" style={{ color: 'rgb(180, 83, 9)' }}>Demo: Change Status</p>
@@ -332,11 +332,11 @@ export function OrderTrackingScreen({
         {currentStatus === 'completed' && onViewInvoice && (
           <button
             onClick={onViewInvoice}
-            className="w-full py-4 rounded-xl font-medium mb-3 transition-all duration-300 hover:shadow-card animate-fade-in-up"
+            className="w-full py-4 rounded-xl font-medium mb-3 transition-all duration-300 hover:shadow-card"
             style={{
               backgroundColor: 'var(--muted)',
               color: 'var(--foreground)',
-              animationDelay: '0.25s'
+              
             }}
           >
             View Invoice
@@ -347,8 +347,8 @@ export function OrderTrackingScreen({
         {currentStatus === 'completed' && onReorder && (
           <button
             onClick={onReorder}
-            className="w-full py-4 rounded-xl text-white font-medium mb-3 transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
-            style={{ background: 'var(--primary-gradient)', animationDelay: '0.3s' }}
+            className="w-full py-4 rounded-xl text-white font-medium mb-3 transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+            style={{ background: 'var(--primary-gradient)' }}
           >
             Reorder Service
           </button>
@@ -358,8 +358,8 @@ export function OrderTrackingScreen({
         {currentStatus === 'completed' && !bookingData.hasReview && (
           <button
             onClick={() => onRequestReview(bookingData)}
-            className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
-            style={{ background: 'var(--primary-gradient)', animationDelay: '0.35s' }}
+            className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98]"
+            style={{ background: 'var(--primary-gradient)' }}
           >
             Leave a Review
           </button>
@@ -368,12 +368,12 @@ export function OrderTrackingScreen({
         {/* Already Reviewed (if completed and has review) */}
         {currentStatus === 'completed' && bookingData.hasReview && (
           <div
-            className="w-full py-4 rounded-xl text-center font-medium shadow-card animate-fade-in-up"
+            className="w-full py-4 rounded-xl text-center font-medium shadow-card"
             style={{
               backgroundColor: 'rgba(34, 197, 94, 0.1)',
               color: 'rgb(22, 163, 74)',
               border: '1px solid rgba(34, 197, 94, 0.3)',
-              animationDelay: '0.35s'
+              
             }}
           >
             ✓ Review Submitted

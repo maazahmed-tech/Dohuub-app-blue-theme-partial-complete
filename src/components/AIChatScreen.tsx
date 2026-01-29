@@ -227,7 +227,7 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
 
       <div className="flex-1 overflow-y-auto px-6 py-6 pb-32">
         {messages.length === 1 && (
-          <div className="mb-6 animate-fade-in">
+          <div className="mb-6">
             <div className="flex justify-center mb-6">
               <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-premium-lg animate-pulse-soft" style={{ backgroundColor: 'var(--secondary)' }}>
                 <Bot className="w-12 h-12" style={{ color: 'var(--primary)' }} strokeWidth={1.5} />
@@ -239,8 +239,8 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
                 <button
                   key={prompt}
                   onClick={() => handlePromptClick(prompt)}
-                  className="px-4 py-2 rounded-full shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-105 active:scale-95 animate-fade-in-up"
-                  style={{ backgroundColor: 'var(--secondary)', color: 'var(--foreground)', border: '1px solid rgba(46, 122, 217, 0.1)', animationDelay: `${index * 0.05}s` }}
+                  className="px-4 py-2 rounded-full shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-105 active:scale-95"
+                  style={{ backgroundColor: 'var(--secondary)', color: 'var(--foreground)', border: '1px solid rgba(46, 122, 217, 0.1)' }}
                 >
                   {prompt}
                 </button>
@@ -251,7 +251,7 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
 
         <div className="space-y-4">
           {messages.slice(1).map((message) => (
-            <div key={message.id} className="animate-fade-in-up">
+            <div key={message.id} className="">
               <div
                 className={`flex gap-3 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
@@ -281,8 +281,8 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
                     <button
                       key={service.id}
                       onClick={() => handleServiceClick(service)}
-                      className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-card-hover hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
-                      style={{ backgroundColor: 'var(--card)', border: '1px solid rgba(46, 122, 217, 0.08)', animationDelay: `${index * 0.05}s` }}
+                      className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-card-hover hover:scale-[1.01] active:scale-[0.99]"
+                      style={{ backgroundColor: 'var(--card)', border: '1px solid rgba(46, 122, 217, 0.08)' }}
                     >
                       <div className="flex gap-3">
                         <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style={{ backgroundColor: 'var(--secondary)' }}>
@@ -337,8 +337,8 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
               <div className="max-w-[75%] p-4 rounded-2xl" style={{ backgroundColor: 'var(--card)', color: 'var(--foreground)', borderBottomLeftRadius: '0.125rem' }}>
                 <div className="flex gap-1">
                   <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: 'var(--primary)' }}></div>
-                  <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: 'var(--primary)', animationDelay: '0.2s' }}></div>
-                  <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: 'var(--primary)', animationDelay: '0.4s' }}></div>
+                  <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: 'var(--primary)' }}></div>
+                  <div className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: 'var(--primary)' }}></div>
                 </div>
               </div>
             </div>

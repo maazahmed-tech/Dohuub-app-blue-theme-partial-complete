@@ -176,7 +176,7 @@ export function BeautyServiceBookingScreen({
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Service Details Section */}
         <div
-          className="p-4 rounded-xl shadow-card mb-6 animate-fade-in-up"
+          className="p-4 rounded-xl shadow-card mb-6"
           style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
         >
           <h3 className="font-medium mb-2" style={{ color: 'var(--foreground)' }}>{service.name}</h3>
@@ -189,7 +189,7 @@ export function BeautyServiceBookingScreen({
         {/* Booking Options */}
         <div className="space-y-4">
           {/* Select Date */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.05s', position: 'relative', zIndex: showDatePicker ? 50 : 1 }}>
+          <div className="" style={{ position: 'relative', zIndex: showDatePicker ? 50 : 1 }}>
             <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Select Date</label>
             <div className="relative">
               <button
@@ -214,7 +214,7 @@ export function BeautyServiceBookingScreen({
               {/* Date Dropdown */}
               {showDatePicker && (
                 <div
-                  className="absolute top-full left-0 right-0 mt-2 rounded-xl shadow-premium-md max-h-64 overflow-y-auto animate-fade-in"
+                  className="absolute top-full left-0 right-0 mt-2 rounded-xl shadow-premium-md max-h-64 overflow-y-auto"
                   style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
                 >
                   {availableDates.map((date) => (
@@ -239,7 +239,7 @@ export function BeautyServiceBookingScreen({
           </div>
 
           {/* Select Time */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s', position: 'relative', zIndex: showTimePicker ? 50 : 1 }}>
+          <div className="" style={{ position: 'relative', zIndex: showTimePicker ? 50 : 1 }}>
             <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Select Time</label>
             <div className="relative">
               <button
@@ -264,7 +264,7 @@ export function BeautyServiceBookingScreen({
               {/* Time Dropdown */}
               {showTimePicker && (
                 <div
-                  className="absolute top-full left-0 right-0 mt-2 p-4 rounded-xl shadow-premium-md animate-fade-in"
+                  className="absolute top-full left-0 right-0 mt-2 p-4 rounded-xl shadow-premium-md"
                   style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
                 >
                   <div className="grid grid-cols-2 gap-3">
@@ -292,7 +292,7 @@ export function BeautyServiceBookingScreen({
           </div>
 
           {/* Service Address - Not editable */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Service Address</label>
             <div
               className="w-full p-4 rounded-xl shadow-card"
@@ -317,7 +317,7 @@ export function BeautyServiceBookingScreen({
           </div>
 
           {/* Payment Method - Editable with dropdown */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', position: 'relative', zIndex: showPaymentPicker ? 50 : 1 }}>
+          <div className="" style={{ position: 'relative', zIndex: showPaymentPicker ? 50 : 1 }}>
             <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Payment Method</label>
             <div className="relative">
               <button
@@ -342,7 +342,7 @@ export function BeautyServiceBookingScreen({
               {/* Payment Dropdown */}
               {showPaymentPicker && (
                 <div
-                  className="absolute top-full left-0 right-0 mt-2 rounded-xl shadow-premium-md overflow-hidden animate-fade-in"
+                  className="absolute top-full left-0 right-0 mt-2 rounded-xl shadow-premium-md overflow-hidden"
                   style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
                 >
                   {paymentCards.length > 0 && (
@@ -391,7 +391,7 @@ export function BeautyServiceBookingScreen({
 
           {/* Points Redemption - Only for Powered by DoHuub providers */}
           {isPoweredByDoHuub && availablePoints > 0 && (
-            <div className="mt-6 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+            <div className="mt-6">
               <PointsRedemptionCard
                 availablePoints={availablePoints}
                 selectedPoints={pointsToRedeem}
@@ -405,8 +405,8 @@ export function BeautyServiceBookingScreen({
 
           {/* Service Price */}
           <div
-            className="rounded-xl p-4 mt-6 shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', animationDelay: '0.3s' }}
+            className="rounded-xl p-4 mt-6 shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="flex items-center justify-between">
               <span style={{ color: 'var(--foreground)' }}>Service Price</span>
@@ -430,11 +430,11 @@ export function BeautyServiceBookingScreen({
           {/* Points Preview - Only for Powered by DoHuub providers */}
           {isPoweredByDoHuub && (
             <div
-              className="mt-4 p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+              className="mt-4 p-4 rounded-xl shadow-premium-sm"
               style={{
                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
                 border: '1px solid rgba(245, 158, 11, 0.3)',
-                animationDelay: '0.35s'
+                
               }}
             >
               <div className="flex items-center justify-between">

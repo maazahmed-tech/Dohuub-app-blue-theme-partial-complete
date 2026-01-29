@@ -124,7 +124,7 @@ export function CompanionshipBookingFormScreen({
         <div className="px-6 py-6 space-y-6">
           {/* Companion Info */}
           <div
-            className="p-4 rounded-xl flex items-center gap-4 shadow-card animate-fade-in-up"
+            className="p-4 rounded-xl flex items-center gap-4 shadow-card"
             style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div
@@ -140,7 +140,7 @@ export function CompanionshipBookingFormScreen({
           </div>
 
           {/* Service Location */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Service Location *</h3>
             <div className="space-y-2">
               {savedAddresses.map(addr => (
@@ -168,7 +168,7 @@ export function CompanionshipBookingFormScreen({
           </div>
 
           {/* Date & Time */}
-          <div className="grid grid-cols-2 gap-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Date *</label>
               <input
@@ -200,7 +200,7 @@ export function CompanionshipBookingFormScreen({
           </div>
 
           {/* Duration */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Duration</h3>
             <select
               value={duration}
@@ -219,7 +219,7 @@ export function CompanionshipBookingFormScreen({
           </div>
 
           {/* Type of Support Needed */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Type of Support Needed *</h3>
             <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>Select all that apply</p>
             <div className="space-y-2">
@@ -253,7 +253,7 @@ export function CompanionshipBookingFormScreen({
           </div>
 
           {/* Special Requests */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Special Requests / Medical Conditions</h3>
             <textarea
               value={specialRequests}
@@ -270,7 +270,7 @@ export function CompanionshipBookingFormScreen({
           </div>
 
           {/* Payment Method */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Payment Method *</h3>
             <div className="space-y-2">
               {paymentMethods.map(method => (
@@ -296,7 +296,7 @@ export function CompanionshipBookingFormScreen({
 
           {/* Points Redemption - Only for Powered by DoHuub companions */}
           {companion.isPoweredByDoHuub && availablePoints > 0 && (
-            <div className="animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+            <div className="">
               <PointsRedemptionCard
                 availablePoints={availablePoints}
                 selectedPoints={pointsToRedeem}
@@ -310,8 +310,8 @@ export function CompanionshipBookingFormScreen({
 
           {/* Price Summary */}
           <div
-            className="p-4 rounded-xl shadow-card space-y-2 animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.4s' }}
+            className="p-4 rounded-xl shadow-card space-y-2"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex justify-between">
               <span style={{ color: 'var(--muted-foreground)' }}>Hourly Rate</span>
@@ -337,11 +337,11 @@ export function CompanionshipBookingFormScreen({
           {/* Points Preview - Only for Powered by DoHuub companions */}
           {companion.isPoweredByDoHuub && (
             <div
-              className="p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+              className="p-4 rounded-xl shadow-premium-sm"
               style={{
                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
                 border: '1px solid rgba(245, 158, 11, 0.3)',
-                animationDelay: '0.45s'
+                
               }}
             >
               <div className="flex items-center justify-between">

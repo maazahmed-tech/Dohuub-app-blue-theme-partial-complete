@@ -59,8 +59,8 @@ export function PaymentMethodsScreen({
             {cards.map((card, index) => (
               <div
                 key={card.id}
-                className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
-                style={{ backgroundColor: 'var(--card)', animationDelay: `${index * 0.05}s` }}
+                className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm"
+                style={{ backgroundColor: 'var(--card)' }}
               >
                 <div className="flex gap-4 mb-3">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm" style={{ background: 'var(--primary-gradient)' }}>
@@ -108,7 +108,7 @@ export function PaymentMethodsScreen({
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 mb-6 animate-fade-in-up">
+          <div className="text-center py-12 mb-6">
             <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-premium-lg" style={{ backgroundColor: 'var(--secondary)' }}>
               <CreditCard className="w-10 h-10" style={{ color: 'var(--muted-foreground)', opacity: 0.5 }} />
             </div>
@@ -119,8 +119,8 @@ export function PaymentMethodsScreen({
 
         <button
           onClick={onAddCard}
-          className="w-full p-4 border-2 border-dashed rounded-xl flex items-center justify-center gap-3 transition-all duration-300 hover:border-[var(--primary)] hover:shadow-card mb-6 animate-fade-in-up"
-          style={{ borderColor: 'var(--border)', animationDelay: `${cards.length * 0.05 + 0.1}s` }}
+          className="w-full p-4 border-2 border-dashed rounded-xl flex items-center justify-center gap-3 transition-all duration-300 hover:border-[var(--primary)] hover:shadow-card mb-6"
+          style={{ borderColor: 'var(--border)' }}
         >
           <Plus className="w-6 h-6" style={{ color: 'var(--primary)' }} />
           <span style={{ color: 'var(--foreground)' }}>Add New Card</span>

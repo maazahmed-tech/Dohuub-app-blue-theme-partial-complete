@@ -92,7 +92,7 @@ const PointsRedemptionCard: React.FC<PointsRedemptionCardProps> = ({
 
       {/* Slider section - only shown when enabled */}
       {enabled && (
-        <div className="px-4 pb-4 space-y-3 animate-fade-in-up">
+        <div className="px-4 pb-4 space-y-3">
           {/* Slider */}
           <div className="space-y-2">
             <input

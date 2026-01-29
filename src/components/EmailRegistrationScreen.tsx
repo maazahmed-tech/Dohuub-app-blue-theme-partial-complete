@@ -38,10 +38,10 @@ export function EmailRegistrationScreen({ onBack, onContinue }: EmailRegistratio
           </div>
         </div>
 
-        <h2 className="mb-2 text-center animate-fade-in-up" style={{ color: 'var(--foreground)' }}>Enter Your Email</h2>
-        <p className="mb-8 text-center animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.05s' }}>We'll send you a verification code</p>
+        <h2 className="mb-2 text-center" style={{ color: 'var(--foreground)' }}>Enter Your Email</h2>
+        <p className="mb-8 text-center" style={{ color: 'var(--muted-foreground)' }}>We'll send you a verification code</p>
 
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <div className="mb-6">
           <div className={`relative rounded-xl transition-all duration-300 ${isFocused ? 'shadow-glow' : 'shadow-premium-sm'}`}>
             <input
               type="email"
@@ -62,24 +62,24 @@ export function EmailRegistrationScreen({ onBack, onContinue }: EmailRegistratio
             />
           </div>
           {error && (
-            <p className="mt-2 animate-fade-in" style={{ color: 'var(--destructive)' }}>{error}</p>
+            <p className="mt-2" style={{ color: 'var(--destructive)' }}>{error}</p>
           )}
         </div>
 
         <button
           onClick={handleContinue}
           disabled={!email}
-          className="w-full py-4 rounded-xl text-white shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 disabled:shadow-none animate-fade-in-up"
+          className="w-full py-4 rounded-xl text-white shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 disabled:shadow-none"
           style={{
             background: email ? 'var(--primary-gradient)' : 'var(--muted)',
             color: email ? 'white' : 'var(--muted-foreground)',
-            animationDelay: '0.15s'
+            
           }}
         >
           Send OTP
         </button>
 
-        <p className="text-center mt-6 animate-fade-in" style={{ color: 'var(--muted-foreground)', animationDelay: '0.2s' }}>
+        <p className="text-center mt-6" style={{ color: 'var(--muted-foreground)' }}>
           <button onClick={onBack} className="underline transition-all duration-200 hover:opacity-80 hover:scale-105" style={{ color: 'var(--primary)' }}>Use Google Instead</button>
         </p>
       </div>

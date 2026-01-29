@@ -381,12 +381,11 @@ export function GroceryVendorDetailScreen({
             return (
               <div
                 key={item.id}
-                className="rounded-xl p-4 shadow-card animate-fade-in-up transition-all duration-300 hover:shadow-premium-sm"
+                className="rounded-xl p-4 shadow-card transition-all duration-300 hover:shadow-premium-sm"
                 style={{
                   backgroundColor: 'var(--card)',
                   border: '1px solid var(--border)',
-                  animationDelay: `${index * 0.03}s`
-                }}
+                                  }}
               >
                 <div className="flex gap-4">
                   {/* Item Image */}

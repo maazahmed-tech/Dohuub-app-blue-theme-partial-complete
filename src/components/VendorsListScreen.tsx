@@ -107,13 +107,12 @@ export function VendorsListScreen({ category, onBack, onVendorSelect }: VendorsL
             <button
               key={vendor.id}
               onClick={() => onVendorSelect(vendor)}
-              className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+              className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
               style={{
                 backgroundColor: 'var(--card)',
                 border: '1px solid var(--border)',
                 borderLeft: '3px solid var(--primary)',
-                animationDelay: `${index * 0.05}s`
-              }}
+                              }}
             >
               <div className="flex gap-4">
                 {/* Vendor Image */}

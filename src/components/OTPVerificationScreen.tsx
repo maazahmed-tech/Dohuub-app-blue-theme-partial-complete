@@ -73,13 +73,13 @@ export function OTPVerificationScreen({ email, onBack, onVerify }: OTPVerificati
           </div>
         </div>
 
-        <h2 className="mb-2 text-center animate-fade-in-up" style={{ color: 'var(--foreground)' }}>Verify Your Email</h2>
-        <p className="mb-8 text-center animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.05s' }}>
+        <h2 className="mb-2 text-center" style={{ color: 'var(--foreground)' }}>Verify Your Email</h2>
+        <p className="mb-8 text-center" style={{ color: 'var(--muted-foreground)' }}>
           Enter the 6-digit code sent to<br />
           <span className="font-medium" style={{ color: 'var(--primary)' }}>{email}</span>
         </p>
 
-        <div className="flex gap-3 mb-6 justify-center animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <div className="flex gap-3 mb-6 justify-center">
           {otp.map((digit, index) => (
             <div
               key={index}
@@ -106,10 +106,10 @@ export function OTPVerificationScreen({ email, onBack, onVerify }: OTPVerificati
         </div>
 
         {error && (
-          <p className="text-center mb-4 animate-fade-in" style={{ color: 'var(--destructive)' }}>{error}</p>
+          <p className="text-center mb-4" style={{ color: 'var(--destructive)' }}>{error}</p>
         )}
 
-        <p className="text-center mb-6 animate-fade-in" style={{ color: 'var(--muted-foreground)', animationDelay: '0.15s' }}>
+        <p className="text-center mb-6" style={{ color: 'var(--muted-foreground)' }}>
           {timer > 0 ? (
             <span>Resend code in <span className="font-medium" style={{ color: 'var(--primary)' }}>0:{timer.toString().padStart(2, '0')}</span></span>
           ) : (
@@ -120,11 +120,11 @@ export function OTPVerificationScreen({ email, onBack, onVerify }: OTPVerificati
         <button
           onClick={handleVerify}
           disabled={!isComplete}
-          className="w-full py-4 rounded-xl text-white shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 disabled:shadow-none animate-fade-in-up"
+          className="w-full py-4 rounded-xl text-white shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100 disabled:shadow-none"
           style={{
             background: isComplete ? 'var(--primary-gradient)' : 'var(--muted)',
             color: isComplete ? 'white' : 'var(--muted-foreground)',
-            animationDelay: '0.2s'
+            
           }}
         >
           Verify

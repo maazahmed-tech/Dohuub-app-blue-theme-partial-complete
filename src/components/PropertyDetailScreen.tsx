@@ -50,7 +50,7 @@ export function PropertyDetailScreen({
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto relative z-10">
         {/* Photo Gallery */}
-        <div className="relative animate-fade-in">
+        <div className="relative">
           <div
             className="w-full h-64 flex items-center justify-center relative"
             style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
@@ -86,7 +86,7 @@ export function PropertyDetailScreen({
 
         <div className="px-6 py-6 space-y-6">
           {/* Property Title & Rating */}
-          <div className="animate-fade-in-up">
+          <div className="">
             <div className="flex items-start justify-between mb-2">
               <h2 className="font-bold text-xl flex-1" style={{ color: 'var(--foreground)' }}>{property.name}</h2>
               <div className="flex items-center gap-1 ml-2 flex-shrink-0">
@@ -104,11 +104,11 @@ export function PropertyDetailScreen({
           {/* Points Earning Banner */}
           {property.isPoweredByDoHuub && (
             <div
-              className="p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+              className="p-4 rounded-xl shadow-premium-sm"
               style={{
                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
                 border: '1px solid rgba(245, 158, 11, 0.3)',
-                animationDelay: '0.05s'
+                
               }}
             >
               <div className="flex items-center gap-3">
@@ -134,8 +134,8 @@ export function PropertyDetailScreen({
           {onViewHostProfile && (
             <button
               onClick={onViewHostProfile}
-              className="w-full flex items-center gap-3 p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] text-left animate-fade-in-up"
-              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+              className="w-full flex items-center gap-3 p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] text-left"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               <div
                 className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
@@ -156,8 +156,8 @@ export function PropertyDetailScreen({
           )}
           {!onViewHostProfile && (
             <div
-              className="flex items-center gap-3 p-4 rounded-xl shadow-card animate-fade-in-up"
-              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+              className="flex items-center gap-3 p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               <div
                 className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
@@ -177,7 +177,7 @@ export function PropertyDetailScreen({
           )}
 
           {/* Key Details */}
-          <div className="grid grid-cols-2 gap-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="grid grid-cols-2 gap-4">
             <div
               className="flex items-center gap-3 p-4 rounded-xl shadow-card"
               style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
@@ -222,11 +222,11 @@ export function PropertyDetailScreen({
 
           {/* Pricing */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
               border: '1px solid rgba(20, 184, 166, 0.3)',
-              animationDelay: '0.15s'
+              
             }}
           >
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Pricing</h3>
@@ -247,7 +247,7 @@ export function PropertyDetailScreen({
           </div>
 
           {/* Amenities */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Amenities</h3>
             <div className="grid grid-cols-2 gap-3">
               {property.amenities.map(amenity => {
@@ -267,13 +267,13 @@ export function PropertyDetailScreen({
           </div>
 
           {/* Description */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Description</h3>
             <p style={{ color: 'var(--muted-foreground)' }}>{property.description}</p>
           </div>
 
           {/* Location */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Location</h3>
             <div
               className="w-full h-40 rounded-xl flex items-center justify-center"
@@ -285,7 +285,7 @@ export function PropertyDetailScreen({
           </div>
 
           {/* House Rules */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>House Rules</h3>
             <div className="space-y-2">
               {property.houseRules.map((rule, index) => (
@@ -301,7 +301,7 @@ export function PropertyDetailScreen({
           </div>
 
           {/* Reviews */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <div className="">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Reviews</h3>
               <button className="flex items-center gap-1 text-sm transition-all duration-300 hover:opacity-70" style={{ color: 'rgb(20, 184, 166)' }}>

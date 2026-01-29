@@ -124,7 +124,7 @@ export function FoodGroceryConfirmationScreen({
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Delivery Address */}
-        <div className="mb-6 animate-fade-in-up">
+        <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Delivery Address</h3>
             <button
@@ -161,7 +161,7 @@ export function FoodGroceryConfirmationScreen({
         </div>
 
         {/* Payment Method */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+        <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Payment Method</h3>
             <button
@@ -202,8 +202,8 @@ export function FoodGroceryConfirmationScreen({
 
         {/* Order Summary */}
         <div
-          className="rounded-xl p-4 shadow-card mb-6 animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+          className="rounded-xl p-4 shadow-card mb-6"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
         >
           <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Order Summary</h3>
           <div className="space-y-2 mb-4">
@@ -247,11 +247,11 @@ export function FoodGroceryConfirmationScreen({
         {/* Points Preview - Only for Powered by DoHuub vendors */}
         {isPoweredByDoHuub && (
           <div
-            className="mb-6 p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+            className="mb-6 p-4 rounded-xl shadow-premium-sm"
             style={{
               background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
               border: '1px solid rgba(245, 158, 11, 0.3)',
-              animationDelay: '0.15s'
+              
             }}
           >
             <div className="flex items-center justify-between">

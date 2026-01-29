@@ -15,16 +15,16 @@ export function LocationPermissionScreen({ onAllow, onManual }: LocationPermissi
         <MapPin className="w-16 h-16 animate-float" style={{ color: 'var(--primary)' }} strokeWidth={1.5} />
       </div>
 
-      <h2 className="mb-4 text-center animate-fade-in-up relative z-10" style={{ color: 'var(--foreground)' }}>Enable Location Services</h2>
-      <p className="text-center mb-12 max-w-sm animate-fade-in-up relative z-10" style={{ color: 'var(--muted-foreground)', animationDelay: '0.1s' }}>
+      <h2 className="mb-4 text-center relative z-10" style={{ color: 'var(--foreground)' }}>Enable Location Services</h2>
+      <p className="text-center mb-12 max-w-sm relative z-10" style={{ color: 'var(--muted-foreground)' }}>
         DoHuub uses your location to show nearby services and providers
       </p>
 
       <div className="w-full max-w-sm space-y-4 relative z-10">
         <button
           onClick={onAllow}
-          className="w-full text-white py-4 rounded-xl shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
-          style={{ background: 'var(--primary-gradient)', animationDelay: '0.15s' }}
+          className="w-full text-white py-4 rounded-xl shadow-premium-lg transition-all duration-300 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98]"
+          style={{ background: 'var(--primary-gradient)' }}
         >
           Allow Location Access
         </button>
@@ -32,8 +32,8 @@ export function LocationPermissionScreen({ onAllow, onManual }: LocationPermissi
 
       <button
         onClick={onAllow}
-        className="mt-8 transition-all duration-200 hover:opacity-80 hover:scale-105 active:scale-95 animate-fade-in relative z-10"
-        style={{ color: 'var(--primary)', animationDelay: '0.2s' }}
+        className="mt-8 transition-all duration-200 hover:opacity-80 hover:scale-105 active:scale-95 relative z-10"
+        style={{ color: 'var(--primary)' }}
       >
         Skip
       </button>

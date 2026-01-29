@@ -106,7 +106,7 @@ export function BeautyServiceDetailScreen({
         {/* Service Info */}
         <div className="px-6 py-6">
           {/* Title and Rating */}
-          <div className="mb-6 animate-fade-in-up">
+          <div className="mb-6">
             <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>{service.name}</h2>
             <div className="flex items-center gap-2 mb-3">
               <div className="flex items-center gap-1">
@@ -122,8 +122,8 @@ export function BeautyServiceDetailScreen({
 
           {/* Provider Info */}
           <div
-            className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', animationDelay: '0.05s' }}
+            className="mb-6 p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="flex items-center gap-3">
               <div
@@ -157,11 +157,11 @@ export function BeautyServiceDetailScreen({
           {/* Points Earning Banner */}
           {provider.isPoweredByDoHuub && (
             <div
-              className="mb-6 rounded-xl p-4 shadow-premium-sm animate-fade-in-up"
+              className="mb-6 rounded-xl p-4 shadow-premium-sm"
               style={{
                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
                 border: '1px solid rgba(245, 158, 11, 0.3)',
-                animationDelay: '0.1s'
+                
               }}
             >
               <div className="flex items-center gap-3">
@@ -185,11 +185,11 @@ export function BeautyServiceDetailScreen({
 
           {/* Price and Duration Info */}
           <div
-            className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="mb-6 p-4 rounded-xl shadow-card"
             style={{
               backgroundColor: 'var(--card)',
               border: '1px solid var(--border)',
-              animationDelay: '0.15s'
+              
             }}
           >
             <div className="flex items-center gap-2 mb-3">
@@ -205,7 +205,7 @@ export function BeautyServiceDetailScreen({
           </div>
 
           {/* Service Details */}
-          <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="mb-6">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>What's Included</h3>
             <ul className="space-y-2">
               {[
@@ -223,7 +223,7 @@ export function BeautyServiceDetailScreen({
           </div>
 
           {/* Reviews Section */}
-          <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <div className="mb-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Reviews</h3>
               {onViewAllReviews && (

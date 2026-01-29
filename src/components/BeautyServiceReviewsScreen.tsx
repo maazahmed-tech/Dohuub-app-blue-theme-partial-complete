@@ -160,12 +160,11 @@ export function BeautyServiceReviewsScreen({
           {allReviews.map((review, index) => (
             <div
               key={review.id}
-              className="p-4 rounded-xl shadow-card animate-fade-in-up"
+              className="p-4 rounded-xl shadow-card"
               style={{
                 backgroundColor: 'var(--card)',
                 border: '1px solid var(--border)',
-                animationDelay: `${index * 0.03}s`
-              }}
+                              }}
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="font-medium" style={{ color: 'var(--foreground)' }}>{review.userName}</span>

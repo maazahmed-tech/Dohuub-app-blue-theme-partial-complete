@@ -57,7 +57,7 @@ export function ReportListingScreen({ onBack, onSubmit }: ReportListingScreenPro
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Info Banner */}
         <div
-          className="flex items-start gap-3 p-4 rounded-xl mb-6 shadow-card animate-fade-in-up"
+          className="flex items-start gap-3 p-4 rounded-xl mb-6 shadow-card"
           style={{
             background: 'linear-gradient(135deg, rgba(46, 122, 217, 0.1), rgba(76, 166, 250, 0.1))',
             border: '1px solid rgba(46, 122, 217, 0.2)'
@@ -70,7 +70,7 @@ export function ReportListingScreen({ onBack, onSubmit }: ReportListingScreenPro
         </div>
 
         {/* Reason Selection */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+        <div className="mb-6">
           <p className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Select a reason *</p>
           <div className="space-y-3">
             {reasons.map((reason, index) => {
@@ -79,12 +79,11 @@ export function ReportListingScreen({ onBack, onSubmit }: ReportListingScreenPro
                 <button
                   key={reason}
                   onClick={() => setSelectedReason(reason)}
-                  className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+                  className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm"
                   style={{
                     backgroundColor: isSelected ? 'rgba(46, 122, 217, 0.1)' : 'var(--card)',
                     border: isSelected ? '2px solid var(--primary)' : '1px solid var(--border)',
-                    animationDelay: `${0.1 + index * 0.05}s`
-                  }}
+                                      }}
                 >
                   <div className="flex items-center gap-3">
                     <div
@@ -105,7 +104,7 @@ export function ReportListingScreen({ onBack, onSubmit }: ReportListingScreenPro
         </div>
 
         {/* Additional Details */}
-        <div className="animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+        <div className="">
           <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>
             Additional details (optional)
           </label>

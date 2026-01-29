@@ -155,12 +155,11 @@ export function RideProvidersListScreen({
             <button
               key={provider.id}
               onClick={() => onSelectProvider(provider)}
-              className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+              className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
               style={{
                 backgroundColor: 'var(--card)',
                 border: '1px solid var(--border)',
-                animationDelay: `${index * 0.05}s`
-              }}
+                              }}
             >
               <div className="flex items-start gap-4">
                 <div
@@ -215,7 +214,7 @@ export function RideProvidersListScreen({
 
       {/* Filters Modal */}
       {showFilters && (
-        <div className="absolute inset-0 z-50 flex items-end animate-fade-in">
+        <div className="absolute inset-0 z-50 flex items-end">
           <div
             className="absolute inset-0"
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)' }}

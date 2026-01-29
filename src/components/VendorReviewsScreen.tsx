@@ -138,7 +138,7 @@ export function VendorReviewsScreen({
 
       {/* Vendor Info & Rating Summary */}
       <div
-        className="px-6 py-6 glass relative z-10 animate-fade-in-up"
+        className="px-6 py-6 glass relative z-10"
         style={{
           background: 'linear-gradient(135deg, rgba(46, 122, 217, 0.05), rgba(46, 122, 217, 0.1))',
           borderBottom: '1px solid rgba(46, 122, 217, 0.1)'
@@ -197,12 +197,11 @@ export function VendorReviewsScreen({
           {allReviews.map((review, index) => (
             <div
               key={review.id}
-              className="p-4 rounded-xl shadow-card animate-fade-in-up"
+              className="p-4 rounded-xl shadow-card"
               style={{
                 backgroundColor: 'var(--card)',
                 border: '1px solid var(--border)',
-                animationDelay: `${index * 0.05}s`
-              }}
+                              }}
             >
               <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center gap-3">

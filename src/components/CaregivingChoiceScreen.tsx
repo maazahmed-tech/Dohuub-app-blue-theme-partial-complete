@@ -42,7 +42,7 @@ export function CaregivingChoiceScreen({
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto p-6 relative z-10">
-        <p className="mb-6 animate-fade-in" style={{ color: 'var(--muted-foreground)' }}>
+        <p className="mb-6" style={{ color: 'var(--muted-foreground)' }}>
           Choose the type of caregiving service you need
         </p>
 
@@ -50,7 +50,7 @@ export function CaregivingChoiceScreen({
           {/* Ride Assistance */}
           <button
             onClick={onSelectRideAssistance}
-            className="w-full p-6 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+            className="w-full p-6 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
             style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex items-start gap-4">
@@ -86,8 +86,8 @@ export function CaregivingChoiceScreen({
           {/* Companionship Support */}
           <button
             onClick={onSelectCompanionship}
-            className="w-full p-6 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+            className="w-full p-6 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex items-start gap-4">
               <div

@@ -129,7 +129,7 @@ export function CleaningServiceReviewsScreen({
       </div>
 
       {/* Service Info */}
-      <div className="px-6 py-4 relative z-10 animate-fade-in-up">
+      <div className="px-6 py-4 relative z-10">
         <div
           className="p-4 rounded-xl shadow-card"
           style={{ backgroundColor: 'var(--card)' }}
@@ -149,11 +149,10 @@ export function CleaningServiceReviewsScreen({
           {allReviews.map((review, index) => (
             <div
               key={review.id}
-              className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+              className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm"
               style={{
                 backgroundColor: 'var(--card)',
-                animationDelay: `${0.05 + index * 0.03}s`
-              }}
+                              }}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-3">

@@ -79,7 +79,7 @@ export function AllReviewsScreen({ service, onBack }: AllReviewsScreenProps) {
       </div>
 
       {/* Rating Summary */}
-      <div className="px-6 py-6 relative z-10 animate-fade-in-up">
+      <div className="px-6 py-6 relative z-10">
         <div
           className="p-6 rounded-2xl shadow-premium-md"
           style={{ backgroundColor: 'var(--card)' }}
@@ -118,7 +118,7 @@ export function AllReviewsScreen({ service, onBack }: AllReviewsScreenProps) {
       </div>
 
       {/* Sort Filter */}
-      <div className="px-6 py-2 relative z-10 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+      <div className="px-6 py-2 relative z-10">
         <select
           className="w-full px-4 py-3 rounded-xl shadow-card outline-none transition-all duration-300 focus:shadow-glow"
           style={{
@@ -140,11 +140,10 @@ export function AllReviewsScreen({ service, onBack }: AllReviewsScreenProps) {
           {reviews.map((review, index) => (
             <div
               key={review.id}
-              className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+              className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm"
               style={{
                 backgroundColor: 'var(--card)',
-                animationDelay: `${0.15 + index * 0.05}s`
-              }}
+                              }}
             >
               <div className="flex items-center gap-3 mb-3">
                 <div

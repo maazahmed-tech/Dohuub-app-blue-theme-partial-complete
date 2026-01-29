@@ -37,10 +37,10 @@ export function CleaningServiceConfirmationScreen({
             <CheckCircle className="w-16 h-16" style={{ color: 'rgb(34, 197, 94)' }} strokeWidth={1.5} />
           </div>
         </div>
-        <h1 className="text-2xl font-bold mb-2 animate-fade-in-up" style={{ color: 'var(--foreground)', animationDelay: '0.1s' }}>
+        <h1 className="text-2xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>
           Order Confirmed
         </h1>
-        <p className="animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.15s' }}>
+        <p className="" style={{ color: 'var(--muted-foreground)' }}>
           Your cleaning service has been successfully booked
         </p>
       </div>
@@ -48,10 +48,10 @@ export function CleaningServiceConfirmationScreen({
       {/* Points Earned Celebration - Only for Powered by DoHuub */}
       {isPoweredByDoHuub && estimatedPoints > 0 && (
         <div
-          className="mx-6 mb-6 rounded-2xl p-6 shadow-premium-lg animate-fade-in-up relative z-10"
+          className="mx-6 mb-6 rounded-2xl p-6 shadow-premium-lg relative z-10"
           style={{
             background: 'linear-gradient(135deg, rgb(251, 191, 36), rgb(245, 158, 11))',
-            animationDelay: '0.2s'
+            
           }}
         >
           <div className="flex items-center justify-center gap-3 mb-2">
@@ -77,15 +77,15 @@ export function CleaningServiceConfirmationScreen({
       <div className="flex-1 overflow-y-auto px-6 pb-6 relative z-10">
         {/* Order Number */}
         <div
-          className="mb-6 p-4 rounded-xl text-center shadow-card animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', animationDelay: '0.25s' }}
+          className="mb-6 p-4 rounded-xl text-center shadow-card"
+          style={{ backgroundColor: 'var(--card)' }}
         >
           <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Order Number</p>
           <p className="font-semibold" style={{ color: 'var(--primary)' }}>{bookingData.referenceNumber}</p>
         </div>
 
         {/* Booking Details */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+        <div className="mb-6">
           <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Booking Details</h3>
 
           <div
@@ -165,8 +165,8 @@ export function CleaningServiceConfirmationScreen({
 
         {/* Payment Method */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', animationDelay: '0.35s' }}
+          className="mb-6 p-4 rounded-xl shadow-card"
+          style={{ backgroundColor: 'var(--card)' }}
         >
           <div className="flex items-start gap-3 mb-4">
             <div
@@ -197,7 +197,7 @@ export function CleaningServiceConfirmationScreen({
         </div>
 
         {/* What's Next */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+        <div className="mb-6">
           <h3 className="font-medium mb-4" style={{ color: 'var(--foreground)' }}>What's Next?</h3>
           <div className="space-y-3">
             {[

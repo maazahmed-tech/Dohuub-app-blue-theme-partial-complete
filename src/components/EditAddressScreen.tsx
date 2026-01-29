@@ -81,7 +81,7 @@ export function EditAddressScreen({ address, onBack, onSave }: EditAddressScreen
       <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Address Type Selection */}
-          <div className="animate-fade-in-up">
+          <div className="">
             <label className="block mb-3 font-medium" style={{ color: 'var(--foreground)' }}>Address Type</label>
             <div className="grid grid-cols-3 gap-3">
               {typeButtons.map((btn, index) => {
@@ -101,8 +101,7 @@ export function EditAddressScreen({ address, onBack, onSave }: EditAddressScreen
                     style={{
                       backgroundColor: 'var(--card)',
                       border: isSelected ? '2px solid var(--primary)' : '1px solid var(--border)',
-                      animationDelay: `${index * 0.05}s`
-                    }}
+                                          }}
                   >
                     <div
                       className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
@@ -124,7 +123,7 @@ export function EditAddressScreen({ address, onBack, onSave }: EditAddressScreen
 
           {/* Custom Label */}
           {addressType === 'Other' && (
-            <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <div className="">
               <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Label</label>
               <input
                 type="text"
@@ -144,7 +143,7 @@ export function EditAddressScreen({ address, onBack, onSave }: EditAddressScreen
           )}
 
           {/* Country */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Country</label>
             <input
               type="text"
@@ -163,7 +162,7 @@ export function EditAddressScreen({ address, onBack, onSave }: EditAddressScreen
           </div>
 
           {/* Street Address */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Street Address</label>
             <input
               type="text"
@@ -182,7 +181,7 @@ export function EditAddressScreen({ address, onBack, onSave }: EditAddressScreen
           </div>
 
           {/* City */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>City</label>
             <input
               type="text"
@@ -202,7 +201,7 @@ export function EditAddressScreen({ address, onBack, onSave }: EditAddressScreen
 
           {/* State & Zip Code */}
           <div className="grid grid-cols-2 gap-4">
-            <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <div className="">
               <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>State</label>
               <input
                 type="text"
@@ -219,7 +218,7 @@ export function EditAddressScreen({ address, onBack, onSave }: EditAddressScreen
                 }}
               />
             </div>
-            <div className="animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+            <div className="">
               <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Zip Code</label>
               <input
                 type="text"
@@ -239,7 +238,7 @@ export function EditAddressScreen({ address, onBack, onSave }: EditAddressScreen
           </div>
 
           {/* Delivery Instructions */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <div className="">
             <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Delivery Instructions (Optional)</label>
             <textarea
               placeholder="e.g., Ring doorbell twice, Leave at door"

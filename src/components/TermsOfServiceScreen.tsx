@@ -31,10 +31,10 @@ export function TermsOfServiceScreen({ onBack }: TermsOfServiceScreenProps) {
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
-        <p className="mb-6 animate-fade-in" style={{ color: 'var(--muted-foreground)' }}>Last Updated: December 1, 2025</p>
+        <p className="mb-6" style={{ color: 'var(--muted-foreground)' }}>Last Updated: December 1, 2025</p>
 
         <div className="space-y-6">
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>1. Introduction</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -44,7 +44,7 @@ export function TermsOfServiceScreen({ onBack }: TermsOfServiceScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>2. User Responsibilities</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
@@ -54,7 +54,7 @@ export function TermsOfServiceScreen({ onBack }: TermsOfServiceScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>3. Service Usage</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
@@ -64,7 +64,7 @@ export function TermsOfServiceScreen({ onBack }: TermsOfServiceScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>4. Payment Terms</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.
@@ -74,7 +74,7 @@ export function TermsOfServiceScreen({ onBack }: TermsOfServiceScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>5. Privacy and Data</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
@@ -84,7 +84,7 @@ export function TermsOfServiceScreen({ onBack }: TermsOfServiceScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>6. Limitation of Liability</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
@@ -94,7 +94,7 @@ export function TermsOfServiceScreen({ onBack }: TermsOfServiceScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>7. Termination</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -104,7 +104,7 @@ export function TermsOfServiceScreen({ onBack }: TermsOfServiceScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>8. Contact Information</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               If you have any questions about these Terms of Service, please contact us:

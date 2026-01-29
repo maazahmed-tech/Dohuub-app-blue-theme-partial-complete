@@ -38,7 +38,7 @@ export function LocationSelectorModal({
   };
 
   return (
-    <div className="absolute inset-0 backdrop-blur-modal flex items-end z-50 animate-fade-in">
+    <div className="absolute inset-0 backdrop-blur-modal flex items-end z-50">
       <div className="w-full rounded-t-3xl max-h-[80vh] flex flex-col glass shadow-premium-xl animate-slide-up" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.5)' }}>
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: 'rgba(46, 122, 217, 0.1)' }}>

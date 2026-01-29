@@ -80,7 +80,7 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
       <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Address Type Selection */}
-          <div className="animate-fade-in-up">
+          <div className="">
             <label className="block mb-3" style={{ color: 'var(--foreground)' }}>Address Type</label>
             <div className="grid grid-cols-3 gap-3">
               <button
@@ -139,7 +139,7 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
 
           {/* Custom Label */}
           {addressType === 'Other' && (
-            <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+            <div className="">
               <label className="block mb-2" style={{ color: 'var(--foreground)' }}>Label</label>
               <input
                 type="text"
@@ -159,7 +159,7 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
           )}
 
           {/* Country */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="">
             <label className="block mb-2" style={{ color: 'var(--foreground)' }}>Country</label>
             <input
               type="text"
@@ -178,7 +178,7 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
           </div>
 
           {/* Street Address */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <label className="block mb-2" style={{ color: 'var(--foreground)' }}>Street Address</label>
             <input
               type="text"
@@ -197,7 +197,7 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
           </div>
 
           {/* City */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="">
             <label className="block mb-2" style={{ color: 'var(--foreground)' }}>City</label>
             <input
               type="text"
@@ -216,7 +216,7 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
           </div>
 
           {/* State & Zip Code */}
-          <div className="grid grid-cols-2 gap-4 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block mb-2" style={{ color: 'var(--foreground)' }}>State</label>
               <input
@@ -254,7 +254,7 @@ export function AddAddressScreen({ onBack, onSave, defaultType }: AddAddressScre
           </div>
 
           {/* Additional Instructions */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="">
             <label className="block mb-2" style={{ color: 'var(--foreground)' }}>Delivery Instructions (Optional)</label>
             <textarea
               placeholder="e.g., Ring doorbell twice, Leave at door"

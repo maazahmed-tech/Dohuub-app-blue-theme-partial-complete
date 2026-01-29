@@ -31,10 +31,10 @@ export function PrivacyPolicyScreen({ onBack }: PrivacyPolicyScreenProps) {
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
-        <p className="mb-6 animate-fade-in" style={{ color: 'var(--muted-foreground)' }}>Last Updated: December 1, 2025</p>
+        <p className="mb-6" style={{ color: 'var(--muted-foreground)' }}>Last Updated: December 1, 2025</p>
 
         <div className="space-y-6">
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>Introduction</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -44,7 +44,7 @@ export function PrivacyPolicyScreen({ onBack }: PrivacyPolicyScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>1. Information We Collect</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
@@ -54,7 +54,7 @@ export function PrivacyPolicyScreen({ onBack }: PrivacyPolicyScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>2. How We Use Your Information</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Consectetur adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.
@@ -64,7 +64,7 @@ export function PrivacyPolicyScreen({ onBack }: PrivacyPolicyScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>3. Information Sharing</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
@@ -74,7 +74,7 @@ export function PrivacyPolicyScreen({ onBack }: PrivacyPolicyScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>4. Data Security</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
@@ -84,7 +84,7 @@ export function PrivacyPolicyScreen({ onBack }: PrivacyPolicyScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>5. Your Rights</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
@@ -94,7 +94,7 @@ export function PrivacyPolicyScreen({ onBack }: PrivacyPolicyScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>6. Cookies and Tracking</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
@@ -104,7 +104,7 @@ export function PrivacyPolicyScreen({ onBack }: PrivacyPolicyScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>7. Data Retention</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
@@ -114,7 +114,7 @@ export function PrivacyPolicyScreen({ onBack }: PrivacyPolicyScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.45s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>8. Changes to This Policy</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.
@@ -124,7 +124,7 @@ export function PrivacyPolicyScreen({ onBack }: PrivacyPolicyScreenProps) {
             </p>
           </section>
 
-          <section className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+          <section className="">
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>9. Contact Us</h4>
             <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>
               If you have any questions about this Privacy Policy, please contact us:

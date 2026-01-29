@@ -141,7 +141,7 @@ export function RideBookingFormScreen({
         <div className="px-6 py-6 space-y-6">
           {/* Provider Info */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="p-4 rounded-xl shadow-card"
             style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Booking with</p>
@@ -149,7 +149,7 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Passenger Details */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Passenger Details</h3>
             <div className="space-y-3">
               <div>
@@ -186,7 +186,7 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Vehicle Type */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Vehicle Type</h3>
             <div className="space-y-2">
               {provider.vehicleTypes.map(type => (
@@ -209,7 +209,7 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Pickup Address */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Pickup Address *</h3>
             <div className="space-y-2">
               {savedAddresses.map(addr => (
@@ -232,7 +232,7 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Date & Time */}
-          <div className="grid grid-cols-2 gap-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>Date *</label>
               <input
@@ -264,7 +264,7 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Duration */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Duration</h3>
             <select
               value={duration}
@@ -283,7 +283,7 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Number of Passengers */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Number of Passengers</h3>
             <input
               type="number"
@@ -301,7 +301,7 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Stops */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+          <div className="">
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Stops (Optional)</h3>
               <button
@@ -347,8 +347,8 @@ export function RideBookingFormScreen({
 
           {/* Round Trip */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.4s' }}
+            className="p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex items-center justify-between mb-2">
               <div>
@@ -391,7 +391,7 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Special Requests */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.45s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Special Requests (Optional)</h3>
             <textarea
               value={specialRequests}
@@ -408,7 +408,7 @@ export function RideBookingFormScreen({
           </div>
 
           {/* Payment Method */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Payment Method *</h3>
             <div className="space-y-2">
               {paymentMethods.map(method => (
@@ -434,8 +434,8 @@ export function RideBookingFormScreen({
 
           {/* Price Summary */}
           <div
-            className="p-4 rounded-xl shadow-card space-y-2 animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.55s' }}
+            className="p-4 rounded-xl shadow-card space-y-2"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex justify-between">
               <span style={{ color: 'var(--muted-foreground)' }}>Hourly Rate</span>
@@ -455,11 +455,11 @@ export function RideBookingFormScreen({
           {/* Points Preview - Only for Powered by DoHuub providers */}
           {provider.isPoweredByDoHuub && (
             <div
-              className="p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+              className="p-4 rounded-xl shadow-premium-sm"
               style={{
                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
                 border: '1px solid rgba(245, 158, 11, 0.3)',
-                animationDelay: '0.6s'
+                
               }}
             >
               <div className="flex items-center justify-between">
@@ -499,7 +499,7 @@ export function RideBookingFormScreen({
 
       {/* Add Stop Modal */}
       {showAddStopModal && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center p-6 animate-fade-in">
+        <div className="absolute inset-0 z-50 flex items-center justify-center p-6">
           <div
             className="absolute inset-0"
             style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(4px)' }}

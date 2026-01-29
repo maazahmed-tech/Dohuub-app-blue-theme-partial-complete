@@ -37,7 +37,7 @@ export function OrderHistoryScreen({ bookings, onBack, onReorder }: OrderHistory
       </div>
 
       {/* Filter */}
-      <div className="px-6 py-4 relative z-10 animate-fade-in-up">
+      <div className="px-6 py-4 relative z-10">
         <select
           className="w-full px-4 py-3 rounded-xl shadow-card outline-none transition-all duration-300 focus:shadow-glow"
           style={{
@@ -56,7 +56,7 @@ export function OrderHistoryScreen({ bookings, onBack, onReorder }: OrderHistory
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-4 relative z-10">
         {bookings.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center animate-fade-in-up">
+          <div className="h-full flex flex-col items-center justify-center">
             <div
               className="w-32 h-32 rounded-full flex items-center justify-center mb-6 shadow-premium-lg"
               style={{ backgroundColor: 'var(--card)' }}
@@ -70,11 +70,10 @@ export function OrderHistoryScreen({ bookings, onBack, onReorder }: OrderHistory
             {bookings.map((booking, index) => (
               <div
                 key={booking.id}
-                className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+                className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm"
                 style={{
                   backgroundColor: 'var(--card)',
-                  animationDelay: `${index * 0.05}s`
-                }}
+                                  }}
               >
                 <div className="flex gap-4 mb-4">
                   <div

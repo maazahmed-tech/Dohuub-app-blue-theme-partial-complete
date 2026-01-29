@@ -144,7 +144,7 @@ export function PropertyBookingScreen({
         <div className="space-y-6">
           {/* Property Summary */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
               border: '1px solid rgba(20, 184, 166, 0.3)'
@@ -186,8 +186,8 @@ export function PropertyBookingScreen({
           {/* Special Requests */}
           {specialRequests && (
             <div
-              className="p-4 rounded-xl shadow-card animate-fade-in-up"
-              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+              className="p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Special Requests</h3>
               <p style={{ color: 'var(--muted-foreground)' }}>{specialRequests}</p>
@@ -195,7 +195,7 @@ export function PropertyBookingScreen({
           )}
 
           {/* Billing Address (Auto-selected) */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Billing Address</h3>
             {selectedAddress ? (
               <div
@@ -223,7 +223,7 @@ export function PropertyBookingScreen({
           </div>
 
           {/* Payment Method Selection */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Payment Method</h3>
             {selectedCard ? (
               <button
@@ -260,7 +260,7 @@ export function PropertyBookingScreen({
 
           {/* Points Redemption - Only for Powered by DoHuub properties */}
           {property.isPoweredByDoHuub && availablePoints > 0 && (
-            <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <div className="">
               <PointsRedemptionCard
                 availablePoints={availablePoints}
                 selectedPoints={pointsToRedeem}
@@ -274,11 +274,11 @@ export function PropertyBookingScreen({
 
           {/* Price Summary */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
               border: '1px solid rgba(20, 184, 166, 0.3)',
-              animationDelay: '0.25s'
+              
             }}
           >
             <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Total Amount</h3>
@@ -303,11 +303,11 @@ export function PropertyBookingScreen({
           {/* Points Preview - Only for Powered by DoHuub properties */}
           {property.isPoweredByDoHuub && (
             <div
-              className="p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+              className="p-4 rounded-xl shadow-premium-sm"
               style={{
                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
                 border: '1px solid rgba(245, 158, 11, 0.3)',
-                animationDelay: '0.3s'
+                
               }}
             >
               <div className="flex items-center justify-between">
@@ -324,7 +324,7 @@ export function PropertyBookingScreen({
           )}
 
           {/* Terms & Conditions */}
-          <div className="flex items-start gap-3 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+          <div className="flex items-start gap-3">
             <input
               type="checkbox"
               id="terms"
@@ -354,7 +354,7 @@ export function PropertyBookingScreen({
 
       {/* Payment Card Selection Bottom Sheet */}
       {showCardSheet && (
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end animate-fade-in">
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-end">
           <div
             className="w-full rounded-t-3xl max-h-[70vh] overflow-y-auto animate-slide-up shadow-premium-lg"
             style={{ backgroundColor: 'var(--background)' }}
@@ -380,12 +380,11 @@ export function PropertyBookingScreen({
                     setSelectedCard(card);
                     setShowCardSheet(false);
                   }}
-                  className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+                  className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
                   style={{
                     backgroundColor: selectedCard?.id === card.id ? 'rgba(20, 184, 166, 0.1)' : 'var(--card)',
                     border: selectedCard?.id === card.id ? '2px solid rgb(20, 184, 166)' : '1px solid var(--border)',
-                    animationDelay: `${index * 0.05}s`
-                  }}
+                                      }}
                 >
                   <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>•••• {card.cardNumber.slice(-4)}</p>
                   <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{card.cardholderName}</p>

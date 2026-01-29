@@ -47,7 +47,7 @@ export function ManualLocationScreen({ onConfirm }: ManualLocationScreenProps) {
         </div>
 
         {/* Search Input */}
-        <div className="relative animate-fade-in-up">
+        <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--muted-foreground)' }} />
           <input
             type="text"
@@ -67,7 +67,7 @@ export function ManualLocationScreen({ onConfirm }: ManualLocationScreenProps) {
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-4 relative z-10">
         <div className="mb-4">
-          <p className="mb-3 animate-fade-in-up" style={{ color: 'var(--muted-foreground)' }}>Popular Cities</p>
+          <p className="mb-3" style={{ color: 'var(--muted-foreground)' }}>Popular Cities</p>
           <div className="space-y-3">
             {locations.map((loc, index) => {
               const isSelected = selected === `${loc.city}, ${loc.country}`;
@@ -75,12 +75,11 @@ export function ManualLocationScreen({ onConfirm }: ManualLocationScreenProps) {
                 <button
                   key={`${loc.city}-${loc.country}`}
                   onClick={() => setSelected(`${loc.city}, ${loc.country}`)}
-                  className="w-full p-4 rounded-xl text-left flex items-center gap-3 shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+                  className="w-full p-4 rounded-xl text-left flex items-center gap-3 shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
                   style={{
                     backgroundColor: isSelected ? 'rgba(46, 122, 217, 0.1)' : 'var(--card)',
                     border: isSelected ? '2px solid var(--primary)' : '1px solid var(--border)',
-                    animationDelay: `${0.05 + index * 0.05}s`
-                  }}
+                                      }}
                 >
                   <div
                     className="w-10 h-10 rounded-full flex items-center justify-center"

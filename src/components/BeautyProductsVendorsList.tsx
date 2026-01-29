@@ -137,11 +137,10 @@ export function BeautyProductsVendorsList({
           {vendors.map((vendor, index) => (
             <div
               key={vendor.id}
-              className="w-full rounded-xl p-4 shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up"
+              className="w-full rounded-xl p-4 shadow-card transition-all duration-300 hover:shadow-premium-sm"
               style={{
                 backgroundColor: 'var(--card)',
-                animationDelay: `${index * 0.05}s`
-              }}
+                              }}
             >
               <div className="flex items-start gap-4 mb-3">
                 {/* Vendor Image Placeholder */}

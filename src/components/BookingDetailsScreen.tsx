@@ -46,7 +46,7 @@ export function BookingDetailsScreen({ booking, onBack, onRate }: BookingDetails
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Status Timeline */}
-        <div className="mb-8 animate-fade-in-up">
+        <div className="mb-8">
           <p className="font-medium mb-4" style={{ color: 'var(--foreground)' }}>Status</p>
           <div className="relative pl-8">
             {timelineSteps.map((step, index) => (
@@ -83,8 +83,8 @@ export function BookingDetailsScreen({ booking, onBack, onRate }: BookingDetails
 
         {/* Service Details Card */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card space-y-4 animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', animationDelay: '0.1s' }}
+          className="mb-6 p-4 rounded-xl shadow-card space-y-4"
+          style={{ backgroundColor: 'var(--card)' }}
         >
           <div>
             <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Service</p>
@@ -123,7 +123,7 @@ export function BookingDetailsScreen({ booking, onBack, onRate }: BookingDetails
         </div>
 
         {/* Quick Actions */}
-        <div className="mb-6 space-y-3 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        <div className="mb-6 space-y-3">
           <button
             className="w-full p-4 rounded-xl flex items-center gap-3 shadow-card transition-all duration-300 hover:shadow-premium-sm"
             style={{ backgroundColor: 'var(--card)' }}
@@ -152,8 +152,8 @@ export function BookingDetailsScreen({ booking, onBack, onRate }: BookingDetails
 
         {/* Payment Receipt */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', animationDelay: '0.2s' }}
+          className="mb-6 p-4 rounded-xl shadow-card"
+          style={{ backgroundColor: 'var(--card)' }}
         >
           <div className="flex items-center justify-between mb-4">
             <p className="font-medium" style={{ color: 'var(--foreground)' }}>Payment Receipt</p>
@@ -191,8 +191,8 @@ export function BookingDetailsScreen({ booking, onBack, onRate }: BookingDetails
         {/* Rate Experience (if completed) */}
         {booking?.status === 'Completed' && (
           <div
-            className="p-6 rounded-xl text-center shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', animationDelay: '0.25s' }}
+            className="p-6 rounded-xl text-center shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <p className="mb-4 font-medium" style={{ color: 'var(--foreground)' }}>How was your experience?</p>
             <button

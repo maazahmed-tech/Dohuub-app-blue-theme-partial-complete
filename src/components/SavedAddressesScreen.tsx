@@ -51,11 +51,10 @@ export function SavedAddressesScreen({ onBack, addresses, onAddAddress, onEditAd
               return (
                 <div
                   key={addr.id}
-                  className={`p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm animate-fade-in-up ${addr.isDefault ? 'accent-border-left' : ''}`}
+                  className={`p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm ${addr.isDefault ? 'accent-border-left' : ''}`}
                   style={{
                     backgroundColor: 'var(--card)',
-                    animationDelay: `${index * 0.05}s`
-                  }}
+                                      }}
                 >
                   <div className="flex gap-4">
                     <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm" style={{ backgroundColor: 'var(--secondary)' }}>
@@ -104,7 +103,7 @@ export function SavedAddressesScreen({ onBack, addresses, onAddAddress, onEditAd
             })}
           </div>
         ) : (
-          <div className="text-center py-12 animate-fade-in-up">
+          <div className="text-center py-12">
             <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-premium-lg" style={{ backgroundColor: 'var(--secondary)' }}>
               <MapPin className="w-10 h-10" style={{ color: 'var(--muted-foreground)', opacity: 0.5 }} />
             </div>
@@ -115,8 +114,8 @@ export function SavedAddressesScreen({ onBack, addresses, onAddAddress, onEditAd
 
         <button
           onClick={onAddAddress}
-          className="w-full p-4 border-2 border-dashed rounded-xl flex items-center justify-center gap-3 transition-all duration-300 hover:border-[var(--primary)] hover:shadow-card animate-fade-in-up"
-          style={{ borderColor: 'var(--border)', animationDelay: `${addresses.length * 0.05 + 0.1}s` }}
+          className="w-full p-4 border-2 border-dashed rounded-xl flex items-center justify-center gap-3 transition-all duration-300 hover:border-[var(--primary)] hover:shadow-card"
+          style={{ borderColor: 'var(--border)' }}
         >
           <Plus className="w-6 h-6" style={{ color: 'var(--primary)' }} />
           <span style={{ color: 'var(--foreground)' }}>Add New Address</span>

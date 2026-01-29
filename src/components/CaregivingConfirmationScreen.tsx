@@ -37,7 +37,7 @@ export function CaregivingConfirmationScreen({
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Success Header */}
-      <div className="px-6 py-8 text-center relative z-10 animate-fade-in-up">
+      <div className="px-6 py-8 text-center relative z-10">
         <div
           className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-premium-md animate-scale-in"
           style={{ background: gradientColor }}
@@ -58,7 +58,7 @@ export function CaregivingConfirmationScreen({
         <div className="px-6 pb-6 space-y-6">
           {/* Reference Number */}
           <div
-            className="p-4 rounded-xl text-center shadow-card animate-fade-in-up"
+            className="p-4 rounded-xl text-center shadow-card"
             style={{
               background: serviceType === 'ride'
                 ? 'linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(139, 92, 246, 0.1))'
@@ -74,10 +74,10 @@ export function CaregivingConfirmationScreen({
           {((serviceType === 'ride' && bookingData.provider?.isPoweredByDoHuub) ||
             (serviceType === 'companionship' && bookingData.companion?.isPoweredByDoHuub)) && (
             <div
-              className="p-6 rounded-xl text-center shadow-premium-md animate-fade-in-up"
+              className="p-6 rounded-xl text-center shadow-premium-md"
               style={{
                 background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(249, 115, 22))',
-                animationDelay: '0.05s'
+                
               }}
             >
               <div className="flex items-center justify-center gap-3 mb-2">
@@ -102,8 +102,8 @@ export function CaregivingConfirmationScreen({
           {/* Provider/Companion Info */}
           {serviceType === 'ride' ? (
             <div
-              className="p-4 rounded-xl shadow-card animate-fade-in-up"
-              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+              className="p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Ride Provider</h3>
               <p className="font-medium mb-2" style={{ color: 'var(--foreground)' }}>{bookingData.provider.name}</p>
@@ -120,8 +120,8 @@ export function CaregivingConfirmationScreen({
             </div>
           ) : (
             <div
-              className="p-4 rounded-xl shadow-card animate-fade-in-up"
-              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+              className="p-4 rounded-xl shadow-card"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
               <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Your Companion</h3>
               <div className="flex items-center gap-3 mb-3">
@@ -148,8 +148,8 @@ export function CaregivingConfirmationScreen({
 
           {/* Booking Details */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+            className="p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Booking Details</h3>
             <div className="space-y-2">
@@ -216,8 +216,8 @@ export function CaregivingConfirmationScreen({
 
           {/* Payment Info */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.2s' }}
+            className="p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Payment</h3>
             <div className="space-y-2">

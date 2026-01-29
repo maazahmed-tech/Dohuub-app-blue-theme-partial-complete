@@ -54,7 +54,7 @@ export function RatingReviewScreen({ booking, onBack, onSubmit }: RatingReviewSc
       <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
         {/* Booking Info */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          className="mb-6 p-4 rounded-xl shadow-card"
           style={{ backgroundColor: 'var(--card)' }}
         >
           <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{booking?.service}</p>
@@ -62,7 +62,7 @@ export function RatingReviewScreen({ booking, onBack, onSubmit }: RatingReviewSc
         </div>
 
         {/* Rating Stars */}
-        <div className="mb-8 text-center animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <div className="mb-8 text-center">
           <p className="mb-4 font-medium" style={{ color: 'var(--foreground)' }}>How was your experience?</p>
           <div className="flex justify-center gap-2 mb-3">
             {[1, 2, 3, 4, 5].map((star) => (
@@ -86,7 +86,7 @@ export function RatingReviewScreen({ booking, onBack, onSubmit }: RatingReviewSc
           </div>
           {rating > 0 && (
             <p
-              className="font-medium animate-fade-in-up"
+              className="font-medium"
               style={{ color: 'var(--primary)' }}
             >
               {ratingLabels[rating - 1]}
@@ -95,7 +95,7 @@ export function RatingReviewScreen({ booking, onBack, onSubmit }: RatingReviewSc
         </div>
 
         {/* Review Text */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        <div className="mb-6">
           <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Share more details (optional)</label>
           <textarea
             value={review}
@@ -118,7 +118,7 @@ export function RatingReviewScreen({ booking, onBack, onSubmit }: RatingReviewSc
         </div>
 
         {/* Photo Upload */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="mb-6">
           <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Add Photos (optional)</label>
           <button
             className="w-full p-8 rounded-xl flex flex-col items-center gap-2 transition-all duration-300 hover:shadow-card"

@@ -28,7 +28,7 @@ export function PaymentProcessingScreen({ onComplete }: PaymentProcessingScreenP
 
       <div className="text-center relative z-10">
         {status === 'processing' ? (
-          <div className="animate-fade-in-up">
+          <div className="">
             <div className="mb-8 flex justify-center">
               <div
                 className="w-24 h-24 rounded-full flex items-center justify-center shadow-premium-md"

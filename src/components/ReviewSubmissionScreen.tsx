@@ -81,7 +81,7 @@ export function ReviewSubmissionScreen({
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
         {/* Service Info */}
         <div
-          className="mb-6 p-4 rounded-xl shadow-card animate-fade-in-up"
+          className="mb-6 p-4 rounded-xl shadow-card"
           style={{ backgroundColor: 'var(--card)' }}
         >
           <div className="flex gap-3">
@@ -105,7 +105,7 @@ export function ReviewSubmissionScreen({
         </div>
 
         {/* Star Rating */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <div className="mb-6">
           <label className="block mb-3 font-medium" style={{ color: 'var(--foreground)' }}>Rate Your Experience *</label>
           <div
             className="flex items-center justify-center gap-2 p-6 rounded-xl shadow-card"
@@ -130,14 +130,14 @@ export function ReviewSubmissionScreen({
             ))}
           </div>
           {rating > 0 && (
-            <p className="text-center mt-2 font-medium animate-fade-in-up" style={{ color: 'var(--primary)' }}>
+            <p className="text-center mt-2 font-medium" style={{ color: 'var(--primary)' }}>
               {getRatingLabel(rating)}
             </p>
           )}
         </div>
 
         {/* Review Text */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+        <div className="mb-6">
           <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Write Your Review *</label>
           <textarea
             value={reviewText}
@@ -161,7 +161,7 @@ export function ReviewSubmissionScreen({
         </div>
 
         {/* Image Upload */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        <div className="mb-6">
           <label className="block mb-2 font-medium" style={{ color: 'var(--foreground)' }}>Add Photos (Optional)</label>
           <div className="flex items-center gap-2 flex-wrap">
             {images.map((image, index) => (

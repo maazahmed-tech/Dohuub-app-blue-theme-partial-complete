@@ -122,7 +122,7 @@ export function FoodGroceryCheckoutScreen({
       <div className="flex-1 overflow-y-auto px-6 py-6 pb-32 relative z-10">
         {/* Delivery Address */}
         {selectedAddress && (
-          <div className="mb-6 animate-fade-in-up">
+          <div className="mb-6">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Delivery Address</h3>
             <div
               className="rounded-xl p-4 shadow-card"
@@ -142,7 +142,7 @@ export function FoodGroceryCheckoutScreen({
         )}
 
         {/* Order Items */}
-        <div className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+        <div className="mb-6">
           <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Order Items</h3>
           <div className="space-y-3">
             {cartItems.map((item, index) => (
@@ -198,7 +198,7 @@ export function FoodGroceryCheckoutScreen({
 
         {/* Points Redemption - Only for Powered by DoHuub vendors */}
         {vendor.isPoweredByDoHuub && availablePoints > 0 && (
-          <div className="mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="mb-4">
             <PointsRedemptionCard
               availablePoints={availablePoints}
               selectedPoints={pointsToRedeem}
@@ -212,8 +212,8 @@ export function FoodGroceryCheckoutScreen({
 
         {/* Price Breakdown */}
         <div
-          className="rounded-xl p-4 shadow-card animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.15s' }}
+          className="rounded-xl p-4 shadow-card"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
         >
           <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Price Details</h3>
           <div className="space-y-2">
@@ -247,11 +247,11 @@ export function FoodGroceryCheckoutScreen({
         {/* Points Preview - Only for Powered by DoHuub vendors */}
         {vendor.isPoweredByDoHuub && (
           <div
-            className="mt-4 p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+            className="mt-4 p-4 rounded-xl shadow-premium-sm"
             style={{
               background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
               border: '1px solid rgba(245, 158, 11, 0.3)',
-              animationDelay: '0.2s'
+              
             }}
           >
             <div className="flex items-center justify-between">

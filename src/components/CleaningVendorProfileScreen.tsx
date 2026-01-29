@@ -72,7 +72,7 @@ export function CleaningVendorProfileScreen({
       <div className="flex-1 overflow-y-auto relative z-10">
         <div className="px-6 py-6 space-y-6">
           {/* Vendor Header */}
-          <div className="text-center animate-fade-in-up">
+          <div className="text-center">
             <div
               className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-premium-lg"
               style={{ background: 'var(--primary-gradient)' }}
@@ -96,8 +96,8 @@ export function CleaningVendorProfileScreen({
 
           {/* About */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', animationDelay: '0.05s' }}
+            className="p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)' }}
           >
             <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>About</h3>
             <p style={{ color: 'var(--muted-foreground)' }}>
@@ -106,7 +106,7 @@ export function CleaningVendorProfileScreen({
           </div>
 
           {/* Service Information */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="">
             <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Service Information</h3>
             <div className="space-y-3">
               <div
@@ -156,7 +156,7 @@ export function CleaningVendorProfileScreen({
           </div>
 
           {/* Services Offered */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <h3 className="font-medium mb-3" style={{ color: 'var(--foreground)' }}>Services Offered</h3>
             <div className="space-y-3">
               {services.map((service, index) => (
@@ -191,7 +191,7 @@ export function CleaningVendorProfileScreen({
           </div>
 
           {/* Reviews & Ratings */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-medium" style={{ color: 'var(--foreground)' }}>Reviews & Ratings</h3>
               <button

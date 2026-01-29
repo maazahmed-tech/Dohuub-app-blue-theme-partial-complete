@@ -47,7 +47,7 @@ export function CompanionDetailScreen({
       <div className="flex-1 overflow-y-auto relative z-10">
         <div className="px-6 py-6 space-y-6">
           {/* Profile Info */}
-          <div className="flex items-start gap-4 animate-fade-in-up">
+          <div className="flex items-start gap-4">
             <div
               className="w-24 h-24 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-md"
               style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))' }}
@@ -77,11 +77,11 @@ export function CompanionDetailScreen({
 
           {/* Pricing */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(219, 39, 119, 0.1))',
               border: '1px solid rgba(236, 72, 153, 0.3)',
-              animationDelay: '0.05s'
+              
             }}
           >
             <div className="flex items-center justify-between">
@@ -93,11 +93,11 @@ export function CompanionDetailScreen({
           {/* Points Earning Banner */}
           {companion.isPoweredByDoHuub && (
             <div
-              className="p-4 rounded-xl shadow-premium-sm animate-fade-in-up"
+              className="p-4 rounded-xl shadow-premium-sm"
               style={{
                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
                 border: '1px solid rgba(245, 158, 11, 0.3)',
-                animationDelay: '0.1s'
+                
               }}
             >
               <div className="flex items-center gap-3">
@@ -120,13 +120,13 @@ export function CompanionDetailScreen({
           )}
 
           {/* Bio */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>About</h3>
             <p style={{ color: 'var(--muted-foreground)' }}>{companion.bio}</p>
           </div>
 
           {/* Certifications */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Certifications & Training</h3>
             <div className="space-y-2">
               {companion.certifications.map((cert, index) => (
@@ -143,7 +143,7 @@ export function CompanionDetailScreen({
           </div>
 
           {/* Specialties */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Specialties</h3>
             <div className="flex flex-wrap gap-2">
               {companion.specialties.map(specialty => (
@@ -159,7 +159,7 @@ export function CompanionDetailScreen({
           </div>
 
           {/* Languages */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="">
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Languages</h3>
             <div
               className="flex items-start gap-3 p-4 rounded-xl shadow-card"
@@ -171,7 +171,7 @@ export function CompanionDetailScreen({
           </div>
 
           {/* Reviews */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+          <div className="">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Reviews</h3>
               <button

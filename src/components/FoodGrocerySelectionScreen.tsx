@@ -48,7 +48,7 @@ export function FoodGrocerySelectionScreen({
         {/* Food Tile */}
         <button
           onClick={onFood}
-          className="flex-1 rounded-2xl p-8 shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98] flex flex-col items-center justify-center gap-4 animate-fade-in-up"
+          className="flex-1 rounded-2xl p-8 shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98] flex flex-col items-center justify-center gap-4"
           style={{
             backgroundColor: 'var(--card)',
             border: '1px solid var(--border)'
@@ -71,11 +71,11 @@ export function FoodGrocerySelectionScreen({
         {/* Grocery Tile */}
         <button
           onClick={onGrocery}
-          className="flex-1 rounded-2xl p-8 shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98] flex flex-col items-center justify-center gap-4 animate-fade-in-up"
+          className="flex-1 rounded-2xl p-8 shadow-card transition-all duration-300 hover:shadow-premium-md hover:scale-[1.02] active:scale-[0.98] flex flex-col items-center justify-center gap-4"
           style={{
             backgroundColor: 'var(--card)',
             border: '1px solid var(--border)',
-            animationDelay: '0.1s'
+            
           }}
         >
           <div

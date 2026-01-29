@@ -42,17 +42,17 @@ export function BookingConfirmationScreen({ booking, onViewDetails, onHome }: Bo
           <CheckCircle className="w-20 h-20" style={{ color: 'rgb(34, 197, 94)' }} strokeWidth={1.5} />
         </div>
 
-        <h2 className="text-2xl font-bold mb-2 animate-fade-in-up" style={{ color: 'var(--foreground)', animationDelay: '0.1s' }}>
+        <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>
           Booking Confirmed!
         </h2>
-        <p className="mb-8 animate-fade-in-up" style={{ color: 'var(--muted-foreground)', animationDelay: '0.15s' }}>
+        <p className="mb-8" style={{ color: 'var(--muted-foreground)' }}>
           Booking reference: #{booking?.id || 'DOH12345'}
         </p>
 
         {/* Booking Summary Card */}
         <div
-          className="w-full max-w-sm p-6 rounded-2xl shadow-premium-md space-y-4 mb-8 animate-fade-in-up"
-          style={{ backgroundColor: 'var(--card)', animationDelay: '0.2s' }}
+          className="w-full max-w-sm p-6 rounded-2xl shadow-premium-md space-y-4 mb-8"
+          style={{ backgroundColor: 'var(--card)' }}
         >
           <div>
             <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Service</p>
@@ -76,14 +76,14 @@ export function BookingConfirmationScreen({ booking, onViewDetails, onHome }: Bo
         </div>
 
         <p
-          className="text-center mb-8 animate-fade-in-up"
-          style={{ color: 'var(--muted-foreground)', animationDelay: '0.25s' }}
+          className="text-center mb-8"
+          style={{ color: 'var(--muted-foreground)' }}
         >
           You'll receive updates via notifications
         </p>
 
         {/* Action Buttons */}
-        <div className="w-full max-w-sm space-y-3 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+        <div className="w-full max-w-sm space-y-3">
           <button
             onClick={onViewDetails}
             className="w-full py-4 rounded-xl font-semibold text-white shadow-premium-md transition-all duration-300 hover:shadow-premium-lg hover:scale-[1.02] active:scale-[0.98]"

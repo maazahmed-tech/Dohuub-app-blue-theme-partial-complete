@@ -89,7 +89,7 @@ export function ServiceListingsScreen({ category, location, onBack, onServiceSel
 
         {/* Sort Dropdown */}
         <select
-          className="w-full px-4 py-3 rounded-xl outline-none shadow-card transition-all duration-300 focus:shadow-premium-sm animate-fade-in-up"
+          className="w-full px-4 py-3 rounded-xl outline-none shadow-card transition-all duration-300 focus:shadow-premium-sm"
           style={{
             backgroundColor: 'var(--card)',
             border: '1px solid var(--border)',
@@ -110,12 +110,11 @@ export function ServiceListingsScreen({ category, location, onBack, onServiceSel
             <button
               key={service.id}
               onClick={() => onServiceSelect(service)}
-              className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] animate-fade-in-up"
+              className="w-full p-4 rounded-xl text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99]"
               style={{
                 backgroundColor: 'var(--card)',
                 border: service.isPowered ? '2px solid var(--primary)' : '1px solid var(--border)',
-                animationDelay: `${index * 0.05}s`
-              }}
+                              }}
             >
               {/* Powered by DoHuub Badge */}
               {service.isPowered && (

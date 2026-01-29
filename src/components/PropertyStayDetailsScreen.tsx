@@ -81,7 +81,7 @@ export function PropertyStayDetailsScreen({
         <div className="space-y-6">
           {/* Property Summary */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
               border: '1px solid rgba(20, 184, 166, 0.3)'
@@ -107,8 +107,8 @@ export function PropertyStayDetailsScreen({
 
           {/* Selected Dates */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.05s' }}
+            className="p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <h3 className="font-semibold mb-3" style={{ color: 'var(--foreground)' }}>Your Dates</h3>
             <div className="space-y-2">
@@ -131,8 +131,8 @@ export function PropertyStayDetailsScreen({
 
           {/* Number of Guests */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
-            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', animationDelay: '0.1s' }}
+            className="p-4 rounded-xl shadow-card"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Number of Guests</h3>
 
@@ -196,7 +196,7 @@ export function PropertyStayDetailsScreen({
           </div>
 
           {/* Special Requests */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+          <div className="">
             <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>
               Special Requests <span style={{ color: 'var(--muted-foreground)' }}>(Optional)</span>
             </label>
@@ -216,11 +216,11 @@ export function PropertyStayDetailsScreen({
 
           {/* Price Breakdown */}
           <div
-            className="p-4 rounded-xl shadow-card animate-fade-in-up"
+            className="p-4 rounded-xl shadow-card"
             style={{
               background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(6, 148, 162, 0.1))',
               border: '1px solid rgba(20, 184, 166, 0.3)',
-              animationDelay: '0.2s'
+              
             }}
           >
             <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Price Breakdown</h3>
