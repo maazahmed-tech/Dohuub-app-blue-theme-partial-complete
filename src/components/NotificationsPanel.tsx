@@ -68,8 +68,15 @@ export function NotificationsPanel({
 
         {/* Header */}
         <div
-          className="px-6 py-4 glass relative z-10"
-          style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}
+          className="px-6 py-6 relative z-10"
+          style={{
+            background: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+            borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+            borderRadius: '0 0 24px 24px',
+          }}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

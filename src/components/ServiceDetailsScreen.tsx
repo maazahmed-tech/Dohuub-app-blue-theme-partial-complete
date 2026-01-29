@@ -46,10 +46,9 @@ export function ServiceDetailsScreen({ service, onBack, onBook, onReviews, onRep
         {/* Powered by DoHuub Badge */}
         {service.isPowered && (
           <div
-            className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full text-white shadow-premium-sm animate-fade-in-up"
+            className="mb-4 inline-flex items-center px-4 py-2 rounded-full text-white shadow-premium-sm animate-fade-in-up"
             style={{ background: 'var(--primary-gradient)' }}
           >
-            <Gift className="w-4 h-4" />
             Powered by DoHuub
           </div>
         )}

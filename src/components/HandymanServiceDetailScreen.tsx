@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, DollarSign, Clock, ChevronRight, Image as ImageIcon, Gift, Award } from 'lucide-react';
+import { ArrowLeft, Star, DollarSign, Clock, ChevronRight, Image as ImageIcon, Gift } from 'lucide-react';
 import type { HandymanService } from './HandymanVendorDetailScreen';
 import type { HandymanVendor } from './HandymanVendorsListScreen';
 
@@ -58,7 +58,17 @@ export function HandymanServiceDetailScreen({
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -116,8 +126,7 @@ export function HandymanServiceDetailScreen({
                       className="px-2 py-1 rounded-full text-xs flex items-center gap-1 text-white shadow-premium-sm"
                       style={{ background: 'var(--primary-gradient)' }}
                     >
-                      <Award className="w-3 h-3" />
-                      DoHuub
+                      Powered by DoHuub
                     </div>
                   )}
                 </div>

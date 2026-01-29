@@ -792,8 +792,45 @@ export default function App() {
         checkInInstructions: 'Street parking is available (check signs). The house has a red door with brass knocker. Keys are in the lockbox on the railing, code is 2468. Towels in the linen closet, extra blankets upstairs. Dog bowls and treats in the mudroom if you brought your pup! Prospect Park is 10-minute walk. Farmers market on Saturdays. Spare keys with neighbor at #156. Text Jennifer at (347) 555-0176 anytime. Hope you love Park Slope!'
       }
     ],
-    addresses: [],
-    selectedAddressId: '',
+    addresses: [
+      {
+        id: 1,
+        type: 'Home' as const,
+        label: 'Home',
+        street: '123 Main Street, Apt 4B',
+        city: 'New York',
+        state: 'NY',
+        zipCode: '10001',
+        country: 'USA',
+        fullAddress: '123 Main Street, Apt 4B, New York, NY 10001',
+        isDefault: true
+      },
+      {
+        id: 2,
+        type: 'Work' as const,
+        label: 'Work',
+        street: '456 Park Avenue, Suite 2000',
+        city: 'New York',
+        state: 'NY',
+        zipCode: '10022',
+        country: 'USA',
+        fullAddress: '456 Park Avenue, Suite 2000, New York, NY 10022',
+        isDefault: false
+      },
+      {
+        id: 3,
+        type: 'Other' as const,
+        label: 'Gym',
+        street: '789 Broadway',
+        city: 'New York',
+        state: 'NY',
+        zipCode: '10003',
+        country: 'USA',
+        fullAddress: '789 Broadway, New York, NY 10003',
+        isDefault: false
+      }
+    ],
+    selectedAddressId: '1',
     notifications: [
       {
         id: '1',
@@ -884,7 +921,26 @@ export default function App() {
         isRead: true
       }
     ],
-    paymentCards: [],
+    paymentCards: [
+      {
+        id: 1,
+        cardNumber: '4532123456789012',
+        cardholderName: 'John Doe',
+        expiryMonth: '12',
+        expiryYear: '2026',
+        cvv: '123',
+        isDefault: true
+      },
+      {
+        id: 2,
+        cardNumber: '5425123456789013',
+        cardholderName: 'John Doe',
+        expiryMonth: '06',
+        expiryYear: '2027',
+        cvv: '456',
+        isDefault: false
+      }
+    ],
     foodVendors: [],
     groceryVendors: [],
     cart: [],
@@ -2514,8 +2570,9 @@ export default function App() {
           }}
         />;
       case 'beautyServicesList':
-        return <BeautyServicesList 
+        return <BeautyServicesList
           providerName={appState.selectedBeautyServiceProvider?.name || 'Beauty Provider'}
+          isPoweredByDoHuub={appState.selectedBeautyServiceProvider?.isPoweredByDoHuub}
           onBack={() => navigate('beautyServicesVendorsList')}
           onSelectService={(service) => {
             updateAppState({ selectedBeautyService: service });
@@ -2611,8 +2668,9 @@ export default function App() {
           }}
         />;
       case 'beautyProductsCatalog':
-        return <BeautyProductsCatalog 
+        return <BeautyProductsCatalog
           vendorName={appState.selectedBeautyProductVendor?.name || 'Beauty Store'}
+          isPoweredByDoHuub={appState.selectedBeautyProductVendor?.isPoweredByDoHuub}
           onBack={() => navigate('beautyProductsVendorsList')}
           onAddToCart={(product) => {
             const existingItem = appState.beautyProductsCart.find(item => item.id === product.id);

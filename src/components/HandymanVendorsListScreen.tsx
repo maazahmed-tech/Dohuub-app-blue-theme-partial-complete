@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Gift, Award } from 'lucide-react';
+import { ArrowLeft, Star, Gift } from 'lucide-react';
 
 export interface HandymanVendor {
   id: string;
@@ -62,7 +62,17 @@ export function HandymanVendorsListScreen({ category, onBack, onVendorSelect }: 
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -100,22 +110,12 @@ export function HandymanVendorsListScreen({ category, onBack, onVendorSelect }: 
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
                     <h3 className="font-medium" style={{ color: 'var(--foreground)' }}>{vendor.name}</h3>
                     {vendor.isPoweredByDoHuub && (
-                      <>
-                        <div
-                          className="px-2 py-1 rounded-full text-xs flex items-center gap-1 text-white shadow-premium-sm"
-                          style={{ background: 'var(--primary-gradient)' }}
-                        >
-                          <Award className="w-3 h-3" />
-                          DoHuub
-                        </div>
-                        <span
-                          className="inline-flex items-center justify-center min-w-[52px] h-6 px-2 text-white text-xs font-bold rounded-full shadow-sm"
-                          style={{ backgroundColor: 'rgb(245, 158, 11)' }}
-                        >
-                          <Gift className="w-3 h-3 mr-1" />
-                          {vendor.startingPrice || 50}+
-                        </span>
-                      </>
+                      <div
+                        className="px-2 py-1 rounded-full text-xs flex items-center gap-1 text-white shadow-premium-sm"
+                        style={{ background: 'var(--primary-gradient)' }}
+                      >
+                        Powered by DoHuub
+                      </div>
                     )}
                   </div>
                   <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>{vendor.bio}</p>

@@ -1,8 +1,9 @@
-import { MapPin, Search, Home, Calendar, MessageCircle, User, Sparkles, Wrench, ShoppingBag, Scissors, Building2, Heart, Bell, Gift, Flame } from 'lucide-react';
+import { MapPin, Search, Sparkles, Wrench, ShoppingBag, Scissors, Building2, Heart, Bell, Gift, Flame, User } from 'lucide-react';
 import { useState } from 'react';
 import type { Screen } from '../App';
 import { LocationSelectorModal, Address } from './LocationSelectorModal';
 import { NotificationsPanel, Notification } from './NotificationsPanel';
+import { BottomNavigation } from './BottomNavigation';
 
 interface StreakMilestone {
   weeks: number;
@@ -73,12 +74,19 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
   };
 
   return (
-    <div className="h-full flex flex-col" style={{ backgroundColor: 'var(--background)' }}>
-      {/* Header with subtle pattern */}
-      <div className="px-6 py-4 border-b-2 relative overflow-hidden" style={{ borderColor: 'var(--border)' }}>
-        {/* Decorative pattern overlay */}
-        <div className="absolute inset-0 pattern-dots opacity-30 pointer-events-none" />
-
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      {/* Header with glassmorphism */}
+      <div
+        className="px-6 py-6 relative overflow-hidden z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center justify-between mb-4 relative z-10">
           <button
             onClick={handleLocationChange}
@@ -90,26 +98,6 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
             <span style={{ color: 'var(--muted-foreground)' }}>▼</span>
           </button>
           <div className="flex items-center gap-3">
-            {/* Streak Badge */}
-            {streakData && streakData.currentStreak > 0 && (
-              <button
-                onClick={() => navigate('rewardsWallet')}
-                className="flex items-center gap-1 px-2.5 py-1.5 bg-gradient-to-r from-orange-500 to-red-500 rounded-full text-white shadow-premium-md hover:shadow-premium-lg transition-all duration-300 hover:scale-105 active:scale-95"
-              >
-                <Flame className="w-4 h-4" />
-                <span className="font-semibold text-sm">{streakData.currentStreak}</span>
-              </button>
-            )}
-            {/* Points Badge */}
-            {rewardsWallet && rewardsWallet.totalPoints > 0 && (
-              <button
-                onClick={() => navigate('rewardsWallet')}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full text-white shadow-premium-md hover:shadow-premium-lg transition-all duration-300 hover:scale-105 active:scale-95"
-              >
-                <Gift className="w-4 h-4" />
-                <span className="font-semibold text-sm">{rewardsWallet.totalPoints.toLocaleString()}</span>
-              </button>
-            )}
             <button className="relative p-2 transition-all duration-200 hover:scale-110 active:scale-95" onClick={handleNotificationsPanelToggle}>
               <Bell className="w-6 h-6" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
               {unreadCount > 0 && <span className="absolute top-1 right-1 w-2 h-2 rounded-full animate-pulse-soft" style={{ backgroundColor: 'var(--destructive)' }}></span>}
@@ -164,17 +152,21 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
         <div className="px-6 pb-4 animate-fade-in-up">
           <button
             onClick={() => navigate('rewardsWallet')}
-            className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl shadow-premium-sm hover:shadow-premium-md hover:from-amber-100 hover:to-orange-100 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+            className="w-full flex items-center justify-between px-4 py-3 rounded-xl shadow-premium-sm hover:shadow-premium-md transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+            style={{
+              background: 'linear-gradient(to right, #FFFBEB, #FFF7ED)',
+              border: '1px solid #FDE68A'
+            }}
           >
             {rewardsWallet?.totalPoints > 0 && (
               <div className="flex items-center gap-2">
-                <Gift className="w-5 h-5 text-amber-600" />
+                <Gift className="w-5 h-5" style={{ color: '#D97706' }} />
                 <span className="font-semibold" style={{ color: 'var(--foreground)' }}>{rewardsWallet.totalPoints.toLocaleString()} pts</span>
               </div>
             )}
             {streakData && streakData.currentStreak > 0 && (
               <div className="flex items-center gap-2">
-                <Flame className="w-5 h-5 text-orange-500" />
+                <Flame className="w-5 h-5" style={{ color: '#F97316' }} />
                 <span className="font-semibold" style={{ color: 'var(--foreground)' }}>{streakData.currentStreak} week streak</span>
               </div>
             )}
@@ -226,27 +218,7 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
       </div>
 
       {/* Bottom Navigation */}
-      <div className="absolute bottom-0 left-0 right-0 px-6 py-4 glass shadow-premium-lg" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
-        <div className="flex justify-around">
-          <button className="flex flex-col items-center gap-1 nav-item-active relative">
-            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-8 h-1 rounded-full" style={{ background: 'var(--primary-gradient)' }} />
-            <Home className="w-6 h-6" style={{ color: 'var(--primary)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--primary)' }}>Home</span>
-          </button>
-          <button onClick={() => navigate('myBookings')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
-            <Calendar className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--muted-foreground)' }}>Bookings</span>
-          </button>
-          <button onClick={() => navigate('aiChat')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
-            <MessageCircle className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--muted-foreground)' }}>AI Assistant</span>
-          </button>
-          <button onClick={() => navigate('profile')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
-            <User className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--muted-foreground)' }}>Profile</span>
-          </button>
-        </div>
-      </div>
+      <BottomNavigation activeTab="home" navigate={navigate} />
 
       {/* Location Selector Modal */}
       <LocationSelectorModal

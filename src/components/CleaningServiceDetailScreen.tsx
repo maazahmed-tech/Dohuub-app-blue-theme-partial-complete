@@ -55,7 +55,17 @@ export function CleaningServiceDetailScreen({
   return (
     <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10 flex items-center gap-4" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10 flex items-center gap-4"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <button
           onClick={onBack}
           className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"

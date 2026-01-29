@@ -1,6 +1,7 @@
-import { Calendar, Sparkles, ChevronRight, Home, User, MessageCircle, Gift, Award } from 'lucide-react';
+import { Calendar, Sparkles, ChevronRight, Gift, Award } from 'lucide-react';
 import type { Screen } from '../App';
 import { useState } from 'react';
+import { BottomNavigation } from './BottomNavigation';
 
 interface MyBookingsScreenProps {
   bookings: any[];
@@ -22,9 +23,27 @@ export function MyBookingsScreen({ bookings, navigate, onBookingSelect }: MyBook
   });
 
   return (
-    <div className="h-full flex flex-col" style={{ backgroundColor: 'var(--background)' }}>
-      <div className="px-6 py-4 border-b glass" style={{ borderColor: 'rgba(46, 122, 217, 0.1)' }}>
-        <h3 style={{ color: 'var(--foreground)' }}>My Bookings</h3>
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
+        <h1
+          style={{
+            color: 'var(--foreground)',
+            fontSize: '20px',
+            fontWeight: 600,
+          }}
+        >
+          My Bookings
+        </h1>
       </div>
 
       <div className="px-6 py-4 border-b overflow-x-auto" style={{ borderColor: 'rgba(46, 122, 217, 0.1)' }}>
@@ -114,27 +133,7 @@ export function MyBookingsScreen({ bookings, navigate, onBookingSelect }: MyBook
       </div>
 
       {/* Bottom Navigation */}
-      <div className="absolute bottom-0 left-0 right-0 px-6 py-4 glass shadow-premium-lg" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
-        <div className="flex justify-around">
-          <button onClick={() => navigate('home')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
-            <Home className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--muted-foreground)' }}>Home</span>
-          </button>
-          <button className="flex flex-col items-center gap-1 nav-item-active relative">
-            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-8 h-1 rounded-full" style={{ background: 'var(--primary-gradient)' }} />
-            <Calendar className="w-6 h-6" style={{ color: 'var(--primary)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--primary)' }}>Bookings</span>
-          </button>
-          <button onClick={() => navigate('aiChat')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
-            <MessageCircle className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--muted-foreground)' }}>AI Assistant</span>
-          </button>
-          <button onClick={() => navigate('profile')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
-            <User className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--muted-foreground)' }}>Profile</span>
-          </button>
-        </div>
-      </div>
+      <BottomNavigation activeTab="bookings" navigate={navigate} />
     </div>
   );
 }

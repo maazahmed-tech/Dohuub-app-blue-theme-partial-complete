@@ -26,7 +26,17 @@ export function GroceryVendorProfileScreen({
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10 sticky top-0" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10 sticky top-0"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -53,10 +63,9 @@ export function GroceryVendorProfileScreen({
             <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>{vendor.name}</h2>
             {vendor.isPoweredByDoHuub && (
               <div
-                className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm text-white mb-3 shadow-premium-sm"
+                className="inline-flex items-center px-3 py-1 rounded-full text-sm text-white mb-3 shadow-premium-sm"
                 style={{ background: 'var(--primary-gradient)' }}
               >
-                <Award className="w-4 h-4" />
                 Powered by DoHuub
               </div>
             )}

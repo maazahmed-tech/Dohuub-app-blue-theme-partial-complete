@@ -1,4 +1,4 @@
-import { CheckCircle, Calendar, Users, CreditCard, Gift, Award } from 'lucide-react';
+import { CheckCircle, Calendar, Users, CreditCard, Gift } from 'lucide-react';
 import type { PropertyBookingData } from './PropertyBookingScreen';
 import type { Screen } from '../App';
 
@@ -111,8 +111,7 @@ export function PropertyConfirmationScreen({
                     className="inline-flex items-center gap-1 mt-1 px-2 py-1 text-white text-xs font-medium rounded-full shadow-premium-sm"
                     style={{ background: 'var(--primary-gradient)' }}
                   >
-                    <Award className="w-3 h-3" />
-                    DoHuub
+                    Powered by DoHuub
                   </span>
                 )}
               </div>

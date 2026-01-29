@@ -1,4 +1,4 @@
-import { ArrowLeft, Plus, ShoppingCart, Minus } from 'lucide-react';
+import { ArrowLeft, Plus, ShoppingCart, Minus, Gift } from 'lucide-react';
 import { useState } from 'react';
 
 interface BeautyProduct {
@@ -12,6 +12,7 @@ interface BeautyProduct {
 
 interface BeautyProductsCatalogProps {
   vendorName: string;
+  isPoweredByDoHuub?: boolean;
   onBack: () => void;
   onAddToCart: (product: BeautyProduct) => void;
   onRemoveFromCart: (productId: number) => void;
@@ -21,6 +22,7 @@ interface BeautyProductsCatalogProps {
 
 export function BeautyProductsCatalog({
   vendorName,
+  isPoweredByDoHuub,
   onBack,
   onAddToCart,
   onRemoveFromCart,
@@ -193,7 +195,17 @@ export function BeautyProductsCatalog({
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -206,6 +218,14 @@ export function BeautyProductsCatalog({
             <h1 className="font-semibold" style={{ color: 'var(--foreground)' }}>{vendorName}</h1>
             <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Browse products</p>
           </div>
+          {isPoweredByDoHuub && (
+            <div
+              className="px-2 py-0.5 rounded-full text-xs flex items-center text-white shadow-premium-sm"
+              style={{ background: 'var(--primary-gradient)' }}
+            >
+              Powered by DoHuub
+            </div>
+          )}
           {totalCartItems > 0 && (
             <button
               onClick={onViewCart}
@@ -246,6 +266,34 @@ export function BeautyProductsCatalog({
 
       {/* Products List */}
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
+        {/* Points Earning Banner */}
+        {isPoweredByDoHuub && (
+          <div
+            className="p-4 rounded-xl shadow-premium-sm mb-6"
+            style={{
+              background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
+              border: '1px solid rgba(245, 158, 11, 0.3)'
+            }}
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{ backgroundColor: 'rgba(245, 158, 11, 0.2)' }}
+              >
+                <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />
+              </div>
+              <div>
+                <p className="font-semibold" style={{ color: 'rgb(180, 83, 9)' }}>
+                  Earn points on this purchase
+                </p>
+                <p className="text-sm" style={{ color: 'rgb(217, 119, 6)' }}>
+                  1 point per $1 spent • Points added after delivery
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="space-y-3">
           {filteredProducts.map((product, index) => {
             const quantity = getProductQuantity(product.id);

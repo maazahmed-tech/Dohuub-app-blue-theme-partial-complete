@@ -60,7 +60,17 @@ export function FoodGroceryPaymentScreen({
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -155,12 +165,23 @@ export function FoodGroceryPaymentScreen({
       </div>
 
       {/* Confirm Payment Button */}
-      <div className="absolute bottom-0 left-0 right-0 px-6 py-4 glass z-20" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="absolute bottom-0 left-0 right-0 px-6 py-4"
+        style={{
+          background: 'rgba(255, 255, 255, 0.98)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderTop: '1px solid rgba(46, 122, 217, 0.1)',
+          boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.08)',
+          zIndex: 9999,
+          pointerEvents: 'auto'
+        }}
+      >
         <button
           onClick={handleConfirmPayment}
           disabled={cvv.length < 3 || isProcessing}
           className="w-full py-4 rounded-xl text-white font-medium transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-          style={{ background: 'var(--primary-gradient)' }}
+          style={{ background: 'var(--primary-gradient)', pointerEvents: 'auto' }}
         >
           {isProcessing ? 'Processing Payment...' : `Confirm Payment • $${total.toFixed(2)}`}
         </button>

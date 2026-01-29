@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Gift, Award } from 'lucide-react';
+import { ArrowLeft, Star, Gift } from 'lucide-react';
 import type { Vendor } from './VendorsListScreen';
 
 interface Service {
@@ -75,7 +75,17 @@ export function VendorDetailScreen({ vendor, onBack, onServiceSelect, onViewProf
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -104,22 +114,12 @@ export function VendorDetailScreen({ vendor, onBack, onServiceSelect, onViewProf
             <div className="flex items-center gap-2 mb-2 flex-wrap">
               <h2 className="font-bold text-lg" style={{ color: 'var(--foreground)' }}>{vendor.name}</h2>
               {vendor.isPoweredByDoHuub && (
-                <div className="flex items-center gap-2">
-                  <span
-                    className="px-2 py-1 text-white text-xs rounded-full flex items-center gap-1 shadow-premium-sm"
-                    style={{ background: 'var(--primary-gradient)' }}
-                  >
-                    <Award className="w-3 h-3" />
-                    DoHuub
-                  </span>
-                  <span
-                    className="inline-flex items-center justify-center h-6 px-2 text-white text-xs font-bold rounded-full shadow-premium-sm"
-                    style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(234, 88, 12))' }}
-                  >
-                    <Gift className="w-3 h-3 mr-1" />
-                    1pt/$1
-                  </span>
-                </div>
+                <span
+                  className="px-2 py-1 text-white text-xs rounded-full flex items-center gap-1 shadow-premium-sm"
+                  style={{ background: 'var(--primary-gradient)' }}
+                >
+                  Powered by DoHuub
+                </span>
               )}
             </div>
             <div className="flex items-center gap-2">
@@ -148,55 +148,67 @@ export function VendorDetailScreen({ vendor, onBack, onServiceSelect, onViewProf
         )}
       </div>
 
-      {/* Points Earning Banner for DoHuub vendors */}
-      {vendor.isPoweredByDoHuub && (
-        <div
-          className="px-6 py-3 glass relative z-10"
-          style={{
-            background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
-            borderBottom: '1px solid rgba(245, 158, 11, 0.3)'
-          }}
-        >
-          <div className="flex items-center gap-2">
-            <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />
-            <span className="font-medium" style={{ color: 'rgb(180, 83, 9)' }}>Earn 1 point per $1 spent</span>
-            <span className="text-sm" style={{ color: 'rgb(217, 119, 6)' }}>• Points added after service</span>
-          </div>
-        </div>
-      )}
-
       {/* Services Grid */}
       <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
+        {/* Points Earning Banner for DoHuub vendors */}
+        {vendor.isPoweredByDoHuub && (
+          <div
+            className="mb-6 p-4 rounded-xl shadow-premium-sm"
+            style={{
+              background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1))',
+              border: '1px solid rgba(245, 158, 11, 0.3)'
+            }}
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{ backgroundColor: 'rgba(245, 158, 11, 0.2)' }}
+              >
+                <Gift className="w-5 h-5" style={{ color: 'rgb(245, 158, 11)' }} />
+              </div>
+              <div>
+                <p className="font-semibold" style={{ color: 'rgb(180, 83, 9)' }}>
+                  Earn points on this service
+                </p>
+                <p className="text-sm" style={{ color: 'rgb(217, 119, 6)' }}>
+                  1 point per $1 spent • Points added after service completion
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <h3 className="font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Services Offered</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4" style={{ gridAutoRows: 'min-content' }}>
           {services.map((service, index) => (
             <button
               key={service.id}
               onClick={() => onServiceSelect(service, vendor)}
-              className="rounded-xl overflow-hidden text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up"
+              className="rounded-xl overflow-hidden text-left shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.02] active:scale-[0.98] animate-fade-in-up flex flex-col"
               style={{
                 backgroundColor: 'var(--card)',
                 border: '1px solid var(--border)',
-                animationDelay: `${index * 0.05}s`
+                animationDelay: `${index * 0.05}s`,
+                height: 'fit-content'
               }}
             >
               {/* Service Image */}
               <div
-                className="h-28 flex items-center justify-center"
+                className="h-24 flex items-center justify-center flex-shrink-0"
                 style={{ background: 'var(--primary-gradient)' }}
               >
-                <span className="text-white text-4xl">🧹</span>
+                <span className="text-white text-3xl">🧹</span>
               </div>
 
               {/* Service Info */}
-              <div className="p-3">
-                <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{service.name}</h4>
+              <div className="p-3 flex-1 flex flex-col">
+                <h4 className="font-medium text-sm mb-1 line-clamp-2" style={{ color: 'var(--foreground)' }}>{service.name}</h4>
                 <div className="flex items-center gap-1 mb-1">
                   <Star className="w-3 h-3" style={{ color: 'rgb(250, 204, 21)', fill: 'rgb(250, 204, 21)' }} />
-                  <span className="text-sm" style={{ color: 'var(--foreground)' }}>{service.rating}</span>
+                  <span className="text-xs" style={{ color: 'var(--foreground)' }}>{service.rating}</span>
                 </div>
-                <p className="text-sm line-clamp-1 mb-2" style={{ color: 'var(--muted-foreground)' }}>{service.description}</p>
-                <p className="font-semibold" style={{ color: 'var(--primary)' }}>{service.price}</p>
+                <p className="text-xs line-clamp-1 mb-2" style={{ color: 'var(--muted-foreground)' }}>{service.description}</p>
+                <p className="font-semibold text-sm mt-auto" style={{ color: 'var(--primary)' }}>{service.price}</p>
               </div>
             </button>
           ))}

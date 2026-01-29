@@ -1,6 +1,7 @@
-import { ArrowLeft, Send, Mic, Home, Calendar, MessageCircle, User, Bot } from 'lucide-react';
+import { ArrowLeft, Send, Mic, Bot } from 'lucide-react';
 import { useState } from 'react';
 import type { Screen } from '../App';
+import { BottomNavigation } from './BottomNavigation';
 
 interface AIChatScreenProps {
   navigate: (screen: Screen, data?: any) => void;
@@ -192,14 +193,32 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
   };
 
   return (
-    <div className="h-full flex flex-col" style={{ backgroundColor: 'var(--background)' }}>
-      <div className="px-6 py-4 border-b glass" style={{ borderColor: 'rgba(46, 122, 217, 0.1)' }}>
+    <div className="h-full flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--background)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center justify-between">
-          <h3 style={{ color: 'var(--foreground)' }}>AI Assistant</h3>
+          <h1
+            style={{
+              color: 'var(--foreground)',
+              fontSize: '20px',
+              fontWeight: 600,
+            }}
+          >
+            AI Assistant
+          </h1>
           <button
             onClick={handleNewChat}
-            className="px-3 py-1 rounded-xl shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-105 active:scale-95"
-            style={{ color: 'var(--foreground)', backgroundColor: 'rgba(255, 255, 255, 0.5)', border: '1px solid rgba(46, 122, 217, 0.1)' }}
+            className="px-4 py-2 rounded-xl shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-105 active:scale-95"
+            style={{ color: 'var(--primary)', backgroundColor: 'rgba(46, 122, 217, 0.1)', border: '1px solid rgba(46, 122, 217, 0.2)', fontWeight: 500 }}
           >
             New Chat
           </button>
@@ -327,8 +346,9 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 px-6 py-4 glass shadow-premium-lg" style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}>
-        <div className="flex gap-3 mb-4">
+      {/* Input Area */}
+      <div className="absolute left-0 right-0 px-6 py-3" style={{ bottom: '120px', background: 'var(--background)' }}>
+        <div className="flex gap-3">
           <input
             type="text"
             value={input}
@@ -336,11 +356,11 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Ask me anything..."
             className="flex-1 px-4 py-3 rounded-full outline-none transition-all duration-300 shadow-premium-sm focus-glow"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', color: 'var(--foreground)', border: '1px solid rgba(46, 122, 217, 0.1)' }}
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', color: 'var(--foreground)', border: '1px solid rgba(46, 122, 217, 0.1)' }}
           />
           <button
             className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm transition-all duration-300 hover:shadow-premium-md hover:scale-105 active:scale-95"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
           >
             <Mic className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} />
           </button>
@@ -356,28 +376,10 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
             <Send className="w-6 h-6" style={{ color: input.trim() ? 'white' : 'var(--muted-foreground)' }} />
           </button>
         </div>
-
-        {/* Bottom Navigation */}
-        <div className="flex justify-around">
-          <button onClick={() => navigate('home')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
-            <Home className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--muted-foreground)' }}>Home</span>
-          </button>
-          <button onClick={() => navigate('myBookings')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
-            <Calendar className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--muted-foreground)' }}>Bookings</span>
-          </button>
-          <button className="flex flex-col items-center gap-1 nav-item-active relative">
-            <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-8 h-1 rounded-full" style={{ background: 'var(--primary-gradient)' }} />
-            <MessageCircle className="w-6 h-6" style={{ color: 'var(--primary)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--primary)' }}>AI Assistant</span>
-          </button>
-          <button onClick={() => navigate('profile')} className="flex flex-col items-center gap-1 transition-all duration-200 hover:scale-110 active:scale-95">
-            <User className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span style={{ color: 'var(--muted-foreground)' }}>Profile</span>
-          </button>
-        </div>
       </div>
+
+      {/* Bottom Navigation */}
+      <BottomNavigation activeTab="aiChat" navigate={navigate} />
     </div>
   );
 }

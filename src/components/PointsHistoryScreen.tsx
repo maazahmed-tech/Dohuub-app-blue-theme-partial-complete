@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { ArrowLeft, TrendingUp, TrendingDown, Clock, Users, Gift, Home, Calendar, MessageCircle, User } from 'lucide-react';
+import { ArrowLeft, TrendingUp, TrendingDown, Clock, Users, Gift } from 'lucide-react';
 import type { Screen } from '../App';
+import { BottomNavigation } from './BottomNavigation';
 
 interface PointsHistoryScreenProps {
   navigate: (screen: Screen, data?: any) => void;
@@ -142,7 +143,17 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10 flex items-center gap-4" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10 flex items-center gap-4"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <button
           onClick={() => navigate('rewardsWallet')}
           className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
@@ -150,7 +161,7 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
         >
           <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} />
         </button>
-        <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Points History</h3>
+        <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>Points History</h3>
       </div>
 
       <div className="flex-1 overflow-y-auto pb-24 relative z-10">
@@ -293,29 +304,7 @@ export function PointsHistoryScreen({ navigate, pointsTransactions, totalPoints 
       </div>
 
       {/* Bottom Navigation */}
-      <div
-        className="absolute bottom-0 left-0 right-0 glass px-6 py-4"
-        style={{ borderTop: '1px solid rgba(46, 122, 217, 0.1)' }}
-      >
-        <div className="flex justify-around">
-          <button onClick={() => navigate('home')} className="flex flex-col items-center gap-1 transition-all duration-300">
-            <Home className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Home</span>
-          </button>
-          <button onClick={() => navigate('myBookings')} className="flex flex-col items-center gap-1 transition-all duration-300">
-            <Calendar className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Bookings</span>
-          </button>
-          <button onClick={() => navigate('aiChat')} className="flex flex-col items-center gap-1 transition-all duration-300">
-            <MessageCircle className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>AI Assistant</span>
-          </button>
-          <button onClick={() => navigate('profile')} className="flex flex-col items-center gap-1 transition-all duration-300">
-            <User className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} strokeWidth={2} />
-            <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Profile</span>
-          </button>
-        </div>
-      </div>
+      <BottomNavigation activeTab="none" navigate={navigate} />
     </div>
   );
 }

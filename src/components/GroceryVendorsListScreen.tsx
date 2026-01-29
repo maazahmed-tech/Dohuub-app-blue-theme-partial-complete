@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Clock, BadgeCheck, Image as ImageIcon, Gift, Award } from 'lucide-react';
+import { ArrowLeft, Star, Clock, BadgeCheck, Image as ImageIcon, Gift } from 'lucide-react';
 
 export interface GroceryVendor {
   id: number;
@@ -76,7 +76,17 @@ export function GroceryVendorsListScreen({
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -119,21 +129,11 @@ export function GroceryVendorsListScreen({
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <h3 className="font-semibold truncate" style={{ color: 'var(--foreground)' }}>{vendor.name}</h3>
                     {vendor.isPoweredByDoHuub && (
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <div
-                          className="flex items-center gap-1 px-2 py-1 rounded-full text-white shadow-premium-sm"
-                          style={{ background: 'var(--primary-gradient)' }}
-                        >
-                          <Award className="w-3 h-3" />
-                          <span className="text-xs font-medium">DoHuub</span>
-                        </div>
-                        <span
-                          className="inline-flex items-center justify-center h-6 px-2 text-white text-xs font-bold rounded-full shadow-premium-sm"
-                          style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(234, 88, 12))' }}
-                        >
-                          <Gift className="w-3 h-3 mr-1" />
-                          pts
-                        </span>
+                      <div
+                        className="flex items-center gap-1 px-2 py-1 rounded-full text-white shadow-premium-sm flex-shrink-0"
+                        style={{ background: 'var(--primary-gradient)' }}
+                      >
+                        <span className="text-xs font-medium">DoHuub</span>
                       </div>
                     )}
                   </div>

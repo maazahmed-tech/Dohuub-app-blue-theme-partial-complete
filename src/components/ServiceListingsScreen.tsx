@@ -57,7 +57,17 @@ export function ServiceListingsScreen({ category, location, onBack, onServiceSel
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
             <button
@@ -67,7 +77,7 @@ export function ServiceListingsScreen({ category, location, onBack, onServiceSel
             >
               <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
             </button>
-            <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>{category}</h3>
+            <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>{category}</h3>
           </div>
           <button
             className="p-2 rounded-xl transition-all duration-300 hover:shadow-card"
@@ -109,7 +119,7 @@ export function ServiceListingsScreen({ category, location, onBack, onServiceSel
             >
               {/* Powered by DoHuub Badge */}
               {service.isPowered && (
-                <div className="mb-3 flex items-center gap-2">
+                <div className="mb-3">
                   <div
                     className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm text-white shadow-premium-sm"
                     style={{ background: 'var(--primary-gradient)' }}
@@ -117,13 +127,6 @@ export function ServiceListingsScreen({ category, location, onBack, onServiceSel
                     <Gift className="w-3 h-3" />
                     Powered by DoHuub
                   </div>
-                  <span
-                    className="inline-flex items-center justify-center h-6 px-2 text-white text-xs font-bold rounded-full shadow-sm"
-                    style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(249, 115, 22))' }}
-                  >
-                    <Gift className="w-3 h-3 mr-1" />
-                    pts
-                  </span>
                 </div>
               )}
 

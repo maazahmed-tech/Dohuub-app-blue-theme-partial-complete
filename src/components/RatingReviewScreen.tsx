@@ -27,7 +27,17 @@ export function RatingReviewScreen({ booking, onBack, onSubmit }: RatingReviewSc
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -36,7 +46,7 @@ export function RatingReviewScreen({ booking, onBack, onSubmit }: RatingReviewSc
           >
             <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Rate Your Experience</h3>
+          <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>Rate Your Experience</h3>
         </div>
       </div>
 

@@ -146,7 +146,17 @@ export function BeautyServiceBookingScreen({
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -179,7 +189,7 @@ export function BeautyServiceBookingScreen({
         {/* Booking Options */}
         <div className="space-y-4">
           {/* Select Date */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.05s', position: 'relative', zIndex: showDatePicker ? 50 : 1 }}>
             <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Select Date</label>
             <div className="relative">
               <button
@@ -204,8 +214,8 @@ export function BeautyServiceBookingScreen({
               {/* Date Dropdown */}
               {showDatePicker && (
                 <div
-                  className="absolute top-full left-0 right-0 mt-2 rounded-xl shadow-premium-md z-20 max-h-64 overflow-y-auto animate-fade-in"
-                  style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+                  className="absolute top-full left-0 right-0 mt-2 rounded-xl shadow-premium-md max-h-64 overflow-y-auto animate-fade-in"
+                  style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
                 >
                   {availableDates.map((date) => (
                     <button
@@ -229,7 +239,7 @@ export function BeautyServiceBookingScreen({
           </div>
 
           {/* Select Time */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.1s', position: 'relative', zIndex: showTimePicker ? 50 : 1 }}>
             <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Select Time</label>
             <div className="relative">
               <button
@@ -254,8 +264,8 @@ export function BeautyServiceBookingScreen({
               {/* Time Dropdown */}
               {showTimePicker && (
                 <div
-                  className="absolute top-full left-0 right-0 mt-2 p-4 rounded-xl shadow-premium-md z-20 animate-fade-in"
-                  style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+                  className="absolute top-full left-0 right-0 mt-2 p-4 rounded-xl shadow-premium-md animate-fade-in"
+                  style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
                 >
                   <div className="grid grid-cols-2 gap-3">
                     {timeSlots.map((time) => (
@@ -307,7 +317,7 @@ export function BeautyServiceBookingScreen({
           </div>
 
           {/* Payment Method - Editable with dropdown */}
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s', position: 'relative', zIndex: showPaymentPicker ? 50 : 1 }}>
             <label className="block font-medium mb-2" style={{ color: 'var(--foreground)' }}>Payment Method</label>
             <div className="relative">
               <button
@@ -332,8 +342,8 @@ export function BeautyServiceBookingScreen({
               {/* Payment Dropdown */}
               {showPaymentPicker && (
                 <div
-                  className="absolute top-full left-0 right-0 mt-2 rounded-xl shadow-premium-md z-20 overflow-hidden animate-fade-in"
-                  style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+                  className="absolute top-full left-0 right-0 mt-2 rounded-xl shadow-premium-md overflow-hidden animate-fade-in"
+                  style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)', zIndex: 50 }}
                 >
                   {paymentCards.length > 0 && (
                     <div className="max-h-64 overflow-y-auto">

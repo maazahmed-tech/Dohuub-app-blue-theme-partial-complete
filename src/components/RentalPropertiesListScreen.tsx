@@ -1,4 +1,4 @@
-import { ArrowLeft, Star, Bed, Bath, SlidersHorizontal, X, Gift, Award } from 'lucide-react';
+import { ArrowLeft, Star, Bed, Bath, SlidersHorizontal, X, Gift } from 'lucide-react';
 import { useState } from 'react';
 
 export interface Property {
@@ -94,7 +94,17 @@ export function RentalPropertiesListScreen({
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -290,20 +300,12 @@ export function RentalPropertiesListScreen({
               >
                 <span className="text-white text-5xl">🏠</span>
                 {property.isPoweredByDoHuub && (
-                  <div className="absolute top-3 right-3 flex items-center gap-2">
+                  <div className="absolute top-3 right-3">
                     <span
                       className="px-3 py-1.5 text-white text-xs font-medium rounded-full flex items-center gap-1 shadow-premium-sm"
                       style={{ background: 'var(--primary-gradient)' }}
                     >
-                      <Award className="w-3 h-3" />
-                      DoHuub
-                    </span>
-                    <span
-                      className="inline-flex items-center justify-center min-w-[52px] h-7 px-2 text-white text-xs font-bold rounded-full shadow-premium-sm"
-                      style={{ background: 'linear-gradient(135deg, rgb(245, 158, 11), rgb(234, 88, 12))' }}
-                    >
-                      <Gift className="w-3 h-3 mr-1" />
-                      {property.pricePerNight}+
+                      Powered by DoHuub
                     </span>
                   </div>
                 )}

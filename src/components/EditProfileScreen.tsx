@@ -22,7 +22,17 @@ export function EditProfileScreen({ userName, onBack, onSave }: EditProfileScree
       <div className="absolute inset-0 pattern-dots opacity-20 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-4 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
+      <div
+        className="px-6 py-6 relative z-50"
+        style={{
+          background: 'rgba(255, 255, 255, 1)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.06)',
+          borderBottom: '1px solid rgba(46, 122, 217, 0.08)',
+          borderRadius: '0 0 24px 24px',
+        }}
+      >
         <div className="flex items-center gap-4">
           <button
             onClick={onBack}
@@ -31,31 +41,31 @@ export function EditProfileScreen({ userName, onBack, onSave }: EditProfileScree
           >
             <ArrowLeft className="w-5 h-5" style={{ color: 'var(--foreground)' }} strokeWidth={2} />
           </button>
-          <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>Edit Profile</h3>
+          <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>Edit Profile</h3>
         </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6 relative z-10">
+      <div className="flex-1 overflow-y-auto px-6 py-12 relative z-10">
         {/* Profile Avatar */}
         <div className="flex justify-center mb-8 animate-fade-in-up">
           <div className="relative">
             <div
-              className="w-28 h-28 rounded-full shadow-premium-lg flex items-center justify-center"
+              className="w-48 h-48 rounded-full shadow-premium-lg flex items-center justify-center"
               style={{
                 background: 'linear-gradient(135deg, rgba(46, 122, 217, 0.1), rgba(46, 122, 217, 0.05))',
                 border: '3px solid var(--primary)'
               }}
             >
-              <span className="text-3xl font-bold" style={{ color: 'var(--primary)' }}>
-                {userName.charAt(0).toUpperCase()}
+              <span className="text-6xl font-bold" style={{ color: 'var(--primary)' }}>
+                {userName ? userName.charAt(0).toUpperCase() : 'U'}
               </span>
             </div>
             <button
-              className="absolute bottom-0 right-0 w-10 h-10 rounded-full flex items-center justify-center shadow-premium-md transition-all duration-300 hover:scale-110"
+              className="absolute bottom-0 right-0 w-16 h-16 rounded-full flex items-center justify-center shadow-premium-md transition-all duration-300 hover:scale-110"
               style={{ background: 'var(--primary-gradient)' }}
             >
-              <Camera className="w-5 h-5 text-white" />
+              <Camera className="w-8 h-8 text-white" />
             </button>
           </div>
         </div>
