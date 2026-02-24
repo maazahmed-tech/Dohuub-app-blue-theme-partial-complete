@@ -1,4 +1,6 @@
 import { ArrowLeft, Star, DollarSign, Clock, ChevronRight, Image as ImageIcon, Gift } from 'lucide-react';
+import { Wrench as PhWrench, UserCircle } from '@phosphor-icons/react';
+import handymanImg from '../assets/handyman.png';
 import type { HandymanService } from './HandymanVendorDetailScreen';
 import type { HandymanVendor } from './HandymanVendorsListScreen';
 
@@ -86,9 +88,9 @@ export function HandymanServiceDetailScreen({
         {/* Service Image */}
         <div
           className="h-64 flex items-center justify-center"
-          style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
+          style={{ background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.15))' }}
         >
-          <span className="text-6xl">🔧</span>
+          <img src={handymanImg} alt="Handyman Service" className="w-40 h-40 object-contain" />
         </div>
 
         {/* Service Info */}
@@ -116,7 +118,7 @@ export function HandymanServiceDetailScreen({
                 className="w-12 h-12 rounded-full flex items-center justify-center shadow-premium-sm"
                 style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
               >
-                <span className="text-white">👤</span>
+                <UserCircle size={24} weight="duotone" className="text-white" />
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 flex-wrap">

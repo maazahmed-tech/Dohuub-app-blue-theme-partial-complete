@@ -1,4 +1,5 @@
 import { ArrowLeft, Star, MapPin, Clock, ChevronRight, ShoppingCart, User } from 'lucide-react';
+import { PlaceholderImage } from './icons/PlaceholderImage';
 
 interface BeautyProductsVendor {
   id: number;
@@ -232,13 +233,7 @@ export function BeautyProductsVendorProfileScreen({
                   {review.hasPhotos && (
                     <div className="flex gap-2">
                       {[1, 2].map((photo) => (
-                        <div
-                          key={photo}
-                          className="w-20 h-20 rounded-lg flex items-center justify-center"
-                          style={{ backgroundColor: 'var(--muted)' }}
-                        >
-                          <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Photo</span>
-                        </div>
+                        <PlaceholderImage key={photo} variant="review-photo" className="w-20 h-20 rounded-lg" iconSize={16} />
                       ))}
                     </div>
                   )}

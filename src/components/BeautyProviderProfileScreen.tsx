@@ -1,4 +1,6 @@
 import { ArrowLeft, Star, MapPin, Clock, ChevronRight, Award, User } from 'lucide-react';
+import { Scissors as PhScissors } from '@phosphor-icons/react';
+import { PlaceholderImage } from './icons/PlaceholderImage';
 
 interface BeautyProvider {
   id: number;
@@ -67,7 +69,7 @@ export function BeautyProviderProfileScreen({
               className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-premium-md"
               style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(244, 114, 182))' }}
             >
-              <span className="text-4xl">💅</span>
+              <PhScissors size={48} weight="duotone" className="text-white" />
             </div>
             <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>{provider.name}</h2>
             {provider.isPoweredByDoHuub && (
@@ -265,13 +267,7 @@ export function BeautyProviderProfileScreen({
                   {review.hasPhotos && (
                     <div className="flex gap-2">
                       {[1, 2].map((photo) => (
-                        <div
-                          key={photo}
-                          className="w-20 h-20 rounded-lg flex items-center justify-center"
-                          style={{ backgroundColor: 'var(--muted)' }}
-                        >
-                          <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Photo</span>
-                        </div>
+                        <PlaceholderImage key={photo} variant="review-photo" className="w-20 h-20 rounded-lg" iconSize={16} />
                       ))}
                     </div>
                   )}

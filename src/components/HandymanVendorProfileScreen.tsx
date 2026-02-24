@@ -1,4 +1,5 @@
 import { ArrowLeft, Star, MapPin, ChevronRight, Wrench, Clock, User, Award } from 'lucide-react';
+import { PlaceholderImage } from './icons/PlaceholderImage';
 import type { HandymanVendor } from './HandymanVendorDetailScreen';
 
 interface HandymanVendorProfileScreenProps {
@@ -298,13 +299,7 @@ export function HandymanVendorProfileScreen({
                   {review.hasPhotos && (
                     <div className="flex gap-2">
                       {[1, 2].map((photo) => (
-                        <div
-                          key={photo}
-                          className="w-20 h-20 rounded-lg flex items-center justify-center"
-                          style={{ backgroundColor: 'var(--muted)' }}
-                        >
-                          <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Photo</span>
-                        </div>
+                        <PlaceholderImage key={photo} variant="review-photo" className="w-20 h-20 rounded-lg" iconSize={16} />
                       ))}
                     </div>
                   )}

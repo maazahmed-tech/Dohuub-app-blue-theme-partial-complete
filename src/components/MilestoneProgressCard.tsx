@@ -1,5 +1,7 @@
 import { Target, CheckCircle2, ChevronRight, ChevronDown } from 'lucide-react';
+import { Broom, Wrench as PhWrench, Hamburger, ShoppingCart as PhShoppingCart, Scissors as PhScissors, House as PhHouse, HeartStraight, Package } from '@phosphor-icons/react';
 import { useState } from 'react';
+import type { ReactNode } from 'react';
 
 interface Milestone {
   target: number;
@@ -15,21 +17,21 @@ interface CategoryMilestoneData {
 interface MilestoneProgressCardProps {
   category: string;
   categoryLabel: string;
-  categoryIcon?: string;
+  categoryIcon?: ReactNode;
   milestoneData: CategoryMilestoneData;
   compact?: boolean;
   onViewDetails?: () => void;
 }
 
 // Category display names and icons
-const categoryConfig: { [key: string]: { label: string; icon: string } } = {
-  cleaning: { label: 'Cleaning Services', icon: '🧹' },
-  handyman: { label: 'Handyman Services', icon: '🔧' },
-  food: { label: 'Food Delivery', icon: '🍔' },
-  grocery: { label: 'Grocery Delivery', icon: '🛒' },
-  beauty: { label: 'Beauty Services', icon: '💅' },
-  rental: { label: 'Rental Properties', icon: '🏠' },
-  caregiving: { label: 'Caregiving Services', icon: '❤️' }
+const categoryConfig: { [key: string]: { label: string; icon: ReactNode } } = {
+  cleaning: { label: 'Cleaning Services', icon: <Broom size={20} weight="duotone" /> },
+  handyman: { label: 'Handyman Services', icon: <PhWrench size={20} weight="duotone" /> },
+  food: { label: 'Food Delivery', icon: <Hamburger size={20} weight="duotone" /> },
+  grocery: { label: 'Grocery Delivery', icon: <PhShoppingCart size={20} weight="duotone" /> },
+  beauty: { label: 'Beauty Services', icon: <PhScissors size={20} weight="duotone" /> },
+  rental: { label: 'Rental Properties', icon: <PhHouse size={20} weight="duotone" /> },
+  caregiving: { label: 'Caregiving Services', icon: <HeartStraight size={20} weight="duotone" /> }
 };
 
 export function MilestoneProgressCard({
@@ -41,7 +43,7 @@ export function MilestoneProgressCard({
   onViewDetails
 }: MilestoneProgressCardProps) {
   const { orderCount, milestones } = milestoneData;
-  const config = categoryConfig[category] || { label: categoryLabel, icon: '📦' };
+  const config = categoryConfig[category] || { label: categoryLabel, icon: <Package size={20} weight="duotone" /> };
   const displayIcon = categoryIcon || config.icon;
   const displayLabel = categoryLabel || config.label;
 
@@ -63,7 +65,7 @@ export function MilestoneProgressCard({
         style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
       >
         <div className="flex items-center gap-3">
-          <span className="text-xl">{displayIcon}</span>
+          <span className="flex items-center">{displayIcon}</span>
           <div className="text-left">
             <p className="font-medium" style={{ color: 'var(--foreground)' }}>{displayLabel}</p>
             <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{orderCount} orders • {achievedCount}/4 milestones</p>
@@ -89,7 +91,7 @@ export function MilestoneProgressCard({
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
-          <span className="text-2xl">{displayIcon}</span>
+          <span className="flex items-center">{displayIcon}</span>
           <div>
             <h4 className="font-semibold" style={{ color: 'var(--foreground)' }}>{displayLabel}</h4>
             <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{orderCount} orders completed</p>
@@ -264,7 +266,7 @@ export function MilestoneSummaryCard({
                 }}
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">{config?.icon}</span>
+                  <span className="flex items-center">{config?.icon}</span>
                   <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>{config?.label}</span>
                 </div>
                 <div className="flex items-center gap-2">

@@ -1,4 +1,7 @@
 import { ArrowLeft, Star, ShoppingCart, Gift } from 'lucide-react';
+import { FlowerLotus } from '@phosphor-icons/react';
+import { IconContainer } from './icons/IconContainer';
+import beautyImg from '../assets/beauty products and services.png';
 
 interface BeautyProductVendor {
   id: number;
@@ -144,12 +147,7 @@ export function BeautyProductsVendorsList({
             >
               <div className="flex items-start gap-4 mb-3">
                 {/* Vendor Image Placeholder */}
-                <div
-                  className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                  style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(244, 114, 182))' }}
-                >
-                  <span className="text-2xl">💄</span>
-                </div>
+                <img src={beautyImg} alt="Beauty Products" className="w-12 h-12 object-contain flex-shrink-0" />
 
                 {/* Vendor Info */}
                 <div className="flex-1 min-w-0">

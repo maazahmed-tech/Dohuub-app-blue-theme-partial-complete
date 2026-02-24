@@ -1,4 +1,5 @@
 import { ArrowLeft, Star, Award, Globe, ChevronRight, Gift } from 'lucide-react';
+import { User as PhUser } from '@phosphor-icons/react';
 import type { Companion } from './CompanionsListScreen';
 
 interface CompanionDetailScreenProps {
@@ -52,7 +53,7 @@ export function CompanionDetailScreen({
               className="w-24 h-24 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-md"
               style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))' }}
             >
-              <span className="text-white text-4xl">👤</span>
+              <PhUser size={48} weight="fill" color="#fff" />
             </div>
             <div className="flex-1">
               <h2 className="font-bold text-xl mb-1" style={{ color: 'var(--foreground)' }}>{companion.name}</h2>

@@ -1,4 +1,5 @@
 import { ArrowLeft, Calendar, Clock, MapPin, Phone, Mail, CheckCircle, Circle, Loader, Star, X, Image as ImageIcon } from 'lucide-react';
+import { House as PhHouse, Scissors as PhScissors, SprayBottle } from '@phosphor-icons/react';
 import { useState, useEffect } from 'react';
 import type { BookingData } from './CleaningServiceBookingFormScreen';
 
@@ -145,9 +146,12 @@ export function OrderTrackingScreen({
               className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
               style={{ background: 'var(--primary-gradient)' }}
             >
-              <span className="text-2xl">
-                {(bookingData as any).type === 'rental' ? '🏠' : (bookingData as any).providerName ? '💅' : '🧹'}
-              </span>
+              {(bookingData as any).type === 'rental'
+                ? <PhHouse size={28} weight="fill" color="#fff" />
+                : (bookingData as any).providerName
+                  ? <PhScissors size={28} weight="fill" color="#fff" />
+                  : <SprayBottle size={28} weight="fill" color="#fff" />
+              }
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="font-semibold mb-1" style={{ color: 'var(--foreground)' }}>

@@ -1,4 +1,6 @@
 import { ArrowLeft, Plus, Minus, Star, Clock, ShoppingCart, Image as ImageIcon, Gift } from 'lucide-react';
+import { ForkKnife } from '@phosphor-icons/react';
+import { PlaceholderImage } from './icons/PlaceholderImage';
 import { useState, useEffect } from 'react';
 import type { FoodVendor } from './FoodVendorsListScreen';
 
@@ -297,12 +299,7 @@ export function FoodVendorDetailScreen({
               >
                 <div className="flex gap-4">
                   {/* Item Image */}
-                  <div
-                    className="w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                    style={{ background: 'linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12))' }}
-                  >
-                    <span className="text-2xl">🍽️</span>
-                  </div>
+                  <PlaceholderImage variant="food" className="w-20 h-20 rounded-lg flex-shrink-0" iconSize={28} />
 
                   {/* Item Info */}
                   <div className="flex-1 min-w-0">

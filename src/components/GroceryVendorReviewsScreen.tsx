@@ -1,4 +1,5 @@
 import { ArrowLeft, Star, Image as ImageIcon } from 'lucide-react';
+import profilePhoto from '../assets/profile photo (2).png';
 import type { GroceryVendor } from './GroceryVendorsListScreen';
 
 interface Review {
@@ -193,12 +194,7 @@ export function GroceryVendorReviewsScreen({ vendor, onBack }: GroceryVendorRevi
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center shadow-card"
-                      style={{ background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))' }}
-                    >
-                      <span className="text-white font-medium">{review.userName.charAt(0)}</span>
-                    </div>
+                    <img src={profilePhoto} alt={review.userName} className="w-10 h-10 rounded-full object-cover shadow-card" />
                     <div>
                       <p className="font-medium" style={{ color: 'var(--foreground)' }}>{review.userName}</p>
                       <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{review.date}</p>

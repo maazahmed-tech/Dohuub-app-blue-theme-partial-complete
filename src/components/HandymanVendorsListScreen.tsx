@@ -1,4 +1,7 @@
 import { ArrowLeft, Star, Gift } from 'lucide-react';
+import { Wrench } from '@phosphor-icons/react';
+import { IconContainer } from './icons/IconContainer';
+import handymanImg from '../assets/handyman.png';
 
 export interface HandymanVendor {
   id: string;
@@ -99,12 +102,7 @@ export function HandymanVendorsListScreen({ category, onBack, onVendorSelect }: 
                               }}
             >
               <div className="flex gap-4">
-                <div
-                  className="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center shadow-premium-sm"
-                  style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
-                >
-                  <span className="text-xl">🔧</span>
-                </div>
+                <img src={handymanImg} alt="Handyman" className="w-10 h-10 object-contain flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
                     <h3 className="font-medium" style={{ color: 'var(--foreground)' }}>{vendor.name}</h3>

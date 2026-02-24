@@ -1,4 +1,5 @@
-import { Calendar, Sparkles, ChevronRight, Gift, Award } from 'lucide-react';
+import { Calendar, ChevronRight, Gift, Award } from 'lucide-react';
+import { Sparkle } from '@phosphor-icons/react';
 import type { Screen } from '../App';
 import { useState } from 'react';
 import { BottomNavigation } from './BottomNavigation';
@@ -91,7 +92,7 @@ export function MyBookingsScreen({ bookings, navigate, onBookingSelect }: MyBook
               >
                 <div className="flex gap-4">
                   <div className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm" style={{ backgroundColor: 'var(--secondary)' }}>
-                    <Sparkles className="w-8 h-8" style={{ color: 'var(--primary)' }} />
+                    <Sparkle size={32} weight="fill" style={{ color: 'var(--primary)' }} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2 mb-1">

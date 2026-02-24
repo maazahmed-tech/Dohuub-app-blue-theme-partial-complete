@@ -1,4 +1,7 @@
 import { ArrowLeft, Star, SlidersHorizontal, Heart, X, Gift } from 'lucide-react';
+import { UsersThree } from '@phosphor-icons/react';
+import { IconContainer } from './icons/IconContainer';
+import caregivingImg from '../assets/caregiving.png';
 import { useState } from 'react';
 
 export interface Companion {
@@ -173,12 +176,7 @@ export function CompanionsListScreen({
                               }}
             >
               <div className="flex items-start gap-4">
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                  style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))' }}
-                >
-                  <span className="text-white text-2xl">👤</span>
-                </div>
+                <img src={caregivingImg} alt="Companionship" className="w-12 h-12 object-contain flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>{companion.name}</h3>

@@ -1,5 +1,7 @@
 import { ArrowLeft, Calendar, Users, Plus, Minus } from 'lucide-react';
+import { House as PhHouse } from '@phosphor-icons/react';
 import { useState } from 'react';
+import rentalListImg1 from '../assets/rental listing/rental listing (1).png';
 import type { Property } from './RentalPropertiesListScreen';
 
 interface PropertyStayDetailsScreenProps {
@@ -88,12 +90,7 @@ export function PropertyStayDetailsScreen({
             }}
           >
             <div className="flex gap-3">
-              <div
-                className="w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
-              >
-                <span className="text-white text-3xl">🏠</span>
-              </div>
+              <img src={rentalListImg1} alt={property.name} className="w-20 h-20 rounded-lg object-cover flex-shrink-0 shadow-premium-sm" />
               <div className="flex-1 min-w-0">
                 <h3 className="font-semibold mb-1" style={{ color: 'var(--foreground)' }}>{property.name}</h3>
                 <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>{property.location}</p>

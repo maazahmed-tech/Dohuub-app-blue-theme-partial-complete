@@ -1,4 +1,5 @@
 import { ArrowLeft, Phone, MessageCircle, Check } from 'lucide-react';
+import { Car as PhCar, User as PhUser } from '@phosphor-icons/react';
 
 interface CaregivingOrderTrackingScreenProps {
   serviceType: 'ride' | 'companionship';
@@ -141,7 +142,7 @@ export function CaregivingOrderTrackingScreen({
                   className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
                   style={{ background: gradientColor }}
                 >
-                  <span className="text-white text-xl">🚗</span>
+                  <PhCar size={24} weight="fill" color="#fff" />
                 </div>
                 <div className="flex-1">
                   <p className="font-medium" style={{ color: 'var(--foreground)' }}>{bookingData.provider.name}</p>
@@ -167,7 +168,7 @@ export function CaregivingOrderTrackingScreen({
                   className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
                   style={{ background: gradientColor }}
                 >
-                  <span className="text-white text-xl">👤</span>
+                  <PhUser size={24} weight="fill" color="#fff" />
                 </div>
                 <div className="flex-1">
                   <p className="font-medium" style={{ color: 'var(--foreground)' }}>{bookingData.companion.name}</p>

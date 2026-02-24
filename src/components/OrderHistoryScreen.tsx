@@ -1,4 +1,5 @@
-import { ArrowLeft, Sparkles, FileText } from 'lucide-react';
+import { ArrowLeft, FileText } from 'lucide-react';
+import { Sparkle } from '@phosphor-icons/react';
 
 interface OrderHistoryScreenProps {
   bookings: any[];
@@ -80,7 +81,7 @@ export function OrderHistoryScreen({ bookings, onBack, onReorder }: OrderHistory
                     className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
                     style={{ background: 'var(--primary-gradient)' }}
                   >
-                    <Sparkles className="w-8 h-8 text-white" />
+                    <Sparkle size={32} weight="fill" color="#fff" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{booking.service}</p>

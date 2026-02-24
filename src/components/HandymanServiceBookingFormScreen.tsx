@@ -1,4 +1,5 @@
 import { ArrowLeft, Calendar, Clock, MapPin, CreditCard, ChevronDown, Gift } from 'lucide-react';
+import { Wrench as PhWrench } from '@phosphor-icons/react';
 import { useState, useMemo } from 'react';
 import type { HandymanService } from './HandymanVendorDetailScreen';
 import type { HandymanVendor } from './HandymanVendorsListScreen';
@@ -178,7 +179,7 @@ export function HandymanServiceBookingFormScreen({
               className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
               style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
             >
-              <span className="text-3xl">🔧</span>
+              <PhWrench size={32} weight="fill" color="#fff" />
             </div>
             <div className="flex-1">
               <h3 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{service.name}</h3>

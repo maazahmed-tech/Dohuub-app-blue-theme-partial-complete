@@ -1,4 +1,8 @@
 import { ArrowLeft, Star, MapPin, Clock, ChevronRight, User } from 'lucide-react';
+import { SprayBottle } from '@phosphor-icons/react';
+import { PlaceholderImage } from './icons/PlaceholderImage';
+import cleanLogo1 from '../assets/cleaning/logos/cleaning logo  (1).png';
+import profilePhoto from '../assets/profile photo (2).png';
 import type { Vendor } from './VendorDetailScreen';
 
 interface CleaningVendorProfileScreenProps {
@@ -73,12 +77,7 @@ export function CleaningVendorProfileScreen({
         <div className="px-6 py-6 space-y-6">
           {/* Vendor Header */}
           <div className="text-center">
-            <div
-              className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-premium-lg"
-              style={{ background: 'var(--primary-gradient)' }}
-            >
-              <span className="text-4xl">🏢</span>
-            </div>
+            <img src={cleanLogo1} alt={vendor.name} className="w-24 h-24 rounded-full mx-auto mb-4 object-cover shadow-premium-lg" />
             <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>{vendor.name}</h2>
             {vendor.isPoweredByDoHuub && (
               <div
@@ -254,12 +253,7 @@ export function CleaningVendorProfileScreen({
                   style={{ backgroundColor: 'var(--card)' }}
                 >
                   <div className="flex items-start gap-3 mb-2">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                      style={{ background: 'var(--primary-gradient)' }}
-                    >
-                      <span className="text-white font-semibold">{review.name.charAt(0)}</span>
-                    </div>
+                    <img src={profilePhoto} alt={review.name} className="w-10 h-10 rounded-full object-cover flex-shrink-0 shadow-premium-sm" />
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-medium" style={{ color: 'var(--foreground)' }}>{review.name}</span>
@@ -285,13 +279,7 @@ export function CleaningVendorProfileScreen({
                   {review.hasPhotos && (
                     <div className="flex gap-2">
                       {[1, 2].map((photo) => (
-                        <div
-                          key={photo}
-                          className="w-20 h-20 rounded-lg flex items-center justify-center"
-                          style={{ backgroundColor: 'var(--muted)' }}
-                        >
-                          <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Photo</span>
-                        </div>
+                        <PlaceholderImage key={photo} variant="review-photo" className="w-20 h-20 rounded-lg" iconSize={16} />
                       ))}
                     </div>
                   )}

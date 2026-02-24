@@ -1,4 +1,6 @@
 import { CheckCircle, Calendar, Users, CreditCard, Gift } from 'lucide-react';
+import { House as PhHouse } from '@phosphor-icons/react';
+import rentalListImg1 from '../assets/rental listing/rental listing (1).png';
 import type { PropertyBookingData } from './PropertyBookingScreen';
 import type { Screen } from '../App';
 
@@ -97,12 +99,7 @@ export function PropertyConfirmationScreen({
           >
             {/* Property */}
             <div className="flex gap-3">
-              <div
-                className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
-              >
-                <span className="text-white text-2xl">🏠</span>
-              </div>
+              <img src={rentalListImg1} alt={bookingData.property.name} className="w-16 h-16 rounded-lg object-cover flex-shrink-0 shadow-premium-sm" />
               <div className="flex-1 min-w-0">
                 <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{bookingData.property.name}</h4>
                 <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{bookingData.property.location}</p>

@@ -1,4 +1,7 @@
 import { ArrowLeft, Star, Clock, Image as ImageIcon, Gift } from 'lucide-react';
+import { ForkKnife } from '@phosphor-icons/react';
+import { IconContainer } from './icons/IconContainer';
+import foodImg from '../assets/food.png';
 
 export interface FoodVendor {
   id: number;
@@ -123,12 +126,7 @@ export function FoodVendorsListScreen({
             >
               <div className="flex gap-4 mb-3">
                 {/* Vendor Image */}
-                <div
-                  className="w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                  style={{ background: 'linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12))' }}
-                >
-                  <span className="text-3xl">🍽️</span>
-                </div>
+                <img src={foodImg} alt="Food" className="w-16 h-16 object-contain flex-shrink-0" />
 
                 {/* Vendor Info */}
                 <div className="flex-1 min-w-0">

@@ -1,4 +1,5 @@
 import { ArrowLeft, MapPin, Check, Gift } from 'lucide-react';
+import { User as PhUser } from '@phosphor-icons/react';
 import { useState } from 'react';
 import type { Companion } from './CompanionsListScreen';
 import PointsRedemptionCard from './PointsRedemptionCard';
@@ -131,7 +132,7 @@ export function CompanionshipBookingFormScreen({
               className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
               style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))' }}
             >
-              <span className="text-white text-xl">👤</span>
+              <PhUser size={24} weight="fill" color="#fff" />
             </div>
             <div className="flex-1">
               <p className="text-sm mb-1" style={{ color: 'var(--muted-foreground)' }}>Booking with</p>

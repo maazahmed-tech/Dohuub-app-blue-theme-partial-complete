@@ -1,4 +1,5 @@
 import { ArrowLeft, Star, Image as ImageIcon } from 'lucide-react';
+import profilePhoto from '../assets/profile photo (2).png';
 
 interface AllReviewsScreenProps {
   service: any;
@@ -146,12 +147,7 @@ export function AllReviewsScreen({ service, onBack }: AllReviewsScreenProps) {
                               }}
             >
               <div className="flex items-center gap-3 mb-3">
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center shadow-premium-sm"
-                  style={{ background: 'var(--primary-gradient)' }}
-                >
-                  <span className="text-white font-semibold">{review.user.charAt(0)}</span>
-                </div>
+                <img src={profilePhoto} alt={review.user} className="w-12 h-12 rounded-full object-cover shadow-premium-sm" />
                 <div className="flex-1">
                   <p className="font-medium" style={{ color: 'var(--foreground)' }}>{review.user}</p>
                   <div className="flex items-center gap-1">

@@ -1,5 +1,13 @@
 import { ArrowLeft, Star, Bed, Bath, SlidersHorizontal, X, Gift } from 'lucide-react';
+import { House as PhHouse } from '@phosphor-icons/react';
+import { IconContainer } from './icons/IconContainer';
 import { useState } from 'react';
+import rentalListImg1 from '../assets/rental listing/rental listing (1).png';
+import rentalListImg2 from '../assets/rental listing/rental listing (2).png';
+import rentalListImg3 from '../assets/rental listing/rental listing (3).png';
+import rentalListImg4 from '../assets/rental listing/rental listing (4).png';
+
+const rentalPhotos = [rentalListImg1, rentalListImg2, rentalListImg3, rentalListImg4];
 
 export interface Property {
   id: number;
@@ -293,11 +301,8 @@ export function RentalPropertiesListScreen({
                               }}
             >
               {/* Property Image */}
-              <div
-                className="w-full h-48 flex items-center justify-center relative"
-                style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
-              >
-                <span className="text-white text-5xl">🏠</span>
+              <div className="relative">
+                <img src={rentalPhotos[index % rentalPhotos.length]} alt={property.name} className="w-full h-48 object-cover" />
                 {property.isPoweredByDoHuub && (
                   <div className="absolute top-3 right-3">
                     <span

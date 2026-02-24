@@ -1,4 +1,11 @@
 import { ArrowLeft, Star, Badge, Gift } from 'lucide-react';
+import { SprayBottle } from '@phosphor-icons/react';
+import { IconContainer } from './icons/IconContainer';
+import cleanLogo1 from '../assets/cleaning/logos/cleaning logo  (1).png';
+import cleanLogo2 from '../assets/cleaning/logos/cleaning logo  (2).png';
+import cleanLogo3 from '../assets/cleaning/logos/cleaning logo  (3).png';
+
+const cleaningLogos = [cleanLogo1, cleanLogo2, cleanLogo3];
 
 interface Vendor {
   id: string;
@@ -116,12 +123,7 @@ export function VendorsListScreen({ category, onBack, onVendorSelect }: VendorsL
             >
               <div className="flex gap-4">
                 {/* Vendor Image */}
-                <div
-                  className="w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center shadow-premium-sm"
-                  style={{ background: 'var(--primary-gradient)' }}
-                >
-                  <span className="text-white text-2xl">🧹</span>
-                </div>
+                <img src={cleaningLogos[index % cleaningLogos.length]} alt={vendor.name} className="w-16 h-16 rounded-full object-cover flex-shrink-0" />
 
                 {/* Vendor Info */}
                 <div className="flex-1 min-w-0">

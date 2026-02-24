@@ -1,4 +1,6 @@
 import { CheckCircle, MapPin, Calendar, Clock, CreditCard, Gift } from 'lucide-react';
+import { Wrench as PhWrench } from '@phosphor-icons/react';
+import handymanImg from '../assets/handyman.png';
 import type { HandymanBookingData } from './HandymanServiceBookingFormScreen';
 import type { Screen } from '../App';
 
@@ -91,12 +93,7 @@ export function HandymanServiceConfirmationScreen({
           >
             {/* Service */}
             <div className="flex gap-3">
-              <div
-                className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
-              >
-                <span className="text-3xl">🔧</span>
-              </div>
+              <img src={handymanImg} alt="Handyman Service" className="w-16 h-16 object-contain flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{bookingData.service.name}</h4>
                 <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{bookingData.vendor.name}</p>

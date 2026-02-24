@@ -1,4 +1,7 @@
 import { ArrowLeft, MapPin, Plus, Minus, Image as ImageIcon, Trash2, Gift } from 'lucide-react';
+import { ForkKnife, ShoppingCart as PhShoppingCart } from '@phosphor-icons/react';
+import foodImg from '../assets/food.png';
+import groceryImg from '../assets/grocery.png';
 import { useState } from 'react';
 import type { CartItem } from './FoodVendorDetailScreen';
 import type { GroceryCartItem } from './GroceryVendorDetailScreen';
@@ -152,12 +155,7 @@ export function FoodGroceryCheckoutScreen({
                 style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
               >
                 <div className="flex gap-3">
-                  <div
-                    className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                    style={{ background: orderType === 'food' ? 'linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12))' : 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))' }}
-                  >
-                    <span className="text-xl">{orderType === 'food' ? '🍽️' : '🛒'}</span>
-                  </div>
+                  <img src={orderType === 'food' ? foodImg : groceryImg} alt={orderType === 'food' ? 'Food' : 'Grocery'} className="w-16 h-16 object-contain flex-shrink-0" />
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{item.name}</h4>
                     <p className="text-sm mb-2" style={{ color: 'var(--muted-foreground)' }}>${item.price.toFixed(2)}</p>

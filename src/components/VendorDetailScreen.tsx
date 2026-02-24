@@ -1,4 +1,10 @@
 import { ArrowLeft, Star, Gift } from 'lucide-react';
+import { SprayBottle } from '@phosphor-icons/react';
+import cleanLogo1 from '../assets/cleaning/logos/cleaning logo  (1).png';
+import cleanSvc1 from '../assets/cleaning/Services/cleaning services (1).png';
+import cleanSvc2 from '../assets/cleaning/Services/cleaning services (2).png';
+import cleanSvc3 from '../assets/cleaning/Services/cleaning services (3).png';
+const cleaningServicePhotos = [cleanSvc1, cleanSvc2, cleanSvc3];
 import type { Vendor } from './VendorsListScreen';
 
 interface Service {
@@ -102,12 +108,7 @@ export function VendorDetailScreen({ vendor, onBack, onServiceSelect, onViewProf
       <div className="px-6 py-6 glass relative z-10" style={{ borderBottom: '1px solid rgba(46, 122, 217, 0.1)' }}>
         <div className="flex gap-4 items-center">
           {/* Vendor Image */}
-          <div
-            className="w-20 h-20 rounded-full flex-shrink-0 flex items-center justify-center shadow-premium-md"
-            style={{ background: 'var(--primary-gradient)' }}
-          >
-            <span className="text-white text-3xl">🧹</span>
-          </div>
+          <img src={cleanLogo1} alt={vendor.name} className="w-20 h-20 rounded-full object-cover flex-shrink-0 shadow-premium-md" />
 
           {/* Vendor Info */}
           <div className="flex-1">
@@ -192,12 +193,7 @@ export function VendorDetailScreen({ vendor, onBack, onServiceSelect, onViewProf
               }}
             >
               {/* Service Image */}
-              <div
-                className="h-24 flex items-center justify-center flex-shrink-0"
-                style={{ background: 'var(--primary-gradient)' }}
-              >
-                <span className="text-white text-3xl">🧹</span>
-              </div>
+              <img src={cleaningServicePhotos[index % cleaningServicePhotos.length]} alt={service.name} className="h-24 w-full object-cover flex-shrink-0" />
 
               {/* Service Info */}
               <div className="p-3 flex-1 flex flex-col">

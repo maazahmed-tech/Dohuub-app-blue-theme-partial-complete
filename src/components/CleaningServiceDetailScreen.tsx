@@ -1,4 +1,7 @@
 import { ArrowLeft, Star, MapPin, Clock, DollarSign, ChevronRight, Image as ImageIcon, Gift } from 'lucide-react';
+import { SprayBottle, UserCircle } from '@phosphor-icons/react';
+import cleanLogo1 from '../assets/cleaning/logos/cleaning logo  (1).png';
+import cleanSvc3 from '../assets/cleaning/Services/cleaning services (3).png';
 import type { Service } from './VendorDetailScreen';
 import type { Vendor } from './VendorsListScreen';
 
@@ -83,8 +86,7 @@ export function CleaningServiceDetailScreen({
           className="h-64 flex items-center justify-center relative"
           style={{ background: 'var(--primary-gradient)' }}
         >
-          <div className="absolute inset-0 pattern-dots opacity-10 pointer-events-none" />
-          <span className="text-6xl animate-scale-in">🧹</span>
+          <img src={cleanSvc3} alt={service.name} className="w-full h-full object-cover" />
         </div>
 
         {/* Service Info */}
@@ -108,12 +110,7 @@ export function CleaningServiceDetailScreen({
             style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="flex items-center gap-3">
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center shadow-premium-sm"
-                style={{ background: 'var(--primary-gradient)' }}
-              >
-                <span className="text-white text-lg">👤</span>
-              </div>
+              <img src={cleanLogo1} alt={vendor.name} className="w-12 h-12 rounded-full object-cover shadow-premium-sm" />
               <div className="flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <p className="font-medium" style={{ color: 'var(--foreground)' }}>{vendor.name}</p>

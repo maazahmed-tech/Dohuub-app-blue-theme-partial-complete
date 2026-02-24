@@ -1,4 +1,5 @@
 import { ArrowLeft, Star, X, Image as ImageIcon } from 'lucide-react';
+import { Scissors as PhScissors, Broom } from '@phosphor-icons/react';
 import { useState } from 'react';
 
 interface ReviewSubmissionScreenProps {
@@ -89,9 +90,11 @@ export function ReviewSubmissionScreen({
               className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
               style={{ background: 'var(--primary-gradient)' }}
             >
-              <span className="text-2xl">
-                {bookingData.providerName ? '💅' : '🧹'}
-              </span>
+              {bookingData.providerName ? (
+                <PhScissors size={24} weight="duotone" className="text-white" />
+              ) : (
+                <Broom size={24} weight="duotone" className="text-white" />
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>

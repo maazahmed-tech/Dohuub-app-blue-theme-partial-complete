@@ -1,4 +1,6 @@
 import { ArrowLeft, Star, DollarSign, Clock, ChevronRight, Image as ImageIcon, Gift } from 'lucide-react';
+import { Scissors as PhScissors, UserCircle } from '@phosphor-icons/react';
+import beautyImg from '../assets/beauty products and services.png';
 
 interface Review {
   id: string;
@@ -98,9 +100,9 @@ export function BeautyServiceDetailScreen({
         {/* Service Image */}
         <div
           className="h-64 flex items-center justify-center"
-          style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(244, 114, 182))' }}
+          style={{ background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(244, 114, 182, 0.15))' }}
         >
-          <span className="text-6xl">💅</span>
+          <img src={beautyImg} alt="Beauty Service" className="w-40 h-40 object-contain" />
         </div>
 
         {/* Service Info */}
@@ -130,7 +132,7 @@ export function BeautyServiceDetailScreen({
                 className="w-12 h-12 rounded-full flex items-center justify-center shadow-premium-sm"
                 style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(244, 114, 182))' }}
               >
-                <span className="text-white">👤</span>
+                <UserCircle size={24} weight="duotone" className="text-white" />
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 flex-wrap">

@@ -1,4 +1,7 @@
-import { ArrowLeft, Car, Heart } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { Car as PhCar, HandHeart } from '@phosphor-icons/react';
+import rideAssistanceImg from '../assets/ride assistance.png';
+import companionshipImg from '../assets/companionship.png';
 
 interface CaregivingChoiceScreenProps {
   onBack: () => void;
@@ -54,12 +57,7 @@ export function CaregivingChoiceScreen({
             style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex items-start gap-4">
-              <div
-                className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                style={{ background: 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))' }}
-              >
-                <Car className="w-8 h-8 text-white" strokeWidth={2} />
-              </div>
+              <img src={rideAssistanceImg} alt="Ride Assistance" className="w-16 h-16 object-contain flex-shrink-0" />
               <div className="flex-1">
                 <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Ride Assistance</h3>
                 <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>
@@ -90,12 +88,7 @@ export function CaregivingChoiceScreen({
             style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex items-start gap-4">
-              <div
-                className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(219, 39, 119))' }}
-              >
-                <Heart className="w-8 h-8 text-white" strokeWidth={2} />
-              </div>
+              <img src={companionshipImg} alt="Companionship" className="w-16 h-16 object-contain flex-shrink-0" />
               <div className="flex-1">
                 <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Companionship Support</h3>
                 <p className="text-sm mb-3" style={{ color: 'var(--muted-foreground)' }}>

@@ -1,4 +1,6 @@
 import { ArrowLeft, Plus, Minus, Star, Clock, ShoppingCart, Image as ImageIcon, Gift } from 'lucide-react';
+import { ShoppingCart as PhShoppingCart } from '@phosphor-icons/react';
+import { PlaceholderImage } from './icons/PlaceholderImage';
 import { useState, useEffect } from 'react';
 import type { GroceryVendor } from './GroceryVendorsListScreen';
 
@@ -389,12 +391,7 @@ export function GroceryVendorDetailScreen({
               >
                 <div className="flex gap-4">
                   {/* Item Image */}
-                  <div
-                    className="w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                    style={{ background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))' }}
-                  >
-                    <span className="text-2xl">🛒</span>
-                  </div>
+                  <PlaceholderImage variant="grocery" className="w-20 h-20 rounded-lg flex-shrink-0" iconSize={28} />
 
                   {/* Item Info */}
                   <div className="flex-1 min-w-0">

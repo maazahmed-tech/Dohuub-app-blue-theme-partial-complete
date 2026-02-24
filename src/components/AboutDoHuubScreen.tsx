@@ -1,4 +1,5 @@
 import { ChevronLeft, Mail, Phone, Globe, Instagram } from 'lucide-react';
+import { Broom, Wrench as PhWrench, ShoppingCart as PhShoppingCart, Scissors as PhScissors, House as PhHouse, HeartStraight } from '@phosphor-icons/react';
 import Logo from '../assets/Logo.svg';
 import type { Screen } from '../App';
 
@@ -54,27 +55,27 @@ export function AboutDoHuubScreen({ onBack }: AboutDoHuubScreenProps) {
             <h4 className="mb-3" style={{ color: 'var(--foreground)' }}>What We Offer</h4>
             <div className="space-y-3">
               <div className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm text-center" style={{ backgroundColor: 'var(--card)' }}>
-                <p className="mb-1" style={{ color: 'var(--foreground)' }}>🧹 Cleaning Services</p>
+                <p className="mb-1 flex items-center justify-center gap-2" style={{ color: 'var(--foreground)' }}><Broom size={20} weight="duotone" /> Cleaning Services</p>
                 <p style={{ color: 'var(--muted-foreground)' }}>Professional home and office cleaning</p>
               </div>
               <div className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm text-center" style={{ backgroundColor: 'var(--card)' }}>
-                <p className="mb-1" style={{ color: 'var(--foreground)' }}>🔧 Handyman Services</p>
+                <p className="mb-1 flex items-center justify-center gap-2" style={{ color: 'var(--foreground)' }}><PhWrench size={20} weight="duotone" /> Handyman Services</p>
                 <p style={{ color: 'var(--muted-foreground)' }}>Expert repairs and maintenance</p>
               </div>
               <div className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm text-center" style={{ backgroundColor: 'var(--card)' }}>
-                <p className="mb-1" style={{ color: 'var(--foreground)' }}>🛒 Groceries & Food</p>
+                <p className="mb-1 flex items-center justify-center gap-2" style={{ color: 'var(--foreground)' }}><PhShoppingCart size={20} weight="duotone" /> Groceries & Food</p>
                 <p style={{ color: 'var(--muted-foreground)' }}>Fresh groceries and meals delivered</p>
               </div>
               <div className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm text-center" style={{ backgroundColor: 'var(--card)' }}>
-                <p className="mb-1" style={{ color: 'var(--foreground)' }}>💅 Beauty on Demand</p>
+                <p className="mb-1 flex items-center justify-center gap-2" style={{ color: 'var(--foreground)' }}><PhScissors size={20} weight="duotone" /> Beauty on Demand</p>
                 <p style={{ color: 'var(--muted-foreground)' }}>Salon services at your location</p>
               </div>
               <div className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm text-center" style={{ backgroundColor: 'var(--card)' }}>
-                <p className="mb-1" style={{ color: 'var(--foreground)' }}>🏠 Rental Properties</p>
+                <p className="mb-1 flex items-center justify-center gap-2" style={{ color: 'var(--foreground)' }}><PhHouse size={20} weight="duotone" /> Rental Properties</p>
                 <p style={{ color: 'var(--muted-foreground)' }}>Find your perfect home</p>
               </div>
               <div className="p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm text-center" style={{ backgroundColor: 'var(--card)' }}>
-                <p className="mb-1" style={{ color: 'var(--foreground)' }}>❤️ Caregiving Services</p>
+                <p className="mb-1 flex items-center justify-center gap-2" style={{ color: 'var(--foreground)' }}><HeartStraight size={20} weight="duotone" /> Caregiving Services</p>
                 <p style={{ color: 'var(--muted-foreground)' }}>Ride assistance and companionship</p>
               </div>
             </div>

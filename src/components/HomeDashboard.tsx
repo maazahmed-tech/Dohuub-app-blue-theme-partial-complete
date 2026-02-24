@@ -1,9 +1,17 @@
-import { MapPin, Search, Sparkles, Wrench, ShoppingBag, Scissors, Building2, Heart, Bell, Gift, Flame, User } from 'lucide-react';
+import { MapPin, Search, Bell, User } from 'lucide-react';
+import { SprayBottle, Wrench, ForkKnife, Scissors, House, HeartHalf, Gift, Flame } from '@phosphor-icons/react';
 import { useState } from 'react';
 import type { Screen } from '../App';
 import { LocationSelectorModal, Address } from './LocationSelectorModal';
 import { NotificationsPanel, Notification } from './NotificationsPanel';
 import { BottomNavigation } from './BottomNavigation';
+import { IconContainer } from './icons/IconContainer';
+import cleaningServiceImg from '../assets/cleaningservice.png';
+import foodGroceryImg from '../assets/foodandgrocery.png';
+import beautyServicesImg from '../assets/beauty products and services.png';
+import rentalImg from '../assets/rental.png';
+import caregivingImg from '../assets/caregiving.png';
+import handymanImg from '../assets/handyman.png';
 
 interface StreakMilestone {
   weeks: number;
@@ -38,12 +46,12 @@ interface HomeDashboardProps {
 }
 
 const categories = [
-  { id: 'cleaning', name: 'Cleaning Services', icon: Sparkles, available: true, iconColor: '#2E7AD9', bgColor: '#DBEAFE' },
-  { id: 'handyman', name: 'Handyman Services', icon: Wrench, available: true, iconColor: '#EAB308', bgColor: '#FEF9C3' },
-  { id: 'groceries', name: 'Groceries & Food', icon: ShoppingBag, available: true, iconColor: '#F59E0B', bgColor: '#FEF3C7' },
-  { id: 'beauty', name: 'Beauty Services and Products', icon: Scissors, available: true, iconColor: '#EC4899', bgColor: '#FCE7F3' },
-  { id: 'rentals', name: 'Rental Properties', icon: Building2, available: true, iconColor: '#10B981', bgColor: '#D1FAE5' },
-  { id: 'caregiving', name: 'Caregiving Services', icon: Heart, available: true, restrictedForWork: true, iconColor: '#8B5CF6', bgColor: '#EDE9FE' },
+  { id: 'cleaning', name: 'Cleaning Services', icon: SprayBottle, available: true, gradient: ['#4CA6FA', '#1D4AAD'] as [string, string] },
+  { id: 'handyman', name: 'Handyman Services', icon: Wrench, available: true, gradient: ['#F59E0B', '#B45309'] as [string, string] },
+  { id: 'groceries', name: 'Groceries & Food', icon: ForkKnife, available: true, gradient: ['#FB923C', '#EA580C'] as [string, string] },
+  { id: 'beauty', name: 'Beauty Services and Products', icon: Scissors, available: true, gradient: ['#F472B6', '#DB2777'] as [string, string] },
+  { id: 'rentals', name: 'Rental Properties', icon: House, available: true, gradient: ['#34D399', '#059669'] as [string, string] },
+  { id: 'caregiving', name: 'Caregiving Services', icon: HeartHalf, available: true, restrictedForWork: true, gradient: ['#A78BFA', '#7C3AED'] as [string, string] },
 ];
 
 export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, location, navigate, onCategorySelect, onLocationChange, onAddAddress, notifications, onMarkNotificationAsRead, onClearAllNotifications, rewardsWallet, streakData }: HomeDashboardProps) {
@@ -160,13 +168,13 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
           >
             {rewardsWallet?.totalPoints > 0 && (
               <div className="flex items-center gap-2">
-                <Gift className="w-5 h-5" style={{ color: '#D97706' }} />
+                <Gift size={20} weight="fill" color="#D97706" />
                 <span className="font-semibold" style={{ color: 'var(--foreground)' }}>{rewardsWallet.totalPoints.toLocaleString()} pts</span>
               </div>
             )}
             {streakData && streakData.currentStreak > 0 && (
               <div className="flex items-center gap-2">
-                <Flame className="w-5 h-5" style={{ color: '#F97316' }} />
+                <Flame size={20} weight="fill" color="#F97316" />
                 <span className="font-semibold" style={{ color: 'var(--foreground)' }}>{streakData.currentStreak} week streak</span>
               </div>
             )}
@@ -197,16 +205,36 @@ export function HomeDashboard({ addresses, selectedAddressId, onSelectAddress, l
                                     animationFillMode: 'backwards'
                 }}
               >
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 shadow-premium-sm"
-                  style={{ backgroundColor: isAvailable ? category.bgColor : 'var(--muted)' }}
-                >
-                  <Icon
-                    className="w-8 h-8 transition-transform duration-300 group-hover:scale-110"
-                    style={{ color: isAvailable ? category.iconColor : 'var(--muted-foreground)' }}
-                    strokeWidth={1.5}
-                  />
-                </div>
+                {isAvailable ? (
+                  category.id === 'cleaning' ? (
+                    <img src={cleaningServiceImg} alt="Cleaning Services" className="w-16 h-16 object-contain" />
+                  ) : category.id === 'handyman' ? (
+                    <img src={handymanImg} alt="Handyman Services" className="w-16 h-16 object-contain" />
+                  ) : category.id === 'groceries' ? (
+                    <img src={foodGroceryImg} alt="Groceries & Food" className="w-16 h-16 object-contain" />
+                  ) : category.id === 'beauty' ? (
+                    <img src={beautyServicesImg} alt="Beauty Services and Products" className="w-16 h-16 object-contain" />
+                  ) : category.id === 'rentals' ? (
+                    <img src={rentalImg} alt="Rental Properties" className="w-16 h-16 object-contain" />
+                  ) : category.id === 'caregiving' ? (
+                    <img src={caregivingImg} alt="Caregiving Services" className="w-16 h-16 object-contain" />
+                  ) : (
+                    <IconContainer
+                      size="md"
+                      gradient={category.gradient}
+                      glow
+                    >
+                      <Icon size={32} weight="fill" color="#fff" />
+                    </IconContainer>
+                  )
+                ) : (
+                  <div
+                    className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 shadow-premium-sm"
+                    style={{ backgroundColor: 'var(--muted)' }}
+                  >
+                    <Icon size={32} weight="regular" color="var(--muted-foreground)" />
+                  </div>
+                )}
                 <p className="text-center" style={{ color: isAvailable ? 'var(--foreground)' : 'var(--muted-foreground)' }}>
                   {category.name}
                 </p>

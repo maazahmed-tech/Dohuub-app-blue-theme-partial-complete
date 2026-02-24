@@ -1,4 +1,7 @@
-import { ArrowLeft, ShoppingBag, UtensilsCrossed } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { ForkKnife, ShoppingCart as PhShoppingCart } from '@phosphor-icons/react';
+import foodImg from '../assets/food.png';
+import groceryImg from '../assets/grocery.png';
 
 interface FoodGrocerySelectionScreenProps {
   onBack: () => void;
@@ -54,12 +57,7 @@ export function FoodGrocerySelectionScreen({
             border: '1px solid var(--border)'
           }}
         >
-          <div
-            className="w-24 h-24 rounded-full flex items-center justify-center shadow-premium-md"
-            style={{ background: 'linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12))' }}
-          >
-            <UtensilsCrossed className="w-12 h-12 text-white" strokeWidth={2} />
-          </div>
+          <img src={foodImg} alt="Food" className="object-contain" style={{ width: 98, height: 98 }} />
           <div className="text-center">
             <h2 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Food</h2>
             <p style={{ color: 'var(--muted-foreground)' }}>
@@ -78,12 +76,7 @@ export function FoodGrocerySelectionScreen({
             
           }}
         >
-          <div
-            className="w-24 h-24 rounded-full flex items-center justify-center shadow-premium-md"
-            style={{ background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(22, 163, 74))' }}
-          >
-            <ShoppingBag className="w-12 h-12 text-white" strokeWidth={2} />
-          </div>
+          <img src={groceryImg} alt="Grocery" className="object-contain" style={{ width: 98, height: 98 }} />
           <div className="text-center">
             <h2 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Grocery</h2>
             <p style={{ color: 'var(--muted-foreground)' }}>

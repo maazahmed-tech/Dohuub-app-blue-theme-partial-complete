@@ -1,4 +1,6 @@
 import { ArrowLeft, Star, MapPin, Clock, ChevronRight, User, Award } from 'lucide-react';
+import { ForkKnife } from '@phosphor-icons/react';
+import { PlaceholderImage } from './icons/PlaceholderImage';
 import type { FoodVendor } from './FoodVendorsListScreen';
 
 interface FoodVendorProfileScreenProps {
@@ -58,7 +60,7 @@ export function FoodVendorProfileScreen({
               className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-premium-md"
               style={{ background: 'linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12))' }}
             >
-              <span className="text-4xl">🍽️</span>
+              <ForkKnife size={48} weight="duotone" className="text-white" />
             </div>
             <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>{vendor.name}</h2>
             {vendor.isPoweredByDoHuub && (
@@ -210,13 +212,7 @@ export function FoodVendorProfileScreen({
                   {review.hasPhotos && (
                     <div className="flex gap-2">
                       {[1, 2].map((photo) => (
-                        <div
-                          key={photo}
-                          className="w-20 h-20 rounded-lg flex items-center justify-center"
-                          style={{ backgroundColor: 'var(--muted)' }}
-                        >
-                          <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Photo</span>
-                        </div>
+                        <PlaceholderImage key={photo} variant="review-photo" className="w-20 h-20 rounded-lg" iconSize={16} />
                       ))}
                     </div>
                   )}

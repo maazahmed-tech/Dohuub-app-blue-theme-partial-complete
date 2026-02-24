@@ -1,5 +1,6 @@
 import { ArrowLeft, Camera } from 'lucide-react';
 import { useState } from 'react';
+import profilePhoto from '../assets/profile photo (2).png';
 
 interface EditProfileScreenProps {
   userName: string;
@@ -50,17 +51,7 @@ export function EditProfileScreen({ userName, onBack, onSave }: EditProfileScree
         {/* Profile Avatar */}
         <div className="flex justify-center mb-8">
           <div className="relative">
-            <div
-              className="w-48 h-48 rounded-full shadow-premium-lg flex items-center justify-center"
-              style={{
-                background: 'linear-gradient(135deg, rgba(46, 122, 217, 0.1), rgba(46, 122, 217, 0.05))',
-                border: '3px solid var(--primary)'
-              }}
-            >
-              <span className="text-6xl font-bold" style={{ color: 'var(--primary)' }}>
-                {userName ? userName.charAt(0).toUpperCase() : 'U'}
-              </span>
-            </div>
+            <img src={profilePhoto} alt="Profile" className="w-48 h-48 rounded-full object-cover shadow-premium-lg" style={{ border: '3px solid var(--primary)' }} />
             <button
               className="absolute bottom-0 right-0 w-16 h-16 rounded-full flex items-center justify-center shadow-premium-md transition-all duration-300 hover:scale-110"
               style={{ background: 'var(--primary-gradient)' }}

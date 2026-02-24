@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Sparkles, Grid3x3, Calendar, MessageCircle, ChevronRight, ChevronLeft } from 'lucide-react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { Infinity, SquaresFour, CalendarCheck, ChatCircleDots } from '@phosphor-icons/react';
 
 interface OnboardingCarouselProps {
   onComplete: () => void;
@@ -10,28 +11,28 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
 
   const slides = [
     {
-      icon: Sparkles,
+      icon: Infinity,
       title: 'Welcome to DoHuub',
       description: 'Infinite Services - Your platform for cleaning, handyman, food, beauty, rentals, and caregiving',
     },
     {
-      icon: Grid3x3,
+      icon: SquaresFour,
       title: 'Everything You Need, One App',
       description: '6 service categories to simplify your daily life and help your loved ones',
     },
     {
-      icon: Calendar,
+      icon: CalendarCheck,
       title: 'Easy Booking Process',
       description: 'Select, customize, pay securely, and track your services in real-time',
     },
     {
-      icon: MessageCircle,
+      icon: ChatCircleDots,
       title: '24/7 AI Assistant & Secure Payments',
       description: 'Get instant help anytime. All payments processed securely through Stripe',
     }
   ];
 
-  const CurrentIcon = slides[currentSlide].icon;
+  const SlideIcon = slides[currentSlide].icon;
 
   return (
     <div className="h-full flex flex-col relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #4CA6FA 0%, #1D4ADD 100%)' }}>
@@ -47,10 +48,7 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
           className="w-48 h-48 rounded-full flex items-center justify-center mb-8 transition-all duration-500 shadow-premium-lg animate-scale-in"
           style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
         >
-          <CurrentIcon
-            className="w-24 h-24 transition-all duration-300 animate-float text-white"
-            strokeWidth={1.5}
-          />
+          <SlideIcon size={96} weight="duotone" color="#fff" />
         </div>
 
         <h2 key={`title-${currentSlide}`} className="mb-4 text-center text-white">

@@ -1,4 +1,6 @@
 import { ArrowLeft, SlidersHorizontal, Star, MapPin, ChevronRight, Gift } from 'lucide-react';
+import { House as PhHouse, Sparkle, Broom } from '@phosphor-icons/react';
+import type { ReactNode } from 'react';
 
 interface ServiceListingsScreenProps {
   category: string;
@@ -7,7 +9,16 @@ interface ServiceListingsScreenProps {
   onServiceSelect: (service: any) => void;
 }
 
-const mockServices = [
+const mockServices: Array<{
+  id: number;
+  name: string;
+  isPowered: boolean;
+  rating: number;
+  reviews: number;
+  distance: string;
+  price: string;
+  image: ReactNode;
+}> = [
   {
     id: 1,
     name: 'DoHuub Premium Cleaning',
@@ -16,7 +27,7 @@ const mockServices = [
     reviews: 456,
     distance: '1.2 km',
     price: 'From $89',
-    image: '🏠',
+    image: <PhHouse size={28} weight="duotone" style={{ color: 'var(--primary)' }} />,
   },
   {
     id: 2,
@@ -26,7 +37,7 @@ const mockServices = [
     reviews: 234,
     distance: '2.3 km',
     price: 'From $75',
-    image: '✨',
+    image: <Sparkle size={28} weight="duotone" style={{ color: 'var(--primary)' }} />,
   },
   {
     id: 3,
@@ -36,7 +47,7 @@ const mockServices = [
     reviews: 189,
     distance: '3.1 km',
     price: 'From $79',
-    image: '🧹',
+    image: <Broom size={28} weight="duotone" style={{ color: 'var(--primary)' }} />,
   },
   {
     id: 4,
@@ -46,7 +57,7 @@ const mockServices = [
     reviews: 167,
     distance: '4.5 km',
     price: 'From $85',
-    image: '🏡',
+    image: <PhHouse size={28} weight="duotone" style={{ color: 'var(--primary)' }} />,
   },
 ];
 
@@ -132,7 +143,7 @@ export function ServiceListingsScreen({ category, location, onBack, onServiceSel
               <div className="flex gap-4">
                 {/* Image */}
                 <div
-                  className="w-20 h-20 rounded-xl flex items-center justify-center text-3xl flex-shrink-0 shadow-card"
+                  className="w-20 h-20 rounded-xl flex items-center justify-center flex-shrink-0 shadow-card"
                   style={{ background: 'linear-gradient(135deg, rgba(46, 122, 217, 0.1), rgba(76, 166, 250, 0.1))' }}
                 >
                   {service.image}

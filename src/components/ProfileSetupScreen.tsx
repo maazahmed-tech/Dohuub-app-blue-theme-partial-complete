@@ -1,5 +1,6 @@
 import { Camera } from 'lucide-react';
 import { useState } from 'react';
+import profilePhoto from '../assets/profile photo (2).png';
 
 interface ProfileSetupScreenProps {
   onContinue: (name: string) => void;
@@ -27,11 +28,7 @@ export function ProfileSetupScreen({ onContinue }: ProfileSetupScreenProps) {
         <div className="flex justify-center mb-8 animate-scale-in">
           <div className="relative">
             {/* Gradient ring around avatar */}
-            <div className="w-24 h-24 rounded-full p-[3px] shadow-premium-lg" style={{ background: 'var(--primary-gradient)' }}>
-              <div className="w-full h-full rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--secondary)' }}>
-                <Camera className="w-10 h-10" style={{ color: 'var(--muted-foreground)' }} />
-              </div>
-            </div>
+            <img src={profilePhoto} alt="Profile" className="w-24 h-24 rounded-full object-cover shadow-premium-lg" style={{ border: '3px solid var(--primary)' }} />
             <div className="absolute bottom-0 right-0 w-8 h-8 rounded-full border-2 border-white flex items-center justify-center shadow-premium-md transition-all duration-300 hover:scale-110 cursor-pointer" style={{ background: 'var(--primary-gradient)' }}>
               <Camera className="w-4 h-4 text-white" />
             </div>

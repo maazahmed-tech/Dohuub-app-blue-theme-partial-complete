@@ -1,4 +1,7 @@
-import { ArrowLeft, Scissors, ShoppingBag } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { Scissors as PhScissors, FlowerLotus } from '@phosphor-icons/react';
+import beautyServicesImg from '../assets/bueaty services.png';
+import beautyProductsImg from '../assets/bueaty products.png';
 
 interface BeautyChoiceScreenProps {
   onBack: () => void;
@@ -53,12 +56,7 @@ export function BeautyChoiceScreen({
             style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="flex flex-col items-center gap-4">
-              <div
-                className="w-20 h-20 rounded-full flex items-center justify-center shadow-premium-md"
-                style={{ background: 'var(--primary-gradient)' }}
-              >
-                <Scissors className="w-10 h-10 text-white" strokeWidth={2} />
-              </div>
+              <img src={beautyServicesImg} alt="Beauty Services" className="w-20 h-20 object-contain" />
               <div className="text-center">
                 <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Beauty Services</h3>
                 <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
@@ -75,12 +73,7 @@ export function BeautyChoiceScreen({
             style={{ backgroundColor: 'var(--card)' }}
           >
             <div className="flex flex-col items-center gap-4">
-              <div
-                className="w-20 h-20 rounded-full flex items-center justify-center shadow-premium-md"
-                style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(244, 114, 182))' }}
-              >
-                <ShoppingBag className="w-10 h-10 text-white" strokeWidth={2} />
-              </div>
+              <img src={beautyProductsImg} alt="Beauty Products" className="w-20 h-20 object-contain" />
               <div className="text-center">
                 <h3 className="font-semibold mb-2" style={{ color: 'var(--foreground)' }}>Beauty Products</h3>
                 <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>

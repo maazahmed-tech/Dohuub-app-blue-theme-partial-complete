@@ -1,4 +1,7 @@
-import { ArrowLeft, Star, SlidersHorizontal, Car, X, Gift } from 'lucide-react';
+import { ArrowLeft, Star, SlidersHorizontal, X, Gift } from 'lucide-react';
+import { Car as PhCar } from '@phosphor-icons/react';
+import { IconContainer } from './icons/IconContainer';
+import caregivingImg from '../assets/caregiving.png';
 import { useState } from 'react';
 
 export interface RideProvider {
@@ -162,12 +165,7 @@ export function RideProvidersListScreen({
                               }}
             >
               <div className="flex items-start gap-4">
-                <div
-                  className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                  style={{ background: 'linear-gradient(135deg, rgb(168, 85, 247), rgb(139, 92, 246))' }}
-                >
-                  <Car className="w-8 h-8 text-white" strokeWidth={2} />
-                </div>
+                <img src={caregivingImg} alt="Ride Assistance" className="w-12 h-12 object-contain flex-shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <h3 className="font-semibold" style={{ color: 'var(--foreground)' }}>{provider.name}</h3>

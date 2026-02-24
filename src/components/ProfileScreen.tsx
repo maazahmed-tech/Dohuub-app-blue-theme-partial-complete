@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChevronRight, MapPin, CreditCard, Bell, HelpCircle, FileText, Shield, Info, LogOut, Trash2, Gift, Users } from 'lucide-react';
+import profilePhoto from '../assets/profile photo (2).png';
 import type { Screen } from '../App';
 import { LogOutModal } from './LogOutModal';
 import { DeleteAccountModal } from './DeleteAccountModal';
@@ -91,12 +92,7 @@ export function ProfileScreen({ userName, userEmail, navigate, rewardsWallet }: 
       <div className="flex-1 overflow-y-auto px-6 py-6 pb-32">
         {/* Profile Section */}
         <div className="flex items-center gap-4 mb-8">
-          <div className="w-20 h-20 rounded-full flex-shrink-0 shadow-premium-md relative" style={{ backgroundColor: 'var(--secondary)' }}>
-            {/* Gradient ring */}
-            <div className="absolute inset-0 rounded-full" style={{ background: 'var(--primary-gradient)', padding: '3px' }}>
-              <div className="w-full h-full rounded-full" style={{ backgroundColor: 'var(--secondary)' }}></div>
-            </div>
-          </div>
+          <img src={profilePhoto} alt="Profile" className="w-20 h-20 rounded-full object-cover flex-shrink-0 shadow-premium-md" style={{ border: '3px solid var(--primary)' }} />
           <div className="flex-1">
             <p className="mb-1" style={{ color: 'var(--foreground)' }}>{userName || 'Guest User'}</p>
             <p className="mb-2" style={{ color: 'var(--muted-foreground)' }}>{userEmail || 'user@example.com'}</p>

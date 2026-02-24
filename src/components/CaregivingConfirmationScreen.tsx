@@ -1,4 +1,5 @@
 import { Check, Phone, Gift } from 'lucide-react';
+import { HeartHalf, User as PhUser } from '@phosphor-icons/react';
 import type { Screen } from '../App';
 
 interface CaregivingConfirmationScreenProps {
@@ -129,7 +130,7 @@ export function CaregivingConfirmationScreen({
                   className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
                   style={{ background: gradientColor }}
                 >
-                  <span className="text-white text-xl">👤</span>
+                  <PhUser size={24} weight="fill" color="#fff" />
                 </div>
                 <div>
                   <p className="font-medium" style={{ color: 'var(--foreground)' }}>{bookingData.companion.name}</p>

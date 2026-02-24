@@ -1,4 +1,5 @@
 import { ArrowLeft, Star, Gift } from 'lucide-react';
+import { Wrench as PhWrench } from '@phosphor-icons/react';
 import type { HandymanVendor } from './HandymanVendorsListScreen';
 
 export interface HandymanService {
@@ -107,7 +108,7 @@ export function HandymanVendorDetailScreen({ vendor, onBack, onServiceSelect, on
               className="w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center shadow-premium-md"
               style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
             >
-              <span className="text-2xl">🔧</span>
+              <PhWrench size={24} weight="fill" color="#fff" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -165,7 +166,7 @@ export function HandymanVendorDetailScreen({ vendor, onBack, onServiceSelect, on
                   className="w-full aspect-square rounded-lg mb-3 flex items-center justify-center shadow-premium-sm"
                   style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
                 >
-                  <span className="text-5xl">🔧</span>
+                  <PhWrench size={24} weight="fill" color="#fff" />
                 </div>
 
                 {/* Service Name */}

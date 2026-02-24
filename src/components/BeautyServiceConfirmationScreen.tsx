@@ -1,4 +1,6 @@
 import { CheckCircle, Calendar, Clock, MapPin, CreditCard, Gift } from 'lucide-react';
+import { Scissors as PhScissors } from '@phosphor-icons/react';
+import beautyImg from '../assets/beauty products and services.png';
 import type { BeautyBookingData } from './BeautyServiceBookingScreen';
 import type { Screen } from '../App';
 
@@ -102,12 +104,7 @@ export function BeautyServiceConfirmationScreen({
           >
             {/* Service */}
             <div className="flex gap-3">
-              <div
-                className="w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(244, 114, 182))' }}
-              >
-                <span className="text-2xl">💅</span>
-              </div>
+              <img src={beautyImg} alt="Beauty Service" className="w-16 h-16 object-contain flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{bookingData.service.name}</h4>
                 <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{bookingData.providerName}</p>

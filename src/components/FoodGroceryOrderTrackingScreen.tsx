@@ -1,4 +1,7 @@
 import { ArrowLeft, Package, MapPin, CreditCard, Star, RefreshCcw, Check, Loader2 } from 'lucide-react';
+import foodImg from '../assets/food.png';
+import groceryImg from '../assets/grocery.png';
+import beautyImg from '../assets/beauty products and services.png';
 
 interface OrderItem {
   id: number;
@@ -184,12 +187,7 @@ export function FoodGroceryOrderTrackingScreen({
             style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
           >
             <div className="flex items-center gap-3">
-              <div
-                className="w-12 h-12 rounded-lg flex items-center justify-center shadow-premium-sm"
-                style={{ background: getTypeGradient() }}
-              >
-                <Package className="w-6 h-6 text-white" />
-              </div>
+              <img src={order.type === 'food' ? foodImg : order.type === 'grocery' ? groceryImg : beautyImg} alt={order.type === 'food' ? 'Food' : order.type === 'grocery' ? 'Grocery' : 'Beauty'} className="w-12 h-12 object-contain" />
               <div>
                 <p className="font-medium" style={{ color: 'var(--foreground)' }}>{order.vendor}</p>
                 <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>

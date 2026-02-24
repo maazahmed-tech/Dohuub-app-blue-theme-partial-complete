@@ -1,4 +1,5 @@
 import { ArrowLeft, Star, ChevronRight, User } from 'lucide-react';
+import { UserCircle } from '@phosphor-icons/react';
 import type { Property } from './RentalPropertiesListScreen';
 
 interface HostProfileScreenProps {
@@ -88,7 +89,7 @@ export function HostProfileScreen({
               className="w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-premium-md"
               style={{ background: 'linear-gradient(135deg, rgb(59, 130, 246), rgb(37, 99, 235))' }}
             >
-              <span className="text-4xl">👤</span>
+              <UserCircle size={48} weight="duotone" className="text-white" />
             </div>
             <h2 className="text-xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>{hostName}</h2>
             {property.isPoweredByDoHuub && (

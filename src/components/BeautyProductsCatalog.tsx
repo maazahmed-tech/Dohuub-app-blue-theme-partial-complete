@@ -1,4 +1,6 @@
 import { ArrowLeft, Plus, ShoppingCart, Minus, Gift } from 'lucide-react';
+import { FlowerLotus } from '@phosphor-icons/react';
+import { PlaceholderImage } from './icons/PlaceholderImage';
 import { useState } from 'react';
 
 interface BeautyProduct {
@@ -307,12 +309,7 @@ export function BeautyProductsCatalog({
               >
                 <div className="flex items-start gap-4">
                   {/* Product Image Placeholder */}
-                  <div
-                    className="w-20 h-20 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                    style={{ background: 'linear-gradient(135deg, rgb(236, 72, 153), rgb(244, 114, 182))' }}
-                  >
-                    <span className="text-2xl">💄</span>
-                  </div>
+                  <PlaceholderImage variant="beauty-product" className="w-20 h-20 rounded-xl flex-shrink-0" iconSize={24} />
 
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">

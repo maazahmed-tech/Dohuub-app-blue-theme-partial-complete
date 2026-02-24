@@ -1,7 +1,25 @@
 import { ArrowLeft, Send, Mic, Bot } from 'lucide-react';
+import profilePhoto from '../assets/profile photo (2).png';
+import { House as PhHouse, Buildings, SprayBottle, Wrench as PhWrench, Lightning, Screwdriver, Scissors as PhScissors, PaintBrush, Eyedropper } from '@phosphor-icons/react';
 import { useState } from 'react';
 import type { Screen } from '../App';
 import { BottomNavigation } from './BottomNavigation';
+
+const ServiceIcon = ({ iconType, size = 20 }: { iconType: string; size?: number }) => {
+  const props = { size, weight: 'fill' as const, color: 'var(--foreground)' };
+  switch (iconType) {
+    case 'house': return <PhHouse {...props} />;
+    case 'buildings': return <Buildings {...props} />;
+    case 'spray-bottle': return <SprayBottle {...props} />;
+    case 'wrench': return <PhWrench {...props} />;
+    case 'lightning': return <Lightning {...props} />;
+    case 'screwdriver': return <Screwdriver {...props} />;
+    case 'scissors': return <PhScissors {...props} />;
+    case 'paint-brush': return <PaintBrush {...props} />;
+    case 'eyedropper': return <Eyedropper {...props} />;
+    default: return <SprayBottle {...props} />;
+  }
+};
 
 interface AIChatScreenProps {
   navigate: (screen: Screen, data?: any) => void;
@@ -66,9 +84,9 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
         text: "I found 3 highly-rated cleaning services available in your area:",
         type: 'service-cards',
         services: [
-          { id: 1, name: 'Deep House Cleaning', vendor: 'DoHuub Official Store', rating: 4.9, reviews: 234, price: '$150', emoji: '🏠' },
-          { id: 2, name: 'Office Cleaning', vendor: 'Sparkle Clean Co.', rating: 4.8, reviews: 189, price: '$200', emoji: '🏢' },
-          { id: 3, name: 'Apartment Cleaning', vendor: 'Fresh Start Cleaning', rating: 4.7, reviews: 156, price: '$120', emoji: '🧹' },
+          { id: 1, name: 'Deep House Cleaning', vendor: 'DoHuub Official Store', rating: 4.9, reviews: 234, price: '$150', iconType: 'house' },
+          { id: 2, name: 'Office Cleaning', vendor: 'Sparkle Clean Co.', rating: 4.8, reviews: 189, price: '$200', iconType: 'buildings' },
+          { id: 3, name: 'Apartment Cleaning', vendor: 'Fresh Start Cleaning', rating: 4.7, reviews: 156, price: '$120', iconType: 'spray-bottle' },
         ]
       };
     }
@@ -80,9 +98,9 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
         text: "Here are the best handyman services I found for you:",
         type: 'service-cards',
         services: [
-          { id: 1, name: 'Plumbing Repair', vendor: 'DoHuub Official', rating: 4.9, reviews: 210, price: '$85/hr', emoji: '🔧' },
-          { id: 2, name: 'Electrical Work', vendor: 'Home Repair Masters', rating: 4.8, reviews: 175, price: '$95/hr', emoji: '⚡' },
-          { id: 3, name: 'Furniture Assembly', vendor: 'Expert Handyman Services', rating: 4.7, reviews: 142, price: '$65', emoji: '🪛' },
+          { id: 1, name: 'Plumbing Repair', vendor: 'DoHuub Official', rating: 4.9, reviews: 210, price: '$85/hr', iconType: 'wrench' },
+          { id: 2, name: 'Electrical Work', vendor: 'Home Repair Masters', rating: 4.8, reviews: 175, price: '$95/hr', iconType: 'lightning' },
+          { id: 3, name: 'Furniture Assembly', vendor: 'Expert Handyman Services', rating: 4.7, reviews: 142, price: '$65', iconType: 'screwdriver' },
         ]
       };
     }
@@ -94,9 +112,9 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
         text: "Here are popular beauty services near you:",
         type: 'service-cards',
         services: [
-          { id: 1, name: 'Hair Styling & Cut', vendor: 'DoHuub Official', rating: 4.9, reviews: 320, price: '$45-80', emoji: '💇' },
-          { id: 2, name: 'Manicure & Pedicure', vendor: 'Glamour Studio', rating: 4.8, reviews: 256, price: '$35-60', emoji: '💅' },
-          { id: 3, name: 'Makeup Services', vendor: 'Beauty on Demand', rating: 4.7, reviews: 198, price: '$60-120', emoji: '💄' },
+          { id: 1, name: 'Hair Styling & Cut', vendor: 'DoHuub Official', rating: 4.9, reviews: 320, price: '$45-80', iconType: 'scissors' },
+          { id: 2, name: 'Manicure & Pedicure', vendor: 'Glamour Studio', rating: 4.8, reviews: 256, price: '$35-60', iconType: 'paint-brush' },
+          { id: 3, name: 'Makeup Services', vendor: 'Beauty on Demand', rating: 4.7, reviews: 198, price: '$60-120', iconType: 'eyedropper' },
         ]
       };
     }
@@ -270,7 +288,7 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
                   <p>{message.text}</p>
                 </div>
                 {message.sender === 'user' && (
-                  <div className="w-10 h-10 rounded-full flex-shrink-0 shadow-premium-sm" style={{ backgroundColor: 'var(--secondary)' }}></div>
+                  <img src={profilePhoto} alt="You" className="w-10 h-10 rounded-full object-cover flex-shrink-0 shadow-premium-sm" />
                 )}
               </div>
 
@@ -285,8 +303,8 @@ export function AIChatScreen({ navigate, onServiceSelect }: AIChatScreenProps) {
                       style={{ backgroundColor: 'var(--card)', border: '1px solid rgba(46, 122, 217, 0.08)' }}
                     >
                       <div className="flex gap-3">
-                        <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style={{ backgroundColor: 'var(--secondary)' }}>
-                          {service.emoji}
+                        <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'var(--secondary)' }}>
+                          <ServiceIcon iconType={service.iconType} size={24} />
                         </div>
                         <div className="flex-1">
                           <p className="mb-1" style={{ color: 'var(--foreground)' }}>{service.name}</p>

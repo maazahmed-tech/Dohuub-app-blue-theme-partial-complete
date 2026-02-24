@@ -1,4 +1,6 @@
 import { CheckCircle, Calendar, Clock, MapPin, CreditCard, User, Gift } from 'lucide-react';
+import { SprayBottle } from '@phosphor-icons/react';
+import cleanLogo1 from '../assets/cleaning/logos/cleaning logo  (1).png';
 import type { BookingData } from './CleaningServiceBookingFormScreen';
 import type { Screen } from '../App';
 
@@ -94,12 +96,7 @@ export function CleaningServiceConfirmationScreen({
           >
             {/* Service */}
             <div className="flex gap-3">
-              <div
-                className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                style={{ background: 'var(--primary-gradient)' }}
-              >
-                <span className="text-2xl">🧹</span>
-              </div>
+              <img src={cleanLogo1} alt={bookingData.service.name} className="w-16 h-16 rounded-xl object-cover flex-shrink-0 shadow-premium-sm" />
               <div className="flex-1 min-w-0">
                 <h4 className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>{bookingData.service.name}</h4>
                 <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{bookingData.vendor.name}</p>

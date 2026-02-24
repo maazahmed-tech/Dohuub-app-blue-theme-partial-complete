@@ -1,5 +1,13 @@
 import { ArrowLeft, Star, Bed, Bath, Users, Maximize, MapPin, Wifi, Car, Tv, Wind, Waves, UtensilsCrossed, Shirt, ChevronRight, Image as ImageIcon, Gift } from 'lucide-react';
+import { House as PhHouse, UserCircle } from '@phosphor-icons/react';
 import { useState } from 'react';
+import rentalListImg1 from '../assets/rental listing/rental listing (1).png';
+import rentalListImg2 from '../assets/rental listing/rental listing (2).png';
+import rentalListImg3 from '../assets/rental listing/rental listing (3).png';
+import rentalListImg4 from '../assets/rental listing/rental listing (4).png';
+import profilePhoto from '../assets/profile photo (2).png';
+
+const rentalPhotos = [rentalListImg1, rentalListImg2, rentalListImg3, rentalListImg4];
 import type { Property } from './RentalPropertiesListScreen';
 
 interface PropertyDetailScreenProps {
@@ -51,11 +59,8 @@ export function PropertyDetailScreen({
       <div className="flex-1 overflow-y-auto relative z-10">
         {/* Photo Gallery */}
         <div className="relative">
-          <div
-            className="w-full h-64 flex items-center justify-center relative"
-            style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
-          >
-            <span className="text-white text-6xl">🏠</span>
+          <div className="relative">
+            <img src={rentalPhotos[currentPhotoIndex % rentalPhotos.length]} alt={property.name} className="w-full h-64 object-cover transition-all duration-300" />
             {property.isPoweredByDoHuub && (
               <div className="absolute top-4 right-4">
                 <span
@@ -137,12 +142,7 @@ export function PropertyDetailScreen({
               className="w-full flex items-center gap-3 p-4 rounded-xl shadow-card transition-all duration-300 hover:shadow-premium-sm hover:scale-[1.01] active:scale-[0.99] text-left"
               style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
-              >
-                <span className="text-white text-xl">👤</span>
-              </div>
+              <img src={profilePhoto} alt="Host" className="w-12 h-12 rounded-full object-cover flex-shrink-0 shadow-premium-sm" />
               <div className="flex-1">
                 <p className="font-medium underline" style={{ color: 'var(--foreground)' }}>
                   {property.isPoweredByDoHuub ? 'Hosted by DoHuub' : 'Hosted by Sarah Johnson'}
@@ -159,12 +159,7 @@ export function PropertyDetailScreen({
               className="flex items-center gap-3 p-4 rounded-xl shadow-card"
               style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
             >
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 shadow-premium-sm"
-                style={{ background: 'linear-gradient(135deg, rgb(20, 184, 166), rgb(6, 148, 162))' }}
-              >
-                <span className="text-white text-xl">👤</span>
-              </div>
+              <img src={profilePhoto} alt="Host" className="w-12 h-12 rounded-full object-cover flex-shrink-0 shadow-premium-sm" />
               <div>
                 <p className="font-medium" style={{ color: 'var(--foreground)' }}>
                   {property.isPoweredByDoHuub ? 'Hosted by DoHuub' : 'Hosted by Sarah Johnson'}
@@ -329,15 +324,9 @@ export function PropertyDetailScreen({
                   Excellent service! Very thorough and professional. My home has never looked better.
                 </p>
                 <div className="flex gap-2">
-                  <div className="w-16 h-16 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--muted)' }}>
-                    <ImageIcon className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} />
-                  </div>
-                  <div className="w-16 h-16 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--muted)' }}>
-                    <ImageIcon className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} />
-                  </div>
-                  <div className="w-16 h-16 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--muted)' }}>
-                    <ImageIcon className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} />
-                  </div>
+                  <img src={rentalListImg2} alt="Review photo" className="w-16 h-16 rounded-lg object-cover" />
+                  <img src={rentalListImg3} alt="Review photo" className="w-16 h-16 rounded-lg object-cover" />
+                  <img src={rentalListImg4} alt="Review photo" className="w-16 h-16 rounded-lg object-cover" />
                 </div>
               </div>
 
@@ -359,12 +348,8 @@ export function PropertyDetailScreen({
                   Highly recommend! The team was punctual and did an amazing job.
                 </p>
                 <div className="flex gap-2">
-                  <div className="w-16 h-16 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--muted)' }}>
-                    <ImageIcon className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} />
-                  </div>
-                  <div className="w-16 h-16 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'var(--muted)' }}>
-                    <ImageIcon className="w-6 h-6" style={{ color: 'var(--muted-foreground)' }} />
-                  </div>
+                  <img src={rentalListImg1} alt="Review photo" className="w-16 h-16 rounded-lg object-cover" />
+                  <img src={rentalListImg3} alt="Review photo" className="w-16 h-16 rounded-lg object-cover" />
                 </div>
               </div>
 
