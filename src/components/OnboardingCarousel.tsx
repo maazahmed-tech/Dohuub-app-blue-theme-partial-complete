@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { Infinity, SquaresFour, CalendarCheck, ChatCircleDots } from '@phosphor-icons/react';
+import { SquaresFour, CalendarCheck, ChatCircleDots } from '@phosphor-icons/react';
+import infinityDohuubSvg from '../assets/infinity-dohuub.svg';
 
 interface OnboardingCarouselProps {
   onComplete: () => void;
@@ -11,7 +12,7 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
 
   const slides = [
     {
-      icon: Infinity,
+      icon: null,
       title: 'Welcome to DoHuub',
       description: 'Infinite Services - Your platform for cleaning, handyman, food, beauty, rentals, and caregiving',
     },
@@ -32,7 +33,7 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
     }
   ];
 
-  const SlideIcon = slides[currentSlide].icon;
+  const currentIcon = slides[currentSlide].icon;
 
   return (
     <div className="h-full flex flex-col relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #4CA6FA 0%, #1D4ADD 100%)' }}>
@@ -48,7 +49,11 @@ export function OnboardingCarousel({ onComplete }: OnboardingCarouselProps) {
           className="w-48 h-48 rounded-full flex items-center justify-center mb-8 transition-all duration-500 shadow-premium-lg animate-scale-in"
           style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
         >
-          <SlideIcon size={96} weight="duotone" color="#fff" />
+          {currentIcon ? (
+            (() => { const Icon = currentIcon; return <Icon size={96} weight="duotone" color="#fff" />; })()
+          ) : (
+            <img src={infinityDohuubSvg} alt="DoHuub" className="w-24 h-24" />
+          )}
         </div>
 
         <h2 key={`title-${currentSlide}`} className="mb-4 text-center text-white">
